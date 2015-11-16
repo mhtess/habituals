@@ -4,7 +4,7 @@ function make_slides(f) {
   slides.i0 = slide({
      name : "i0",
      start: function() {
-      $("#n_trials").html("5");
+      $("#n_trials").html(exp.n_trials);
       exp.startT = Date.now();
      }
   });
@@ -110,6 +110,7 @@ function init() {
   exp.trials = [];
   exp.catch_trials = [];
   exp.stimuli = stimuli;
+  exp.n_trials = stimuli.length
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
       Browser : BrowserDetect.browser,
@@ -120,7 +121,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["single_trial", "i0", "instructions", "single_trial", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions", "single_trial", 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:
