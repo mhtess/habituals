@@ -19,15 +19,16 @@ function make_slides(f) {
   slides.single_trial = slide({
     name: "single_trial",
     
-    present: _.shuffle(exp.stimuli),
+    present: exp.stimuli,
 
     present_handle : function(stim) {
       this.startTime = Date.now()
+      this.stim =  stim; 
+      this.trialNum = exp.stimscopy.indexOf(stim);
       $("#text_response").val('')
       $("#frequency").val('')
       $(".err").hide();
       $(".question1").html("What percentage of the U.S. population do you believe has " + stim.past + " before?<br>");
-
       $(".question2").html("For a typical person who has " + stim.past + 
             " before, how frequently does he or she " + stim.present + "?");
       this.init_sliders();
@@ -38,8 +39,8 @@ function make_slides(f) {
     init_sliders : function() {
       utils.make_slider("#single_slider", function(event, ui) {
         exp.sliderPost = ui.value;
-        $(".slider_number").html(Math.round(exp.sliderPost*100)+"%")
-      });
+        $(".slider_number").html(Math.round(exp.sliderPost*1000)/10+"%")
+      }, "horizontal", 0.001);
     },
 
     button : function() {
@@ -59,13 +60,13 @@ function make_slides(f) {
       freq = $("#frequency").val();
       exp.data_trials.push({
         "trial_type" : "twostep_elicitation",
-        // "trial_num": this.trialNum,
+        "trial_num": this.trialNum,
+        "item": this.stim.item,
+        "category": this.stim.type,
         "existence" : exp.sliderPost,
-        "frequency" : response,
+        "nTimes" : response,
+        "timeWindow": freq,
         "rt":this.rt
-        // "stim_type": this.stim.type,
-        // "stim_property": this.stim.property,
-        // "stim_category": this.stim.category
       });
     }
   });
@@ -81,7 +82,9 @@ function make_slides(f) {
         age : $("#age").val(),
         gender : $("#gender").val(),
         education : $("#education").val(),
-        comments : $("#comments").val(),
+        problems: $("#problems").val(),
+        fairprice: $("#fairprice").val(),
+        comments : $("#comments").val()
       };
       exp.go(); //use exp.go() if and only if there is no "present" data.
     }
@@ -109,8 +112,10 @@ function make_slides(f) {
 function init() {
   exp.trials = [];
   exp.catch_trials = [];
-  exp.stimuli = stimuli;
+  exp.stimuli = _.shuffle(stimuli);
   exp.n_trials = stimuli.length
+  exp.stimscopy = exp.stimuli.slice(0);
+
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
       Browser : BrowserDetect.browser,

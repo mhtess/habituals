@@ -24,6 +24,12 @@ var stimuli = [
 	type: "food"
 },
 {
+	item: "drinks wine with dinner",
+	present: "drink wine with dinner",
+	past: "drunk wine with dinner",
+	type: "food"
+},
+{
 	item: "smokes",
 	present: "smoke",
 	past: "smoked",
@@ -60,6 +66,24 @@ var stimuli = [
 	type: "games"
 },
 {
+	item: "writes novels",
+	present: "write novels",
+	past: "written a novel",
+	type: "occupation"
+},
+{
+	item: "writes poems",
+	present: "write poems",
+	past: "written a poem",
+	type: "occupation"
+},
+{
+	item: "runs the mile in under four minutes",
+	present: "run the mile in under four minutes",
+	past: "run the mile in under four minutes",
+	type: "sports"
+},
+{
 	item: "drives to work",
 	present: "drive to work",
 	past: "driven to work",
@@ -78,6 +102,12 @@ var stimuli = [
 	type: "commute"
 },
 {
+	item: "wears contact lenses",
+	present: "wear contact lenses",
+	past: "worn contact lenses",
+	type: "clothing"
+},
+{
 	item: "steals cars",
 	present: "steal cars",
 	past: "stolen a car",
@@ -88,5 +118,23 @@ var stimuli = [
 	present: "mug people",
 	past: "mugged a person",
 	type: "illicit"
+},
+{
+	item: "beats small children",
+	present: "beat small children",
+	past: "beaten a small child",
+	type: "illicit"
+},
+{
+	item: "fails at things",
+	present: "fail at something",
+	past: "failed at something",
+	type: "other"
+},
+{
+	item: "vacations in Switzerland",
+	present: "vacation in Switzerland",
+	past: "vacationed in Switzerland",
+	type: "other"
 }
 ]
