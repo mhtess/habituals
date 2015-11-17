@@ -5,18 +5,18 @@ var stimuli = [
 	past: "eaten granola for breakfast",
 	type: "food"
 },
-{
-	item: "eats meals with no meat",
-	present: "eat meals with no meat",
-	past: "eaten a meal with no meat",
-	type: "food"
-},
-{
-	item: "drinks fancy coffee",
-	present: "drink fancy coffee",
-	past: "drunk fancy coffee",
-	type: "food"
-},
+// {
+// 	item: "eats meals with no meat",
+// 	present: "eat meals with no meat",
+// 	past: "eaten a meal with no meat",
+// 	type: "food"
+// },
+// {
+// 	item: "drinks fancy coffee",
+// 	present: "drink fancy coffee",
+// 	past: "drunk fancy coffee",
+// 	type: "food"
+// },
 {
 	item: "drinks beer",
 	present: "drink beer",
@@ -48,23 +48,29 @@ var stimuli = [
 	type: "sports"
 },
 {
-	item: "swims",
-	present: "swim",
-	past: "swum",
+	item: "runs the mile in under four minutes",
+	present: "run the mile in under four minutes",
+	past: "run the mile in under four minutes",
 	type: "sports"
 },
+// {
+// 	item: "swims",
+// 	present: "swim",
+// 	past: "swum",
+// 	type: "sports"
+// },
 {
 	item: "plays computer games",
 	present: "play computer games",
 	past: "played a computer game",
 	type: "games"
 },
-{
-	item: "plays poker",
-	present: "play poker",
-	past: "played poker",
-	type: "games"
-},
+// {
+// 	item: "plays poker",
+// 	present: "play poker",
+// 	past: "played poker",
+// 	type: "games"
+// },
 {
 	item: "writes novels",
 	present: "write novels",
@@ -76,12 +82,6 @@ var stimuli = [
 	present: "write poems",
 	past: "written a poem",
 	type: "occupation"
-},
-{
-	item: "runs the mile in under four minutes",
-	present: "run the mile in under four minutes",
-	past: "run the mile in under four minutes",
-	type: "sports"
 },
 {
 	item: "drives to work",
@@ -102,12 +102,6 @@ var stimuli = [
 	type: "commute"
 },
 {
-	item: "wears contact lenses",
-	present: "wear contact lenses",
-	past: "worn contact lenses",
-	type: "clothing"
-},
-{
 	item: "steals cars",
 	present: "steal cars",
 	past: "stolen a car",
@@ -119,11 +113,17 @@ var stimuli = [
 	past: "mugged a person",
 	type: "illicit"
 },
+// {
+// 	item: "beats small children",
+// 	present: "beat small children",
+// 	past: "beaten a small child",
+// 	type: "illicit"
+// },
 {
-	item: "beats small children",
-	present: "beat small children",
-	past: "beaten a small child",
-	type: "illicit"
+	item: "wears contact lenses",
+	present: "wear contact lenses",
+	past: "worn contact lenses",
+	type: "other"
 },
 {
 	item: "fails at things",
