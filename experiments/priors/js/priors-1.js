@@ -40,7 +40,7 @@ function make_slides(f) {
       utils.make_slider("#single_slider", function(event, ui) {
         exp.sliderPost = ui.value;
         $(".slider_number").html(Math.round(exp.sliderPost*1000)/10+"%")
-      }, "horizontal", 0.001);
+      }, "horizontal", 0.001, 600);
     },
 
     button : function() {
