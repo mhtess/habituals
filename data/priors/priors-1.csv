@@ -1,0 +1,579 @@
+"workerid","category","trial_type","trial_num","timeWindow","item","existence","rt","nTimes"
+0,"other","twostep_elicitation",0,"day","wears contact lenses",0.223,11922,3
+0,"food","twostep_elicitation",1,"day","eats meals with no meat",0.179,7174,3
+0,"sports","twostep_elicitation",2,"life","runs the mile in under four minutes",0.007,10934,3
+0,"food","twostep_elicitation",3,"day","smokes",0.692,11708,15
+0,"other","twostep_elicitation",4,"life","vacations in Switzerland",0.056,5920,1
+0,"illicit","twostep_elicitation",5,"life","murders people",0.006,14930,1
+0,"food","twostep_elicitation",6,"day","drinks beer",0.966,10143,6
+0,"occupation","twostep_elicitation",7,"year","writes novels",0.007,8211,1
+0,"other","twostep_elicitation",8,"day","worries about things",1,6319,5
+0,"sports","twostep_elicitation",9,"week","runs",0.961,8165,2
+0,"illicit","twostep_elicitation",10,"life","steals cars",0.013,11923,5
+0,"commute","twostep_elicitation",11,"week","bikes to work",0.099,7947,1
+0,"games","twostep_elicitation",12,"day","plays computer games",0.978,6787,1
+0,"occupation","twostep_elicitation",13,"life","writes poems",0.484,6458,5
+0,"commute","twostep_elicitation",14,"day","drives to work",0.856,7969,1
+0,"food","twostep_elicitation",15,"day","eats granola for breakfast",0.444,5530,1
+0,"food","twostep_elicitation",16,"week","drinks wine with dinner",0.76,6387,1
+0,"other","twostep_elicitation",17,"day","fails at things",1,10448,1
+0,"commute","twostep_elicitation",18,"month","walks to work",0.36,7823,1
+0,"sports","twostep_elicitation",19,"year","hikes",0.835,5180,1
+1,"other","twostep_elicitation",0,"life","vacations in Switzerland",0.056,18633,2
+1,"food","twostep_elicitation",1,"day","smokes",0.307,5534,2
+1,"games","twostep_elicitation",2,"week","plays computer games",0.585,7256,2
+1,"food","twostep_elicitation",3,"week","eats granola for breakfast",0.777,8132,3
+1,"other","twostep_elicitation",4,"week","fails at things",0.832,6034,2
+1,"sports","twostep_elicitation",5,"week","runs the mile in under four minutes",0.437,7091,1
+1,"sports","twostep_elicitation",6,"month","hikes",0.537,5590,1
+1,"illicit","twostep_elicitation",7,"life","steals cars",0.257,9270,1
+1,"other","twostep_elicitation",8,"day","wears contact lenses",0.547,7437,1
+1,"sports","twostep_elicitation",9,"week","runs",0.859,6244,2
+1,"illicit","twostep_elicitation",10,"life","murders people",0.296,7747,2
+1,"occupation","twostep_elicitation",11,"year","writes poems",0.414,9284,1
+1,"other","twostep_elicitation",12,"week","worries about things",0.736,27998,1
+1,"food","twostep_elicitation",13,"month","drinks wine with dinner",0.532,5578,1
+1,"commute","twostep_elicitation",14,"day","drives to work",0.671,5949,1
+1,"food","twostep_elicitation",15,"week","eats meals with no meat",0.724,9685,3
+1,"commute","twostep_elicitation",16,"week","bikes to work",0.286,10486,3
+1,"commute","twostep_elicitation",17,"week","walks to work",0.244,5697,3
+1,"occupation","twostep_elicitation",18,"year","writes novels",0.184,5022,1
+1,"food","twostep_elicitation",19,"week","drinks beer",0.49,5293,1
+2,"games","twostep_elicitation",0,"week","plays computer games",0.968,11113,3
+2,"sports","twostep_elicitation",1,"week","runs",1,6508,2
+2,"sports","twostep_elicitation",2,"life","runs the mile in under four minutes",0,13735,0
+2,"occupation","twostep_elicitation",3,"month","writes poems",0.277,21025,2
+2,"occupation","twostep_elicitation",4,"year","writes novels",0.041,8742,1
+2,"food","twostep_elicitation",5,"month","drinks wine with dinner",0.603,9239,3
+2,"other","twostep_elicitation",6,"life","vacations in Switzerland",0.046,11066,2
+2,"other","twostep_elicitation",7,"week","fails at things",1,9538,3
+2,"sports","twostep_elicitation",8,"year","hikes",0.796,7089,2
+2,"illicit","twostep_elicitation",9,"year","steals cars",0.01,6464,1
+2,"commute","twostep_elicitation",10,"week","drives to work",0.94,8201,5
+2,"food","twostep_elicitation",11,"month","drinks beer",0.829,7803,5
+2,"commute","twostep_elicitation",12,"week","walks to work",0.699,8548,2
+2,"other","twostep_elicitation",13,"week","worries about things",1,7489,5
+2,"food","twostep_elicitation",14,"day","smokes",0.624,9711,12
+2,"illicit","twostep_elicitation",15,"life","murders people",0.023,6533,1
+2,"commute","twostep_elicitation",16,"week","bikes to work",0.314,6750,4
+2,"food","twostep_elicitation",17,"week","eats meals with no meat",1,12942,8
+2,"food","twostep_elicitation",18,"week","eats granola for breakfast",0.935,7360,2
+2,"other","twostep_elicitation",19,"week","wears contact lenses",0.397,7537,7
+3,"food","twostep_elicitation",0,"day","eats meals with no meat",0.961,18349,1
+3,"sports","twostep_elicitation",1,"week","runs",0.946,9481,1
+3,"illicit","twostep_elicitation",2,"year","steals cars",0.042,10259,1
+3,"commute","twostep_elicitation",3,"week","walks to work",0.631,16786,5
+3,"commute","twostep_elicitation",4,"week","drives to work",0.798,9717,5
+3,"other","twostep_elicitation",5,"day","worries about things",1,6192,1
+3,"other","twostep_elicitation",6,"year","vacations in Switzerland",0.024,8136,1
+3,"illicit","twostep_elicitation",7,"life","murders people",0.024,7629,1
+3,"commute","twostep_elicitation",8,"week","bikes to work",0.685,84210,5
+3,"sports","twostep_elicitation",9,"month","hikes",0.366,16655,1
+3,"food","twostep_elicitation",10,"day","smokes",0.426,17789,2
+3,"food","twostep_elicitation",11,"week","eats granola for breakfast",0.235,9221,4
+3,"sports","twostep_elicitation",12,"life","runs the mile in under four minutes",0,45929,0
+3,"occupation","twostep_elicitation",13,"year","writes poems",0.607,9208,1
+3,"occupation","twostep_elicitation",14,"year","writes novels",0.074,7471,1
+3,"other","twostep_elicitation",15,"day","wears contact lenses",0.107,10717,1
+3,"food","twostep_elicitation",16,"week","drinks beer",0.775,15593,3
+3,"food","twostep_elicitation",17,"week","drinks wine with dinner",0.749,8155,1
+3,"other","twostep_elicitation",18,"year","fails at things",1,16104,20
+3,"games","twostep_elicitation",19,"week","plays computer games",0.644,7079,1
+4,"illicit","twostep_elicitation",0,"life","murders people",0.011,9054,1
+4,"commute","twostep_elicitation",1,"day","drives to work",0.838,8336,1
+4,"other","twostep_elicitation",2,"life","fails at things",1,12991,50
+4,"other","twostep_elicitation",3,"day","wears contact lenses",0.341,7912,1
+4,"other","twostep_elicitation",4,"life","vacations in Switzerland",0.097,9880,5
+4,"games","twostep_elicitation",5,"week","plays computer games",0.775,8856,1
+4,"food","twostep_elicitation",6,"year","eats meals with no meat",0.875,8174,1
+4,"commute","twostep_elicitation",7,"month","walks to work",0.297,7049,1
+4,"food","twostep_elicitation",8,"week","eats granola for breakfast",0.838,8506,1
+4,"illicit","twostep_elicitation",9,"week","steals cars",0.037,9695,1
+4,"occupation","twostep_elicitation",10,"year","writes novels",0.066,7184,1
+4,"sports","twostep_elicitation",11,"year","runs",0.943,14087,5
+4,"food","twostep_elicitation",12,"week","drinks wine with dinner",0.323,9498,1
+4,"food","twostep_elicitation",13,"week","drinks beer",0.695,6039,1
+4,"food","twostep_elicitation",14,"day","smokes",0.451,8727,20
+4,"occupation","twostep_elicitation",15,"life","writes poems",0.8,7600,5
+4,"other","twostep_elicitation",16,"week","worries about things",1,5858,1
+4,"sports","twostep_elicitation",17,"month","runs the mile in under four minutes",0.182,6541,1
+4,"commute","twostep_elicitation",18,"week","bikes to work",0.207,7295,3
+4,"sports","twostep_elicitation",19,"year","hikes",0.28,8440,2
+10,"other","twostep_elicitation",0,"day","wears contact lenses",0.139,21757,1
+10,"commute","twostep_elicitation",1,"day","bikes to work",0.105,40423,1
+10,"food","twostep_elicitation",2,"week","drinks wine with dinner",0.102,25377,2
+10,"other","twostep_elicitation",3,"day","worries about things",1,24877,2
+10,"sports","twostep_elicitation",4,"day","runs",0.941,12715,1
+10,"games","twostep_elicitation",5,"day","plays computer games",0.802,13825,1
+10,"occupation","twostep_elicitation",6,"year","writes novels",0.02,12768,1
+10,"other","twostep_elicitation",7,"week","fails at things",1,5540,1
+10,"illicit","twostep_elicitation",8,"year","murders people",0.06,16633,1
+10,"food","twostep_elicitation",9,"week","drinks beer",0.238,8846,2
+10,"commute","twostep_elicitation",10,"day","drives to work",0.487,5582,1
+10,"food","twostep_elicitation",11,"day","eats meals with no meat",1,16928,3
+10,"commute","twostep_elicitation",12,"day","walks to work",0.696,9767,1
+10,"sports","twostep_elicitation",13,"month","runs the mile in under four minutes",0.036,16282,1
+10,"food","twostep_elicitation",14,"day","smokes",0.226,12832,15
+10,"sports","twostep_elicitation",15,"year","hikes",0.264,9664,2
+10,"illicit","twostep_elicitation",16,"year","steals cars",0.025,9294,1
+10,"occupation","twostep_elicitation",17,"year","writes poems",0.48,6864,1
+10,"food","twostep_elicitation",18,"week","eats granola for breakfast",0.89,9707,2
+10,"other","twostep_elicitation",19,"life","vacations in Switzerland",0.068,12715,2
+11,"commute","twostep_elicitation",0,"week","bikes to work",0.125,18827,4
+11,"food","twostep_elicitation",1,"week","smokes",0.701,20472,5
+11,"occupation","twostep_elicitation",2,"life","writes poems",0.903,15962,5
+11,"illicit","twostep_elicitation",3,"life","murders people",0.001,12445,1
+11,"illicit","twostep_elicitation",4,"life","steals cars",0.003,17795,1
+11,"commute","twostep_elicitation",5,"week","walks to work",0.3,16049,4
+11,"other","twostep_elicitation",6,"day","worries about things",0.996,9798,1
+11,"other","twostep_elicitation",7,"day","wears contact lenses",0.4,8071,1
+11,"sports","twostep_elicitation",8,"year","hikes",0.604,9682,1
+11,"commute","twostep_elicitation",9,"week","drives to work",0.9,12495,5
+11,"food","twostep_elicitation",10,"week","drinks wine with dinner",0.402,11115,2
+11,"other","twostep_elicitation",11,"life","vacations in Switzerland",0.006,12175,1
+11,"food","twostep_elicitation",12,"week","eats meals with no meat",1,18088,5
+11,"sports","twostep_elicitation",13,"week","runs",1,9599,1
+11,"other","twostep_elicitation",14,"month","fails at things",1,7309,1
+11,"food","twostep_elicitation",15,"week","eats granola for breakfast",0.504,9347,3
+11,"games","twostep_elicitation",16,"week","plays computer games",0.803,9230,4
+11,"food","twostep_elicitation",17,"month","drinks beer",0.758,19376,2
+11,"occupation","twostep_elicitation",18,"life","writes novels",0.003,11235,2
+11,"sports","twostep_elicitation",19,"month","runs the mile in under four minutes",0.001,15744,2
+12,"food","twostep_elicitation",0,"week","drinks beer",1,49246,2
+12,"occupation","twostep_elicitation",1,"month","writes poems",0.761,7799,1
+12,"occupation","twostep_elicitation",2,"year","writes novels",0.049,11578,1
+12,"games","twostep_elicitation",3,"month","plays computer games",0.9,14109,1
+12,"sports","twostep_elicitation",4,"month","runs the mile in under four minutes",0.02,10514,1
+12,"food","twostep_elicitation",5,"week","drinks wine with dinner",0.905,6570,1
+12,"other","twostep_elicitation",6,"day","wears contact lenses",0.5,6896,1
+12,"illicit","twostep_elicitation",7,"life","murders people",0.01,7525,1
+12,"sports","twostep_elicitation",8,"week","runs",1,7730,1
+12,"food","twostep_elicitation",9,"month","eats granola for breakfast",0.852,7963,1
+12,"food","twostep_elicitation",10,"week","smokes",0.601,10238,3
+12,"other","twostep_elicitation",11,"life","vacations in Switzerland",0.01,9896,1
+12,"other","twostep_elicitation",12,"month","fails at things",1,5461,1
+12,"commute","twostep_elicitation",13,"day","drives to work",0.898,12181,1
+12,"sports","twostep_elicitation",14,"year","hikes",0.748,9489,2
+12,"commute","twostep_elicitation",15,"week","bikes to work",0.201,11071,1
+12,"other","twostep_elicitation",16,"week","worries about things",1,5143,3
+12,"food","twostep_elicitation",17,"month","eats meals with no meat",1,9396,5
+12,"commute","twostep_elicitation",18,"day","walks to work",0.337,7537,1
+12,"illicit","twostep_elicitation",19,"life","steals cars",0.025,8164,1
+13,"other","twostep_elicitation",0,"day","fails at things",1,21535,6
+13,"commute","twostep_elicitation",1,"week","walks to work",0.116,33456,5
+13,"occupation","twostep_elicitation",2,"life","writes novels",0.001,34730,6
+13,"food","twostep_elicitation",3,"week","eats meals with no meat",0.95,40402,3
+13,"commute","twostep_elicitation",4,"week","bikes to work",0.051,24385,5
+13,"other","twostep_elicitation",5,"day","wears contact lenses",0.352,27083,1
+13,"illicit","twostep_elicitation",6,"life","steals cars",0.001,24838,5
+13,"occupation","twostep_elicitation",7,"life","writes poems",0.352,22121,8
+13,"sports","twostep_elicitation",8,"week","runs the mile in under four minutes",0.001,42830,1
+13,"food","twostep_elicitation",9,"day","smokes",0.197,19901,3
+13,"sports","twostep_elicitation",10,"week","runs",0.927,23377,2
+13,"sports","twostep_elicitation",11,"month","hikes",0.232,15525,3
+13,"commute","twostep_elicitation",12,"week","drives to work",0.855,21445,5
+13,"other","twostep_elicitation",13,"day","worries about things",1,20862,8
+13,"food","twostep_elicitation",14,"week","eats granola for breakfast",0.182,17712,3
+13,"food","twostep_elicitation",15,"week","drinks beer",0.603,12884,3
+13,"food","twostep_elicitation",16,"week","drinks wine with dinner",0.186,18063,1
+13,"games","twostep_elicitation",17,"day","plays computer games",0.204,21624,2
+13,"other","twostep_elicitation",18,"life","vacations in Switzerland",0.026,22344,3
+13,"illicit","twostep_elicitation",19,"life","murders people",0.002,27531,1
+14,"occupation","twostep_elicitation",0,"year","writes novels",0.1,17789,1
+14,"sports","twostep_elicitation",1,"week","runs",0.959,13926,3
+14,"games","twostep_elicitation",2,"week","plays computer games",0.408,13958,3
+14,"food","twostep_elicitation",3,"week","drinks beer",0.802,15577,1
+14,"food","twostep_elicitation",4,"month","drinks wine with dinner",0.763,7643,1
+14,"food","twostep_elicitation",5,"day","smokes",0.617,17660,20
+14,"sports","twostep_elicitation",6,"week","hikes",0.489,8940,1
+14,"other","twostep_elicitation",7,"day","worries about things",0.909,8209,2
+14,"other","twostep_elicitation",8,"week","fails at things",1,9287,1
+14,"illicit","twostep_elicitation",9,"life","steals cars",0.084,13271,3
+14,"commute","twostep_elicitation",10,"week","walks to work",0.689,13990,4
+14,"other","twostep_elicitation",11,"life","vacations in Switzerland",0.149,9458,1
+14,"other","twostep_elicitation",12,"day","wears contact lenses",0.275,9146,1
+14,"illicit","twostep_elicitation",13,"life","murders people",0.042,8813,1
+14,"food","twostep_elicitation",14,"day","eats meals with no meat",1,19192,1
+14,"sports","twostep_elicitation",15,"week","runs the mile in under four minutes",0.029,11590,1
+14,"occupation","twostep_elicitation",16,"life","writes poems",0.534,11268,12
+14,"commute","twostep_elicitation",17,"week","bikes to work",0.333,10847,3
+14,"food","twostep_elicitation",18,"week","eats granola for breakfast",0.313,8126,3
+14,"commute","twostep_elicitation",19,"week","drives to work",0.7,6656,4
+15,"sports","twostep_elicitation",0,"month","runs the mile in under four minutes",0.04,24395,3
+15,"occupation","twostep_elicitation",1,"year","writes novels",0.044,11607,1
+15,"other","twostep_elicitation",2,"day","fails at things",1,10551,1
+15,"sports","twostep_elicitation",3,"month","hikes",0.28,9640,2
+15,"commute","twostep_elicitation",4,"week","drives to work",0.519,15397,5
+15,"occupation","twostep_elicitation",5,"month","writes poems",0.185,9482,2
+15,"illicit","twostep_elicitation",6,"life","murders people",0.005,14311,1
+15,"other","twostep_elicitation",7,"day","worries about things",0.969,9591,1
+15,"games","twostep_elicitation",8,"day","plays computer games",0.625,8479,1
+15,"sports","twostep_elicitation",9,"month","runs",0.948,14484,1
+15,"food","twostep_elicitation",10,"week","drinks wine with dinner",0.355,12694,3
+15,"commute","twostep_elicitation",11,"month","bikes to work",0.051,14946,4
+15,"food","twostep_elicitation",12,"week","eats meals with no meat",0.979,11452,3
+15,"food","twostep_elicitation",13,"week","eats granola for breakfast",0.152,12042,2
+15,"illicit","twostep_elicitation",14,"life","steals cars",0.031,12932,2
+15,"commute","twostep_elicitation",15,"week","walks to work",0.218,9109,5
+15,"food","twostep_elicitation",16,"day","smokes",0.265,16025,20
+15,"food","twostep_elicitation",17,"week","drinks beer",0.512,10559,3
+15,"other","twostep_elicitation",18,"day","wears contact lenses",0.19,15078,1
+15,"other","twostep_elicitation",19,"life","vacations in Switzerland",0.019,10289,1
+16,"food","twostep_elicitation",0,"week","drinks beer",0.606,26332,3
+16,"other","twostep_elicitation",1,"day","worries about things",1,10729,1
+16,"food","twostep_elicitation",2,"week","eats granola for breakfast",0.501,20445,3
+16,"other","twostep_elicitation",3,"life","vacations in Switzerland",0.1,20794,1
+16,"other","twostep_elicitation",4,"week","wears contact lenses",0.305,30392,5
+16,"games","twostep_elicitation",5,"week","plays computer games",0.707,18055,4
+16,"other","twostep_elicitation",6,"week","fails at things",1,16265,1
+16,"commute","twostep_elicitation",7,"week","bikes to work",0.203,22394,3
+16,"illicit","twostep_elicitation",8,"year","steals cars",0.158,33504,1
+16,"food","twostep_elicitation",9,"week","smokes",0.456,18822,5
+16,"occupation","twostep_elicitation",10,"year","writes novels",0.102,13474,2
+16,"sports","twostep_elicitation",11,"week","hikes",0.409,12393,1
+16,"food","twostep_elicitation",12,"week","eats meals with no meat",0.801,30922,3
+16,"commute","twostep_elicitation",13,"week","drives to work",0.753,12694,5
+16,"food","twostep_elicitation",14,"week","drinks wine with dinner",0.617,9543,3
+16,"sports","twostep_elicitation",15,"week","runs",0.507,10032,2
+16,"occupation","twostep_elicitation",16,"life","writes poems",0.154,19987,1
+16,"sports","twostep_elicitation",17,"life","runs the mile in under four minutes",0.04,61116,3
+16,"commute","twostep_elicitation",18,"week","walks to work",0.851,17257,5
+16,"illicit","twostep_elicitation",19,"life","murders people",0.208,11557,1
+17,"food","twostep_elicitation",0,"month","drinks beer",0.5,33447,2
+17,"games","twostep_elicitation",1,"week","plays computer games",0.251,28678,1
+17,"other","twostep_elicitation",2,"year","fails at things",1,20721,1
+17,"occupation","twostep_elicitation",3,"life","writes novels",0.01,12082,1
+17,"other","twostep_elicitation",4,"week","wears contact lenses",0.332,23131,1
+17,"food","twostep_elicitation",5,"month","drinks wine with dinner",0.352,16793,1
+17,"commute","twostep_elicitation",6,"day","drives to work",0.5,10487,1
+17,"food","twostep_elicitation",7,"week","smokes",0.453,19150,1
+17,"commute","twostep_elicitation",8,"week","bikes to work",0.102,17828,2
+17,"occupation","twostep_elicitation",9,"life","writes poems",0.75,17788,3
+17,"food","twostep_elicitation",10,"year","eats granola for breakfast",0.515,12138,1
+17,"food","twostep_elicitation",11,"year","eats meals with no meat",1,15897,1
+17,"illicit","twostep_elicitation",12,"life","murders people",0.005,16640,1
+17,"sports","twostep_elicitation",13,"life","hikes",0.355,14649,1
+17,"illicit","twostep_elicitation",14,"life","steals cars",0.011,10226,1
+17,"other","twostep_elicitation",15,"month","worries about things",1,11700,2
+17,"sports","twostep_elicitation",16,"year","runs the mile in under four minutes",0.1,14829,1
+17,"commute","twostep_elicitation",17,"week","walks to work",0.155,15584,1
+17,"sports","twostep_elicitation",18,"month","runs",0.98,15510,5
+17,"other","twostep_elicitation",19,"life","vacations in Switzerland",0.045,9597,1
+18,"sports","twostep_elicitation",0,"month","runs the mile in under four minutes",0.114,12574,1
+18,"food","twostep_elicitation",1,"month","eats granola for breakfast",0.742,7819,2
+18,"illicit","twostep_elicitation",2,"year","steals cars",0.267,5913,1
+18,"food","twostep_elicitation",3,"week","drinks beer",0.737,7929,3
+18,"games","twostep_elicitation",4,"day","plays computer games",0.904,8176,2
+18,"occupation","twostep_elicitation",5,"month","writes poems",0.684,5480,3
+18,"commute","twostep_elicitation",6,"week","drives to work",0.782,5685,5
+18,"other","twostep_elicitation",7,"week","wears contact lenses",0.403,6580,3
+18,"sports","twostep_elicitation",8,"month","hikes",0.574,5310,1
+18,"food","twostep_elicitation",9,"week","eats meals with no meat",0.687,5933,2
+18,"other","twostep_elicitation",10,"day","worries about things",0.928,7096,1
+18,"illicit","twostep_elicitation",11,"life","murders people",0.164,6185,1
+18,"food","twostep_elicitation",12,"week","drinks wine with dinner",0.737,5618,1
+18,"commute","twostep_elicitation",13,"week","walks to work",0.471,6193,3
+18,"other","twostep_elicitation",14,"month","fails at things",0.649,5544,2
+18,"food","twostep_elicitation",15,"year","smokes",0.669,9592,2
+18,"other","twostep_elicitation",16,"life","vacations in Switzerland",0.335,5292,1
+18,"commute","twostep_elicitation",17,"month","bikes to work",0.498,4759,2
+18,"occupation","twostep_elicitation",18,"year","writes novels",0.629,5027,1
+18,"sports","twostep_elicitation",19,"year","runs",0.861,5426,2
+19,"other","twostep_elicitation",0,"month","fails at things",1,18865,1
+19,"illicit","twostep_elicitation",1,"month","steals cars",0.01,26298,1
+19,"food","twostep_elicitation",2,"week","drinks wine with dinner",0.849,18537,1
+19,"other","twostep_elicitation",3,"day","wears contact lenses",0.757,10152,1
+19,"sports","twostep_elicitation",4,"month","hikes",0.816,13940,1
+19,"commute","twostep_elicitation",5,"month","bikes to work",0.199,12762,7
+19,"food","twostep_elicitation",6,"day","smokes",0.354,21421,1
+19,"other","twostep_elicitation",7,"life","vacations in Switzerland",0.002,11427,1
+19,"occupation","twostep_elicitation",8,"month","writes poems",0.058,12098,10
+19,"food","twostep_elicitation",9,"month","eats meals with no meat",1,15857,15
+19,"games","twostep_elicitation",10,"month","plays computer games",0.797,12041,10
+19,"food","twostep_elicitation",11,"week","drinks beer",0.723,9108,4
+19,"commute","twostep_elicitation",12,"month","walks to work",0.847,9232,1
+19,"commute","twostep_elicitation",13,"week","drives to work",0.959,8830,5
+19,"illicit","twostep_elicitation",14,"life","murders people",0.003,9041,1
+19,"other","twostep_elicitation",15,"day","worries about things",1,7082,1
+19,"occupation","twostep_elicitation",16,"life","writes novels",0.018,7925,5
+19,"sports","twostep_elicitation",17,"month","runs",1,7044,1
+19,"food","twostep_elicitation",18,"month","eats granola for breakfast",0.542,8162,5
+19,"sports","twostep_elicitation",19,"month","runs the mile in under four minutes",0.098,13007,10
+20,"food","twostep_elicitation",0,"week","eats granola for breakfast",0.915,25524,4
+20,"commute","twostep_elicitation",1,"week","drives to work",0.954,15533,5
+20,"sports","twostep_elicitation",2,"life","runs the mile in under four minutes",0.012,21355,1
+20,"commute","twostep_elicitation",3,"week","bikes to work",0.331,13534,3
+20,"sports","twostep_elicitation",4,"month","runs",0.982,17670,3
+20,"occupation","twostep_elicitation",5,"month","writes poems",0.424,16990,2
+20,"commute","twostep_elicitation",6,"month","walks to work",0.611,15277,5
+20,"other","twostep_elicitation",7,"day","worries about things",0.993,8442,1
+20,"games","twostep_elicitation",8,"week","plays computer games",0.713,10973,2
+20,"food","twostep_elicitation",9,"day","eats meals with no meat",0.598,12800,1
+20,"occupation","twostep_elicitation",10,"life","writes novels",0.023,10105,1
+20,"sports","twostep_elicitation",11,"year","hikes",0.463,8106,1
+20,"food","twostep_elicitation",12,"day","smokes",0.543,11951,10
+20,"other","twostep_elicitation",13,"week","fails at things",1,11458,1
+20,"other","twostep_elicitation",14,"life","vacations in Switzerland",0.186,16741,1
+20,"illicit","twostep_elicitation",15,"life","murders people",0.026,11020,1
+20,"other","twostep_elicitation",16,"day","wears contact lenses",0.485,9619,1
+20,"food","twostep_elicitation",17,"week","drinks wine with dinner",0.739,12171,3
+20,"food","twostep_elicitation",18,"week","drinks beer",0.953,11041,2
+20,"illicit","twostep_elicitation",19,"life","steals cars",0.049,8413,1
+21,"illicit","twostep_elicitation",0,"life","steals cars",0.041,20687,5
+21,"other","twostep_elicitation",1,"month","fails at things",0.994,17293,2
+21,"food","twostep_elicitation",2,"year","eats meals with no meat",0.902,22249,5
+21,"commute","twostep_elicitation",3,"week","drives to work",0.973,13266,7
+21,"illicit","twostep_elicitation",4,"life","murders people",0.021,13853,1
+21,"food","twostep_elicitation",5,"year","drinks beer",0.966,14756,10
+21,"food","twostep_elicitation",6,"year","eats granola for breakfast",0.574,13836,5
+21,"sports","twostep_elicitation",7,"life","runs the mile in under four minutes",0.1,10884,1
+21,"commute","twostep_elicitation",9,"life","walks to work",0.941,14540,1
+21,"commute","twostep_elicitation",10,"life","bikes to work",0.923,10345,1
+21,"sports","twostep_elicitation",11,"life","runs",0.507,7257,1
+21,"food","twostep_elicitation",12,"year","drinks wine with dinner",0.301,12708,1
+21,"sports","twostep_elicitation",13,"year","hikes",0.511,10659,2
+21,"occupation","twostep_elicitation",14,"life","writes novels",0.029,9562,1
+21,"food","twostep_elicitation",15,"life","smokes",0.567,12381,1
+21,"occupation","twostep_elicitation",16,"life","writes poems",0.139,9486,1
+21,"other","twostep_elicitation",17,"life","vacations in Switzerland",0.016,10406,1
+21,"other","twostep_elicitation",18,"life","worries about things",1,11937,1
+21,"other","twostep_elicitation",19,"life","wears contact lenses",0.926,10079,1
+22,"commute","twostep_elicitation",0,"week","bikes to work",0.331,21049,5
+22,"sports","twostep_elicitation",1,"life","runs the mile in under four minutes",0.173,23247,2
+22,"illicit","twostep_elicitation",2,"life","murders people",0.009,17679,1
+22,"games","twostep_elicitation",3,"week","plays computer games",0.801,25067,10
+22,"food","twostep_elicitation",4,"week","drinks beer",0.852,14856,2
+22,"food","twostep_elicitation",5,"week","eats granola for breakfast",0.667,12207,3
+22,"food","twostep_elicitation",6,"week","drinks wine with dinner",0.683,9808,2
+22,"food","twostep_elicitation",7,"week","eats meals with no meat",0.696,12944,2
+22,"other","twostep_elicitation",8,"day","wears contact lenses",0.407,17769,3
+22,"occupation","twostep_elicitation",9,"year","writes novels",0.049,20159,1
+22,"sports","twostep_elicitation",10,"year","hikes",0.74,12720,2
+22,"commute","twostep_elicitation",11,"week","drives to work",0.907,16555,5
+22,"sports","twostep_elicitation",12,"week","runs",0.509,10272,1
+22,"other","twostep_elicitation",13,"year","fails at things",1,14408,2
+22,"illicit","twostep_elicitation",14,"life","steals cars",0.015,18463,1
+22,"other","twostep_elicitation",15,"week","worries about things",1,9416,1
+22,"occupation","twostep_elicitation",16,"life","writes poems",0.151,13697,1
+22,"other","twostep_elicitation",17,"life","vacations in Switzerland",0.022,10976,2
+22,"commute","twostep_elicitation",18,"week","walks to work",0.503,20487,1
+22,"food","twostep_elicitation",19,"day","smokes",0.505,14520,2
+23,"sports","twostep_elicitation",0,"year","hikes",0.64,20598,4
+23,"commute","twostep_elicitation",1,"week","walks to work",0.476,50483,25
+23,"other","twostep_elicitation",2,"year","vacations in Switzerland",0.248,13914,1
+23,"food","twostep_elicitation",3,"week","drinks beer",0.907,18587,2
+23,"sports","twostep_elicitation",4,"year","runs",0.911,14314,4
+23,"sports","twostep_elicitation",5,"year","runs the mile in under four minutes",0.121,12651,3
+23,"occupation","twostep_elicitation",6,"life","writes poems",0.626,11666,10
+23,"other","twostep_elicitation",7,"month","worries about things",0.535,8782,4
+23,"occupation","twostep_elicitation",8,"year","writes novels",0.203,9535,3
+23,"food","twostep_elicitation",9,"year","drinks wine with dinner",0.369,11655,30
+23,"games","twostep_elicitation",10,"week","plays computer games",0.852,11876,4
+23,"illicit","twostep_elicitation",11,"life","murders people",0.138,20968,1
+23,"commute","twostep_elicitation",12,"week","drives to work",0.953,13299,5
+23,"food","twostep_elicitation",13,"week","smokes",0.718,6749,5
+23,"illicit","twostep_elicitation",14,"life","steals cars",0.171,9685,5
+23,"food","twostep_elicitation",15,"week","eats meals with no meat",0.35,9400,5
+23,"commute","twostep_elicitation",16,"week","bikes to work",0.224,6033,3
+23,"food","twostep_elicitation",17,"week","eats granola for breakfast",0.802,8699,3
+23,"other","twostep_elicitation",18,"week","wears contact lenses",0.734,9334,7
+23,"other","twostep_elicitation",19,"life","fails at things",1,18549,10
+24,"commute","twostep_elicitation",0,"week","drives to work",0.416,23058,5
+24,"illicit","twostep_elicitation",1,"year","murders people",0.005,20187,1
+24,"illicit","twostep_elicitation",2,"week","steals cars",0.027,10246,1
+24,"commute","twostep_elicitation",3,"week","bikes to work",0.15,18641,1
+24,"other","twostep_elicitation",4,"day","fails at things",1,14197,1
+24,"occupation","twostep_elicitation",5,"month","writes poems",0.366,11935,2
+24,"other","twostep_elicitation",6,"week","worries about things",1,15537,5
+24,"food","twostep_elicitation",7,"day","eats meals with no meat",0.76,14463,3
+24,"food","twostep_elicitation",8,"week","eats granola for breakfast",0.326,22014,1
+24,"sports","twostep_elicitation",9,"week","runs",0.37,12739,2
+24,"commute","twostep_elicitation",10,"week","walks to work",0.396,9541,1
+24,"food","twostep_elicitation",11,"week","drinks beer",0.361,12700,2
+24,"other","twostep_elicitation",12,"life","vacations in Switzerland",0.305,18757,3
+24,"other","twostep_elicitation",13,"day","wears contact lenses",0.255,16113,1
+24,"sports","twostep_elicitation",14,"year","hikes",0.373,10204,3
+24,"games","twostep_elicitation",15,"week","plays computer games",0.348,27414,2
+24,"sports","twostep_elicitation",16,"day","runs the mile in under four minutes",0.365,8822,1
+24,"occupation","twostep_elicitation",17,"week","writes novels",0.32,6203,2
+24,"food","twostep_elicitation",18,"month","smokes",0.37,7228,3
+24,"food","twostep_elicitation",19,"week","drinks wine with dinner",0.361,9951,1
+25,"occupation","twostep_elicitation",0,"year","writes poems",0.371,7744,2
+25,"sports","twostep_elicitation",1,"month","runs the mile in under four minutes",0.064,10688,10
+25,"commute","twostep_elicitation",2,"month","bikes to work",0.381,12045,24
+25,"sports","twostep_elicitation",3,"year","hikes",0.664,7431,4
+25,"other","twostep_elicitation",4,"life","vacations in Switzerland",0.092,10166,1
+25,"commute","twostep_elicitation",5,"month","walks to work",0.1,11810,20
+25,"illicit","twostep_elicitation",6,"life","steals cars",0.056,9605,2
+25,"other","twostep_elicitation",7,"week","worries about things",0.984,10562,5
+25,"other","twostep_elicitation",8,"month","fails at things",1,8796,2
+25,"illicit","twostep_elicitation",9,"life","murders people",0.07,8369,1
+25,"commute","twostep_elicitation",10,"month","drives to work",0.908,9274,25
+25,"food","twostep_elicitation",11,"week","eats granola for breakfast",0.577,13200,3
+25,"other","twostep_elicitation",12,"week","wears contact lenses",0.388,11508,6
+25,"food","twostep_elicitation",13,"week","drinks beer",0.719,9876,4
+25,"sports","twostep_elicitation",14,"week","runs",0.926,7498,3
+25,"food","twostep_elicitation",15,"week","eats meals with no meat",0.602,7971,7
+25,"food","twostep_elicitation",16,"week","drinks wine with dinner",0.592,9053,3
+25,"occupation","twostep_elicitation",17,"year","writes novels",0.112,7306,3
+25,"food","twostep_elicitation",18,"day","smokes",0.744,6954,2
+25,"games","twostep_elicitation",19,"week","plays computer games",0.808,11724,3
+27,"illicit","twostep_elicitation",0,"life","steals cars",0.042,20644,1
+27,"food","twostep_elicitation",1,"day","smokes",0.26,21164,3
+27,"sports","twostep_elicitation",2,"life","runs the mile in under four minutes",0.169,14836,2
+27,"other","twostep_elicitation",3,"year","fails at things",0.845,11307,5
+27,"commute","twostep_elicitation",4,"month","bikes to work",0.94,10509,5
+27,"games","twostep_elicitation",5,"week","plays computer games",0.941,10764,3
+27,"food","twostep_elicitation",6,"week","eats meals with no meat",0.72,15160,3
+27,"illicit","twostep_elicitation",7,"life","murders people",0.011,8189,1
+27,"food","twostep_elicitation",8,"month","drinks beer",0.732,10648,3
+27,"commute","twostep_elicitation",9,"year","walks to work",0.873,17308,3
+27,"food","twostep_elicitation",10,"month","eats granola for breakfast",0.692,9512,1
+27,"food","twostep_elicitation",11,"week","drinks wine with dinner",0.843,11454,3
+27,"commute","twostep_elicitation",12,"week","drives to work",0.926,15018,5
+27,"sports","twostep_elicitation",13,"month","hikes",0.702,9466,1
+27,"other","twostep_elicitation",14,"week","wears contact lenses",0.667,11165,5
+27,"occupation","twostep_elicitation",15,"year","writes poems",0.348,8502,1
+27,"other","twostep_elicitation",16,"month","worries about things",1,11065,3
+27,"occupation","twostep_elicitation",17,"life","writes novels",0.054,10477,1
+27,"other","twostep_elicitation",18,"life","vacations in Switzerland",0.134,8007,1
+27,"sports","twostep_elicitation",19,"month","runs",0.93,14057,3
+28,"commute","twostep_elicitation",0,"year","walks to work",0.87,22141,1
+28,"commute","twostep_elicitation",1,"month","bikes to work",0.101,22576,3
+28,"food","twostep_elicitation",2,"year","eats granola for breakfast",0.751,26313,3
+28,"occupation","twostep_elicitation",3,"life","writes poems",0.664,21886,3
+28,"food","twostep_elicitation",4,"month","drinks wine with dinner",0.701,35856,1
+28,"other","twostep_elicitation",5,"week","worries about things",1,18022,3
+28,"sports","twostep_elicitation",6,"year","runs",0.997,45513,3
+28,"other","twostep_elicitation",7,"year","fails at things",1,18526,12
+28,"commute","twostep_elicitation",8,"week","drives to work",0.988,20831,5
+28,"sports","twostep_elicitation",9,"life","runs the mile in under four minutes",0.004,93528,2
+28,"occupation","twostep_elicitation",10,"life","writes novels",0.01,15655,3
+28,"other","twostep_elicitation",11,"day","wears contact lenses",0.101,13400,1
+28,"games","twostep_elicitation",12,"week","plays computer games",0.757,15632,2
+28,"food","twostep_elicitation",13,"week","eats meals with no meat",1,15576,3
+28,"illicit","twostep_elicitation",14,"life","steals cars",0.002,14400,2
+28,"illicit","twostep_elicitation",15,"life","murders people",0.005,10559,1
+28,"food","twostep_elicitation",16,"day","smokes",0.254,16408,5
+28,"food","twostep_elicitation",17,"week","drinks beer",0.93,17296,1
+28,"other","twostep_elicitation",18,"life","vacations in Switzerland",0.019,21344,1
+28,"sports","twostep_elicitation",19,"year","hikes",0.754,18248,2
+29,"other","twostep_elicitation",0,"day","wears contact lenses",0.555,22388,1
+29,"food","twostep_elicitation",1,"week","eats granola for breakfast",0.65,9766,2
+29,"illicit","twostep_elicitation",2,"life","murders people",0.018,10688,1
+29,"commute","twostep_elicitation",3,"week","bikes to work",0.408,8924,2
+29,"illicit","twostep_elicitation",4,"life","steals cars",0.081,9278,1
+29,"sports","twostep_elicitation",5,"year","hikes",0.242,6495,1
+29,"other","twostep_elicitation",6,"month","worries about things",0.723,7607,1
+29,"occupation","twostep_elicitation",7,"year","writes novels",0.184,6566,1
+29,"food","twostep_elicitation",8,"week","drinks beer",0.612,6401,1
+29,"other","twostep_elicitation",9,"month","fails at things",0.448,5887,1
+29,"food","twostep_elicitation",10,"month","eats meals with no meat",0.184,10471,1
+29,"commute","twostep_elicitation",11,"week","walks to work",0.512,8112,2
+29,"occupation","twostep_elicitation",12,"year","writes poems",0.358,6844,1
+29,"food","twostep_elicitation",13,"month","drinks wine with dinner",0.596,6953,1
+29,"games","twostep_elicitation",14,"week","plays computer games",0.604,6544,1
+29,"commute","twostep_elicitation",15,"week","drives to work",0.783,9325,5
+29,"other","twostep_elicitation",16,"year","vacations in Switzerland",0.252,7634,1
+29,"food","twostep_elicitation",17,"week","smokes",0.378,7136,2
+29,"sports","twostep_elicitation",18,"week","runs",0.531,6930,2
+29,"sports","twostep_elicitation",19,"week","runs the mile in under four minutes",0.526,7987,2
+30,"illicit","twostep_elicitation",0,"life","murders people",0.002,24204,3
+30,"sports","twostep_elicitation",1,"week","runs",0.699,18408,3
+30,"food","twostep_elicitation",2,"week","drinks wine with dinner",0.598,14320,2
+30,"occupation","twostep_elicitation",3,"year","writes novels",0.053,14842,1
+30,"sports","twostep_elicitation",4,"month","hikes",0.767,11249,2
+30,"food","twostep_elicitation",5,"week","drinks beer",0.674,13247,4
+30,"games","twostep_elicitation",6,"day","plays computer games",0.787,14199,2
+30,"commute","twostep_elicitation",7,"day","drives to work",0.836,11388,1
+30,"other","twostep_elicitation",8,"day","wears contact lenses",0.269,16964,1
+30,"commute","twostep_elicitation",9,"week","bikes to work",0.352,14715,3
+30,"food","twostep_elicitation",10,"month","eats meals with no meat",0.88,14763,1
+30,"illicit","twostep_elicitation",11,"life","steals cars",0.031,12706,1
+30,"other","twostep_elicitation",12,"life","vacations in Switzerland",0.178,14358,2
+30,"commute","twostep_elicitation",13,"day","walks to work",0.402,13683,1
+30,"sports","twostep_elicitation",14,"life","runs the mile in under four minutes",0.004,25346,4
+30,"food","twostep_elicitation",15,"week","eats granola for breakfast",0.508,10384,2
+30,"other","twostep_elicitation",16,"year","fails at things",0.892,14519,2
+30,"food","twostep_elicitation",17,"day","smokes",0.658,13578,10
+30,"occupation","twostep_elicitation",18,"year","writes poems",0.728,13865,8
+30,"other","twostep_elicitation",19,"week","worries about things",0.974,11892,4
+31,"other","twostep_elicitation",0,"day","wears contact lenses",0.337,9654,4
+31,"other","twostep_elicitation",1,"week","worries about things",0.946,12011,4
+31,"food","twostep_elicitation",2,"month","eats granola for breakfast",0.3,10949,2
+31,"sports","twostep_elicitation",3,"life","runs the mile in under four minutes",0.142,11271,1
+31,"commute","twostep_elicitation",4,"month","bikes to work",0.695,12139,2
+31,"food","twostep_elicitation",5,"month","drinks beer",0.93,50467,3
+31,"illicit","twostep_elicitation",6,"life","murders people",0.008,16589,1
+31,"other","twostep_elicitation",7,"month","fails at things",1,10683,1
+31,"commute","twostep_elicitation",8,"year","walks to work",0.672,38010,1
+31,"sports","twostep_elicitation",9,"year","hikes",0.697,9452,1
+31,"other","twostep_elicitation",11,"life","vacations in Switzerland",0.132,12307,1
+31,"food","twostep_elicitation",12,"week","eats meals with no meat",0.661,14991,1
+31,"food","twostep_elicitation",13,"week","drinks wine with dinner",0.843,10879,1
+31,"commute","twostep_elicitation",14,"day","drives to work",0.921,10616,1
+31,"sports","twostep_elicitation",15,"week","runs",0.878,8812,1
+31,"food","twostep_elicitation",16,"day","smokes",0.192,10540,3
+31,"illicit","twostep_elicitation",17,"life","steals cars",0.039,8609,1
+31,"occupation","twostep_elicitation",18,"year","writes poems",0.146,10246,1
+31,"occupation","twostep_elicitation",19,"life","writes novels",0.023,9144,1
+32,"food","twostep_elicitation",0,"month","drinks beer",0.633,9999,2
+32,"commute","twostep_elicitation",1,"week","walks to work",0.369,11117,5
+32,"illicit","twostep_elicitation",2,"year","steals cars",0.028,10071,1
+32,"commute","twostep_elicitation",3,"week","bikes to work",0.098,9366,5
+32,"occupation","twostep_elicitation",4,"life","writes novels",0.015,9530,3
+32,"food","twostep_elicitation",5,"month","drinks wine with dinner",0.767,12635,2
+32,"sports","twostep_elicitation",6,"month","hikes",0.859,10732,1
+32,"commute","twostep_elicitation",7,"week","drives to work",0.902,7537,5
+32,"other","twostep_elicitation",8,"day","worries about things",1,7717,5
+32,"other","twostep_elicitation",9,"week","wears contact lenses",0.151,8510,7
+32,"sports","twostep_elicitation",10,"life","runs the mile in under four minutes",0.002,9923,2
+32,"food","twostep_elicitation",11,"week","eats meals with no meat",1,12868,3
+32,"other","twostep_elicitation",12,"day","fails at things",1,8902,2
+32,"illicit","twostep_elicitation",13,"life","murders people",0.007,9399,1
+32,"other","twostep_elicitation",14,"life","vacations in Switzerland",0.028,7482,2
+32,"food","twostep_elicitation",15,"day","smokes",0.648,7949,5
+32,"games","twostep_elicitation",16,"week","plays computer games",0.608,6682,3
+32,"sports","twostep_elicitation",17,"week","runs",0.955,9897,3
+32,"food","twostep_elicitation",18,"month","eats granola for breakfast",0.673,7786,2
+32,"occupation","twostep_elicitation",19,"life","writes poems",0.346,9652,5
+33,"food","twostep_elicitation",0,"week","drinks beer",0.823,24646,2
+33,"illicit","twostep_elicitation",1,"life","murders people",0.2,15871,1
+33,"sports","twostep_elicitation",2,"life","runs the mile in under four minutes",0.295,15240,1
+33,"occupation","twostep_elicitation",3,"life","writes novels",0.439,12439,1
+33,"other","twostep_elicitation",4,"life","vacations in Switzerland",0.132,8519,1
+33,"sports","twostep_elicitation",5,"life","runs",0.923,12536,5
+33,"other","twostep_elicitation",6,"life","fails at things",0.903,10944,1
+33,"food","twostep_elicitation",7,"day","smokes",0.645,14367,1
+33,"commute","twostep_elicitation",8,"week","bikes to work",0.649,13991,5
+33,"commute","twostep_elicitation",9,"week","walks to work",0.277,8351,5
+33,"other","twostep_elicitation",10,"year","wears contact lenses",0.554,10584,365
+33,"food","twostep_elicitation",11,"week","drinks wine with dinner",0.797,13264,7
+33,"food","twostep_elicitation",12,"month","eats meals with no meat",0.808,9791,2
+33,"games","twostep_elicitation",13,"week","plays computer games",0.85,15640,5
+33,"other","twostep_elicitation",14,"month","worries about things",1,22656,5
+33,"sports","twostep_elicitation",15,"year","hikes",0.577,8503,2
+33,"food","twostep_elicitation",16,"week","eats granola for breakfast",0.509,12176,5
+33,"commute","twostep_elicitation",17,"year","drives to work",1,26216,365
+33,"illicit","twostep_elicitation",18,"life","steals cars",0.192,11446,1
+33,"occupation","twostep_elicitation",19,"life","writes poems",0.745,10895,12
+34,"food","twostep_elicitation",0,"year","eats granola for breakfast",0.717,21234,3
+34,"other","twostep_elicitation",1,"day","worries about things",1,11392,1
+34,"commute","twostep_elicitation",2,"week","drives to work",0.725,16166,5
+34,"food","twostep_elicitation",3,"day","smokes",0.542,6552,10
+34,"commute","twostep_elicitation",4,"year","walks to work",0.531,6808,1
+34,"food","twostep_elicitation",5,"week","drinks beer",0.655,5886,5
+34,"food","twostep_elicitation",6,"month","drinks wine with dinner",0.642,7489,1
+34,"food","twostep_elicitation",7,"week","eats meals with no meat",0.902,7543,1
+34,"sports","twostep_elicitation",8,"year","hikes",0.735,5280,1
+34,"illicit","twostep_elicitation",9,"life","murders people",0.027,5904,1
+34,"games","twostep_elicitation",10,"month","plays computer games",0.637,6664,1
+34,"sports","twostep_elicitation",11,"month","runs",0.927,9745,1
+34,"other","twostep_elicitation",12,"life","vacations in Switzerland",0.06,5256,1
+34,"illicit","twostep_elicitation",13,"life","steals cars",0.048,4655,1
+34,"occupation","twostep_elicitation",14,"life","writes poems",0.736,5806,5
+34,"occupation","twostep_elicitation",15,"life","writes novels",0.081,5384,1
+34,"other","twostep_elicitation",16,"day","wears contact lenses",0.274,5784,1
+34,"sports","twostep_elicitation",17,"life","runs the mile in under four minutes",0.174,6528,1
+34,"commute","twostep_elicitation",18,"year","bikes to work",0.277,4288,1
+34,"other","twostep_elicitation",19,"month","fails at things",0.993,5016,1

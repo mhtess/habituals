@@ -1,0 +1,100 @@
+---
+title: "habitual priors"
+author: "mht"
+date: "November 18, 2015"
+output: html_document
+---
+
+
+To reconstruct a prevalence-like distribution from the frequency dependent measure, 
+we will assume there is a maximum frequency (akin to doing the action "all the time").
+This will probably be set by the item: *smokes*, because it is the thing that could happen the most. 
+
+
+# Prior elicitation 1
+
+See priors1-process.Rmd for details on what was done to the data up to thsi point.
+
+## Data analysis
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/priors/priors-1.csv")
+```
+
+First let's look at the slider bar question (what % of the US population has done this action before?)
+
+```{r}
+## histogram of responses for existence questions
+qplot(data=d, x = existence, geom='histogram')
+```
+
+Some responses are that the action is super common, or super rare, or somewhere in between. Nice spread.
+
+Second, let's look at the times per X question.
+
+```{r}
+qplot(data=d, x = nTimes, geom='histogram')+
+  facet_wrap(~timeWindow, scales='free')
+
+
+range(filter(d,timeWindow=='day')$nTimes)
+range(filter(d,timeWindow=='life')$nTimes)
+```
+
+Looks like the most common frequent thing happens (response) 20 times / day and the least common thing happens (response) is once (or 0 times) in a life time.
+
+That's kind of strange. The question asked to assume that the person did it at least once. I guess there is an interpretation that the question is asking how many *more times* will they do it? How many people said 0 times in a life?
+
+```{r}
+table(filter(d,timeWindow=='life')$nTimes)
+```
+
+Just two responses were like this. All of the others said once in a life time. 
+
+Let's scale the data so that we're all the responses are on the same scale.
+We'll see that a life time = 80 years, and scale everything to the year scale.
+
+
+```{r}
+scaleTime <- list(
+  day = 365,
+  week = 52,
+  month = 12,
+  year = 1,
+  life = 1/80
+)
+
+d.tidy<-d %>% 
+  mutate(timeWindow = as.character(timeWindow)) %>%
+  rowwise() %>%
+  mutate(frequency = nTimes*scaleTime[[timeWindow]]) %>%
+  ungroup() 
+
+ggplot(d.tidy, aes(x=frequency))+
+  geom_histogram()+
+  facet_wrap(~item, scales='free')
+
+d.stats<-left_join(
+  d.tidy %>% 
+  group_by(item) %>%
+  multi_boot_standard(column="frequency") %>%
+  rename(freq = mean,
+         freqHi = ci_upper,
+         freqLo = ci_lower),
+  d.tidy %>% 
+  group_by(item) %>%
+  multi_boot_standard(column="existence") %>%
+  rename(exist = mean,
+         existHi = ci_upper,
+         existLo = ci_lower))
+
+ggplot(d.stats, aes(x=freq, y = exist, color=item))+
+  geom_point()+
+  geom_errorbarh(aes(xmin=freqLo, xmax=freqHi))+
+  geom_errorbar(aes(ymin=existLo, ymax=existHi))+
+  xlim(-0.05,1000)+
+  ylim(-0.05,1.05)#+
+  #coord_fixed(ratio=1)
+
+
+```

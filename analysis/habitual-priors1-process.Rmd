@@ -1,0 +1,61 @@
+---
+title: "habituals priors process"
+author: "mht"
+date: "November 18, 2015"
+output: html_document
+---
+
+
+## Data processing on priors-1
+
+I accidentally collected 5 subjects as pilot (which according to MTurk rules means you can't collect more than 9 in that batch).
+So I ran a second version with 25 subjects.
+
+Did any subject take it twice?
+```{r duplicate.subjects}
+s1<- read.csv("~/Documents/research/habituals/mturk/priors-1/priors-1_invoice.csv")[1:5,]
+s2<- read.csv("~/Documents/research/habituals/mturk/priors-1b/priors-1b_invoice.csv")[1:25,]
+s3<-bind_rows(s1,s2)
+length(levels(factor(s3$workerid)))
+```
+Phew. No one took it twice. Have a good sample of n=30.
+
+Note: Drop down menu check didn't work. However, all but 3 trials (out of 20*30 = 600) had participants respond with the menu.
+One of the subjects reported that the dropdown menu didn't work for his last trial, and recorded his response in the comments section.
+
+Load first 5 participants data.
+
+```{r load.d1}
+d1<- read.csv("~/Documents/research/habituals/mturk/priors-1/priors-1-trials.csv")
+comments1<- read.csv("~/Documents/research/habituals/mturk/priors-1/priors-1-subject_information.csv")
+print(comments1[[3,"problems"]])
+# modify participant's data to reflect his comments
+d1[60, 5]<- "week"
+
+# comprehension question information
+catch1<- read.csv("~/Documents/research/habituals/mturk/priors-1/priors-1-catch_trials.csv")
+# everyone passed
+```
+
+Load second group (n=25) data and merge 2 data sets.
+```{r load.d2}
+d2<- read.csv("~/Documents/research/habituals/mturk/priors-1b/priors-1b-trials.csv")
+
+# comprehension question information
+catch2<- read.csv("~/Documents/research/habituals/mturk/priors-1b/priors-1b-catch_trials.csv")
+failCatch<-filter(catch2, pass==0)$workerid
+d2 <- d2 %>% 
+  filter(!(workerid == failCatch))
+
+# renumber workerids
+d2$workerid <- d2$workerid+max(d1$workerid) + 1
+d<- bind_rows(d1,d2)
+
+# remove trials with no dropdown menu information
+
+d<-d %>%
+  filter(!(is.na(timeWindow)))
+
+## write to csv so you don't have to do this everytime
+#write.csv(d, file="~/Documents/research/habituals/data/priors/priors-1.csv", row.names=F)
+```
