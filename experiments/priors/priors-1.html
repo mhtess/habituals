@@ -43,19 +43,50 @@
   <div class="slide" id="i0" >
     <img src="../../../_shared/images/cocologo.png" alt="Stanford CoCoLab" id="cocologo"></img>
     <p id="cocolab">Stanford CoCoLab</p>
-    <p id="instruct-text">You will asked <span id="n_trials">{{}}</span> short questions about the habits of people. The HIT should take 5 minutes. Please pay attention, thanks!</p>
+    <p id="instruct-text">You will asked <span id="n_trials">{{}}</span> short questions about people's habits. The HIT should take 5 minutes. Please pay attention, thanks!</p>
     <button id="start_button" type="button">Start Experiment</button>
     <p id="legal">Legal information: By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact M.H. Tessler at <a href="mailto://mhtessler@stanford.edu">mhtessler@stanford.edu</a> or Noah Goodman, at ngoodman@stanford.edu. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you.</p>
   </div>
 
   <div class="slide" id="instructions">
-    <h3>Instructions</h3>
-    <p>In this experiment, we are interested in how common certain actions are (for example: <em>brushing one's teeth</em>). 
-      You will be asked to provide your best guess as to the percentage of the US population that has done the action before. 
-      You will also be asked to rate how frequently a typical person does this action (for example: you might say the typical person brushes her teeth <em>2 times per day</em>).</p>
+    <h3>Please read the following instructions</h3>
+    <p>In this experiment, we are interested in how common people believe certain actions are (for example: <em>brushing one's teeth</em>). 
+      You will be asked to provide your best guess as to the <strong>percentage</strong> of the US population <strong>that has done the action before</strong>. 
+      You will also be asked to rate <strong>how frequently a typical person</strong> does this action (for example: you might say the typical person brushes her teeth <em>2 times per day</em>).</p>
 
-      <p>Please note: You will be asked to choose the appropriate time window (for example: <em>per day</em>). If the action is extremely rare (for example, <em>jumping out of a plane</em>), you can just report the total number of times that a typical person will do this in their life, by choosing the rate <em>per life time</em>.</p>
+      <p>Please note: You will be asked to choose the appropriate time window (for example: <em>per day</em>). If the action is extremely rare (for example, <em>jumping out of a plane</em>), you can just report the total number of times that a typical person will do this in their life, by choosing the <em>per life time</em> rate.</p>
     <button onclick="_s.button()">Continue</button>
+  </div>
+
+
+  <div class="slide" id="catch">
+    <br>
+    <p>What are the two questions that will be asked in this experiment?</p>
+
+<p> Question 1</p>
+    <select id="catch1">
+        <label><option value="-1"></option></label>
+        <label><option value="0">% of animals that have various properties</option></label>
+        <label><option value="0">number of Americans that have a disease</option></label>
+        <label><option value="0">how dangerous a particular weather pattern is</option></label>
+        <label><option value="1">% of American population that has done an action before</option></label>
+     </select>
+
+<br>
+<p> Question 2</p>
+
+    <select id="catch2">
+        <label><option value="-1"></option></label>
+        <label><option value="1">how frequently a typical person does an action</option></label>
+        <label><option value="0">how common a disease is</option></label>
+        <label><option value="0">number of animal species that are of a certain weight</option></label>
+        <label><option value="0">how frequently a weather pattern is in your area</option></label>
+     </select>
+<br>
+
+    <button onclick="_s.button()">Continue</button>
+    <p class="err" style="color:red">Please respond to the questions.</p>
+
   </div>
 
   <div class="slide" id="single_trial">

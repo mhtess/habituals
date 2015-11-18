@@ -5,12 +5,12 @@ var stimuli = [
 	past: "eaten granola for breakfast",
 	type: "food"
 },
-// {
-// 	item: "eats meals with no meat",
-// 	present: "eat meals with no meat",
-// 	past: "eaten a meal with no meat",
-// 	type: "food"
-// },
+{
+	item: "eats meals with no meat",
+	present: "eat meals with no meat",
+	past: "eaten a meal with no meat",
+	type: "food"
+},
 // {
 // 	item: "drinks fancy coffee",
 // 	present: "drink fancy coffee",
@@ -108,9 +108,9 @@ var stimuli = [
 	type: "illicit"
 },
 {
-	item: "mugs people",
-	present: "mug people",
-	past: "mugged a person",
+	item: "murders people",
+	present: "murder people",
+	past: "murdered a person",
 	type: "illicit"
 },
 // {
@@ -129,6 +129,12 @@ var stimuli = [
 	item: "fails at things",
 	present: "fail at something",
 	past: "failed at something",
+	type: "other"
+},
+{
+	item: "worries about things",
+	present: "worry about something",
+	past: "worried about something",
 	type: "other"
 },
 {

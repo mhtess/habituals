@@ -16,6 +16,37 @@ function make_slides(f) {
     }
   });
 
+
+  slides.catch = slide({
+     name : "catch",
+     start: function() {
+      this.startTime = Date.now();
+            $(".err").hide();
+     },
+    button : function() {
+      var response1 = $("#catch1").val()
+      var response2 = $("#catch2").val()
+      if ((response1 == -1) || (response2 == -1)) {
+        $(".err").show();
+      } else {
+        this.rt = Date.now() - this.startTime;
+        this.log_responses();
+        exp.go();
+      }
+    },
+    log_responses : function() {
+      var response1 = $("#catch1").val()
+      var response2 = $("#catch2").val()
+      exp.catch_trials.push({
+        "trial_type" : "catch",
+        "response1" : response1,
+        "response2" : response2,
+        "pass": (response1 == 1 && response2==1)? 1 : 0,
+        "rt":this.rt
+      });
+    }
+  });
+
   slides.single_trial = slide({
     name: "single_trial",
     
@@ -126,7 +157,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions", "single_trial", 'subj_info', 'thanks'];
+  exp.structure=["i0", "instructions","catch", "single_trial", 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:
