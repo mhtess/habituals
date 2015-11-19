@@ -74,21 +74,38 @@ ggplot(d.tidy, aes(x=frequency))+
   geom_histogram()+
   facet_wrap(~item, scales='free')
 
+View(d.tidy)
+
+```
+
+% of Americans 
+```{r}
+ggplot(d.tidy, aes(x=existence))+
+  geom_histogram(binwidth=0.03)+
+  #geom_density()+
+  facet_wrap(~item, scales='fixed')+
+  xlab("% of Americans who ___")
+```
+
+
+
+```{r}
+
 d.stats<-left_join(
   d.tidy %>% 
-  group_by(item) %>%
+  group_by(item, category) %>%
   multi_boot_standard(column="frequency") %>%
   rename(freq = mean,
          freqHi = ci_upper,
          freqLo = ci_lower),
   d.tidy %>% 
-  group_by(item) %>%
+  group_by(item, category) %>%
   multi_boot_standard(column="existence") %>%
   rename(exist = mean,
          existHi = ci_upper,
          existLo = ci_lower))
 
-ggplot(d.stats, aes(x=freq, y = exist, color=item))+
+ggplot(d.stats, aes(x=freq, y = exist, color=category))+
   geom_point()+
   geom_errorbarh(aes(xmin=freqLo, xmax=freqHi))+
   geom_errorbar(aes(ymin=existLo, ymax=existHi))+
