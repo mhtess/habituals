@@ -1,0 +1,114 @@
+---
+title: "habituals-priors-BDA"
+author: "mht"
+date: "November 24, 2015"
+output: html_document
+---
+
+```{r}
+library(coda)
+estimate_mode <- function(s) {
+  d <- density(s)
+  return(d$x[which.max(d$y)])
+}
+HPDhi<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","upper"])
+}
+HPDlo<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","lower"])
+}
+options("scipen"=10)   
+```
+
+## Existence question
+
+```{r}
+filePath <- "~/Documents/research/habituals/models/priors/results/"
+prefix <- "existenceQ-betaModel-incrMH"
+samples <- 10000
+burn <- samples / 2
+m<- read.csv(paste(filePath, prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.csv",sep=""))
+
+m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:4]
+```
+
+### Posterior over parameters
+
+```{r}
+m.params<-m.samples %>% filter(Parameter!='predictive')
+
+ggplot(m.params,aes(x=Value))+
+  geom_histogram()+
+  facet_grid(Item~Parameter, scales='free')
+
+ggsave(paste(filePath, "plots/existence-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), height = 14, width = 7)
+
+```
+
+
+### Posterior predictive
+
+
+```{r}
+m.predictive<-m.samples %>% filter(Parameter=='predictive')
+
+ggplot(m.predictive,aes(x=Value))+
+  geom_histogram()+
+  facet_wrap(~Item, scales='free')
+
+ggsave(paste(filePath, "plots/existence-predictive-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""))
+```
+
+
+
+## Frequency question
+
+```{r}
+prefix <- "frequencyQ-logNormalModel-incrMH"
+samples <- 10000
+burn <- samples / 2
+m2<- read.csv(paste(filePath, prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.csv",sep=""))
+
+m2.samples <- m2[rep(row.names(m2), m2$Probability*(samples-burn)), 1:4]
+```
+
+### Posterior over parameters
+
+```{r}
+m2.params<-m2.samples %>% filter(Parameter!='predictive')
+
+ggplot(m2.params,aes(x=Value))+
+  geom_histogram()+
+  facet_grid(Item~Parameter, scales='free')
+
+ggsave(paste(filePath, "plots/frequency-parameters-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), height = 14, width = 7)
+
+```
+
+
+### Posterior predictive
+
+
+```{r}
+m2.predictive<-m2.samples %>% filter(Parameter=='predictive')
+
+ggplot(m2.predictive,aes(x=Value))+
+  geom_histogram()+
+  facet_wrap(~Item, scales='free')
+
+ggsave(paste(filePath, "plots/frequency-predictive-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""))
+```
