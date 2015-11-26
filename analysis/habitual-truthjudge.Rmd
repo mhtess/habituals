@@ -1,0 +1,26 @@
+---
+title: "habitual-truthjudge"
+author: "mht"
+date: "November 25, 2015"
+output: html_document
+---
+
+```{r}
+filePath <- "~/Documents/research/habituals/mturk/truthjudge-1/"
+d<- read.csv(paste(filePath, "truthjudge-1-trials.csv", sep=""))
+catch<- read.csv(paste(filePath, "truthjudge-1-catch_trials.csv", sep=""))
+
+
+d.tidy <- d %>%
+  mutate(boolResponse = (response=="agree-key")) %>%
+  group_by(habitual, freqLevel, n_instances, time_period) %>%
+  multi_boot_standard(column="boolResponse") %>%
+  ungroup() %>%
+  mutate(freqLevel = factor(freqLevel, levels=c("25", "50", "75"),
+                            labels=c("low", "medium", "high")))
+
+ggplot(d.tidy, aes(x=habitual, fill = freqLevel, y = mean, group=freqLevel))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  coord_flip()
+```
