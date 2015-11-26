@@ -196,6 +196,18 @@ var characters = [
 	gender: "male"
 },
 {
+	name: "Stephen",
+	gender: "male"
+},
+{
+	name: "Lee",
+	gender: "male"
+},
+{
+	name: "Greg",
+	gender: "male"
+},
+{
 	name: "Angela",
 	gender: "female"
 },
@@ -238,5 +250,20 @@ var characters = [
 {
 	name: "Julia",
 	gender: "female"
-}
-]	
+},
+{
+	name: "Michelle",
+	gender: "female"
+},
+{
+	name: "Stephanie",
+	gender: "female"
+},
+{
+	name: "Claire",
+	gender: "female"
+},
+{
+	name: "Kathleen",
+	gender: "female"
+}]	

@@ -86,9 +86,22 @@ function make_slides(f) {
 
     log_responses : function(keyCode) {
       var response = _.invert(exp.judgeButtons)[exp.buttonCodes[keyCode]]
+      var stimDetails = _s.stim;
+      var name = stimDetails[1].name;
+      var habit = stimDetails[0].habitual;
+      var freqLevel = _.keys(_.omit(stimDetails[0], "habitual"))[0]
+      var nInstances = stimDetails[0][freqLevel].past.instances
+      var nInterval = stimDetails[0][freqLevel].past.pastTimeWindow
+      var evidenceStatement = stimDetails[0][freqLevel].past.tense
+      // var habStatement = stimDetails[0][freqLevel].hab
       exp.data_trials.push({
         "trial_type" : "truthJudge",
-        "sentence":_s.stim,
+        "habitual":habit,
+        "freqLevel": freqLevel,
+        "n_instances": nInstances,
+        "time_period": nInterval,
+        "evidenceStatement": evidenceStatement,
+        "characterName": name,
         "response" : response,
         "rt":_s.rt,
       });
