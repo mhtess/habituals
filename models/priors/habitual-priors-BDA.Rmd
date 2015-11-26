@@ -6,6 +6,7 @@ output: html_document
 ---
 
 ```{r}
+library(data.table)
 library(coda)
 estimate_mode <- function(s) {
   d <- density(s)
@@ -27,11 +28,11 @@ options("scipen"=10)
 ```{r}
 filePath <- "~/Documents/research/habituals/models/priors/results/"
 prefix <- "existenceQ-betaModel-incrMH"
-samples <- 10000
+samples <- 100000
 burn <- samples / 2
-m<- read.csv(paste(filePath, prefix, 
+m<- as.data.frame.matrix(fread(paste(filePath, prefix, 
                    samples/1000, "k_burn", 
-                   burn/1000, "k.csv",sep=""))
+                   burn/1000, "k.csv",sep="")))
 
 m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:4]
 ```
@@ -72,12 +73,12 @@ ggsave(paste(filePath, "plots/existence-predictive-", prefix,
 ## Frequency question
 
 ```{r}
-prefix <- "frequencyQ-logNormalModel-incrMH"
-samples <- 10000
+prefix <- "frequencyQ-2logNormalModel-incrMH"
+samples <- 100000
 burn <- samples / 2
-m2<- read.csv(paste(filePath, prefix, 
+m2<- as.data.frame.matrix(fread(paste(filePath, prefix, 
                    samples/1000, "k_burn", 
-                   burn/1000, "k.csv",sep=""))
+                   burn/1000, "k.csv",sep="")))
 
 m2.samples <- m2[rep(row.names(m2), m2$Probability*(samples-burn)), 1:4]
 ```
@@ -95,6 +96,52 @@ ggsave(paste(filePath, "plots/frequency-parameters-", prefix,
                    samples/1000, "k_burn", 
                    burn/1000, "k.pdf", sep=""), height = 14, width = 7)
 
+
+m2.params.stats <- m2.params %>%
+  group_by(Parameter, Item) %>%
+  summarize(MAP = estimate_mode(Value),
+            credHigh = HPDhi(Value),
+            credLow = HPDlo(Value))
+
+ggplot(filter(m2.params.stats, Parameter == 'mix'), 
+       aes(x=Item, y=MAP))+
+  geom_bar(stat='identity', position=position_dodge(),
+           fill='grey69')+
+  geom_errorbar(aes(ymin = credLow, ymax = credHigh),
+                position=position_dodge())+
+  facet_wrap(~Parameter)+
+  coord_flip()
+
+ggsave(paste(filePath, "plots/frequency-mix-stats-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), height = 8, width = 10)
+
+ggplot((m2.params.stats %>% filter(Parameter%in%c("mu", "mu2"))), 
+       aes(x=Item, y=MAP))+
+  geom_bar(stat='identity', position=position_dodge(),
+           fill='grey69')+
+  geom_errorbar(aes(ymin = credLow, ymax = credHigh),
+                position=position_dodge())+
+  facet_wrap(~Parameter)+
+  ylim(-10,10)+
+  coord_flip()
+ggsave(paste(filePath, "plots/frequency-means-stats-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), height = 6, width = 14)
+
+
+ggplot(m2.params.stats, aes(x=Item, y=MAP))+
+  geom_bar(stat='identity', position=position_dodge(),
+           fill='grey69')+
+  geom_errorbar(aes(ymin = credLow, ymax = credHigh),
+                position=position_dodge())+
+  facet_wrap(~Parameter)+
+  coord_flip()
+
+ggsave(paste(filePath, "plots/frequency-parameters-stats-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), height = 8, width = 14)
+
 ```
 
 
@@ -106,9 +153,56 @@ m2.predictive<-m2.samples %>% filter(Parameter=='predictive')
 
 ggplot(m2.predictive,aes(x=Value))+
   geom_histogram()+
-  facet_wrap(~Item, scales='free')
+  facet_wrap(~Item, scales='fixed')+
+  xlim(-15,15)
+
+ggsave(paste(filePath, "plots/frequency-log-predictive-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), width =14, height = 6)
+
+
+ggplot(m2.predictive,aes(x=exp(Value)))+
+  geom_histogram()+
+  facet_wrap(~Item, scales='fixed')+
+  xlim(0,500)
 
 ggsave(paste(filePath, "plots/frequency-predictive-", prefix, 
                    samples/1000, "k_burn", 
-                   burn/1000, "k.pdf", sep=""))
+                   burn/1000, "k.pdf", sep=""), width =14, height = 6)
+
+
+items<-levels(factor(m2.predictive$Item))
+
+ggplot(m2.predictive %>% filter(Item == "drinks beer"), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)
+
+ggplot(m2.predictive %>% filter(Item == items[1]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)
+
+ggplot(m2.predictive %>% filter(Item == items[3]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)
+
+ggplot(m2.predictive %>% filter(Item == items[4]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)+
+  ggtitle(items[4])
+
+ggplot(m2.predictive %>% filter(Item == items[5]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)+
+  ggtitle(items[5])
+
+ggplot(m2.predictive %>% filter(Item == items[6]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)+
+  ggtitle(items[6])
+
+ggplot(m2.predictive %>% filter(Item == items[7]), aes(x=exp(Value)))+
+  geom_histogram()+
+  xlim(0,500)+
+  ggtitle(items[7])
+
 ```

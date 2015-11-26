@@ -20,13 +20,13 @@ var stimuli = [
 {
 	item: "drinks beer",
 	present: "drink beer",
-	past: "drunk a beer",
+	past: "drank a beer",
 	type: "food"
 },
 {
 	item: "drinks wine with dinner",
 	present: "drink wine with dinner",
-	past: "drunk wine with dinner",
+	past: "drank wine with dinner",
 	type: "food"
 },
 {

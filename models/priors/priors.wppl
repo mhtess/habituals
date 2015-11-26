@@ -1,7 +1,7 @@
 // time webppl priors.wppl --require habutils
 
 var fpath = "/Users/mht/Documents/research/habituals/models/priors/data/"
-var priorData = habutils.readCSV(fpath+"prior1.csv")
+var priorData = habutils.readCSV(fpath+"prior1_workday-for-work.csv")
 
 var df = dataFrame(priorData, ["trial_num", "existence", "nTimes","frequency","logFreq"])
 
@@ -45,6 +45,16 @@ var frequencyModel = function(){
 		var mu = gaussian(0,50)
 		var sigma = uniform(0,20)
 
+		// var mix = uniform(0,1)
+		// var mu2 = gaussian(0,50)
+		// var sigma2 = uniform(0,20)
+
+
+		// var scr = sum(map(function(d){
+		// 	return Math.log(mix*Math.exp(gaussianERP.score([mu, sigma], d)) + 
+		// 		(1-mix)*Math.exp(gaussianERP.score([mu2, sigma2], d)))
+		// }, _.pluck(itemData, "logFreq")))
+
 		var scr = sum(map(function(d){
 			return gaussianERP.score([mu, sigma], d)
 		}, _.pluck(itemData, "logFreq")))
@@ -54,6 +64,11 @@ var frequencyModel = function(){
 		query.add(["frequency","mu", i], mu)
 		query.add(["frequency","sigma", i], sigma)
 
+		// query.add(["frequency","mu2", i], mu2)
+		// query.add(["frequency","sigma2", i], sigma2)
+		// query.add(["frequency","mix", i], mix)
+		// var predictive = flip(mix) ? gaussian(mu, sigma) : gaussian(mu2, sigma2)
+		
 		var predictive = gaussian(mu, sigma)
 		query.add(["frequency","predictive", i], predictive)
 
@@ -64,16 +79,17 @@ var frequencyModel = function(){
 }
 var samples = 100000
 var burn = samples/2
-
-var existenceERP = IncrementalMH(existentialModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
-console.log("------Existence inference complete------")
 var header = "Measure,Parameter,Item,Value"
-var outfile1 = "results/existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
-habutils.erpWriter(existenceERP, outfile1, header)
-console.log("__Written to " + outfile1)
+
+
+// var existenceERP = IncrementalMH(existentialModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
+// console.log("------Existence inference complete------")
+// var outfile1 = "results/existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+// habutils.erpWriter(existenceERP, outfile1, header)
+// console.log("__Written to " + outfile1)
 
 var frequencyERP = IncrementalMH(frequencyModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
 console.log("------Frequency inference complete------")
-var outfile2 = "results/frequencyQ-logNormalModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+var outfile2 = "results/frequencyQ-logNormalModel-workdayForWork-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
 habutils.erpWriter(frequencyERP, outfile2, header)
 console.log("__Written to " + outfile2)

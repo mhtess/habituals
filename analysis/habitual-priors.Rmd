@@ -68,23 +68,54 @@ d.tidy<-d %>%
   mutate(timeWindow = as.character(timeWindow)) %>%
   rowwise() %>%
   mutate(frequency = nTimes*scaleTime[[timeWindow]]) %>%
-  ungroup() 
+  ungroup()
 
-ggplot(d.tidy, aes(x=frequency))+
-  geom_histogram()+
-  facet_wrap(~item, scales='free')
+d.tidy[d.tidy$frequency==0,]$frequency<-0.01
 
-View(d.tidy)
+d.out<-d.tidy %>% 
+  select(-category, -trial_type, -rt) %>%
+  mutate(logFreq = log(frequency))
 
+
+items <- levels(factor(d.out$item))
+
+for (i in items){
+  d.item <- d.out %>% filter(item==i)
+  quantile(d.item$frequency, probs = seq(0,1,0.1))
+}
+
+#write.csv(d.out, 
+#          file="~/Documents/research/habituals/models/priors/data/prior1.csv",
+#          row.names=F)
 ```
+
 
 % of Americans 
 ```{r}
+fig.path <- "~/Documents/research/habituals/analysis/figures/"
 ggplot(d.tidy, aes(x=existence))+
   geom_histogram(binwidth=0.03)+
   #geom_density()+
   facet_wrap(~item, scales='fixed')+
   xlab("% of Americans who ___")
+
+#ggsave(paste(fig.path, "existentialQ-histogram-priors1.pdf", sep=""))
+```
+
+How often?
+
+```{r}
+ggplot(d.out, aes(x=logFreq))+
+  geom_histogram()+
+  facet_wrap(~item, scales='fixed')+
+  xlab("frequency (times per year)")+
+  xlim(-15,15)
+
+ggsave(paste(fig.path, "frequencyQ-log-histogram-priors1.pdf", sep=""),
+       width =14, height = 6)
+
+#View(d.tidy)
+
 ```
 
 
@@ -105,13 +136,19 @@ d.stats<-left_join(
          existHi = ci_upper,
          existLo = ci_lower))
 
-ggplot(d.stats, aes(x=freq, y = exist, color=category))+
-  geom_point()+
-  geom_errorbarh(aes(xmin=freqLo, xmax=freqHi))+
-  geom_errorbar(aes(ymin=existLo, ymax=existHi))+
+ggplot(d.stats, aes(x=freq, y = exist, color=category, label =item))+
+  #geom_point()+
+  geom_text()+
+  #geom_errorbarh(aes(xmin=freqLo, xmax=freqHi))+
+  #geom_errorbar(aes(ymin=existLo, ymax=existHi))+
   xlim(-0.05,1000)+
   ylim(-0.05,1.05)#+
   #coord_fixed(ratio=1)
+
+ggsave(paste(fig.path, "priors1-scatter-text-sansSmoking.pdf", sep=""), width = 18, height =10)
+
+
+with(d.stats %>% filter(item!='smokes'), cor(freq, exist))
 
 
 ```
