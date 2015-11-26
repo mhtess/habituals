@@ -112,13 +112,13 @@ var stimuli = [
 },{
 	habitual:"drinks beer",
 	25: {hab: "once a week",
-		past: {tense: "drank a beer", instances: "1 time", pastTimeWindow: "week"}
+		past: {tense: "drank", instances: "1 beer", pastTimeWindow: "month"}
 	},
 	50: {hab: "twice a week",
-		past: {tense: "drank a beer", instances: "2 times", pastTimeWindow: "week"}
+		past: {tense: "drank", instances: "5 beers", pastTimeWindow: "month"}
 	},
 	75: {hab: "three times a week",
-		past: {tense: "drank a beer", instances: "3 times", pastTimeWindow: "week"}
+		past: {tense: "drank", instances: "15 beers", pastTimeWindow: "month"}
 	}
 },{
 	habitual:"steals cars",
