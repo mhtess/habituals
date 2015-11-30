@@ -1,0 +1,18 @@
+var binWidth = 0.75
+var minBin = -5
+var maxBin = 10
+var priorBins = _.range(minBin, maxBin,binWidth)
+
+
+var mixLsts = function(lst1, lst2, mixture){
+    return map2(function(x,y){return mixture*x + (1-mixture)*y}, lst1, lst2)
+}
+
+// var addMass = function(lst, index, mass){
+//   return map(function(x){return }, lst)
+// }
+
+
+var gaussianPMF = function(mu, sigma){
+  return map(function(b){return Math.exp(gaussianERP.score([mu, sigma], b))}, priorBins)
+}

@@ -1,0 +1,14 @@
+// time webppl habituals.wppl --require tjUtils
+
+// var fpath = "/Users/mht/Documents/research/habituals/models/priors/data/"
+// var priorData = tjUtils.readCSV(fpath+"prior1_workday-for-work.csv")
+
+
+var samples = 1000
+var burn = samples/2
+var priorERP = IncrementalMH(priorModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
+
+
+sample(priorERP)["bikes to work"]
+
+// df
