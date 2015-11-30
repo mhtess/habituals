@@ -1,14 +1,79 @@
 // time webppl habituals.wppl --require tjUtils
 
-// var fpath = "/Users/mht/Documents/research/habituals/models/priors/data/"
-// var priorData = tjUtils.readCSV(fpath+"prior1_workday-for-work.csv")
 
 
-var samples = 1000
+var align2afc = {
+	"agree-key":"habitual",
+	"disagree-key": "mm"
+}
+
+var df_tj_wRounded = map(function(x){
+	return _.extend(x, {roundedFreq: nearestPriorBin(x.logFreq),
+						alignedResponse : align2afc[x.response]})
+}, df_tj)
+
+
+var samples = 10000
 var burn = samples/2
 var priorERP = IncrementalMH(priorModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
 
+var priorERPobject = _.object(map(function(i){
+	return [i, marginalizeERP(priorERP, i)]
+}, items))
 
-sample(priorERP)["bikes to work"]
 
-// df
+var model = function(){
+
+	var speaker_optimality = uniform(0,20)
+	var phi = uniform(0,1)
+
+	foreach(items, function(i){
+		// var i = "bikes to work"
+
+		var prior = sample(priorERPobject[i])
+
+		var itemData = subset(df_tj_wRounded, "habitual", i)
+		// itemData
+		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
+
+		// var f = freqLevels[1]
+
+		foreach(freqLevels, function(f){
+
+			var freqData = subset(itemData, "roundedFreq", f)
+			var grossLevel = freqData[0]["freqLevel"]
+			var responseData = _.pluck(freqData, "alignedResponse")
+			var s2 = speaker2(f, prior, speaker_optimality)
+			var s2_plusGuess = guessingLink(s2, phi)
+
+			var scr = reduce(function(response, memo) {
+							    return memo + s2_plusGuess.score([], response)
+								}, 0, responseData)
+
+			// console.log(Math.exp(s2_plusGuess.score([], "habitual")))
+			// console.log(scr)
+			factor(scr)
+
+			query.add(["predictive", i, f, grossLevel], Math.exp(s2_plusGuess.score([], "habitual")))
+
+		})
+	})
+
+	query.add(["parameter", "global", "speaker_optimality", "NA"], speaker_optimality)
+	query.add(["parameter", "global", "phi", "NA"], phi)
+	return query
+}
+
+var samples = 1000
+var burn = samples/2
+var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/100, burn: burn})
+
+var outputFile = "results/truthJudge-RSA-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+
+resultsERP
+
+// df_tj_wRounded[1]
+// }
+
+// freqData
+// 		f
+// freqLevels
