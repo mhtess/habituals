@@ -1,0 +1,88 @@
+% 
+% Annual Cognitive Science Conference
+% Sample LaTeX Paper -- Proceedings Format
+% 
+
+%% Change "letterpaper" in the following line to "a4paper" if you must.
+
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage{cogsci}
+\usepackage{pslatex}
+\usepackage{apacite}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+
+\graphicspath{{figures/}}
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+
+\definecolor{Red}{RGB}{255,0,0}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}  
+
+
+\title{Communicating generalizations about events}
+
+\author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu) \\ {\large \bf Noah D. Goodman} (ngoodman@stanford.edu) \\
+  Department of Psychology, Stanford University}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract}
+Habitual sentences (e.g. \emph{Bills smokes}) convey generalizations about events and have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
+Surprisingly little empirical work has examined the conditions by which a speaker may assert a habitual utterance and the inferences listeners derive from such utterances.
+We take the analogy between generics and habituals seriously by adapting a recent pragmatic theory of generic language to the domain of events.
+In Expt.~1, we explore the predictions of this model for the ``frequency'' conditions (i.e. how often a person must do an action) under which various event generalizations may be felicitous utterances. 
+In Expt.~2, we explore the nature of ``frequency'' conditions by manipulating X and show that \emph{predictive} future frequency is what drives the model predictions and human judgments. 
+
+\textbf{Keywords:} 
+events; generics; pragmatics
+\end{abstract}
+
+\section{Introduction}
+
+Generics sentences (e.g. \emph{Swans are white.}) describe generalizations about categories and are believed to be central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}.
+Habitual sentences (e.g. \emph{Bill smokes.}) make generalizations about events and believed to behave like generics \cite{Carlson2005}.
+
+Generic sentences have received a lot of attention from psychologists, linguists, and philosophers and yet surprisingly little empirical work has looked into the basic inferences that are made from habitual sentences.
+
+A recent theory of generic language posits a simple, basic meaning of a generic based on the property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic communicative principles \cite{TesslerUnderReview}.
+
+\section{Computational model}
+
+\section{Experiment 1}
+
+\section{Experiment 2}
+
+\section{Discussion}
+
+\bibliographystyle{apacite}
+
+\setlength{\bibleftmargin}{.125in}
+\setlength{\bibindent}{-\bibleftmargin}
+
+\bibliography{habituals-cogsci2016}
+
+
+\end{document}
