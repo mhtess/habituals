@@ -23,6 +23,14 @@
 \usepackage{lipsum}
 
  \newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
+ 
+ \definecolor{Red}{RGB}{255,0,0}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}  
+\definecolor{Green}{RGB}{10,200,100}
+\definecolor{Blue}{RGB}{10,100,200}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
+\newcommand{\mht}[1]{\textcolor{Blue}{[mht: #1]}}  
+
 
 \graphicspath{{figures/}}
 
@@ -35,9 +43,6 @@
   {\savebox\mybox{#1}\begin{quote}}
   {\signed{\usebox\mybox}\end{quote}}
 
-
-\definecolor{Red}{RGB}{255,0,0}
-\newcommand{\red}[1]{\textcolor{Red}{#1}}  
 
 
 \title{Communicating generalizations about events}
@@ -109,19 +114,43 @@ $S_2$'s decision is with respect to the alternative of saying nothing: He will c
 Critically, speaker $S_{2}$ doesn't actually know what the habitual means (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will have to consider it, and integrates over the likely values she'll consider.
 
 
-\section{Experiment 1: predicting truth judgments}
+\section{Experiment 1: events over homogenous time}
+
+Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
+We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
+
+\subsection{Expt.~1a: prior elicitation}
+
+\citeA{TesslerUnderReview} found that participants' beliefs about the prevalence of a property is structured as the result of a mixture distribution of kinds with the potential to have the property present and kinds that lack the potential to have the property present.
+The prior distribution, thus, is modeled as a mixture distribution between these two possibilities \cite{Griffiths2005}, similar in spirit to Hurdle Models of epidemiological data \cite{hurdleModels}.
+
+Here, we explore this hypothesis with respect to participants beliefs about the frequency with which people partake in various events or actions.
 
 
+\subsubsection{Participants}
+We recruited \red{N} participants from Amazon's Mechanical Turk.
+Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
+The experiment took on average \red{N} minutes and participants were compensated \red{\$xx} for their work.
 
+\subsubsection{Procedure}
 
-\subsection{Method}
+On each trial, participants were asked two questions about an event (e.g. \emph{biking to work}):
+(1) One out of every X people has \emph{biked to work} before.
+(2) For a typical person who has done \emph{biked to work} before, how frequently does he or she do \emph{bike to work}? 
+
+\subsubsection{Materials}
+
+Events were chosen to intutively cover a range of likely frequencies of action. 
+Judgments were obtained for N items, of which each participants saw a random selection of N. 
+
+\subsubsection{Behavioral results}
+
+\subsection{Expt.~2a: felicity judgments}
 \subsubsection{Participants}
 \subsubsection{Procedure}
 \subsubsection{Materials}
+\subsubsection{Behavioral results}
 
-\subsection{Behavioral results}
-
-\subsection{Model results}
 
 
 \section{Experiment 2}
