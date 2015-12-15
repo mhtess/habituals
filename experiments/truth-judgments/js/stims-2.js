@@ -24,21 +24,21 @@ var stimuli = [
 	past: "climbed mountains",
 	category: "hobby"
 },
-{
-	habitual: "wears a tuxedo",
-	past: "wore a tuxedo",
-	category: "clothing"
-},
-{
-	habitual: "wears a bra",
-	past: "wore a bra",
-	category: "clothing"
-},
-{
-	habitual: "wears slacks",
-	past: "wore slacks",
-	category: "clothing"
-},
+// {
+// 	habitual: "wears a tuxedo",
+// 	past: "wore a tuxedo",
+// 	category: "clothing"
+// },
+// {
+// 	habitual: "wears a bra",
+// 	past: "wore a bra",
+// 	category: "clothing"
+// },
+// {
+// 	habitual: "wears slacks",
+// 	past: "wore slacks",
+// 	category: "clothing"
+// },
 {
 	habitual: "wears socks",
 	past: "wore socks",
@@ -47,6 +47,21 @@ var stimuli = [
 {
 	habitual: "wears a hat",
 	past: "wore a hat",
+	category: "clothing"
+},
+{
+	habitual: "wears gloves",
+	past: "wore gloves",
+	category: "clothing"
+},
+// {
+// 	habitual: "wears sweaters",
+// 	past: "wore a sweater",
+// 	category: "clothing"
+// },
+{
+	habitual: "wears a watch",
+	past: "wore a watch",
 	category: "clothing"
 },
 {
@@ -119,11 +134,11 @@ var stimuli = [
 	past: "listened to Russian folk music",
 	category: "entertainment"
 },
-// {
-// 	habitual: "listens to live music",
-// 	past: "listened to live music",
-// 	category: "entertainment"
-// },
+{
+	habitual: "listens to live music",
+	past: "listened to live music",
+	category: "entertainment"
+},
 {
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
