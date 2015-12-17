@@ -1,0 +1,60 @@
+var marginalize = function(myERP, index){
+  Enumerate(function(){
+    var x = sample(myERP)
+    return x[index]
+  })
+}
+
+var foreach = function(lst, fn) {
+    var foreach_ = function(i) {
+        if (i < lst.length) {
+            fn(lst[i]);
+            foreach_(i + 1);
+        }
+    };
+    foreach_(0);
+};
+
+var HDI = function(samples, credMass){
+	// var sortedPts = _.pluck(_.sortBy(myERP.samples, "value"),"value")
+	var sortedPts = samples.sort()
+	var ciIdxInc = Math.ceil(credMass* sortedPts.length)
+	var nCIs = sortedPts.length - ciIdxInc
+
+	var ciWidth = map(function(i){
+		sortedPts[i + ciIdxInc] - sortedPts[i]
+	},_.range(nCIs))
+
+	var i = _.indexOf(ciWidth, _.min(ciWidth))
+
+	return [sortedPts[i], sortedPts[i+ciIdxInc]]
+}
+
+
+var model = function(n, data){
+	MCMC(function(){
+		var theta = uniform(0,1)
+		factor(binomialERP.score([theta, n], data))
+		return theta
+	}, {samples: 1000, justSample: true})
+}
+
+
+var hdiLength = function(interval){
+	return interval[1] - interval[0]
+}
+
+var checkHDI = function(n,p){
+	repeat(500,function(){
+		var data = binomial(p, n)
+		var erp = model(n, data)
+		return hdiLength(HDI(erp.samples, 0.95))
+	})
+}
+
+var sampleSizes = [10, 30, 50, 70, 90, 110, 130]
+var p = 0.5
+foreach(sampleSizes, function(d){
+	console.log("95% credible interval on width of credible interval for n = " + 
+		d + "; p = "+p+"...." + HDI(checkHDI(d, p), 0.95))
+})
