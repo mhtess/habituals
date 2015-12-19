@@ -28,28 +28,31 @@ function make_slides(f) {
     //this gets run only at the beginning of the block
     present_handle : function(stim) {
       // debugger;
+      // console.log(stim)
       this.startTime = Date.now();
 
       this.stim = stim 
-      var habit = this.stim[0]
-      var charName = this.stim[1]
+      // var habit = this.stim[0]
+      // var charName = this.stim[1]
+      // debugger;
 
-      var freq = _.omit(habit, "habitual")
+      var freq = _.sample(stim.frequency)//_.omit(habit, "habitual")
 
       this.stim.freq = "3"
-      var description = habit.condition
-      this.stim.description = description
+      this.stim.interval = freq
+      // var description = stim.condition
+      // this.stim.description = description
 
       var keyDictionary = {
         "agree-key": "Agree",
         "disagree-key": "Disagree"
       }
 
-      $(".frequency").html("In the past <strong>" + habit.condition + "</strong>, " +
-         charName.name  + " " + habit.past + " <em>3 times</em>.");
+      $(".frequency").html("In the past <strong>" + freq + "</strong>, " +
+         stim.character.name  + " " + stim.past + " <em>3 times</em>.");
       // $(".frequency").html("Suppose: " + charName.name  + " " + habit.habitual + " <em>" + _.values(freq)[0] + "</em>.");
 
-      $(".habitual").html('"' + charName.name  + ' ' + habit.habitual + '."');
+      $(".habitual").html('"' + stim.character.name  + ' ' + stim.habitual + '."');
 
       _.mapObject(exp.judgeButtons, function(val,key){
         $("#"+val+"key-reminder").html(keyDictionary[key]);
@@ -77,12 +80,13 @@ function make_slides(f) {
     log_responses : function(keyCode) {
       var response = _.invert(exp.judgeButtons)[exp.buttonCodes[keyCode]]
       var stimDetails = _s.stim;
-      var name = stimDetails[1].name;
-      var habit = stimDetails[0].habitual;
-      var freqLevel = stimDetails[0].condition;
+      var name = stimDetails.character.name;
+      var gender = stimDetails.character.gender;
+      var habit = stimDetails.habitual;
+      var freqLevel = stimDetails.interval;
       var nInstances = 3//stimDetails[0][freqLevel].past.instances
-      var evidenceStatement = stimDetails[0].past
-      var category = stimDetails[0].category
+      var evidenceStatement = stimDetails.past
+      var category = stimDetails.category
       exp.data_trials.push({
         "trial_type" : "truthJudge",
         "habitual":habit,
@@ -91,6 +95,7 @@ function make_slides(f) {
         "time_period": freqLevel,
         "evidenceStatement": evidenceStatement,
         "characterName": name,
+        "characterGender":gender,
         "response" : response,
         "category":category,
         "rt":_s.rt
@@ -166,7 +171,7 @@ function make_slides(f) {
 /// init ///
 function init() {
 
-
+  // debugger;
   exp.trials = [];
   exp.catch_trials = [];
 
@@ -174,20 +179,57 @@ function init() {
   exp.judgeButtons = _.object(_.zip(["agree-key","disagree-key"],
                             _.shuffle(["P","Q"])));
 
+  var timeConditions = ["5 years","year","month","week"]
+
+  var conditions = _.flatten(_.map(timeConditions, function(c){
+    return utils.fillArray(c, stimuli.length/timeConditions.length)
+  }))
+
+  var nBothGender = _.filter(stimuli, function(s){return s.category == "clothing"}).length
+
+  var shuffledMen = _.shuffle(maleCharacters)
+  var someMen = shuffledMen.splice(0,nBothGender)
+
+  var shuffledWomen = _.shuffle(femaleCharacters)
+  var someWomen = shuffledWomen.splice(0,nBothGender)
+
+  var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
+
+
+
+  var stimsWNames =  _.flatten(_.map(stimuli, function(s){
+    var newObj = jQuery.extend(true, {}, s);
+    return s.category != "clothing" ? _.extend(s, {character: allGenders.pop()}) :
+    [_.extendOwn(s, {character: someMen.pop()}), 
+     _.extendOwn(newObj, {character: someWomen.pop()})]
+  }), true)
+
   // debugger;
 
-  var timeConditions = ["10 years","year","month","week"]
+  // var conditionsBothGenders = [conditions, conditions]
 
-  var conditions = _.shuffle(_.flatten(_.map(timeConditions, function(c){
-    return utils.fillArray(c, stimuli.length/timeConditions.length)
-  })))
+  // var stimsUnpacked1 = _.shuffle(_.map(
+  //   _.zip(stimuli, _.shuffle(conditions)), 
+  //   function(s){return _.extend(s[0], {"condition": s[1]})})
+  // )
+  // // debugger;
+  // var stimsUnpacked2 = _.shuffle(_.map(
+  //   _.zip(stimuli, _.shuffle(conditions)), 
+  //   function(s){return _.extend(s[0], {"condition": s[1]})})
+  // )
 
-  var stimsUnpacked = _.shuffle(_.map(_.zip(stimuli,conditions), function(s){return _.extend(s[0], {"condition": s[1]})}))
+  // var maleCharNames = _.shuffle(maleCharacters).slice(0, stimsUnpacked1.length)
+  // var femaleCharNames = _.shuffle(femaleCharacters).slice(0, stimsUnpacked2.length)
 
-  var charNames = _.shuffle(_.flatten([characters,characters]).slice(0, stimsUnpacked.length))
+  exp.stims = _.shuffle(stimsWNames)
+  // debugger;
+  console.log(_.flatten(_.pluck(stimsWNames, "frequency")).length)
 
-  exp.stims = _.shuffle(_.zip(stimsUnpacked, charNames))
+    // _.flatten([_.zip(stimsUnpacked1, maleCharNames),
+    //                     _.zip(stimsUnpacked2, femaleCharNames)], true)
+    //                     )
 
+  // debugger;
   // debugger;
   exp.numTrials = exp.stims.length;
 
