@@ -59,9 +59,25 @@ function make_slides(f) {
       $("#text_response").val('')
       $("#frequency").val('')
       $(".err").hide();
-      $(".question1").html("What percentage of the U.S. population do you believe has " + stim.past + " before?<br>");
-      $(".question2").html("For a typical person who has " + stim.past + 
-            " before, how frequently does he or she " + stim.present + "?");
+      var menQ = "How many American men do you think have " + stim.past + " before?<br>"
+      var womenQ =  "How many American women do you think have " + stim.past + " before?<br>"
+      var menQ2 = "For a typical man who has " + stim.past + " before, how frequently does he " + stim.present + "?"
+      var womenQ2 = "For a typical woman who has " + stim.past + " before, how frequently does she " + stim.present + "?"
+
+      if (exp.womenFirst) {
+          $(".question1a").html(womenQ)
+          $(".question2a").html(womenQ2)
+          $(".question1b").html(menQ)
+          $(".question2b").html(menQ2)
+      } else {
+          $(".question1a").html(menQ)
+          $(".question2a").html(menQ2)
+          $(".question1b").html(womenQ)
+          $(".question2b").html(womenQ2)
+      }
+
+
+      // $(".question2a").html();
       // this.init_sliders();
       // $(".slider_number").html("---")
       // exp.sliderPost = null; //erase current slider value
@@ -145,6 +161,7 @@ function init() {
   exp.catch_trials = [];
   exp.stimuli = _.shuffle(stimuli);
   exp.n_trials = stimuli.length
+  exp.womenFirst = _.sample([true, false])
   // debugger;
   exp.stimscopy = exp.stimuli.slice(0);
 
@@ -158,7 +175,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "instructions","catch", "single_trial", 'subj_info', 'thanks'];
+  exp.structure=[ "single_trial","i0", "instructions","catch", 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:
