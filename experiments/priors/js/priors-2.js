@@ -56,13 +56,23 @@ function make_slides(f) {
       this.startTime = Date.now()
       this.stim =  stim; 
       this.trialNum = exp.stimscopy.indexOf(stim);
-      $("#text_response").val('')
-      $("#frequency").val('')
+
+      $("#n_people_a").val('')
+      $("#n_people_b").val('')
+
+      $("#comparison_a").val('1000')
+      $("#comparison_b").val('1000')
+
+      $("#text_response_a").val('')
+      $("#text_response_b").val('')
+
+      $("#frequency_a").val('year')
+      $("#frequency_b").val('year')
       $(".err").hide();
-      var menQ = "How many American men do you think have " + stim.past + " before?<br>"
-      var womenQ =  "How many American women do you think have " + stim.past + " before?<br>"
-      var menQ2 = "For a typical man who has " + stim.past + " before, how frequently does he " + stim.present + "?"
-      var womenQ2 = "For a typical woman who has " + stim.past + " before, how frequently does she " + stim.present + "?"
+      var menQ = "How many American men do you think have <strong>" + stim.past + "</strong> before?<br>"
+      var womenQ =  "How many American women do you think have <strong>" + stim.past + "</strong> before?<br>"
+      var menQ2 = "For a typical man who has " + stim.past + "before, how frequently does he <strong>" + stim.present + "</strong>?"
+      var womenQ2 = "For a typical woman who has " + stim.past + " before, how frequently does she <strong>" + stim.present + "</strong>?"
 
       if (exp.womenFirst) {
           $(".question1a").html(womenQ)
@@ -91,9 +101,11 @@ function make_slides(f) {
     },
 
     button : function() {
-      response = $("#text_response").val();
-      freq = $("#frequency").val()
-      if (exp.sliderPost==null || ( response.length==0  || freq==-1))  {
+      responses = [$("#text_response_a").val(),
+                   $("#text_response_b").val(),
+                    $("#n_people_a").val(),
+                     $("#n_people_b").val()]
+      if (_.contains(responses, ""))  {
         $(".err").show();
       } else {
         this.rt = Date.now() - this.startTime;

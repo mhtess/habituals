@@ -10,10 +10,10 @@ var stimuli = [
 {
 	habitual: "runs",
 	present: "run",
-	past: "ran",
+	past: "run",
 	category: "hobby",
 	frequency: ["year","month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "plays the banjo",
@@ -21,7 +21,7 @@ var stimuli = [
 	past: "played the banjo",
 	category: "hobby",
 	frequency: ["year"," month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "plays tennis",
@@ -29,7 +29,7 @@ var stimuli = [
 	past: "played tennis",
 	category: "hobby",
 	frequency: ["year","month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "climbs mountains",
@@ -37,39 +37,39 @@ var stimuli = [
 	past: "climbed mountains",
 	category: "hobby",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "wears a suit",
 	present: "wear a suit",
-	past: "wore a suit",
+	past: "worn a suit",
 	category: "clothing",
 	frequency: ["year","month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "wears a bra",
 	present: "wear a bra",
-	past: "wore a bra",
+	past: "worn a bra",
 	category: "clothing",
 	frequency: ["year", "month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "wears slacks",
 	present: "wear slacks",
-	past: "wore slacks",
+	past: "worn slacks",
 	category: "clothing",
 	frequency: ["year", "month","week"],
-	defaultFreq: 
+	defaultFreq:  "year"
 },
 {
 	habitual: "wears socks",
 	present: "wear socks",
-	past: "wore socks",
+	past: "worn socks",
 	category: "clothing",
 	frequency: ["month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 // {
 // 	habitual: "wears a hat",
@@ -93,26 +93,26 @@ var stimuli = [
 {
 	habitual: "wears a watch",
 	present: "wear a watch",
-	past: "wore a watch",
+	past: "worn a watch",
 	category: "clothing",
 	frequency: ["month","week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "writes novels",
 	present: "write a novel",
-	past: "wrote a novel",
+	past: "written a novel",
 	category: "employment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "writes poems",
 	present: "write a poem",
-	past: "wrote a poem",
+	past: "written a poem",
 	category: "employment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "sell things on eBay",
@@ -120,7 +120,7 @@ var stimuli = [
 	past: "sold something on eBay",
 	category: "employment",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "sells companies",
@@ -128,23 +128,23 @@ var stimuli = [
 	past: "sold a company",
 	category: "employment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "steals cars",
 	present: "steal a car",
-	past: "stole a car",
+	past: "stolen a car",
 	category: "employment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "steals chewing gum",
 	present: "steal chewing gum",
-	past: "stole chewing gum",
+	past: "stolen chewing gum",
 	category: "employment",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "volunteers for soup kitchens",
@@ -152,7 +152,7 @@ var stimuli = [
 	past: "volunteered for a soup kitchen",
 	category: "employment",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "volunteers for political campaigns",
@@ -167,7 +167,7 @@ var stimuli = [
 	past: "gone to the movies",
 	category: "entertainment",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "goes to the ballet",
@@ -175,7 +175,7 @@ var stimuli = [
 	past: "gone to the ballet",
 	category: "entertainment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "watches professional football",
@@ -183,7 +183,7 @@ var stimuli = [
 	past: "watched professional football",
 	category: "entertainment",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "watches space launches",
@@ -191,7 +191,7 @@ var stimuli = [
 	past: "watched space launches",
 	category: "entertainment",
 	frequency: ["5 years", "year","month"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "listens to Pandora",
@@ -199,7 +199,7 @@ var stimuli = [
 	past: "listened to Pandora",
 	category: "entertainment",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 // {
 // 	habitual: "listens to Russian folk music",
@@ -213,23 +213,23 @@ var stimuli = [
 	past: "listened to live music",
 	category: "entertainment",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "eats peanut butter",
 	present: "eat peanut butter",
-	past: "ate peanut butter",
+	past: "eaten peanut butter",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "eats caviar",
 	present: "eat caviar",
-	past: "ate caviar",
+	past: "eaten caviar",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 // {
 // 	habitual: "eats cereal",
@@ -243,7 +243,7 @@ var stimuli = [
 	past: "smoked cigarettes",
 	category: "food",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "smokes marijuana",
@@ -251,31 +251,31 @@ var stimuli = [
 	past: "smoked marijuana",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "does cocaine",
 	present: "do cocaine",
-	past: "did cocaine",
+	past: "done cocaine",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "drinks beer",
 	present: "drink beer",
-	past: "drank beer",
+	past: "drunk beer",
 	category: "food",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 },
 {
 	habitual: "drinks coffee",
 	present: "drink coffee",
-	past: "drank coffee",
+	past: "drunk coffee",
 	category: "food",
 	frequency: ["year","month", "week"],
-	defaultFreq: 
+	defaultFreq: "year"
 }];
 
 
