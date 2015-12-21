@@ -72,7 +72,7 @@ function make_slides(f) {
       $(".err").hide();
 
       var menQ = "How many American men do you think have <strong>" + stim.past + "</strong> before?<br>"
-      var womenQ =  "How many American women do you think have <strong>" + stim.past + "</strong> before?<br>"
+      var womenQ =  "How many American women do you think have <strong> " + stim.past + "</strong> before?<br>"
       var menQ2 = "For a typical man who has " + stim.past + " before, how frequently does he <strong>" + stim.present + "</strong>?"
       var womenQ2 = "For a typical woman who has " + stim.past + " before, how frequently does she <strong>" + stim.present + "</strong>?"
 
@@ -112,13 +112,14 @@ function make_slides(f) {
     },
 
     log_responses : function() {
-      responses = [$("#text_response_a").val(),
-                   $("#text_response_b").val(),
-                    $("#n_people_a").val(),
-                     $("#n_people_b").val()]
-                     debugger;
       var m = exp.womenFirst ? "b" : "a"
       var f = exp.womenFirst ? "a" : "b"
+      var timeDictionary = {
+        "week":7,
+        "month":30,
+        "year":365,
+        "5 years":1825
+      }
       exp.data_trials.push({
         "trial_type" : "twostep_elicitation",
         "trial_num": this.trialNum+1,
@@ -126,13 +127,16 @@ function make_slides(f) {
         "category": this.stim.category,
         "nPersons_women" :  $("#n_people_"+f).val(),
         "nPersons_men" : $("#n_people_"+m).val(),
-        "comparisonNum_women" $("#comparison_"+f).val(),
+        "comparisonNum_women": $("#comparison_"+f).val(),
         "comparisonNum_men" : $("#comparison_"+m).val(),
         "nInstances_women" : $("#text_response_"+f).val(),
         "nInstances_men" : $("#text_response_"+m).val(),
         "comparisonTime_women" : $("#frequency_"+f).val(),
         "comparisonTime_men" : $("#frequency_"+m).val(),
-        "timeWindow": freq,
+        "effectiveExistence_women" : $("#n_people_"+f).val() / $("#comparison_"+f).val(),
+        "effectiveExistence_men" : $("#n_people_"+m).val() / $("#comparison_"+m).val(),
+        "effectiveDayWait_women": timeDictionary[$("#frequency_"+f).val()] / $("#text_response_"+f).val(),
+        "effectiveDayWait_men": timeDictionary[$("#frequency_"+m).val()] / $("#text_response_"+m).val(),
         "rt":this.rt
       });
     }
@@ -177,6 +181,17 @@ function make_slides(f) {
 
 /// init ///
 function init() {
+
+  repeatWorker = false;
+  (function(){
+      var ut_id = "mht-hab-priors-20151221a";
+      if (UTWorkerLimitReached(ut_id)) {
+        $('.slide').empty();
+        repeatWorker = true;
+        alert("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
+      }
+  })();
+
   exp.trials = [];
   exp.catch_trials = [];
   exp.stimuli = _.shuffle(stimuli);
@@ -196,7 +211,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=[ "single_trial","i0", "instructions","catch", 'subj_info', 'thanks'];
+  exp.structure=[ "i0", "instructions","catch", "single_trial", 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:
