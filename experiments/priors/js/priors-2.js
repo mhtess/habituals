@@ -68,10 +68,12 @@ function make_slides(f) {
 
       $("#frequency_a").val('year')
       $("#frequency_b").val('year')
+
       $(".err").hide();
+
       var menQ = "How many American men do you think have <strong>" + stim.past + "</strong> before?<br>"
       var womenQ =  "How many American women do you think have <strong>" + stim.past + "</strong> before?<br>"
-      var menQ2 = "For a typical man who has " + stim.past + "before, how frequently does he <strong>" + stim.present + "</strong>?"
+      var menQ2 = "For a typical man who has " + stim.past + " before, how frequently does he <strong>" + stim.present + "</strong>?"
       var womenQ2 = "For a typical woman who has " + stim.past + " before, how frequently does she <strong>" + stim.present + "</strong>?"
 
       if (exp.womenFirst) {
@@ -86,11 +88,6 @@ function make_slides(f) {
           $(".question2b").html(womenQ2)
       }
 
-
-      // $(".question2a").html();
-      // this.init_sliders();
-      // $(".slider_number").html("---")
-      // exp.sliderPost = null; //erase current slider value
     },
 
     init_sliders : function() {
@@ -115,15 +112,26 @@ function make_slides(f) {
     },
 
     log_responses : function() {
-      response = $("#text_response").val();
-      freq = $("#frequency").val();
+      responses = [$("#text_response_a").val(),
+                   $("#text_response_b").val(),
+                    $("#n_people_a").val(),
+                     $("#n_people_b").val()]
+                     debugger;
+      var m = exp.womenFirst ? "b" : "a"
+      var f = exp.womenFirst ? "a" : "b"
       exp.data_trials.push({
         "trial_type" : "twostep_elicitation",
-        "trial_num": this.trialNum,
-        "item": this.stim.item,
-        "category": this.stim.type,
-        "existence" : exp.sliderPost,
-        "nTimes" : response,
+        "trial_num": this.trialNum+1,
+        "item": this.stim.habitual,
+        "category": this.stim.category,
+        "nPersons_women" :  $("#n_people_"+f).val(),
+        "nPersons_men" : $("#n_people_"+m).val(),
+        "comparisonNum_women" $("#comparison_"+f).val(),
+        "comparisonNum_men" : $("#comparison_"+m).val(),
+        "nInstances_women" : $("#text_response_"+f).val(),
+        "nInstances_men" : $("#text_response_"+m).val(),
+        "comparisonTime_women" : $("#frequency_"+f).val(),
+        "comparisonTime_men" : $("#frequency_"+m).val(),
         "timeWindow": freq,
         "rt":this.rt
       });
@@ -173,6 +181,7 @@ function init() {
   exp.catch_trials = [];
   exp.stimuli = _.shuffle(stimuli);
   exp.n_trials = stimuli.length
+
   exp.womenFirst = _.sample([true, false])
   // debugger;
   exp.stimscopy = exp.stimuli.slice(0);
