@@ -36,6 +36,64 @@ Item |
 19. Walks to work | 
 20. Worries about things |
 
+
+
+### Prior 2
+
+2 questions:
+
+1. N out of every M (default to 1000) Americans has done X before.
+2. For the typical **man or boy**, **woman or girl** who has done X before, how frequently does **he/she** do X? (default to year)
+
+31 items:
+
+Category | Item | 
+---- | ----------|
+Hobby | 1. Hikes | 
+| 2. Runs | 
+| 3. Plays the banjo | 
+| 4. Plays tennis |
+| 5. Climbs mountains| | 
+Clothing | 6. Wears a suit | 
+| 7. Wears a bra | 
+| 8. Wears slacks | 
+| 9. Wears socks | 
+| 10. Wears a watch | 
+Work | 11. Writes novels | 
+| 12. Writes poems | 
+| 13. Sells things on eBay | 
+| 14. Sells companies | 
+| 15. Steals cars| 
+| 16. Steals chewing gum| 
+| 17. Volunteers for soup kitchens |
+| 18. Volunteers for political campaigns |
+Entertainment | 19. Goes to the movies | 
+| 20. Goes to the opera | 
+| 21. Watches professional football |
+| 22. Watches space launches | 
+| 23. Listens to Pandora | 
+| 24. Listens to live music | 
+Food | 25. Eats peanut butter | 
+| 26. Eats caviar | 
+| 27. Drinks beer |
+| 28. Drinks coffee | 
+| 29. Smokes cigarettes | 
+| 30. Smokes marijuana | 
+| 31. Does cocaine | 
+
+
+Results:
+
+Overall quite good. Good variability.
+Clothing is surprisingly homogeneous besides bra and suit (maybe "wears a hat" would have been slightly better than "wears a watch").
+
+Women write poetry more frequently than men.
+
+Default time window of 1 year might have interesting effects (e.g. on smoking, which if given the time window of a day, would be quite different)
+
+Also, might include control trials (votes in every presidential election: 4 years)
+
+
 ## Truth judgments (S2 task)
 
 ### TJ1
@@ -96,3 +154,65 @@ Thoughts:
 
 *Vacations in Switzerland* and *eats granola for breakfast* may be refocus the contrast class to *other places to vacation* and *other things to eat for breakfast*. 
 
+
+### TJ2
+
+12/ 20/ 15
+
+	Frequency levels in times / year -- 
+
+Frequency level | Log freq | Natural language version
+---- | ------------------
+0.6 | -0.2 | 3 times in the past 5 years
+3 | 0.5  | 3 times in the past year 
+36 | 1.5 | 3 times in the past month
+156 | 2.2 | 3 times in the past week
+
+Category | Item | levels
+---- | ----------| --------
+Hobby | 1. Hikes | | 
+| 2. Runs | | 
+| 3. Plays the banjo | | 
+| 4. Plays tennis || 
+| 5. Climbs mountains| | 
+Clothing | 6. Wears a suit | | 
+| 7. Wears a bra | | 
+| 8. Wears slacks | | 
+| 9. Wears socks | | 
+| 10. Wears a watch | | 
+Work | 11. Writes novels | | 
+| 12. Writes poems | | 
+| 13. Sells things on eBay | | 
+| 14. Sells companies | | 
+| 15. Steals cars| | 
+| 16. Steals chewing gum| | 
+| 17. Volunteers for soup kitchens | | 
+| 18. Volunteers for political campaigns | | 
+Entertainment | 19. Goes to the movies | | 
+| 20. Goes to the opera | | 
+| 21. Watches professional football | | 
+| 22. Watches space launches | | 
+| 23. Listens to Pandora | | 
+| 24. Listens to live music | | 
+Food | 25. Eats peanut butter | | 
+| 26. Eats caviar | | 
+| 27. Drinks beer | | 
+| 28. Drinks coffee | | 
+| 29. Smokes cigarettes | | 
+| 30. Smokes marijuana | | 
+| 31. Does cocaine | | 
+
+**Clothing presented with both male and female characters, for each participant
+
+Details
+
++ 36 items / participant.
++ Each item randomly assigned to a frequency level (one of the 4 above), though not all frequency levels were used for each item because *a priori* they seemed uninformative
+
+Task took me 4m. Paying $0.50.
+
+n = 165
+
+cost = 165 * 0.5 = $82.5 + $16.5 = $99
+
+or, n = 150 and pay 0.55
