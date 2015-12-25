@@ -51,6 +51,17 @@ table(filter(d,timeWindow=='life')$nTimes)
 
 Just two responses were like this. All of the others said once in a life time. 
 
+#### Preferred timeWindow
+
+Here, I'm wondering for each item, what was the participant's preferred time window of response? I will use this to guide the default setting of interval for prior-2
+
+```{r}
+
+
+table( d$item,d$timeWindow)
+```
+
+
 Let's scale the data so that we're all the responses are on the same scale.
 We'll see that a life time = 80 years, and scale everything to the year scale.
 
@@ -58,11 +69,18 @@ We'll see that a life time = 80 years, and scale everything to the year scale.
 ```{r}
 scaleTime <- list(
   day = 365,
+  ## day is ambiguous between work-day and day of the week
   week = 52,
   month = 12,
   year = 1,
   life = 1/80
 )
+
+d[(d$item=='drives to work' & d$timeWindow=='day'),]$nTimes <- d[(d$item=='drives to work' & d$timeWindow=='day'),]$nTimes * 5
+d[(d$item=='drives to work' & d$timeWindow=='day'),]$timeWindow <- "week"
+
+d[(d$item=='bikes to work' & d$timeWindow=='day'),]$nTimes <- d[(d$item=='bikes to work' & d$timeWindow=='day'),]$nTimes * 5
+d[(d$item=='bikes to work' & d$timeWindow=='day'),]$timeWindow <- "week"
 
 d.tidy<-d %>% 
   mutate(timeWindow = as.character(timeWindow)) %>%
@@ -81,11 +99,11 @@ items <- levels(factor(d.out$item))
 
 for (i in items){
   d.item <- d.out %>% filter(item==i)
-  quantile(d.item$frequency, probs = seq(0,1,0.1))
+  print(i)
+  print(quantile(d.item$frequency, probs = seq(0,1,0.1)))
 }
-
-#write.csv(d.out, 
-#          file="~/Documents/research/habituals/models/priors/data/prior1.csv",
+# write.csv(d.out, 
+#          file="~/Documents/research/habituals/models/priors/data/prior1_workday-for-work.csv",
 #          row.names=F)
 ```
 
@@ -93,26 +111,48 @@ for (i in items){
 % of Americans 
 ```{r}
 fig.path <- "~/Documents/research/habituals/analysis/figures/"
-ggplot(d.tidy, aes(x=existence))+
+
+used.in.tj<- c("bikes to work",
+               "drinks beer",
+               "drives to work",
+               "eats granola for breakfast",
+               "hikes",
+               "plays computer games",
+               "runs",
+               "smokes",
+               "steals cars",
+               "vacations in Switzerland",
+               "writes novels",
+               "writes poems")
+
+ggplot(d.tidy %>% filter(item%in%used.in.tj), aes(x=existence))+
   geom_histogram(binwidth=0.03)+
   #geom_density()+
   facet_wrap(~item, scales='fixed')+
   xlab("% of Americans who ___")
 
-#ggsave(paste(fig.path, "existentialQ-histogram-priors1.pdf", sep=""))
+
+fig.path <- "~/Documents/research/habituals/talks/lab-mtg-120115/images/"
+ggsave(paste(fig.path, "existentialQ-histogram-priors1.pdf", sep=""))
 ```
 
 How often?
 
 ```{r}
-ggplot(d.out, aes(x=logFreq))+
-  geom_histogram()+
+ggplot(d.out %>% filter(item %in% used.in.tj), aes(x=logFreq))+
+  geom_histogram(binwidth=0.5)+
   facet_wrap(~item, scales='fixed')+
-  xlab("frequency (times per year)")+
-  xlim(-15,15)
+  xlab("log frequency (times per year)")+
+  xlim(-10,10)
 
-ggsave(paste(fig.path, "frequencyQ-log-histogram-priors1.pdf", sep=""),
-       width =14, height = 6)
+ggplot(d.out %>% filter(item %in% used.in.tj), aes(x=frequency))+
+  geom_histogram()+
+  facet_wrap(~item, scales='free')+
+  xlab("frequency (times per year)")
+
+
+
+ggsave(paste(fig.path, "frequencyQ-log-histogram-priors1.pdf", sep=""))
 
 #View(d.tidy)
 
@@ -151,4 +191,66 @@ ggsave(paste(fig.path, "priors1-scatter-text-sansSmoking.pdf", sep=""), width = 
 with(d.stats %>% filter(item!='smokes'), cor(freq, exist))
 
 
+```
+
+
+# Prior elicitation 2
+
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/priors/priors-2.csv")
+# everyone passed the catch trial
+```
+
+
+```{r}
+d.tidy <- d %>%
+  select(workerid, category, item, ends_with("_men"), ends_with("_women"))
+
+d.tidy[is.na(d.tidy)]<-1825 #once every 5 years
+
+d.existence<- d.tidy %>%
+  select(category, item, effectiveExistence_men, effectiveExistence_women) %>%
+  gather(key, val, -category, -item)
+
+
+ggplot(d.existence, aes(x=val, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item)
+
+d.exist.summary<- d.existence %>%
+  group_by(item, key) %>%
+  multi_boot_standard(column="val")
+
+ggplot(d.exist.summary, aes(x=item, y=mean, fill=key))+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  geom_bar(stat='identity', position=position_dodge())+
+  coord_flip()
+```
+
+
+
+```{r}
+
+
+
+d.wait<- d.tidy %>%
+  select(category, item, effectiveDayWait_men, effectiveDayWait_women) %>%
+  gather(key, val, -category, -item)
+
+ggplot(d.wait, aes(x=val, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item)+
+  xlim(0,500)
+
+d.wait.summary<- d.wait %>%
+  group_by(item, key, category) %>%
+  multi_boot_standard(column="val")
+
+ggplot(d.wait.summary, aes(x=item, y=mean, fill=key))+
+  geom_hline(yintercept=365, lty=3)+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  geom_bar(stat='identity', position=position_dodge())+
+  facet_wrap(~category)+
+  coord_flip()
 ```
