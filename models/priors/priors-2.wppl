@@ -1,0 +1,107 @@
+// time webppl priors-2.wppl --require mht --require habutils
+
+var fpath = "/Users/mht/Documents/research/habituals/models/priors/data/"
+var existData = mht.readCSV(fpath+"prior2-existence.csv").data
+var waitData = mht.readCSV(fpath+"prior2-logWait.csv").data
+
+var df_e = dataFrame(existData, ["val"])
+var df_w = dataFrame(waitData, ["val"])
+
+var items = _.uniq(_.pluck(df_e, "item"))
+var genders = _.uniq(_.pluck(df_e, "gender"))
+
+var existentialModel = function(){
+
+	foreach(items, function(i){
+
+		var itemData = subset(df_e, "item", i)
+
+		foreach(genders, function(g){
+
+			var genderData = subset(itemData, "gender", g)
+
+			// % of Americans question
+			var gamma = uniform(0,1)
+			var delta = uniform(0,50)
+
+			var scr = sum(map(function(d){
+				return betaERP.score([shape_alpha(gamma,delta),
+										shape_beta(gamma,delta)], avoidEnds(d))
+			}, _.pluck(genderData, "val")))
+
+			factor(scr)
+
+			query.add(["existence","gamma", i, g], gamma)
+			query.add(["existence","delta", i, g], delta)
+
+			var predictive = beta(shape_alpha(gamma,delta), shape_beta(gamma,delta))
+			query.add(["existence","predictive", i, g], predictive)
+							
+
+		})
+																						
+	})
+	return query
+}
+
+
+var frequencyModel = function(){
+
+	foreach(items, function(i){
+
+		var itemData = subset(df_e, "item", i)
+
+		foreach(genders, function(g){
+
+			var genderData = subset(itemData, "gender", g)
+			// frequency
+			var mu = uniform(-10,10)
+			var sigma = uniform(0,20)
+
+			// var mix = uniform(0,1)
+			// var mu2 = gaussian(0,50)
+			// var sigma2 = uniform(0,20)
+
+
+			// var scr = sum(map(function(d){
+			// 	return Math.log(mix*Math.exp(gaussianERP.score([mu, sigma], d)) + 
+			// 		(1-mix)*Math.exp(gaussianERP.score([mu2, sigma2], d)))
+			// }, _.pluck(itemData, "logFreq")))
+
+			var scr = sum(map(function(d){
+				return gaussianERP.score([mu, sigma], d)
+			}, _.pluck(genderData, "val")))
+
+			factor(scr)
+
+			query.add(["frequency","mu", i, g], mu)
+			query.add(["frequency","sigma", i, g], sigma)
+
+			// query.add(["frequency","mu2", i], mu2)
+			// query.add(["frequency","sigma2", i], sigma2)
+			// query.add(["frequency","mix", i], mix)
+			// var predictive = flip(mix) ? gaussian(mu, sigma) : gaussian(mu2, sigma2)
+			
+			var predictive = gaussian(mu, sigma)
+			query.add(["frequency","predictive", i, g], predictive)
+
+		})
+	})
+
+	return query
+}
+var samples = 10000
+var burn = samples/2
+var header = "Measure,Parameter,Item,Gender,Value"
+
+var existenceERP = IncrementalMH(existentialModel, samples, {burn:burn, verbose:true, verboseLag: samples/20})
+console.log("------Existence inference complete------")
+var outfile1 = "results/priors2-existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+habutils.erpWriter(existenceERP, outfile1, header)
+console.log("__Written to " + outfile1)
+
+var frequencyERP = IncrementalMH(frequencyModel, samples, {burn:burn, verbose:true, verboseLag: samples/20})
+console.log("------Frequency inference complete------")
+var outfile2 = "results/waitQ-logNormalModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+habutils.erpWriter(frequencyERP, outfile2, header)
+console.log("__Written to " + outfile2)
