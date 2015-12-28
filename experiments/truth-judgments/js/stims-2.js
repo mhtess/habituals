@@ -3,62 +3,62 @@ var stimuli = [
 	habitual: "hikes",
 	past: "hiked",
 	category: "hobby",
-	frequency: ["year","month","week"]
+	frequency: ["2 years","year","2 months","week"]
 },
 {
 	habitual: "runs",
 	past: "ran",
 	category: "hobby",
-	frequency: ["year","month","week"]
+	frequency: ["2 years","year","2 months","week"]
 },
 {
 	habitual: "plays the banjo",
 	past: "played the banjo",
 	category: "hobby",
-	frequency: ["year"," month","week"]
+	frequency: ["5 years","2 years","year"]
 },
 {
 	habitual: "plays tennis",
 	past: "played tennis",
 	category: "hobby",
-	frequency: ["year","month","week"]
+	frequency: ["5 years","2 years","year"]
 },
 {
 	habitual: "climbs mountains",
 	past: "climbed mountains",
 	category: "hobby",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years","2 years","year"]
 },
 {
 	habitual: "wears a suit",
 	past: "wore a suit",
 	category: "clothing",
-	frequency: ["year","month","week"]
+	frequency: ["2 months","month","week"]
 },
 {
 	habitual: "wears a bra",
 	past: "wore a bra",
 	category: "clothing",
-	frequency: ["year", "month","week"]
+	frequency: ["2 months","month","week"]
 },
 {
 	habitual: "wears slacks",
 	past: "wore slacks",
 	category: "clothing",
-	frequency: ["year", "month","week"]
+	frequency: ["2 months","month","week"]
 },
 {
 	habitual: "wears socks",
 	past: "wore socks",
 	category: "clothing",
-	frequency: ["month","week"]
+	frequency: ["2 months","month","week"]
 },
-{
-	habitual: "wears a hat",
-	past: "wore a hat",
-	category: "clothing",
-	frequency: ["month","week"]	
-},
+// {
+// 	habitual: "wears a hat",
+// 	past: "wore a hat",
+// 	category: "clothing",
+// 	frequency: ["2 months","month","week"]
+// },
 // {
 // 	habitual: "wears gloves",
 // 	past: "wore gloves",
@@ -75,79 +75,79 @@ var stimuli = [
 	habitual: "wears a watch",
 	past: "wore a watch",
 	category: "clothing",
-	frequency: ["month","week"]
+	frequency: ["2 months","month","week"]
 },
 {
 	habitual: "writes novels",
 	past: "wrote a novel",
 	category: "employment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year"]
 },
 {
 	habitual: "writes poems",
 	past: "wrote a poem",
 	category: "employment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year"]
 },
 {
-	habitual: "sell things on eBay",
+	habitual: "sells things on eBay",
 	past: "sold something on eBay",
 	category: "employment",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year"]
 },
 {
 	habitual: "sells companies",
 	past: "sold a company",
 	category: "employment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year"]
 },
 {
 	habitual: "steals cars",
 	past: "stole a car",
 	category: "employment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year", "month"]
 },
 {
 	habitual: "steals chewing gum",
 	past: "stole chewing gum",
 	category: "employment",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year", "month"]
 },
 {
 	habitual: "volunteers for soup kitchens",
 	past: "volunteered for a soup kitchen",
 	category: "employment",
-	frequency: ["5 years", "year","month", "week"]	
+	frequency: ["5 years", "year"]	
 },
 {
-	habitual: "volunteers for congressional campaigns",
-	past: "volunteered for a congressional campaign",
+	habitual: "volunteers for political campaigns",
+	past: "volunteered for a political campaign",
 	category: "employment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year"]
 },
 {
 	habitual: "goes to the movies",
 	past: "went to the movies",
 	category: "entertainment",
-	frequency: ["year","month", "week"]
+	frequency: ["2 years","year","month"]
 },
 {
 	habitual: "goes to the ballet",
 	past: "went to the ballet",
 	category: "entertainment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["2 years","year","month"]
 },
 {
 	habitual: "watches professional football",
 	past: "watched professional football",
 	category: "entertainment",
-	frequency: ["year","month", "week"]
+	frequency: ["2 years","year","month"]
 },
 {
 	habitual: "watches space launches",
 	past: "watched space launches",
 	category: "entertainment",
-	frequency: ["5 years", "year","month"]
+	frequency: ["2 years", "year","month"]
 },
 {
 	habitual: "listens to Pandora",
@@ -165,19 +165,19 @@ var stimuli = [
 	habitual: "listens to live music",
 	past: "listened to live music",
 	category: "entertainment",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["year","month", "week"]
 },
 {
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
 	category: "food",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year","month"]
 },
 {
 	habitual: "eats caviar",
 	past: "ate caviar",
 	category: "food",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year","month"]
 },
 // {
 // 	habitual: "eats cereal",
@@ -207,13 +207,13 @@ var stimuli = [
 	habitual: "drinks beer",
 	past: "drank beer",
 	category: "food",
-	frequency: ["year","month", "week"]
+	frequency: ["month", "2 weeks","week"]
 },
 {
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	category: "food",
-	frequency: ["year","month", "week"]
+	frequency: ["month", "2 weeks","week"]
 }];
 
 

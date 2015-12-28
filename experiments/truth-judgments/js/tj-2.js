@@ -173,7 +173,7 @@ function init() {
 
   repeatWorker = false;
   (function(){
-      var ut_id = "mht-habituals-20151220a";
+      var ut_id = "mht-habituals-20151229a";
       if (UTWorkerLimitReached(ut_id)) {
         $('.slide').empty();
         repeatWorker = true;
@@ -196,7 +196,10 @@ function init() {
     return utils.fillArray(c, stimuli.length/timeConditions.length)
   }))
 
-  var nBothGender = _.filter(stimuli, function(s){return s.category == "clothing"}).length
+  var bothGenders = [ "drinks beer","drinks coffee", "wears socks","wears a bra",
+  "wears a suit", "does cocaine"]
+  // debugger;
+  var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
 
   var shuffledMen = _.shuffle(maleCharacters)
   var someMen = shuffledMen.splice(0,nBothGender)
@@ -206,13 +209,12 @@ function init() {
 
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
 
-
-
   var stimsWNames =  _.flatten(_.map(stimuli, function(s){
     var newObj = jQuery.extend(true, {}, s);
-    return s.category != "clothing" ? _.extend(s, {character: allGenders.pop()}) :
-    [_.extendOwn(s, {character: someMen.pop()}), 
-     _.extendOwn(newObj, {character: someWomen.pop()})]
+    return !(_.contains(bothGenders,s.habitual)) ? 
+    _.extend(s, {character: allGenders.pop()}) :
+      [_.extendOwn(s, {character: someMen.pop()}), 
+      _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true)
 
   // debugger;
