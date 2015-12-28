@@ -70,10 +70,9 @@ events; generics; pragmatics
 
 \section{Introduction}
 
-Generics sentences (e.g. \emph{Swans are white.}) describe generalizations about categories and are believed to be central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}.
-Habitual sentences (e.g. \emph{Bill smokes.}) make generalizations about events and believed to behave like generics \cite{Carlson2005}.
-
-Generic sentences have received a lot of attention from psychologists, linguists, and philosophers and yet surprisingly little empirical work has looked into the basic inferences that are made from habitual sentences.
+Habitual sentences (e.g. \emph{Bill smokes.}) describe generalizations about events are believed to behave like generic sentences (e.g. \emph{Swans are white.}) which convey generalizations about categories \cite{Carlson2005}.
+Generics are central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}, and have received a lot of attention from psychologists, linguists, and philosophers.
+Yet surprisingly little empirical work has looked into the basic inferences that are made from habitual sentences.
 
 A recent theory of generic language posits a simple, basic meaning of a generic based on the property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic communicative principles \cite{TesslerUnderReview}.
 
@@ -121,29 +120,60 @@ We used an adapted version of the computational model presented by \citeA{Tessle
 
 \subsection{Expt.~1a: prior elicitation}
 
-\citeA{TesslerUnderReview} found that participants' beliefs about the prevalence of a property is structured as the result of a mixture distribution of kinds with the potential to have the property present and kinds that lack the potential to have the property present.
+\citeA{TesslerUnderReview} found that participants' beliefs about the prevalence of a property is structured as the result of a mixture distribution composed of kinds with the potential to have the property present and kinds that lack the potential to have the property present.
 The prior distribution, thus, is modeled as a mixture distribution between these two possibilities \cite{Griffiths2005}, similar in spirit to Hurdle Models of epidemiological data \cite{hurdleModels}.
 
 Here, we explore this hypothesis with respect to participants beliefs about the frequency with which people partake in various events or actions.
 
 
 \subsubsection{Participants}
-We recruited \red{N} participants from Amazon's Mechanical Turk.
+We recruited 40 participants from Amazon's Mechanical Turk.
 Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
-The experiment took on average \red{N} minutes and participants were compensated \red{\$xx} for their work.
+The experiment took on average 12 minutes and participants were compensated \$1.25 for their work.
 
 \subsubsection{Procedure}
 
-On each trial, participants were asked two questions about an event (e.g. \emph{biking to work}):
-(1) One out of every X people has \emph{biked to work} before.
-(2) For a typical person who has done \emph{biked to work} before, how frequently does he or she do \emph{bike to work}? 
+For each event, participants were asked two questions:
+\begin{enumerate}
+\item X out of every 1000 \{men, women\} has \textsc{done action} before.
+\item For a typical \{man, woman\} who has \textsc{done action} before, how frequently does he or she \textsc{do action}? 
+\end{enumerate}
+
+Question (1) had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
+Question (2) had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years.
+We expected there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total, order of male / female randomized between-subjects).
+The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/priors/priors-2.html}.
 
 \subsubsection{Materials}
 
-Events were chosen to intutively cover a range of likely frequencies of action. 
-Judgments were obtained for N items, of which each participants saw a random selection of N. 
+We used 31 events from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
+Items chosen to intuitively cover a range of likely frequencies of action, as well as a minimal comparison event. 
 
-\subsubsection{Behavioral results}
+
+\subsubsection{Data analysis and results}
+
+We modeled the data from question (1) by taking the relative frequency and assuming that came from a Beta distribution. Question (2) was modeled by a log-normal distribution. 
+\begin{minipage}{0.5 \textwidth} \small
+\begin{align*}
+d_{1} &\sim \text{Beta}(\gamma_{1}, \xi_{1}) \\
+\ln d_{2} &\sim \text{Gaussian}(\mu_{2}, \sigma_{2}) \\
+\end{align*}
+\end{minipage}
+
+The posterior predictives reconstructed the data well ($r^2_{1} = 0.86; r^2_{2} = 0.68$).
+
+
+\begin{minipage}{0.5 \textwidth} \small
+\begin{align*}
+\theta & \sim \text{Beta}(\gamma_{1}, \xi_{1}) \\ 
+\ln x & \sim \begin{cases} 
+		\text{Gaussian}(\mu_{2}, \sigma_{2}) &\mbox{if } \text{Bernoulli}(\theta) = \textsc{t} \\
+				\delta_{x=\infty} &\mbox{if } \text{Bernoulli}(\theta) = \textsc{f} \\
+		\end{cases} \\
+\end{align*}
+\end{minipage}
+
+
 
 \subsection{Expt.~2a: felicity judgments}
 \subsubsection{Participants}
