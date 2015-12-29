@@ -33,25 +33,25 @@ var stimuli = [
 	habitual: "wears a suit",
 	past: "wore a suit",
 	category: "clothing",
-	frequency: ["2 months","month","week"]
+	frequency: ["6 months","month","week"]
 },
 {
 	habitual: "wears a bra",
 	past: "wore a bra",
 	category: "clothing",
-	frequency: ["2 months","month","week"]
+	frequency: ["6 months","month","week"]
 },
 {
 	habitual: "wears slacks",
 	past: "wore slacks",
 	category: "clothing",
-	frequency: ["2 months","month","week"]
+	frequency: ["6 months","month","week"]
 },
 {
 	habitual: "wears socks",
 	past: "wore socks",
 	category: "clothing",
-	frequency: ["2 months","month","week"]
+	frequency: ["6 months","month","week"]
 },
 // {
 // 	habitual: "wears a hat",
@@ -75,7 +75,7 @@ var stimuli = [
 	habitual: "wears a watch",
 	past: "wore a watch",
 	category: "clothing",
-	frequency: ["2 months","month","week"]
+	frequency: ["6 months","month","week"]
 },
 {
 	habitual: "writes novels",
@@ -207,13 +207,13 @@ var stimuli = [
 	habitual: "drinks beer",
 	past: "drank beer",
 	category: "food",
-	frequency: ["month", "2 weeks","week"]
+	frequency: ["year","month", "2 weeks","week"]
 },
 {
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	category: "food",
-	frequency: ["month", "2 weeks","week"]
+	frequency: ["year","month", "2 weeks","week"]
 }];
 
 
