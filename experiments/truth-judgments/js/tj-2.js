@@ -173,7 +173,7 @@ function init() {
 
   repeatWorker = false;
   (function(){
-      var ut_id = "mht-habituals-20151229a";
+      var ut_id = "mht-habituals-20151229";
       if (UTWorkerLimitReached(ut_id)) {
         $('.slide').empty();
         repeatWorker = true;
@@ -196,7 +196,7 @@ function init() {
     return utils.fillArray(c, stimuli.length/timeConditions.length)
   }))
 
-  var bothGenders = [ "drinks beer","drinks coffee", "wears socks","wears a bra",
+  var bothGenders = ["drinks beer","drinks coffee", "wears socks","wears a bra",
   "wears a suit", "does cocaine"]
   // debugger;
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
