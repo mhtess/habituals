@@ -1,0 +1,153 @@
+---
+title: "habitual-inferExpt"
+author: "mht"
+date: "December 26, 2015"
+output: html_document
+---
+
+
+```{r}
+library(data.table)
+library(coda)
+estimate_mode <- function(s) {
+  d <- density(s)
+  return(d$x[which.max(d$y)])
+}
+HPDhi<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","upper"])
+}
+HPDlo<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","lower"])
+}
+options("scipen"=10)   
+```
+
+
+
+
+```{r tj1.model.load}
+filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
+prefix <- "inferExpt-justmed-truthJudge-RSA-so-phi-IncrMH"
+samples <- 50000
+burn <- samples / 2
+priorsamples <- 50000
+priorburn <- priorsamples / 2
+m<-read.csv(paste(filePath, prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k_prior-joint",
+                   priorsamples/1000, "k_burn",
+                   priorburn/1000,
+                   "k_discBins10b.csv",sep=""))
+#m<- bind_rows(m,m1)
+m.samples <- m[rep(row.names(m), m$Probability*(2*samples-burn)), 1:5]
+```
+
+
+```{r speakOpt}
+m.params <- m.samples %>% filter(Type =='parameter' & !(Level %in% c("low", "med", "high")))
+qplot(data=m.params, x= Value, geom='histogram')+
+  facet_wrap(~Level)
+```
+
+
+```{r inferredExpt}
+
+m.design <- m.samples %>% filter(Type =='parameter' & 
+                                   (Level %in% c("low", "med", "high"))) %>%
+  mutate(Level = factor(Level, levels = c('low','med', 'high')))
+
+ggplot(m.design, aes(x= exp(Value), fill=Level))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(Item~Gender)
+
+
+m.stats<-m.design %>%
+  group_by(Item) %>%
+  summarize(MAP = estimate_mode(exp(Value)),
+            credHigh = HPDhi(exp(Value)),
+            credLow = HPDlo(exp(Value)))
+
+View(m.stats)
+```
+
+
+```{r predicted.scatter}
+m.pred <- m.samples %>% filter(Type == 'predictive')
+
+m.predStats <- m.pred %>%
+  group_by(Item, Gender, Level) %>%
+  summarise(MAP = estimate_mode(Value),
+            credHigh = HPDhi(Value),
+            credLow = HPDlo(Value))
+
+madeUpData <- data.frame(
+  Level = c("low", "med", "high"),
+  mean = c(0.05, 0.5, 0.95)
+)
+
+m.d<- left_join(m.predStats, madeUpData)
+# m.d<- mutate(m.d, 
+#              freqLevel = factor(freqLevel, levels =c("high", "medium", "low")) )
+
+ggplot(m.d, aes(x=MAP, y = mean, color=Level))+
+  geom_point(size=4)+
+  geom_abline(intercept = 0, slope = 1, lty = 2)+
+  geom_errorbarh(aes(xmin=credLow, xmax = credHigh))+
+  xlim(-0.05,1.05)+
+  ylim(-0.05,1.05)+
+  coord_fixed()
+
+
+#ggsave("~/Documents/research/habituals/talks/lab-mtg-120115/images/tj1-md-scatter-3colors.pdf")
+
+
+m.d <- m.d %>%
+  mutate(sqerr = (MAP-mean)^2)
+
+with(m.d, cor(MAP, mean, use="pairwise.complete.obs"))^2
+
+with(m.d %>% filter(habitual!="vacations in Switzerland"), 
+     cor(MAP, mean, use="pairwise.complete.obs"))^2
+```
+
+
+
+## Explore experimental space
+
+```{r}
+
+filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
+prefix <- "exploreExpts-truthJudge-RSA_"
+priorsamples <- 50000
+priorburn <- priorsamples / 2
+m<-read.csv(paste(filePath, prefix,
+                  "prior-samples-joint",
+                   priorsamples/1000, "k_burn",
+                   priorburn/1000, "k.csv",sep=""))
+
+```
+
+
+```{r}
+
+ggplot(m, aes(x=Level, y = Value, color=Gender, group=Gender))+
+  geom_point()+
+  geom_line()+
+  facet_grid(Type~Item)
+
+
+
+
+ggplot(m %>% filter(Type==5), 
+       aes(x=Level, y = Value, color=Gender, group=Gender))+
+  geom_point()+
+  geom_line()+
+  facet_wrap(~Item)
+
+
+ggsave(paste("~/Documents/research/habituals/models/truthjudgement/results/",
+             prefix, "so5-prior100kMAP.pdf", sep=""), width = 15, height = 9)
+
+```

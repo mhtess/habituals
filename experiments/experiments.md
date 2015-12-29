@@ -157,9 +157,9 @@ Thoughts:
 
 ### TJ2
 
-12/ 20/ 15
+12/29/15
 
-	Frequency levels in times / year -- 
+Frequency levels in times / year -- 
 
 Frequency level | Log freq | Natural language version
 ---- | ------------------
@@ -168,6 +168,19 @@ Frequency level | Log freq | Natural language version
 36 | 1.5 | 3 times in the past month
 156 | 2.2 | 3 times in the past week
 
+
+Interval times in days -- 
+
+Frequency level | Log freq | Natural language version
+---- | ------------------
+2.3 | 0.85 | 3 times in the past week
+10 | 2.3 | 3 times in the past month
+121.7 | 4.8  | 3 times in the past year 
+608.3 | 6.4 | 3 times in the past 5 years
+
+
+Each item assigned some fixed interval to explore as much variance as possible.
+
 Category | Item | levels
 ---- | ----------| --------
 Hobby | 1. Hikes | | 
@@ -175,10 +188,10 @@ Hobby | 1. Hikes | |
 | 3. Plays the banjo | | 
 | 4. Plays tennis || 
 | 5. Climbs mountains| | 
-Clothing | 6. Wears a suit | | 
-| 7. Wears a bra | | 
+Clothing | 6*. Wears a suit | | 
+| 7*. Wears a bra | | 
 | 8. Wears slacks | | 
-| 9. Wears socks | | 
+| 9*. Wears socks | | 
 | 10. Wears a watch | | 
 Work | 11. Writes novels | | 
 | 12. Writes poems | | 
@@ -196,23 +209,21 @@ Entertainment | 19. Goes to the movies | |
 | 24. Listens to live music | | 
 Food | 25. Eats peanut butter | | 
 | 26. Eats caviar | | 
-| 27. Drinks beer | | 
-| 28. Drinks coffee | | 
+| 27*. Drinks beer | | 
+| 28*. Drinks coffee | | 
 | 29. Smokes cigarettes | | 
 | 30. Smokes marijuana | | 
-| 31. Does cocaine | | 
+| 31*. Does cocaine | | 
 
-**Clothing presented with both male and female characters, for each participant
+*Items presented with both male and female characters, for each participant
 
 Details
 
-+ 36 items / participant.
++ 37 items / participant.
 + Each item randomly assigned to a frequency level (one of the 4 above), though not all frequency levels were used for each item because *a priori* they seemed uninformative
 
-Task took me 4m. Paying $0.50.
+Task took me 5m. Paying $0.55.
 
-n = 165
+n = 150
 
-cost = 165 * 0.5 = $82.5 + $16.5 = $99
-
-or, n = 150 and pay 0.55
+cost = 150 * 0.55 = $82.5 + $16.5 = $99
