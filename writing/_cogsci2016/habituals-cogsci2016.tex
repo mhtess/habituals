@@ -146,22 +146,66 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 \subsubsection{Materials}
 
-We used 31 events from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
-Items chosen to intuitively cover a range of likely frequencies of action, as well as a minimal comparison event. 
-
+We used 31 events organized into minimal pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
+Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item.
 
 \subsubsection{Data analysis and results}
 
-We modeled the data from question (1) by taking the relative frequency and assuming that came from a Beta distribution. Question (2) was modeled by a log-normal distribution. 
+We modeled the data from question (1) as coming from a Beta distribution. 
+Question (2) was modeled by a log-normal distribution. 
+Each item was modeled independently.
+%
 \begin{minipage}{0.5 \textwidth} \small
 \begin{align*}
 d_{1} &\sim \text{Beta}(\gamma_{1}, \xi_{1}) \\
 \ln d_{2} &\sim \text{Gaussian}(\mu_{2}, \sigma_{2}) \\
 \end{align*}
 \end{minipage}
+%
+We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and we learned about the credible values of the parameters and the posterior predictive distributions of the data by running MCMC using a variant of the Metropolis-Hastings algorithm.
+%
+\begin{figure*}[t]
+\centering
+  \includegraphics[width=\textwidth]{prior-scatter-insets}
+  \caption{}
+  \label{fig:priorScatter}
+\end{figure*}
+%
 
-The posterior predictives reconstructed the data well ($r^2_{1} = 0.86; r^2_{2} = 0.68$).
+The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
+We do observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
 
+This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
+The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$); we use these parameterized priors going forward.
+
+
+\subsection{Expt.~1b: felicity judgments}
+\subsubsection{Participants}
+
+We recruited 150 participants from MTurk.
+The experiment took 4 minutes on average on participants were compensated \$0.55 for their work.
+
+\subsubsection{Procedure and materials}
+
+On each trial, participants were presented with a past frequency statement for a given action; the available actions were the same as in Expt. ~1a. 
+The frequency statement was of the form: ``In the past N \{weeks, months, years\}, \textsc{person} has \textsc{done action} 3 times''.
+We kept constant the number of times the action was done (3 times) in order to isolate the effects of the time window. 
+The particular intervals used (number N and window \{weeks, months, years\}) were selected for each item to explore a wide range of predictions of the speaker model (Eq.~\ref{eq:S2}).
+
+Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person does action}''.
+Items for which the priors for men and women varied substantially were presented with both a male and a female name (on different trials). 
+%The model predicts that some items would not exhibit variability in endorsements in given ranges (e.g. if a person stole a car 3 times in the past \emph{week} vs. \emph{month}); we omitted particular intervals when the model predicted non-meaningful differences in endorsements. 
+
+%\subsubsection{Materials}
+
+\subsubsection{Behavioral results}
+
+\subsection{Model fit}
+
+We used the posterior predictive of the prior data (Expt.~1a) as  $P(x)$  in Eq.~\ref{eq:S2} to predict felicity judgments in Expt.~1b.
+We modeled $P(x)$ as a mixture of individuals with the possibility of carrying out the action and those without the possibility of doing it. 
+The mixture component $\theta$ was determined by the frequency of people who had done the action before (Expt.~1a; Question 1, $d_1$). 
+For those with the possibility of doing it, the frequency with which they carried out the action was modeled by a log-normal distribution, with parameters learned from the responses to Question 2. 
 
 \begin{minipage}{0.5 \textwidth} \small
 \begin{align*}
@@ -173,15 +217,9 @@ The posterior predictives reconstructed the data well ($r^2_{1} = 0.86; r^2_{2} 
 \end{align*}
 \end{minipage}
 
-
-
-\subsection{Expt.~2a: felicity judgments}
-\subsubsection{Participants}
-\subsubsection{Procedure}
-\subsubsection{Materials}
-\subsubsection{Behavioral results}
-
-
+Having fit the prior empirically, the model was one parameter -- the speaker optimality parameter in Eq.~\ref{eq:S1}. 
+Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
+We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictives of this model to the empirical data in Expt.~1b.
 
 \section{Experiment 2}
 
