@@ -266,3 +266,154 @@ md.rate<- md.rate %>%
 
 View(md.rate)
 ```
+
+# Scatterplot
+
+```{r}
+categs<-unique(read.csv("~/Documents/research/habituals/data/priors/priors-2.csv") %>%
+  select(item, category) %>%
+  rename(Item = item,
+         Category = category))
+
+```
+
+```{r}
+
+e.stats <- m.params %>%
+  filter(Parameter == 'gamma') %>%
+  group_by(Item, Gender) %>%
+  summarize(eMAP = estimate_mode(Value),
+            ecredHigh = HPDhi(Value),
+            ecredLow = HPDlo(Value))
+  
+
+f.stats <- m2.params %>%
+  filter(Parameter == 'mu') %>%
+  group_by(Item, Gender) %>%
+  summarize(fMAP = estimate_mode(Value),
+            fcredHigh = HPDhi(Value),
+            fcredLow = HPDlo(Value)) 
+
+
+prior.stats<- left_join(left_join(e.stats, f.stats),
+                        categs)
+
+
+
+ggplot(prior.stats, aes(x = eMAP, y = fMAP, color = Category, shape = Gender))+
+  geom_point()+
+  geom_errorbar(aes(ymin = fcredLow, ymax = fcredHigh))+
+  geom_errorbarh(aes(xmin = ecredLow, xmax = ecredHigh))+
+  xlab("% of Americans who have DONE ACTION")+
+  ylab("Log Interval Time of DOING ACTION")+
+  theme_paper()+
+  #scale_color_solarized()
+  scale_color_brewer(palette='Set1')
+
+ggsave("~/Documents/research/habituals/writing/_cogsci2016/figures/prior-scatter.pdf")
+
+```
+
+
+
+## Posterior predictive (the cheap way)
+
+Reconstruct prevalence prior by forward sampling
+
+```{r posterior.predictive.forwardSample}
+
+
+shape1 = function(gamma,delta){return (gamma * delta)}
+shape2= function(gamma,delta){return ((1-gamma) * delta)}
+
+d.samples<-data.frame()
+
+for (i in 1:100){
+
+  d.samp.exis<-m.params %>%
+    group_by(Item, Gender, Parameter) %>%
+    sample_n(1) %>%
+    ungroup() %>%
+    spread(Parameter, Value) %>%
+    mutate(alpha = shape1(gamma,delta),
+           beta = shape2(gamma, delta)) %>%
+    group_by(Item, Gender) %>%
+    mutate(prob_hasF = rbeta(1, alpha, beta)) %>%
+    mutate(hasDoneA = rbinom(1,1,prob_hasF)) %>%
+    select(-gamma, -delta, -Measure)
+
+  
+    d.freq.samp<-m2.params %>%
+    group_by(Item, Gender, Parameter) %>%
+    sample_n(1) %>%
+    ungroup() %>%
+      spread(Parameter, Value) %>%
+      select(-Measure)
+    
+    d.samp <- left_join(d.samp.exis, d.freq.samp)
+  
+  for (k in 1:length(d.samp$Item)){
+    d.iter<-data.frame(
+               Item = d.samp[k,1],
+               Gender = d.samp[k,2],
+               Frequency = if (d.samp[[k,"hasDoneA"]]==1){
+                                rnorm(50, d.samp[[k, "mu"]], 
+                                          d.samp[[k, "sigma"]]
+                                    )
+                                } else {rep(10,50)}
+               )
+    d.samples<-bind_rows(d.samples, d.iter)
+  }
+  
+  if ((i %% 10)==0) { print(i) }
+}
+
+```
+
+
+
+```{r}
+
+
+# d.samples<-d.samples %>%
+#   rowwise() %>%
+#   mutate(Frequency = ifelse(Prevalence==0, 10, Prevalence))
+
+
+for (t in levels(factor(d.samples$Item))){
+  
+ ggplot(d.samples %>% filter(Item == t), 
+         aes(x=Frequency, color = Gender))+
+    geom_density(aes(y=..scaled..), 
+                 size=1, 
+                 alpha = 0.3,
+                 #color ='black',
+                 fill='black')+
+    theme_paper()+
+    scale_color_solarized()+
+    #scale_color_manual(values=c("#bdbdbd","#f0f0f0"))+
+    scale_alpha_manual(values=c(0.6,0.1))+
+    #geom_density(size=1, alpha=0.7)+
+#      geom_errorbarh(data = m.prevTargets %>% filter(Property==t),
+#                     aes(x= map, xmin = credLow, xmax = credHigh,
+#                     y = 1.05), color='#2ca25f', size = 1.1,
+#                     height = 0.1, inherit.aes=F)+
+    scale_linetype_manual(values=c(1,2))+
+    xlab("Log Interval time")+
+    guides(fill=F, alpha=F, linetype=F)+
+    facet_wrap(~Item, scales='free')+
+    scale_x_continuous(limits=c(-1,10), breaks=c(0,2,4,6,8,10))+
+    scale_y_continuous(limits=c(0,1.1), breaks=c(0,0.5,1))+
+    ylab("Scaled density")+
+    theme(strip.text.x=element_text(size=16))+
+    coord_fixed()
+      
+
+ggsave(file=paste('~/Documents/research/habituals/writing/_cogsci2016/figures/interval-priors-',t,'.pdf',sep=''), width=5, height=3.5)
+
+print(t)
+
+}
+
+```
+
