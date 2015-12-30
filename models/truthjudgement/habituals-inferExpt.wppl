@@ -1,29 +1,35 @@
 // time webppl habituals-inferExpt.wppl --require mht --require tjUtils
 
-var align2afc = {
-	"agree-key":"habitual",
-	"disagree-key": "mm"
-}
-
-var prior_samples = 50000
+var prior_samples = 100000
 var prior_burn = prior_samples/2
-var incrOpts = {burn:prior_burn, verbose:true, verboseLag: prior_samples/10}
-
+var incrOpts = {burn:prior_burn, verbose:true, verboseLag: prior_samples/100}
+// incrOpts
 var priorERP = IncrementalMH(priorModel, prior_samples, incrOpts)
 
-var priorERPobject = _.object(map(function(i){
- console.log(i)
- // var erp = priorModel(i)
- return [i,  _.object(map(function(g){
 
- 	var marginalErp = marginalizeERP(priorERP, [i,g])
- 	var marginalMap = marginalErp.MAP().val
- 	var Bins = reasonableDiscretization(marginalMap)
- 	return [g, {bins: Bins.stateBins,
- 				erp: marginalErp,
- 				thetaBins: Bins.thetaBins}]
+// var priorERPobject = _.object(map(function(i){
+//  console.log(i)
+//  // var erp = priorModel(i)
+//  return [i,  _.object(map(function(g){
+
+//  	var marginalErp = marginalizeERP(priorERP, [i,g])
+//  	var marginalMap = marginalErp.MAP().val
+//  	var Bins = reasonableDiscretization(marginalMap)
+//  	return [g, {bins: Bins.stateBins,
+//  				erp: marginalErp,
+//  				thetaBins: Bins.thetaBins}]
+//  }, genders))]
+// }, items))
+
+var priorERPobject = _.object(map(function(i){
+	console.log(i)
+ return [i,  _.object(map(function(g){
+ 	return [g, marginalizeERP(priorERP, [i,g])]
  }, genders))]
 }, items))
+
+// priorERPobject["sells companies"]
+
 
 // priorERPobject
 
@@ -49,60 +55,91 @@ var data = {
 	high: _.flatten([mht.fillArray("mm", 5), mht.fillArray("habitual", 95)])
 }
 
-var model = function(){
-
-	var speaker_optimality = uniform(0,20)
-
-	foreach(items, function(i){
-
-		foreach(genders, function(g){
-
-			var itemPrior = priorERPobject[i][g]
-			var priorParams = sample(itemPrior["erp"])
-			var prior = discretizeLogNormalPrior2(priorParams, itemPrior["bins"])
-			var thetaBins = itemPrior["thetaBins"]
-
-			foreach(["med"], function(freq){
-
-				var f = sample(prior)
-				// console.log(i + g + freq + f)
-				// console.log(thetaBins)
-				// console.log(f)
-				// console.log(map(function(s){return [s, Math.exp(prior.score([], s))]}, prior.support()))
-				var s2 = speaker2(f, prior, speaker_optimality, thetaBins)
-				var s2_plusGuess = guessingLink(s2, 0.01)
-				// console.log(s2)
-
-				var scr = reduce(function(response, memo) {
-								    return memo + s2_plusGuess.score([], response)
-									}, 0, data[freq])
-				// console.log(scr)
-				factor(scr)
-
-				query.add(["predictive", i, g, freq], Math.exp(s2.score([], "habitual")))
-
-				query.add(["parameter", i, g, freq], f)
-
-			})
-
-		})
-
-	})
-	query.add(["parameter", "global", "speaker_optimality", "NA"], speaker_optimality)
-	return query
-}
-
-var samples = 100000
-var burn = samples/2
-var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
-
-// resultsERP
-// var f = 7.509335266016592
-
-var outputFile = "results/inferExpt-justmed-truthJudge-RSA-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior-joint"+ prior_samples/1000 + 
-	"k_burn" + prior_burn/1000 + "k_discBins10b.csv"
-
 var header = "Type,Item,Gender,Level,Value"
+var filename0 = "results/exploreExpts-truthJudge-RSA_prior-joint"+ prior_samples/1000 + 
+	"k_burn" + prior_burn/1000 + "k_state-1-8.csv"
+var h0file = mht.openFile(filename0)
+mht.writeLine(h0file, header)
 
-tjUtils.erpWriter(resultsERP, outputFile, header)
-console.log("written to " + outputFile)
+var thetaBins = map(function(x) {return x + binWidth/2;}, priorBins);
+var speaker_optimalities = [1,3,5,10,20]
+
+foreach(speaker_optimalities, function(speaker_optimality){
+	foreach(items, function(i){
+		console.log(i)
+		foreach(genders, function(g){
+			// foreach(_.range(0,100), function(){
+				var prior = priorERPobject[i][g].MAP().val
+				// var prior = sample(priorERPobject[i][g])//.MAP().val
+				foreach(priorBins, function(f){
+					console.log(f)
+					// console.log(map(function(s){return [s, Math.exp(prior.score([], s))]}, prior.support()))
+					var s2 = speaker2(f, prior, speaker_optimality, thetaBins)
+					var prediction = Math.exp(s2.score([], "habitual"))
+					mht.writeLine(h0file, [speaker_optimality,i, g,f, prediction].join(','))
+				})
+			// })
+		})
+	})
+	console.log("speakopt = " + speaker_optimality)
+})
+
+mht.closeFile(h0file)
+console.log("written to .. " + filename0)
+
+// var model = function(){
+
+// 	var speaker_optimality = uniform(0,20)
+
+// 	foreach(items, function(i){
+
+// 		foreach(genders, function(g){
+
+// 			var itemPrior = priorERPobject[i][g]
+// 			var priorParams = sample(itemPrior["erp"])
+// 			var prior = discretizeLogNormalPrior2(priorParams, itemPrior["bins"])
+// 			var thetaBins = itemPrior["thetaBins"]
+
+// 			foreach(["med"], function(freq){
+
+// 				var f = sample(prior)
+// 				// console.log(i + g + freq + f)
+// 				// console.log(thetaBins)
+// 				// console.log(f)
+// 				// console.log(map(function(s){return [s, Math.exp(prior.score([], s))]}, prior.support()))
+// 				var s2 = speaker2(f, prior, speaker_optimality, thetaBins)
+// 				var s2_plusGuess = guessingLink(s2, 0.01)
+// 				// console.log(s2)
+
+// 				var scr = reduce(function(response, memo) {
+// 								    return memo + s2_plusGuess.score([], response)
+// 									}, 0, data[freq])
+// 				// console.log(scr)
+// 				factor(scr)
+
+// 				query.add(["predictive", i, g, freq], Math.exp(s2.score([], "habitual")))
+
+// 				query.add(["parameter", i, g, freq], f)
+
+// 			})
+
+// 		})
+
+// 	})
+// 	query.add(["parameter", "global", "speaker_optimality", "NA"], speaker_optimality)
+// 	return query
+// }
+
+// var samples = 100000
+// var burn = samples/2
+// var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
+
+// // resultsERP
+// // var f = 7.509335266016592
+
+// var outputFile = "results/inferExpt-justmed-truthJudge-RSA-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior-joint"+ prior_samples/1000 + 
+// 	"k_burn" + prior_burn/1000 + "k_discBins10b.csv"
+
+
+// tjUtils.erpWriter(resultsERP, outputFile, header)
+// console.log("written to " + outputFile)

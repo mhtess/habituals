@@ -1,6 +1,4 @@
-// time webppl habituals.wppl --require tjUtils
-
-
+// time webppl habituals.wppl --require mht --require tjUtils
 
 var align2afc = {
 	"agree-key":"habitual",
@@ -12,14 +10,15 @@ var df_tj_wRounded = map(function(x){
 						alignedResponse : align2afc[x.response]})
 }, df_tj)
 
-
-var samples = 10000
-var burn = samples/2
-var priorERP = IncrementalMH(priorModel, samples, {burn:burn, verbose:true, verboseLag: samples/100})
+var prior_samples = 50000
+var prior_burn = prior_samples/2
+var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/20})
 
 var priorERPobject = _.object(map(function(i){
 	return [i, marginalizeERP(priorERP, i)]
 }, items))
+
+var thetaBins = map(function(x) {return x + binWidth/2;}, priorBins);
 
 
 var model = function(){
@@ -27,35 +26,33 @@ var model = function(){
 	var speaker_optimality = uniform(0,20)
 	var phi = uniform(0,1)
 
+	// console.log("so " + speaker_optimality)
+	// console.log("phi " + phi)
+
 	foreach(items, function(i){
-		// var i = "bikes to work"
 
 		var prior = sample(priorERPobject[i])
-
 		var itemData = subset(df_tj_wRounded, "habitual", i)
-		// itemData
 		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
-
-		// var f = freqLevels[1]
 
 		foreach(freqLevels, function(f){
 
 			var freqData = subset(itemData, "roundedFreq", f)
-			var grossLevel = freqData[0]["freqLevel"]
+			var grossLevel = freqData[0]["time_period"]
 			var responseData = _.pluck(freqData, "alignedResponse")
-			var s2 = speaker2(f, prior, speaker_optimality)
+			var s2 = speaker2(f, prior, speaker_optimality, thetaBins)
 			var s2_plusGuess = guessingLink(s2, phi)
 
 			var scr = reduce(function(response, memo) {
 							    return memo + s2_plusGuess.score([], response)
 								}, 0, responseData)
 
-			// console.log(Math.exp(s2_plusGuess.score([], "habitual")))
-			// console.log(scr)
+			// console.log(i + f + scr)
+
+			// console.log("S2 prob = " + Math.exp(s2_plusGuess.score([], "habitual")))
+
 			factor(scr)
-
 			query.add(["predictive", i, f, grossLevel], Math.exp(s2_plusGuess.score([], "habitual")))
-
 		})
 	})
 
@@ -64,16 +61,14 @@ var model = function(){
 	return query
 }
 
-var samples = 1000
+var samples = 10000
 var burn = samples/2
-var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/100, burn: burn})
+var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
 
-var outputFile = "results/truthJudge-RSA-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+
-resultsERP
+var outputFile = "results/tj2-RSA-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+ prior_samples/1000 + 
+	"k_burn" + prior_burn/1000 + "k+discBins"+priorBins.length+"a.csv"
 
-// df_tj_wRounded[1]
-// }
+var header = "Type,Item,Level,Period,Value"
 
-// freqData
-// 		f
-// freqLevels
+tjUtils.erpWriter(resultsERP, outputFile, header)
+console.log("written to " + outputFile)
