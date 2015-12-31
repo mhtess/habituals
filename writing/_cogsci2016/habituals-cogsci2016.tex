@@ -113,10 +113,21 @@ $S_2$'s decision is with respect to the alternative of saying nothing: He will c
 Critically, speaker $S_{2}$ doesn't actually know what the habitual means (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will have to consider it, and integrates over the likely values she'll consider.
 
 
+\begin{figure*}[t]
+\centering
+  \includegraphics[width=\textwidth]{prior-scatter-insets}
+  \caption{}
+  \label{fig:priorScatter}
+\end{figure*}
+%
+
+
 \section{Experiment 1: events over homogenous time}
 
 Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
 We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
+
+
 
 \subsection{Expt.~1a: prior elicitation}
 
@@ -130,6 +141,7 @@ Here, we explore this hypothesis with respect to participants beliefs about the 
 We recruited 40 participants from Amazon's Mechanical Turk.
 Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
 The experiment took on average 12 minutes and participants were compensated \$1.25 for their work.
+
 
 \subsubsection{Procedure}
 
@@ -149,6 +161,14 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 We used 31 events organized into minimal pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
 Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item.
 
+\begin{figure*}[t]
+\centering
+  \includegraphics[width=\textwidth]{tj-scatters}
+  \caption{}
+  \label{fig:tjScatters}
+\end{figure*}
+
+
 \subsubsection{Data analysis and results}
 
 We modeled the data from question (1) as coming from a Beta distribution. 
@@ -164,13 +184,7 @@ d_{1} &\sim \text{Beta}(\gamma_{1}, \xi_{1}) \\
 %
 We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and we learned about the credible values of the parameters and the posterior predictive distributions of the data by running MCMC using a variant of the Metropolis-Hastings algorithm.
 %
-\begin{figure*}[t]
-\centering
-  \includegraphics[width=\textwidth]{prior-scatter-insets}
-  \caption{}
-  \label{fig:priorScatter}
-\end{figure*}
-%
+
 
 The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
 We do observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
@@ -180,6 +194,8 @@ The posterior predictive distributions reconstruct the experimental data reasona
 
 
 \subsection{Expt.~1b: felicity judgments}
+
+
 \subsubsection{Participants}
 
 We recruited 150 participants from MTurk.
@@ -193,14 +209,16 @@ We kept constant the number of times the action was done (3 times) in order to i
 The particular intervals used (number N and window \{weeks, months, years\}) were selected for each item to explore a wide range of predictions of the speaker model (Eq.~\ref{eq:S2}).
 
 Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person does action}''.
-Items for which the priors for men and women varied substantially were presented with both a male and a female name (on different trials). 
+We identified 6 items for which the priors for men and women varied substantially in Expt.~1b.
+We presented these items with both a male and a female name (on different trials) to explore the hypothesis that the comparison class against which the target person's behavior is compared is gender-specific (e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
+The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-2.html}.
+
 %The model predicts that some items would not exhibit variability in endorsements in given ranges (e.g. if a person stole a car 3 times in the past \emph{week} vs. \emph{month}); we omitted particular intervals when the model predicted non-meaningful differences in endorsements. 
 
 %\subsubsection{Materials}
 
-\subsubsection{Behavioral results}
-
-\subsection{Model fit}
+%\subsubsection{Behavioral results}
+\subsection{Model fit and results}
 
 We used the posterior predictive of the prior data (Expt.~1a) as  $P(x)$  in Eq.~\ref{eq:S2} to predict felicity judgments in Expt.~1b.
 We modeled $P(x)$ as a mixture of individuals with the possibility of carrying out the action and those without the possibility of doing it. 
@@ -219,7 +237,21 @@ For those with the possibility of doing it, the frequency with which they carrie
 
 Having fit the prior empirically, the model was one parameter -- the speaker optimality parameter in Eq.~\ref{eq:S1}. 
 Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
-We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictives of this model to the empirical data in Expt.~1b.
+We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~1b.
+
+To attain credible values of the model parameters as well as the posterior predictive distribution over responses, we collected \red{X} samples using an MCMC algorithm...
+The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is \red{X [A, B]}.
+The MAP and HPD interval for the data-analytic guessing parameter is \red{X [A, B]}.
+
+As a baseline hypothesis, we see how the frequency of action predicts the felicity of a habitual sentence (e.g. how often John runs to predict the felicity of the sentence \emph{John runs}.). Figure \ref{fig:tjScatters} (left) shows the correspondence between the frequency of action --- plotted as the log time interval, the time between subsequent actions --- and the felicity of the corresponding habitual sentence. 
+It is clear that a habitual sentence can receive strong agreement even when the actions are very infrequent (e.g. writing 3 novels, stealing 3 cars in a 5 year interval).
+We also see habitual sentences that participants are reluctant to endorse completely (e.g. wears socks, drinks coffee), even when they are relatively frequent in occurrence (spec. 3 times in a one month interval).
+In our data, actions that are completed multiple times in a very short interval (spec, 3 times in a one week interval) receive at least 75\% endorsement, though there is still variability among them (e.g. smoking cigarettes, wearing socks are endorsed the least), suggesting that even actions that are completed almost everyday.
+Overall, the time interval predicts only a fraction of the variability in responses ($r^2(93) = 0.33$).
+For actions that are done on the time scale of years or more (upper median of time interval), time interval itself no longer explains the endorsements  ($r^2(50) = 0.07$)
+
+The probabilistic pragmatics model does a better job of accounting for the variability in responses ($r^2(93) = 0.85$), including actions done on the time scale of years or more  ($r^2(50) = 0.84$).
+
 
 \section{Experiment 2}
 
