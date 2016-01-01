@@ -35,8 +35,11 @@ function make_slides(f) {
       // var habit = this.stim[0]
       // var charName = this.stim[1]
       // debugger;
+      // debugger;
+      var condition = _.sample(["preventative","enabling","null"])
 
-      var freq = _.sample(stim.frequency)//_.omit(habit, "habitual")
+      var freq = _.sample([_.last(stim.frequency),
+                            _.first(stim.frequency)])//_.omit(habit, "habitual")
 
       this.stim.freq = "3"
       this.stim.interval = freq
@@ -52,7 +55,24 @@ function make_slides(f) {
          stim.character.name  + " " + stim.past + " <em>3 times</em>.");
       // $(".frequency").html("Suppose: " + charName.name  + " " + habit.habitual + " <em>" + _.values(freq)[0] + "</em>.");
 
+      var possessive = stim.preventative.requires ? 
+        stim.character.gender == "male" ? "his " :
+                                          "her " :
+                                          ""
+
+      var extraSentence = condition == "preventative" ?
+      "Yesterday, " + stim.character.name + " " + stim.preventative.verb + " " +
+        possessive +  stim.preventative.obj +  "." :
+        condition == "enabling" ? 
+       // "Yesterday, " + stim.character.name + " remembered how much fun that was<br>and plans to do it 3 more times in the next " + _.last(stim.frequency) + "."  : 
+       "Yesterday, " + stim.character.name + " remembered how much fun that was and made a plan to do it more in the future."  : 
+       ""
+      $(".extraSentence").html(extraSentence)
+
       $(".habitual").html('"' + stim.character.name  + ' ' + stim.habitual + '."');
+
+
+
 
       _.mapObject(exp.judgeButtons, function(val,key){
         $("#"+val+"key-reminder").html(keyDictionary[key]);
@@ -182,7 +202,6 @@ function init() {
   })();
 
 
-  // debugger;
   exp.trials = [];
   exp.catch_trials = [];
 
@@ -196,11 +215,10 @@ function init() {
     return utils.fillArray(c, stimuli.length/timeConditions.length)
   }))
 
-  var bothGenders = ["drinks beer","drinks coffee", 
-                      "wears socks","wears a bra",
-                      "wears a suit", "does cocaine"]
-                      
-  // debugger;
+
+  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
+
+  var bothGenders = [];
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
 
   var shuffledMen = _.shuffle(maleCharacters)
@@ -211,7 +229,7 @@ function init() {
 
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
 
-  var stimsWNames =  _.flatten(_.map(stimuli, function(s){
+  var stimsWNames =  _.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
     return !(_.contains(bothGenders,s.habitual)) ? 
     _.extend(s, {character: allGenders.pop()}) :
@@ -220,7 +238,6 @@ function init() {
   }), true)
 
   // debugger;
-
   // var conditionsBothGenders = [conditions, conditions]
 
   // var stimsUnpacked1 = _.shuffle(_.map(
@@ -257,6 +274,7 @@ function init() {
       screenW: screen.width,
       screenUW: exp.width
     };
+    
   //blocks of the experiment:
    exp.structure=["i0", "instructions", "truthJudge","check",'subj_info', 'thanks'];
  

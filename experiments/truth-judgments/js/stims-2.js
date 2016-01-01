@@ -3,37 +3,74 @@ var stimuli = [
 	habitual: "hikes",
 	past: "hiked",
 	category: "hobby",
-	frequency: ["2 years","year","2 months","week"]
+	frequency: ["2 years","year","2 months","week"],
+	preventative: {
+		verb: "broke",
+		obj: "legs",
+		requires: "possessive"
+	},
+	// enabling: "really had a lot of fun those times"
 },
 {
 	habitual: "runs",
 	past: "ran",
 	category: "hobby",
-	frequency: ["2 years","year","2 months","week"]
+	frequency: ["2 years","year","2 months","week"],
+	preventative: {
+		verb: "broke",
+		obj: "legs",
+		requires: "possessive"
+	},
+	// enabling: "really enjoys running"
 },
 {
 	habitual: "plays the banjo",
 	past: "played the banjo",
 	category: "hobby",
-	frequency: ["5 years","2 years","year"]
+	frequency: ["5 years","2 years","year"],
+	preventative: {
+		verb: "developed crippling arthritis in",
+		obj: "hands",
+		requires: "possessive"
+	},
+	enabling: {
+		verb: "joined",
+		obj: "friend's band",
+		requires: "possessive"
+	},
+	// enabling: "really enjoys playing the banjo"
 },
 {
 	habitual: "plays tennis",
 	past: "played tennis",
 	category: "hobby",
-	frequency: ["5 years","2 years","year"]
+	frequency: ["5 years","2 years","year"],
+	preventative: {
+		verb: "developed crippling arthritis in",
+		obj: "elbows",
+		requires: "possessive"
+	},
 },
 {
 	habitual: "climbs mountains",
 	past: "climbed mountains",
 	category: "hobby",
-	frequency: ["5 years","2 years","year"]
+	frequency: ["5 years","2 years","year"],
+	preventative: {
+		verb: "received",
+		obj: " a doctor's order to stop all strenuous physical exercise"
+	}
 },
 {
 	habitual: "wears a suit",
 	past: "wore a suit",
 	category: "clothing",
-	frequency: ["6 months","month","week"]
+	frequency: ["6 months","month","week"], 
+	preventative:{
+		verb: "got fired from",
+		obj: "job on Wall Street, and now works in a pizza parlor.",
+		requires: "possessive"
+	}
 },
 {
 	habitual: "wears a bra",
@@ -81,13 +118,23 @@ var stimuli = [
 	habitual: "writes novels",
 	past: "wrote a novel",
 	category: "employment",
-	frequency: ["5 years", "year"]
+	frequency: ["5 years", "year"],
+	preventative:{
+		verb: "retired from",
+		obj: "writing career",
+		requires: "possessive"
+	}
 },
 {
 	habitual: "writes poems",
 	past: "wrote a poem",
 	category: "employment",
-	frequency: ["5 years", "year"]
+	frequency: ["5 years", "year"],
+	preventative:{
+		verb: "retired from",
+		obj: "writing career",
+		requires: "possessive"
+	}
 },
 {
 	habitual: "sells things on eBay",
@@ -99,37 +146,58 @@ var stimuli = [
 	habitual: "sells companies",
 	past: "sold a company",
 	category: "employment",
-	frequency: ["5 years", "year"]
+	frequency: ["5 years", "year"],
+	preventative:{
+		verb: "changed careers",
+		obj: "to spend more time with family"
+	}
 },
 {
 	habitual: "steals cars",
 	past: "stole a car",
 	category: "employment",
-	frequency: ["5 years", "year", "month"]
+	frequency: ["5 years", "year", "month"],
+	preventative:{
+		verb: "vowed",
+		obj: "to never break the law again"
+	}
 },
 {
 	habitual: "steals chewing gum",
 	past: "stole chewing gum",
 	category: "employment",
-	frequency: ["5 years", "year", "month"]
+	frequency: ["5 years", "year", "month"],
+	preventative:{
+		verb: "vowed",
+		obj: "to never break the law again"
+	}
 },
 {
 	habitual: "volunteers for soup kitchens",
 	past: "volunteered for a soup kitchen",
 	category: "employment",
-	frequency: ["5 years", "year"]	
+	frequency: ["5 years", "year"],
+	preventative:{
+		verb: "grew disillusioned with the soup kitchens in the area",
+		obj: "and wants nothing to do with it anymore"
+	}
 },
 {
 	habitual: "volunteers for political campaigns",
 	past: "volunteered for a political campaign",
 	category: "employment",
-	frequency: ["5 years", "year"]
+	frequency: ["5 years", "year"],
+	preventative:{
+		verb: "grew disillusioned with the political system",
+		obj: "and wants nothing to do with it anymore"
+	}
 },
 {
 	habitual: "goes to the movies",
 	past: "went to the movies",
 	category: "entertainment",
-	frequency: ["2 years","year","month"]
+	frequency: ["2 years","year","month"],
+	// preventative: "local theatre closed"
 },
 {
 	habitual: "goes to the ballet",
@@ -141,7 +209,11 @@ var stimuli = [
 	habitual: "watches professional football",
 	past: "watched professional football",
 	category: "entertainment",
-	frequency: ["2 years","year","month"]
+	frequency: ["2 years","year","month"],
+	preventative: {
+		verb: "moved off the grid and",
+		obj: "no longer has access to televeision"
+	}
 },
 {
 	habitual: "watches space launches",
@@ -153,7 +225,11 @@ var stimuli = [
 	habitual: "listens to Pandora",
 	past: "listened to Pandora",
 	category: "entertainment",
-	frequency: ["year","month", "week"]
+	frequency: ["year","month", "week"],
+	preventative: {
+		verb: "moved off the grid and",
+		obj: "no longer has access to the internet"
+	}
 },
 // {
 // 	habitual: "listens to Russian folk music",
@@ -171,13 +247,21 @@ var stimuli = [
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
 	category: "food",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year","month"],
+	preventative:{
+		verb: "developed",
+		obj: "a peanut allergy"
+	}
 },
 {
 	habitual: "eats caviar",
 	past: "ate caviar",
 	category: "food",
-	frequency: ["5 years", "year","month"]
+	frequency: ["5 years", "year","month"],
+	preventative:{
+		verb: "developed",
+		obj: "a seafood allergy"
+	}
 },
 // {
 // 	habitual: "eats cereal",
@@ -189,32 +273,51 @@ var stimuli = [
 	habitual: "smokes cigarettes",
 	past: "smoked cigarettes",
 	category: "food",
-	frequency: ["year","month", "week"]
+	frequency: ["year","month", "week"],
+	preventative:{
+		verb: "quit",
+		obj: "smoking cigarettes"
+	}
 },
 {
 	habitual: "smokes marijuana",
 	past: "smoked marijuana",
 	category: "food",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year","month", "week"],
+	preventative:{
+		verb: "quit",
+		obj: "smoking marijuana"
+	}
 },
 {
 	habitual: "does cocaine",
 	past: "did cocaine",
 	category: "food",
-	frequency: ["5 years", "year","month", "week"]
+	frequency: ["5 years", "year","month", "week"],
+	preventative:{
+		verb: "entered",
+		obj: "into Narcotics Anonymous"
+	}
 },
 {
 	habitual: "drinks beer",
 	past: "drank beer",
 	category: "food",
-	frequency: ["year","month", "2 weeks","week"]
+	frequency: ["year","month", "2 weeks","week"],
+	preventative:{
+		verb: "entered",
+		obj: "into Alcoholics Anonymous"
+	}
 },
 {
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	category: "food",
-	frequency: ["year","month", "2 weeks","week"]
-}];
+	frequency: ["year","month", "2 weeks","week"],
+	preventative:{
+		verb: "decided",
+		obj: "to give up all caffeine"
+	}}];
 
 
 var characters = [
