@@ -47,7 +47,8 @@
 
 \title{Communicating generalizations about events}
 
-\author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu) \\ {\large \bf Noah D. Goodman} (ngoodman@stanford.edu) \\
+\author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu) \\
+ {\large \bf Noah D. Goodman} (ngoodman@stanford.edu) \\
   Department of Psychology, Stanford University}
 
 
@@ -163,7 +164,7 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 
 \begin{figure*}[t]
 \centering
-  \includegraphics[width=\textwidth]{tj-scatters}
+  \includegraphics[width=\textwidth]{tj-scatters1}
   \caption{}
   \label{fig:tjScatters}
 \end{figure*}
@@ -195,7 +196,6 @@ The posterior predictive distributions reconstruct the experimental data reasona
 
 \subsection{Expt.~1b: felicity judgments}
 
-
 \subsubsection{Participants}
 
 We recruited 150 participants from MTurk.
@@ -217,7 +217,25 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 %\subsubsection{Materials}
 
-%\subsubsection{Behavioral results}
+\subsubsection{Behavioral results}
+
+On each trial of the experiment, the participant was told a person did a particular action 3 times during some time window. 
+Figure \ref{fig:tjScatters} (left) shows the correspondence between the time window given and the felicity of the corresponding habitual sentence. 
+According to our theory that the meaning is a threshold of frequency of action, habitual sentences express minimally that a person \emph{has done} an action a number of times in the past. 
+We see that none of our items receive less than 25\% endorsement (i.e. 75\% of participants disagree with the felicity of the utterance).
+This may be due to the fact that actor has done the action in the past; we would expect to get strong disagreement with the utterance (endorsement = 0\%) when the person has never done the action, or done it only once.
+
+As a baseline hypothesis, we see how the frequency of action predicts the felicity of a habitual sentence (e.g. how often John runs to predict the felicity of the sentence \emph{John runs}.). 
+It is clear that a habitual sentence can receive strong agreement even when the actions are very infrequent (log time interval $>$ 4; time interval of subsequent actions years or more; e.g. writing 3 novels, stealing 3 cars in a 5 year interval).
+We also see habitual sentences that participants are reluctant to endorse completely (e.g. wears socks, drinks coffee), even when they are relatively frequent in occurrence (spec. 3 times in a one month interval).
+In our data, actions that are completed multiple times in a very short interval (spec, 3 times in a one week interval) receive at least 75\% endorsement, though there is still variability among them (e.g. smoking cigarettes, wearing socks are endorsed the least), suggesting that even actions that are completed almost everyday.
+
+
+
+Overall, the time interval predicts only a fraction of the variability in responses ($r^2(93) = 0.33$).
+For actions that are done on the time scale of years or more (upper median of time interval), time interval itself no longer explains the endorsements  ($r^2(50) = 0.07$)
+
+
 \subsection{Model fit and results}
 
 We used the posterior predictive of the prior data (Expt.~1a) as  $P(x)$  in Eq.~\ref{eq:S2} to predict felicity judgments in Expt.~1b.
@@ -239,33 +257,40 @@ Having fit the prior empirically, the model was one parameter -- the speaker opt
 Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
 We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~1b.
 
-To attain credible values of the model parameters as well as the posterior predictive distribution over responses, we collected \red{X} samples using an MCMC algorithm...
-The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is \red{X [A, B]}.
-The MAP and HPD interval for the data-analytic guessing parameter is \red{X [A, B]}.
-
-As a baseline hypothesis, we see how the frequency of action predicts the felicity of a habitual sentence (e.g. how often John runs to predict the felicity of the sentence \emph{John runs}.). Figure \ref{fig:tjScatters} (left) shows the correspondence between the frequency of action --- plotted as the log time interval, the time between subsequent actions --- and the felicity of the corresponding habitual sentence. 
-It is clear that a habitual sentence can receive strong agreement even when the actions are very infrequent (e.g. writing 3 novels, stealing 3 cars in a 5 year interval).
-We also see habitual sentences that participants are reluctant to endorse completely (e.g. wears socks, drinks coffee), even when they are relatively frequent in occurrence (spec. 3 times in a one month interval).
-In our data, actions that are completed multiple times in a very short interval (spec, 3 times in a one week interval) receive at least 75\% endorsement, though there is still variability among them (e.g. smoking cigarettes, wearing socks are endorsed the least), suggesting that even actions that are completed almost everyday.
-Overall, the time interval predicts only a fraction of the variability in responses ($r^2(93) = 0.33$).
-For actions that are done on the time scale of years or more (upper median of time interval), time interval itself no longer explains the endorsements  ($r^2(50) = 0.07$)
-
-The probabilistic pragmatics model does a better job of accounting for the variability in responses ($r^2(93) = 0.85$), including actions done on the time scale of years or more  ($r^2(50) = 0.84$).
+To attain credible values of the model parameters as well as the posterior predictive distribution over responses, we collected 3 MCMC chains of 30,000 iterations, discarding the first 15,000 iterations of each chain for burn in.
+The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is 4.7 [3.7,5.2].
+The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by the pragmatic speaker model.
 
 
-\section{Experiment 2}
+The probabilistic pragmatics model does a better job of accounting for the variability in responses ($r^2(93) = 0.89$), including actions done on the time scale of years or more  ($r^2(50) = 0.89$) (Figure \ref{fig:tjScatters} right).
+
+
+\section{Experiment 2: events over heterogeneous time}
 
 In Expt.~1, we saw how a model designed to describe generic language (e.g. \emph{Swans are white.}) can describe habitual language (e.g. \emph{John smokes}) equally as well by specifying the underlying degree as the frequency with which an individuals performs an action.
-Unlike natural kinds, individuals can modify their behaviors overnight.  
-In Expt.~2, we explore how knowledge of certain causal factors (e.g. the age of the individual; the intent of the individual when performing the action) modulate the veracity of habitual sentences, 
+This provides a formal bridge between generalizations of properties about categories (i.e. \emph{generics}) and generalizations about individuals or events (i.e. \emph{habituals}), a connection often noted in the linguistics literature \cite{Carlson1977, Carlson2005, Cohen1999}. 
+
+Unlike natural kinds, however, individuals can modify their behaviors overnight.  
+In Expt.~2, we explore how knowledge of certain causal factors (e.g. the decision to retire; breaking one's leg) interacts with the frequency of action to modulate the veracity of habitual sentences (e.g. \emph{John writes novels.}; \emph{John runs.}).
+
 These results suggest the underlying scale for habituals is \emph{predictive} frequency of action, and that habituals are used to talk about future predictions of people's actions.
 
 \subsection{Method}
 
+\subsubsection{Participants} 
 
-\subsubsection{Participants}
-\subsubsection{Procedure}
-\subsubsection{Materials}
+We recruited \red{N} participants from MTurk.
+The experiment took \red{N} minutes on average on participants were compensated \$\red{N} for their work.
+
+\subsubsection{Procedure and materials}
+
+The procedure was identical to Expt.~1b except for the inclusion of additional information on a subset of trials. 
+On one third of the trials, participants were presented with \textbf{preventative conditions} (e.g. \emph{Yesterday, Bill decided to quit smoking.} that aimed to decrease the acceptability of the habitual sentence (\emph{Bill smokes}) even in the face of strong past frequency evidence (\emph{Last week, Bill smoked 3 times.}).
+On one third of the trials, participants were presented with \textbf{enabling conditions} that were the same for all items (\emph{Yesterday, Bill remembered how much that was and made a plan to do it more in the future}) that aimed to increase the acceptability of the habitual sentence when the past frequency evidence was not strong. 
+The final third of trials had no additional evidence and were identical to Expt.~1b. 
+The dependent measure was the same as in Expt.~1b. 
+The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-3-preventative.html}.
+
 
 \subsection{Behavioral results}
 
@@ -274,6 +299,26 @@ These results suggest the underlying scale for habituals is \emph{predictive} fr
 
 
 \section{Discussion}
+
+
+Habitual sentences (e.g. \emph{Bill smokes}) express generalizations about events in an analogous way to how generic sentences (e.g. \emph{Swans are white.}) express generalizations about properties within categories. 
+Though this connection has been pointed to in the philosophical and linguistics literatures, this work represents the first empirical and computational evidence unifying these two kinds of common, simple utterances. 
+We also delved deeper into the semantics of these sentences, investigating the nature of the underlying frequency scale by introducing enabling and preventative conditions for the event to happen in the future. 
+Future, or \emph{predictive}, frequency was shown to be extremely relevant in the truth conditions of habitual sentences. 
+
+The pragmatic theory introduced by \citeA{TesslerUnderReview} 
+
+The habitual sentences we explored were all presented in the simple, present tense.
+Generalizations can also occur in the past tense (e.g. \emph{Bill smoked}, or \emph{Bill used to smoke.}) and in the future tense (e.g. \emph{Bill will smoke}). 
+The present tense is interesting because it is \emph{a priori} unclear when, in fact, the sentence is making reference to.  
+
+In the psychological literature, habituals have received relatively little attention compared to their category counterpart \emph{generics}. 
+
+\begin{enumerate}
+\item Tense (past vs future vs present)
+\item Methodological implications (using habituals as opposed to generics)
+\item Contrast class (men vs women)
+\end{enumerate}
 
 \bibliographystyle{apacite}
 
