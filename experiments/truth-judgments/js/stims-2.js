@@ -5,11 +5,19 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["2 years","year","2 months","week"],
 	preventative: {
-		verb: "broke",
-		obj: "legs",
-		requires: "possessive"
+		verb: "was in a motorcycle accident and",
+		obj: "will never walk again"
+		// requires: "possessive"
 	},
-	// enabling: "really had a lot of fun those times"
+	enabling: {
+		verb: "remembered how much fun that was",
+		obj: "and bought a lot of new hiking gear"
+	},
+	filler: {
+		verb: "was in a motorcycle accident and got",
+		obj: "license suspended",
+		requires:"possessive"
+	}
 },
 {
 	habitual: "runs",
@@ -17,11 +25,19 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["2 years","year","2 months","week"],
 	preventative: {
-		verb: "broke",
-		obj: "legs",
-		requires: "possessive"
+		verb: "was in a car accident and",
+		obj: "became permanently paralyzed from the waist down",
+		// requires: "possessive"
 	},
-	// enabling: "really enjoys running"
+	enabling: {
+		verb: "remembered how much fun that was",
+		obj: "and bought a new pair of running shoes"
+	},
+	filler: {
+		verb: "was in a car accident and",
+		obj: "has to go to driving school",
+		// requires: "possessive"
+	}
 },
 {
 	habitual: "plays the banjo",
@@ -30,14 +46,19 @@ var stimuli = [
 	frequency: ["5 years","2 years","year"],
 	preventative: {
 		verb: "developed crippling arthritis in",
-		obj: "hands",
+		obj: "hands and no longer can play musical instruments",
 		requires: "possessive"
 	},
 	enabling: {
-		verb: "joined",
-		obj: "friend's band",
+		verb: "remembered how much fun that was and joined",
+		obj: "friend's band as the banjoist",
 		requires: "possessive"
 	},
+	filler: {
+		verb: "developed a rash on",
+		obj: "leg and has to put ointment on it",
+		requires: "possessive"
+	}
 	// enabling: "really enjoys playing the banjo"
 },
 {
@@ -46,10 +67,19 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
-		verb: "developed crippling arthritis in",
-		obj: "elbows",
+		verb: "developed crippling arthritis in both elbows and can only move her arms extremely",
+		obj: "slowly",
 		requires: "possessive"
 	},
+	enabling: {
+		verb: "remembered how much fun that was",
+		obj: "and bought a new tennis racket"
+	},
+	filler: {
+		verb: "developed a soreness on",
+		obj: "neck and has to put ice on it every night",
+		requires: "possessive"
+	}
 },
 {
 	habitual: "climbs mountains",
@@ -57,8 +87,18 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
-		verb: "received",
-		obj: " a doctor's order to stop all strenuous physical exercise"
+		verb: "gave up all strenuous physical exercise because",
+		obj: "doctor said it would be deadly",
+		requires: "possessive"
+	},
+	enabling: {
+		verb: "remembered how much fun that was",
+		obj: "bought a lot of new mountain climbing gear"
+	},
+	filler: {
+		verb: "started taking Vitamin B pills because",
+		obj: "doctor said it would be helpful",
+		requires: "possessive"
 	}
 },
 {
@@ -68,9 +108,19 @@ var stimuli = [
 	frequency: ["6 months","month","week"], 
 	preventative:{
 		verb: "got fired from",
-		obj: "job on Wall Street, and now works in a pizza parlor.",
+		obj: "job on Wall Street and now works in a pizza parlor",
 		requires: "possessive"
-	}
+	},
+	enabling: {
+		verb: "got a high paying job",
+		obj: "on Wall Street"
+	},
+	filler: {
+		verb: "got fired from",
+		obj: "job on Wall Street, and now works for the government in DC",
+		requires: "possessive"
+	},
+
 },
 {
 	habitual: "wears a bra",
@@ -120,8 +170,18 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
-		verb: "retired from",
-		obj: "writing career",
+		verb: "decided to never write again in order to focus on",
+		obj: "true passion: gardening",
+		requires: "possessive"
+	},
+	enabling: {
+		verb: "finished an MFA program and quit",
+		obj: "job to focus on writing",
+		requires: "possessive"
+	},
+	filler: {
+		verb: "decided to never drive again in order to cut reduce",
+		obj: "carbon football",
 		requires: "possessive"
 	}
 },
@@ -131,10 +191,20 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
-		verb: "retired from",
-		obj: "writing career",
+		verb: "decided to never write again in order to focus on spending time with",
+		obj: "family",
 		requires: "possessive"
-	}
+	},
+	enabling: {
+		verb: "finished an MFA program and quit",
+		obj: "job to focus on writing",
+		requires: "possessive"
+	},
+	preventative:{
+		verb: "decided to never buy ice cream again in order to",
+		obj: "lose weight",
+		requires: "possessive"
+	},
 },
 {
 	habitual: "sells things on eBay",
@@ -146,11 +216,17 @@ var stimuli = [
 	habitual: "sells companies",
 	past: "sold a company",
 	category: "employment",
-	frequency: ["5 years", "year"],
-	preventative:{
-		verb: "changed careers",
-		obj: "to spend more time with family"
-	}
+	frequency: ["5 years", "year"]
+	// preventative:{
+	// 	verb: "changed careers",
+	// 	obj: "to spend more time with family"
+	// }
+	// ,
+	// enabling: {
+	// 	verb: "began a new career ",
+	// 	obj: "job to focus on writing"
+	// 	requires: "possessive"
+	// }
 },
 {
 	habitual: "steals cars",
@@ -158,8 +234,16 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year", "month"],
 	preventative:{
-		verb: "vowed",
+		verb: "got caught and went through a radical transformation, vowing",
 		obj: "to never break the law again"
+	},
+	enabling: {
+		verb: "learned a new technique",
+		obj: "for breaking into cars"
+	},
+	filler: {
+		verb: "went through a radical transformation, vowing",
+		obj: "to never run a red light again"
 	}
 },
 {
@@ -168,8 +252,16 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year", "month"],
 	preventative:{
-		verb: "vowed",
+		verb: "got caught and vowed",
 		obj: "to never break the law again"
+	},
+	enabling: {
+		verb: "learned a new trick",
+		obj: "to distract shopkeepers"
+	},
+	filler: {
+		verb: "vowed",
+		obj: "to never eat meat again"
 	}
 },
 {
@@ -180,6 +272,15 @@ var stimuli = [
 	preventative:{
 		verb: "grew disillusioned with the soup kitchens in the area",
 		obj: "and wants nothing to do with it anymore"
+	},
+	enabling: {
+		verb: "researched a new soup kitchen in the area",
+		obj: "and is going to volunteer with them"
+	},
+	filler: {
+		verb: "grew disillusioned with the recycling industry in the area and wants to drive",
+		obj: "recycling to the next town",
+		requires: "possessive"
 	}
 },
 {
@@ -190,6 +291,14 @@ var stimuli = [
 	preventative:{
 		verb: "grew disillusioned with the political system",
 		obj: "and wants nothing to do with it anymore"
+	},
+	enabling: {
+		verb: "researched a new political candidate in the area",
+		obj: "and is going to volunteer with them"
+	},
+	filler: {
+		verb: "grew disillusioned with the documentary film industry and",
+		obj: "does not want to see a documentary again"
 	}
 },
 {
@@ -211,26 +320,54 @@ var stimuli = [
 	category: "entertainment",
 	frequency: ["2 years","year","month"],
 	preventative: {
-		verb: "moved off the grid and",
-		obj: "no longer has access to televeision"
+		verb: "learned about all the corruption in professional sports and",
+		obj: "no longer wants to watch it"
+	},
+	enabling: {
+		verb: "remembered how much enjoyable that was and upgraded",
+		obj: "cable to have acccess to all professional football games",
+		requires: "possessive"
+	},
+	filler: {
+		verb: "learned about all the corruption in professional sports and",
+		obj: "vowed to help bring an end to it",
+		requires: "possessive"
 	}
 },
 {
 	habitual: "watches space launches",
 	past: "watched space launches",
 	category: "entertainment",
-	frequency: ["2 years", "year","month"]
-},
-{
-	habitual: "listens to Pandora",
-	past: "listened to Pandora",
-	category: "entertainment",
-	frequency: ["year","month", "week"],
+	frequency: ["2 years", "year","month"],
 	preventative: {
-		verb: "moved off the grid and",
-		obj: "no longer has access to the internet"
+		verb: "was caught for a heinous crime and is going to spend the rest of",
+		obj: "life in prison",
+		requires: "possessive"
+	},
+	filler: {
+		verb: "was caught for stealing and was fined",
+		obj: "a thousand dollars"
+
 	}
 },
+// {
+// 	habitual: "listens to Pandora",
+// 	past: "listened to Pandora",
+// 	category: "entertainment",
+// 	frequency: ["year","month", "week"],
+// 	preventative: {
+// 		verb: "moved off the grid and",
+// 		obj: "no longer has access to the internet"
+// 	},
+// 	enabling: {
+// 		verb: "remembered how much enjoyable that was",
+// 		obj: "and bought a premium subscription to Pandora"
+// 	},
+// 	filler: {
+// 		verb: "moved to a new apartment and",
+// 		obj: "now has a dish washer"
+// 	}
+// },
 // {
 // 	habitual: "listens to Russian folk music",
 // 	past: "listened to Russian folk music",
@@ -251,6 +388,14 @@ var stimuli = [
 	preventative:{
 		verb: "developed",
 		obj: "a peanut allergy"
+	},
+	enabling:{
+		verb: "learned about the dietary benefits of eating peanut butter",
+		obj: "and bought a jar at the supermaket"
+	},
+	filler: {
+		verb: "developed an affinity",
+		obj: "for chocolate covered raisins"
 	}
 },
 {
@@ -261,6 +406,14 @@ var stimuli = [
 	preventative:{
 		verb: "developed",
 		obj: "a seafood allergy"
+	},
+	enabling:{
+		verb: "learned about the dietary benefits of eating caviar",
+		obj: "and bought a jar at the supermaket"
+	},
+	filler: {
+		verb: "developed an affinity",
+		obj: "for sauteed tofu"
 	}
 },
 // {
@@ -277,6 +430,13 @@ var stimuli = [
 	preventative:{
 		verb: "quit",
 		obj: "smoking cigarettes"
+	},
+	enabling: {
+		verb: "bought a pack of cigarettes"
+	},
+	filler: {
+		verb: "quit",
+		obj: "bowling on Tuesdays"
 	}
 },
 {
@@ -285,8 +445,17 @@ var stimuli = [
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
-		verb: "quit",
-		obj: "smoking marijuana"
+		verb: "gave up smoking marijuana because it bothered",
+		obj: "significant other",
+		requires: "possessive"
+	},
+	enabling: {
+		verb: "bought some marijuana"
+	},
+	filler: {
+		verb: "gave up playing softball because it bothered",
+		obj: "significant other",
+		requires: "possessive"
 	}
 },
 {
@@ -295,8 +464,15 @@ var stimuli = [
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
-		verb: "entered",
+		verb: "gave up drugs and entered",
 		obj: "into Narcotics Anonymous"
+	},
+	enabling: {
+		verb: "bought some cocaine"
+	},
+	filler: {
+		verb: "entered",
+		obj: "into a weight loss program"
 	}
 },
 {
@@ -305,8 +481,15 @@ var stimuli = [
 	category: "food",
 	frequency: ["year","month", "2 weeks","week"],
 	preventative:{
-		verb: "entered",
+		verb: "gave up alchol and entered",
 		obj: "into Alcoholics Anonymous"
+	},
+	enabling: {
+		verb: "bought a six-pack of beer"
+	},
+	filler: {
+		verb: "entered",
+		obj: "into a food co-op"
 	}
 },
 {
@@ -315,9 +498,18 @@ var stimuli = [
 	category: "food",
 	frequency: ["year","month", "2 weeks","week"],
 	preventative:{
-		verb: "decided",
-		obj: "to give up all caffeine"
-	}}];
+		verb: "developed a caffeine allergy",
+		obj: "and decided to give up all caffeine"
+	},
+	enabling: {
+		verb: "bought a pound of fresh roasted coffee"
+	},
+	filler: {
+		verb: "developed a nut allergy",
+		obj: "and decided to walk every morning"
+	}
+}
+];
 
 
 var characters = [

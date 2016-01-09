@@ -26,21 +26,33 @@ function make_slides(f) {
     name: "truthJudge",
     present : exp.stims,
     //this gets run only at the beginning of the block
-    present_handle : function(stim) {
+    present_handle : function(stim0) {
+      // for testing
+
+
+      var condition = stim0[0]
+      var stim = stim0[1]
       // debugger;
       // console.log(stim)
       this.startTime = Date.now();
 
+      // for production
       this.stim = stim 
+      // var condition = _.sample(["preventative","enabling","filler", null])
+      
+      // for testing purposes
+      // var condition = stim[0]
+      // this.stim = stim[1]
+
       // var habit = this.stim[0]
       // var charName = this.stim[1]
       // debugger;
       // debugger;
-      var condition = _.sample(["preventative","enabling","null"])
+      // var condition = 
+      // var freq = _.sample([_.last(stim.frequency),
+      //                       _.first(stim.frequency)])//_.omit(habit, "habitual")
 
-      var freq = _.sample([_.last(stim.frequency),
-                            _.first(stim.frequency)])//_.omit(habit, "habitual")
-
+      var freq = _.last(stim.frequency)
       this.stim.freq = "3"
       this.stim.interval = freq
       // var description = stim.condition
@@ -55,18 +67,15 @@ function make_slides(f) {
          stim.character.name  + " " + stim.past + " <em>3 times</em>.");
       // $(".frequency").html("Suppose: " + charName.name  + " " + habit.habitual + " <em>" + _.values(freq)[0] + "</em>.");
 
-      var possessive = stim.preventative.requires ? 
+      var possessive = condition == null? "" : stim[condition]["requires"] ? 
         stim.character.gender == "male" ? "his " :
                                           "her " :
                                           ""
 
-      var extraSentence = condition == "preventative" ?
-      "Yesterday, " + stim.character.name + " " + stim.preventative.verb + " " +
-        possessive +  stim.preventative.obj +  "." :
-        condition == "enabling" ? 
-       // "Yesterday, " + stim.character.name + " remembered how much fun that was<br>and plans to do it 3 more times in the next " + _.last(stim.frequency) + "."  : 
-       "Yesterday, " + stim.character.name + " remembered how much fun that was and made a plan to do it more in the future."  : 
-       ""
+      var extraSentence = condition == null ? "" :
+        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+        possessive +  stim[condition]["obj"]+  "."
+
       $(".extraSentence").html(extraSentence)
 
       $(".habitual").html('"' + stim.character.name  + ' ' + stim.habitual + '."');
@@ -237,6 +246,20 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true)
 
+
+
+  var allPossibleStims = _.flatten(_.map(stimsWNames,
+    function(s){
+      // return _.map(["preventative","enabling","filler", null], function(c){
+      return _.map(["preventative","filler", null], function(c){
+        return [c, s]
+      })
+    }), true)
+  console.log(allPossibleStims.length)
+  console.log(usuableStims.length)
+  // debugger;
+
+
   // debugger;
   // var conditionsBothGenders = [conditions, conditions]
 
@@ -253,7 +276,8 @@ function init() {
   // var maleCharNames = _.shuffle(maleCharacters).slice(0, stimsUnpacked1.length)
   // var femaleCharNames = _.shuffle(femaleCharacters).slice(0, stimsUnpacked2.length)
 
-  exp.stims = _.shuffle(stimsWNames)
+  // exp.stims = _.shuffle(stimsWNames)
+  exp.stims = allPossibleStims
   // debugger;
   console.log(_.flatten(_.pluck(stimsWNames, "frequency")).length)
 
@@ -276,7 +300,8 @@ function init() {
     };
     
   //blocks of the experiment:
-   exp.structure=["i0", "instructions", "truthJudge","check",'subj_info', 'thanks'];
+   exp.structure=[
+   "truthJudge","i0", "instructions", "truthJudge","check",'subj_info', 'thanks'];
  
   exp.data_trials = [];
   //make corresponding slides:
