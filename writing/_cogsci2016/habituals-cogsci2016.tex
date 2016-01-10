@@ -28,8 +28,9 @@
 \newcommand{\red}[1]{\textcolor{Red}{#1}}  
 \definecolor{Green}{RGB}{10,200,100}
 \definecolor{Blue}{RGB}{10,100,200}
+\definecolor{DarkOrange}{RGB}{255,100,50}
 \newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
-\newcommand{\mht}[1]{\textcolor{Blue}{[mht: #1]}}  
+\newcommand{\mht}[1]{\textcolor{DarkOrange}{[mht: #1]}}  
 
 
 \graphicspath{{figures/}}
@@ -145,15 +146,10 @@ Critically, speaker $S_{2}$ doesn't actually know what the habitual means (i.e. 
 %Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
 %We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
 %
-
-
-%\subsection{Expt.~1a: prior elicitation}
-
-\citeA{TesslerUnderReview} found that participants' beliefs about the prevalence of a property is structured as the result of a mixture distribution composed of kinds with the potential to have the property present and kinds that lack the potential to have the property present.
-The prior distribution, thus, is modeled as a mixture distribution between these two possibilities \cite{Griffiths2005}, similar in spirit to Hurdle Models of epidemiological data \cite{hurdleModels}.
-
-Here, we explore this hypothesis with respect to participants beliefs about the frequency with which people partake in various events or actions.
-
+$P(x)$ in Eqs.~\ref{eq:L1}, \ref{eq:L0} specifies prior beliefs about the frequency of action $x$ for a specific event or behavior (e.g. \emph{smoking}).
+Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between these two possibilities, similar in spirit to Hurdle Models of epidemiological data \cite{hurdleModels}.
+There may be in fact more than these two possibilities, owing to potential gender or age differences in intuitive theories of behavior. 
+We explore these hypothesis in this experiment.
 
 \subsection{Method}
 
@@ -161,7 +157,6 @@ Here, we explore this hypothesis with respect to participants beliefs about the 
 We recruited 40 participants from Amazon's Mechanical Turk.
 Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
 The experiment took on average 12 minutes and participants were compensated \$1.25 for their work.
-
 
 \subsubsection{Procedure}
 
@@ -171,14 +166,15 @@ For each event, participants were asked two questions:
 \item For a typical \{man, woman\} who has \textsc{done action} before, how frequently does he or she \textsc{do action}? 
 \end{enumerate}
 
-Question (1) had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
-Question (2) had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years.
-We expected there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total, order of male / female randomized between-subjects).
+Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
+Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years.
+
+We expected there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total per slide, order of male / female randomized between-subjects), and every participant completed all 31 items.
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/priors/priors-2.html}.
 
 \subsubsection{Materials}
 
-We used 31 events organized into minimal pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
+We used thirty-one events organized into minimal pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
 Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item.
 
 \begin{figure*}[t]
@@ -191,8 +187,10 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 
 \subsection{Data analysis and results}
 
-We modeled the data from question (1) as coming from a Beta distribution. 
-Question (2) was modeled by a log-normal distribution. 
+Question 1 elicits the proportion of people who have done an action before. 
+We model this data as a frequency coming from a Beta distribution. 
+Question 2 elicits the relative frequency in the past a person has done an action before.
+This was modeled by a log-normal distribution \mht{test Poisson / Exponential}. 
 Each item was modeled independently.
 %
 \begin{minipage}{0.5 \textwidth} \small
@@ -207,10 +205,10 @@ We implemented this model using the probabilistic programming language WebPPL \c
 
 
 The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
-We do observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
+We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
 
 This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
-The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$); we use these parameterized priors going forward.
+The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$) \mht{are there systemic deviations?}, and we use these parameterized priors going forward.
 
 
 \section{Experiment 2: felicity judgments}
@@ -220,18 +218,19 @@ The posterior predictive distributions reconstruct the experimental data reasona
 \subsubsection{Participants}
 
 We recruited 150 participants from MTurk.
+We arrive at this number, we performed a Bayesian precision analysis to determine the minimum sample size necessary to reliably ensure 95\% posterior credible intervals no larger than 0.3 for a parameter whose true value is 0.5 and for which the data is a 2 alternative forced choice. This analysis revealed a minimum sample size of 50 per item; since participants only completed about one third of the items, we recruited 150 participants.
 The experiment took 4 minutes on average on participants were compensated \$0.55 for their work.
 
 \subsubsection{Procedure and materials}
 
-On each trial, participants were presented with a past frequency statement for a given action; the available actions were the same as in Expt. ~1a. 
-The frequency statement was of the form: ``In the past N \{weeks, months, years\}, \textsc{person} has \textsc{done action} 3 times''.
-We kept constant the number of times the action was done (3 times) in order to isolate the effects of the time window. 
-The particular intervals used (number N and window \{weeks, months, years\}) were selected for each item to explore a wide range of predictions of the speaker model (Eq.~\ref{eq:S2}).
+On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior. 
+The frequency statement was of the form: ``In the past $M$ \{weeks, months, years\}, \textsc{person} \textsc{event} 3 times''.
+We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
+The particular intervals used (number $M$ and window \{weeks, months, years\}) were selected by examining the predictions of the speaker model (Eq.~\ref{eq:S2}) for each item independently, and aimed to elicit a variety of predictions.
+The materials were the same as in Expt. ~1a.
 
-Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person does action}''.
-We identified 6 items for which the priors for men and women varied substantially in Expt.~1b.
-We presented these items with both a male and a female name (on different trials) to explore the hypothesis that the comparison class against which the target person's behavior is compared is gender-specific (e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
+Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person event}''.
+We selected 6 items for which the priors for men and women varied substantially in Expt.~1 to explore whether or not the prior distribution in Eq.~\ref{eq:L1}, \ref{eq:L0} should be with respect to all people or to males and females separately (e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-2.html}.
 
 %The model predicts that some items would not exhibit variability in endorsements in given ranges (e.g. if a person stole a car 3 times in the past \emph{week} vs. \emph{month}); we omitted particular intervals when the model predicted non-meaningful differences in endorsements. 
