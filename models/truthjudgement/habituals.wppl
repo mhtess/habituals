@@ -10,7 +10,8 @@ var df_tj_wRounded = map(function(x){
 						alignedResponse : align2afc[x.response]})
 }, df_tj)
 
-var prior_samples = 50000
+
+var prior_samples = 10000
 var prior_burn = prior_samples/2
 var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/20})
 
@@ -31,7 +32,8 @@ var model = function(){
 
 	foreach(items, function(i){
 
-		var prior = sample(priorERPobject[i])
+		var pp = sample(priorERPobject[i]); // prior params.
+		var prior = discretizeLogNormalPrior(pp[0], pp[1], pp[2]);
 		var itemData = subset(df_tj_wRounded, "habitual", i)
 		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
 
@@ -61,7 +63,7 @@ var model = function(){
 	return query
 }
 
-var samples = 10000
+var samples = 50000
 var burn = samples/2
 var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
 
@@ -72,3 +74,5 @@ var header = "Type,Item,Level,Period,Value"
 
 tjUtils.erpWriter(resultsERP, outputFile, header)
 console.log("written to " + outputFile)
+
+
