@@ -5,6 +5,13 @@
 
 %% Change "letterpaper" in the following line to "a4paper" if you must.
 
+% to do:
+
+%% expt 1: test different functional forms of prior
+%% expt 2: address male / female differences with tests? and talk about the contrast class in the discussion?
+%% expt 3: run. model?
+
+
 \documentclass[10pt,letterpaper]{article}
 
 \usepackage{cogsci}
@@ -86,10 +93,10 @@ Yet surprisingly little empirical work has looked into the basic inferences that
 Habitual sentences are interesting because they are likely central to our theories of other people. 
 Young children can use actors' behaviors to make inferences about what the actors are like more generally \cite<e.g.>{Repacholi1997, Seiver2013}.
 There is evidence to suggest the habitual sentences are weaker forms of trait language and convey behaviors that are relatively enduring \cite{Gelman1999}.
-And although linguists have often described habitual sentences in the same breath as generic sentences \cite{Carlson1977, Cohen1999}, experimentalists have yet to test the correspondence between the two. 
+And although linguists have often described habitual and generic sentences in the same breath \cite{Carlson1977, Cohen1999}, experimentalists have yet to test the correspondence between the two. 
 
-In this paper, we elaborate a recent computational theory of generic language to derive predictions for the truth conditions of habitual language. 
-The theory posits the semantics of a generic statement based on the degree of property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic pragmatic inferences \cite{TesslerUnderReview}.
+In this paper, we elaborate a recent computational theory of generic language to derive predictions for the truth conditions of habitual sentences. 
+The theory posits the semantics of a generic statement is an uncertain threshold on the degree of property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic, pragmatic inference given the distribution of property prevalence (i.e. in general, what prevalences are species likely to have) \cite{TesslerUnderReview}.
 We adopt the theory by adjusting the underlying degree to be the \emph{frequency of action} (i.e. how often does a person do an action) and derive predictions for felicity judgments of the corresponding habitual.
 In Expt.~1, we measure \emph{a priori} beliefs about how frequently people do a diverse set of actions.
 In Expt.~2, we use those priors and the pragmatic theory to make predictions about the truth conditions of habitual sentences under different frequencies of action. 
@@ -299,14 +306,16 @@ The experiment took \red{m} minutes on average on participants were compensated 
 \subsubsection{Procedure}
 
 The procedure was identical to Expt.~1b except for the inclusion of a second sentence on a subset of trials. 
-On one third of the trials, participants were presented with a \textbf{preventative condition} (e.g. \emph{Yesterday, Bill quit smoking.} that aimed to decrease the acceptability of the habitual sentence (\emph{Bill smokes}) even in the face of strong past frequency evidence (\emph{Last week, Bill smoked 3 times.}).
-On one third of the trials, participants were presented with an \textbf{enabling condition} that sought to reinforce the past frequency (\emph{Yesterday, Bill bought a pack of cigarettes.}) that aimed to increase the acceptability of the habitual sentence when the past frequency evidence was not strong. 
+On all trials, participants were presented with a \emph{past frequency sentence} (see Expt.~2).
+Additionally, on one third of the trials, participants were presented with a \textbf{preventative sentence} (e.g. \emph{Yesterday, Bill quit smoking.}). %that aimed to decrease the acceptability of the habitual sentence (\emph{Bill smokes}).
+% even in the face of strong past frequency evidence (\emph{Last week, Bill smoked 3 times.}).
+On one third of the trials, participants were presented with an \textbf{enabling sentence} (\emph{Yesterday, Bill bought a pack of cigarettes.}) %that sought to reinforce the past frequency that aimed to increase the acceptability of the habitual sentence when the past frequency evidence was not strong. 
 The final third of trials had no additional evidence and were identical to Expt.~1b. 
 
 \subsubsection{Materials}
 
-Twenty-one of the original thirty-one items were used to shorten the experiment.
-To increase expected variability, participants saw only the frequencies that led to the maximal and minimal endorsements of the habitual. 
+Twenty-one of the original thirty-one items were used in order to shorten the experiment.
+To increase expected variability, participants saw only the frequencies that led to the maximal and minimal endorsements of the habitual in Expt.~2. 
 In addition, we did not include trials for both male and female names for the select items we did in Expt.~1b, since we saw no differences in their endorsements of the habitual.
 This brings our total number of unique trials to 21 items x 2 frequency levels = 42, for each of 3 conditions.
 The dependent measure was the same as in Expt.~1b. 
@@ -321,25 +330,41 @@ Our results suggest the underlying scale for habituals is \emph{predictive} freq
 
 \section{Discussion}
 
+To our knowledge, this is the first empirical evidence addressing the analogy between habitual sentences and generic sentences.
+We are able to do this using a formal theory of the semantics and pragmatics of generic language.
+We adopt as the underlying degree scale the \emph{subjective frequency} with which a person does an action. 
+In Expt.~3, we showed that the notion of subjective frequency is tied to the future, \emph{predictive} frequency, which depends upon both past frequency and other conceptual factors.
 
-Habitual sentences (e.g. \emph{Bill smokes}) express generalizations about events in an analogous way to how generic sentences (e.g. \emph{Swans are white.}) express generalizations about properties within categories. 
-Though this connection has been pointed to in the philosophy and linguistics literatures, this work represents the first empirical and computational evidence unifying these two kinds of common, simple utterances. 
-We also delved deeper into the semantics of these sentences, investigating the nature of the underlying frequency scale by introducing enabling and preventative conditions for the event to happen in the future. 
-Future, or \emph{predictive}, frequency was shown to be extremely relevant in the truth conditions of habitual sentences. 
+\mht{kind of rough and needs more flowers}
+In the psychological literature, habituals have received relatively little attention as compared with \emph{generics}. 
+Generics often use a bare plural (e.g. \emph{Bears like to eat ants.}) and don't lay claim to any well-defined set of individuals (e.g. many bears may not like to eat ants).
+Habituals use the simple present tense (e.g. \emph{John smokes}) without any well-defined period of time (e.g. John may go many days without smoking). 
+In both cases, we are able to explain the varying truth conditions of these kinds of sentences by using a pragmatically inferred threshold on the set of individuals or on the period of time, respectively. 
+Scales, and scalar representations, provide a simple, general, and quantitative way to express truth conditions.
 
-The pragmatic theory introduced by \citeA{TesslerUnderReview} 
+Generics are ubiquitous in everyday conversation and in child-direction speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
+What might habitual language be used for?
+One possibility is that we describe individuals in terms of their enduring traits and habits. 
+Habituals may be weaker forms of trait language \cite{Gelman1999} and perhaps may be the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
+Future work should explore this connection more directly.
 
-The habitual sentences we explored were all presented in the simple, present tense.
-Generalizations can also occur in the past tense (e.g. \emph{Bill smoked}, or \emph{Bill used to smoke.}) and in the future tense (e.g. \emph{Bill will smoke}). 
-The present tense is interesting because it is \emph{a priori} unclear when, in fact, the sentence is making reference to.  
+\mht{kind of rough and needs more meat}
+The similarities between habitual and generic language may be useful for methodological reasons. 
+In Expt.~3, we manipulated participants' beliefs about the expected, future frequency of a behavior in a person.
+This showed that the underlying degree scale is likely to be \emph{predictive} frequency, as opposed to past frequency. 
+We were able to do this because people have rich, structured theories of people's behavior that varies over time. 
+In general, the different aspects of intuitive theories of people vs. categories may facilitate further exploration of how beliefs and language play off one another.
 
-In the psychological literature, habituals have received relatively little attention compared to their category counterpart \emph{generics}. 
 
-\begin{enumerate}
-\item Tense (past vs future vs present)
-\item Methodological implications (using habituals as opposed to generics)
-\item Contrast class (men vs women)
-\end{enumerate}
+%The habitual sentences we explored were all presented in the simple, present tense.
+%Generalizations can also occur in the past tense (e.g. \emph{Bill smoked}, or \emph{Bill used to smoke.}) and in the future tense (e.g. \emph{Bill will smoke}). 
+%The present tense is interesting because it is \emph{a priori} unclear when, in time, the sentence is making reference to.  
+%
+%\begin{enumerate}
+%\item Methodological implications (using habituals as opposed to generics)
+%\item Contrast class finding (men vs women)
+%\item Tense (past vs future vs present)
+%\end{enumerate}
 
 
 %people do things and infer what they \emph{are like} (e.g. if they often do this thing). 
