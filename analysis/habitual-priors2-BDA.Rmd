@@ -144,6 +144,7 @@ with(md.freq, cor(model_count, norm_count))^2
 
 ```{r freq.load}
 prefix <- "waitQ-logNormalModel-incrMH"
+#prefix <- "waitQ-poissonModel-incrMH"
 samples <- 100000
 burn <- samples / 2
 m2<- as.data.frame.matrix(fread(paste(filePath, prefix, 
@@ -299,8 +300,10 @@ prior.stats<- left_join(left_join(e.stats, f.stats),
                         categs)
 
 
+with(prior.stats, cor(fMAP, eMAP))^2
 
-ggplot(prior.stats, aes(x = eMAP, y = fMAP, color = Category, shape = Gender))+
+
+  ggplot(prior.stats, aes(x = eMAP, y = fMAP, color = Category, shape = Gender))+
   geom_point()+
   geom_errorbar(aes(ymin = fcredLow, ymax = fcredHigh))+
   geom_errorbarh(aes(xmin = ecredLow, xmax = ecredHigh))+

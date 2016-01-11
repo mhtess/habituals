@@ -202,6 +202,113 @@ d<-read.csv("~/Documents/research/habituals/data/priors/priors-2.csv")
 # everyone passed the catch trial
 ```
 
+Double-check effective wait time
+
+```{r prior2.checkWaitTime}
+
+scaleTime2 <- list(
+  week = 7,
+  month = 30,
+  year = 365,
+  "5 years" = 5*365
+)
+
+
+
+d.check<- d %>% 
+  select(workerid, category, item, ends_with("_men"), ends_with("_women")) %>%
+  mutate(menFreq = nPersons_men / comparisonNum_men,
+         womenFreq = nPersons_women / comparisonNum_women) %>%
+  rowwise() %>%
+  mutate(menRate = scaleTime2[[as.character(comparisonTime_men)]]/nInstances_men,
+         womenRate = scaleTime2[[as.character(comparisonTime_women)]]/nInstances_women) %>%
+  mutate(menRate = ifelse(menRate==Inf, 5*365, menRate),
+         womenRate = ifelse(womenRate==Inf, 5*365, womenRate))
+
+```
+
+## Process for BDA model
+
+#### Log interval time
+
+```{r prior2.process}
+
+d.out<-d.check %>%
+  select(-starts_with("comparison"), -starts_with("nPersons"),
+         -starts_with("nInstances"), -starts_with("effective")) %>%
+  mutate(log_menRate = log(menRate),
+         log_womenRate = log(womenRate))
+
+
+d.wait<- d.out %>%
+  select(category, item, log_menRate, log_womenRate) %>%
+  gather(key, val, -category, -item)
+
+ggplot(d.wait, aes(x=val, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item)+
+  xlim(-5,10)
+
+d.freq.out<-d.out %>%
+  select(-menRate, -womenRate, -log_menRate, -log_womenRate) %>%
+  gather(key, val, menFreq, womenFreq) %>%
+  mutate(gender = factor(key, levels = c("womenFreq", "menFreq"),
+                         labels=c("female", "male")),
+         metric = "existence") %>%
+  select(-key)
+
+
+write.csv(d.freq.out,
+          "~/Documents/research/habituals/models/priors/data/prior2-existence.csv",
+          row.names=F)
+
+d.rate.out<-d.out %>%
+  select(-menRate, -womenRate, -menFreq, -womenFreq)  %>%
+  gather(key, val, log_menRate, log_womenRate) %>%
+  mutate(gender = factor(key, levels = c("log_womenRate", "log_menRate"),
+                         labels=c("female", "male")),
+         metric = "logWait") %>%
+  select(-key)
+
+write.csv(d.rate.out,
+          "~/Documents/research/habituals/models/priors/data/prior2-logWait.csv",
+          row.names=F)
+```
+
+#### n times in five years
+
+```{r process.nTimes}
+scaleTime.nTimes <- list(
+  week = 5*52,
+  month = 5*12,
+  year = 5,
+  "5 years" = 1
+)
+
+d.nTimes<- d %>% 
+  select(workerid, category, item, ends_with("_men"), ends_with("_women")) %>%
+  mutate(menFreq = nPersons_men / comparisonNum_men,
+         womenFreq = nPersons_women / comparisonNum_women) %>%
+  rowwise() %>%
+  mutate(Ntimes_m = scaleTime.nTimes[[as.character(comparisonTime_men)]]*
+           nInstances_men,
+         Ntimes_f = scaleTime.nTimes[[as.character(comparisonTime_women)]]*
+           nInstances_women) %>%
+  select(-starts_with("effective"), -starts_with("comparisonNum"),
+         -starts_with("nPersons"))%>%
+  select(category, item, Ntimes_m, Ntimes_f) %>%
+  gather(key, val, -category, -item)
+
+qplot(data=d.nTimes %>% filter(item == "hikes"), fill = key,
+                               geom = 'histogram', x = val)
+
+write.csv(d.nTimes,
+          "~/Documents/research/habituals/models/priors/data/prior2-timesper5yr.csv",
+          row.names=F)
+
+```
+
+
 
 ```{r}
 d.tidy <- d %>%
