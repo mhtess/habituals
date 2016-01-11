@@ -52,9 +52,13 @@ var checkHDI = function(n,p){
 	})
 }
 
-var sampleSizes = [10, 30, 50, 70, 90, 110, 130]
-var p = 0.5
-foreach(sampleSizes, function(d){
-	console.log("95% credible interval on width of credible interval for n = " + 
-		d + "; p = "+p+"...." + HDI(checkHDI(d, p), 0.95))
+// var sampleSizes = [10, 30, 50, 70, 90, 110, 130]
+var sampleSizes = [50]
+var ps = [0.1, 0.3, 0.5, 0.7, 0.9]
+// var p = 0.5
+foreach(ps, function(p){
+	foreach(sampleSizes, function(d){
+		console.log("95% credible interval on width of credible interval for n = " + 
+			d + "; p = "+p+"...." + HDI(checkHDI(d, p), 0.95))
+	})
 })
