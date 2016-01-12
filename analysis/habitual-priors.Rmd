@@ -297,7 +297,21 @@ d.nTimes<- d %>%
   select(-starts_with("effective"), -starts_with("comparisonNum"),
          -starts_with("nPersons"))%>%
   select(category, item, Ntimes_m, Ntimes_f) %>%
-  gather(key, val, -category, -item)
+  gather(key, val, -category, -item) %>%
+  mutate(logval = log(val),
+         gender = factor(key, levels=c("Ntimes_m", "Ntimes_f"),
+                         labels=c("male", "female")),
+        item = gsub("sell things on eBay", "sells things on eBay", item),
+        logval = ifelse(logval==-Inf, 0, logval))
+
+ggplot(d.nTimes, aes(x=val, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item, scales='free')
+
+ggplot(d.nTimes, aes(x=logval, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item, scales='free')
+
 
 qplot(data=d.nTimes %>% filter(item == "hikes"), fill = key,
                                geom = 'histogram', x = val)
@@ -308,6 +322,37 @@ write.csv(d.nTimes,
 
 ```
 
+
+Bins for RSA
+
+```{r}
+nBins=10
+d.times.bins<-d.nTimes %>%
+  group_by(item) %>%
+  summarize(lo_bar = round(quantile(logval, c(0)),1),
+            hi_bar = round(quantile(logval, c(1)),1)) %>%
+  mutate(bin_width = (hi_bar-lo_bar)/nBins)
+                              
+
+binSize=0.5
+
+i.bins<-data.frame()
+for (i in 1:nrow(d.times.bins)){
+  df.tmp<-d.times.bins[i,]
+  bins <- seq(df.tmp[["lo_bar"]],df.tmp[["hi_bar"]], df.tmp[["bin_width"]])
+  i.tmp<-data.frame(Item = df.tmp[["item"]],
+             Bins = bins,
+             Bin_num = seq(0,10,1)) %>%
+    spread(Bin_num, Bins)
+  
+  i.bins<- bind_rows(i.bins, i.tmp)
+}
+write.csv(i.bins,
+          "~/Documents/research/habituals/models/truthjudgement/data/prior2-discrete_bins.csv",
+          row.names=F)
+
+
+```
 
 
 ```{r}
