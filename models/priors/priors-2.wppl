@@ -2,18 +2,28 @@
 
 var fpath = "/Users/mht/Documents/research/habituals/models/priors/data/"
 var existData = mht.readCSV(fpath+"prior2-existence.csv").data
-var waitData = mht.readCSV(fpath+"prior2-logWait.csv").data
+// var waitData = mht.readCSV(fpath+"prior2-logWait.csv").data
+var waitData = mht.readCSV(fpath+"prior2-timesper5yr.csv").data
 
 var df_e = dataFrame(existData, ["val"])
-var df_w = dataFrame(waitData, ["val"])
+var df_w = dataFrame(waitData, ["val", "logval"])
 
 var items = _.uniq(_.pluck(df_e, "item"))
 var genders = _.uniq(_.pluck(df_e, "gender"))
 
-var existentialModel = function(){
 
-	foreach(items, function(i){
+var header = "Measure,Parameter,Item,Gender,Value,Probability"
+var samples = 100000
+var burn = samples/2
+var incrOpts = {burn:burn, verbose:false, verboseLag: samples/4}
+var outfile1 = "results/priors2-existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "ka.csv"
 
+
+
+var existentialModel = function(i, handle){
+
+	var existenceERP = IncrementalMH(function(){
+		
 		var itemData = subset(df_e, "item", i)
 
 		foreach(genders, function(g){
@@ -39,69 +49,156 @@ var existentialModel = function(){
 							
 
 		})
-																						
-	})
-	return query
+
+		return query
+
+	}, samples, incrOpts)
+
+	mht.writeERP(existenceERP, handle)
+	console.log(items.indexOf(i) + 1 + " / " + items.length +  " items written to file")
 }
 
 
-var frequencyModel = function(){
+// var h0file = mht.openFile(outfile1)
+// mht.writeLine(h0file, header)
+// foreach(items, function(i){existentialModel(i, h0file)})
+// mht.closeFile(h0file)
+// console.log("------Existence inference complete------")
+// console.log("__Written to " + outfile1)
 
-	foreach(items, function(i){
 
-		var itemData = subset(df_e, "item", i)
+var g = "both"
+var frequencyModel = function(i, handle){
 
-		foreach(genders, function(g){
+	var frequencyERP  = IncrementalMH(function(){
 
-			var genderData = subset(itemData, "gender", g)
+		var itemData = subset(df_w, "item", i)
+		// console.log(i)
+		// console.log(itemData)
+
+		// foreach(genders, function(g){
+
+			// var genderData = subset(itemData, "gender", g)
+
+			// prior on poisson r.v.
+			// in number of times / 5 yr
+			// var lambda = uniform(0, 5000)
+
+			// var beta_gamma = uniform(0,1)
+			// var beta_delta = uniform(0,20)
 			// frequency
-			var mu = uniform(-10,10)
+			// var mix = uniform(0,1)
+
+			var mu = uniform(0,10)
 			var sigma = uniform(0,20)
 
-			// var mix = uniform(0,1)
-			// var mu2 = gaussian(0,50)
-			// var sigma2 = uniform(0,20)
+			var mu2 = uniform(0,10)
+			var sigma2 = uniform(0,20)
+
+			// var mu3 = uniform(-10,10)
+			// var sigma3 = uniform(0,20)
+
+			// var bundled_mus = [mu, mu2, mu3]
+			// var bundled_sigmas = [sigma, sigma2, sigma3]
+
+			// var mix = dirichlet([1,1,1])
+			var mix = uniform(0,1)
+
+
+
+			var scr = sum(map(function(d){
+				// console.log(d)
+				return Math.log(mix*Math.exp(gaussianERP.score([mu, sigma], d)) + 
+					(1-mix)*Math.exp(gaussianERP.score([mu2, sigma2], d)))
+			}, _.pluck(itemData, "logval")))
+
+			// console.log(i + scr)
+
+			// var scr = sum(map(function(d){
+			// 	return Math.log(
+			// 					mix[0]*Math.exp(gaussianERP.score([mu, sigma], d)) + 
+			// 					mix[1]*Math.exp(gaussianERP.score([mu2, sigma2], d)) + 
+			// 					mix[2]*Math.exp(gaussianERP.score([mu3, sigma3], d))
+			// 					)
+			// }, _.pluck(itemData, "val")))
+
 
 
 			// var scr = sum(map(function(d){
-			// 	return Math.log(mix*Math.exp(gaussianERP.score([mu, sigma], d)) + 
-			// 		(1-mix)*Math.exp(gaussianERP.score([mu2, sigma2], d)))
-			// }, _.pluck(itemData, "logFreq")))
+			// 	return gaussianERP.score([mu, sigma], d)
+			// }, _.pluck(genderData, "val")))
 
-			var scr = sum(map(function(d){
-				return gaussianERP.score([mu, sigma], d)
-			}, _.pluck(genderData, "val")))
+			// poisson model
+			// var scr = sum(map(function(d){
+			// 	return poissonERP.score([lambda], d)
+			// }, _.pluck(genderData, "val")))
+
+			// // beta model
+			// var scr = sum(map(function(d){
+
+			// 	return poissonERP.score([lambda], d)
+			// }, _.pluck(genderData, "val")))
+
 
 			factor(scr)
 
-			query.add(["frequency","mu", i, g], mu)
-			query.add(["frequency","sigma", i, g], sigma)
+			// query.add(["n_times","lambda", i, g], lambda)
 
-			// query.add(["frequency","mu2", i], mu2)
-			// query.add(["frequency","sigma2", i], sigma2)
-			// query.add(["frequency","mix", i], mix)
-			// var predictive = flip(mix) ? gaussian(mu, sigma) : gaussian(mu2, sigma2)
+			query.add(["log_ntimes","mu", i, g], mu)
+			query.add(["log_ntimes","sigma", i, g], sigma)
+
+			query.add(["log_ntimes","mu2", i, g], mu2)
+			query.add(["log_ntimes","sigma2", i, g], sigma2)
+
+			query.add(["log_ntimes","mix", i, g], mix)
+
+			// query.add(["frequency","mu3", i, g], mu3)
+			// query.add(["frequency","sigma3", i, g], sigma3)
+
+			// query.add(["frequency","mix1", i, g], mix[0])
+			// query.add(["frequency","mix2", i, g], mix[1])
+			// query.add(["frequency","mix3", i, g], mix[2])
+
+			// var component = discrete(mix) 
+			// var predictive = gaussian(bundled_mus[component], bundled_sigmas[component])
+
+			var predictive = flip(mix) ? gaussian(mu, sigma) : gaussian(mu2, sigma2)
 			
-			var predictive = gaussian(mu, sigma)
-			query.add(["frequency","predictive", i, g], predictive)
+			// var predictive = gaussian(mu, sigma)
+			// var predictive = poisson(lambda)
+			query.add(["log_ntimes","predictive", i, g], predictive)
+			// query.add(["n_times","predictive", i, g], predictive)
 
-		})
-	})
+		// })
 
-	return query
+		return query
+
+	}, samples, incrOpts)
+	mht.writeERP(frequencyERP, handle)
+	console.log(items.indexOf(i) + 1 + " / " + items.length +  " items written to to file")
 }
-var samples = 10000
-var burn = samples/2
-var header = "Measure,Parameter,Item,Gender,Value"
 
-var existenceERP = IncrementalMH(existentialModel, samples, {burn:burn, verbose:true, verboseLag: samples/20})
-console.log("------Existence inference complete------")
-var outfile1 = "results/priors2-existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
-habutils.erpWriter(existenceERP, outfile1, header)
-console.log("__Written to " + outfile1)
-
-var frequencyERP = IncrementalMH(frequencyModel, samples, {burn:burn, verbose:true, verboseLag: samples/20})
+var header = "Measure,Parameter,Item,Gender,Value,Probability"
+// var outfile2 = "results/waitQ-logNormalModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+var outfile2 = "results/waitQ-logNTimes-2logNormalsModel-1gender-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+var h1file = mht.openFile(outfile2)
+mht.writeLine(h1file, header)
+foreach(items, function(i){frequencyModel(i, h1file)})
+mht.closeFile(h1file)
 console.log("------Frequency inference complete------")
-var outfile2 = "results/waitQ-logNormalModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
-habutils.erpWriter(frequencyERP, outfile2, header)
 console.log("__Written to " + outfile2)
+
+
+// df_e
+
+// df_w.slice(0,3)
+// var samples = 100000
+// var burn = samples/2
+// var header = "Measure,Parameter,Item,Gender,Value"
+
+// var existenceERP = IncrementalMH(existentialModel, samples, {burn:burn, verbose:true, verboseLag: samples/20})
+// var outfile1 = "results/priors2-existenceQ-betaModel-incrMH" + samples/1000 + "k_burn" + burn/1000 + "k.csv"
+// habutils.erpWriter(existenceERP, outfile1, header)
+// console.log("__Written to " + outfile1)
+
+

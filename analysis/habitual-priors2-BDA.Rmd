@@ -21,12 +21,65 @@ HPDlo<- function(s){
   return(m["var1","lower"])
 }
 options("scipen"=10)   
+filePath <- "~/Documents/research/habituals/models/priors/results/"
+```
+
+```{r data.load}
+d<-read.csv("~/Documents/research/habituals/data/priors/priors-2.csv")
+
+scaleTime2 <- list(
+  week = 7,
+  month = 30,
+  year = 365,
+  "5 years" = 5*365
+)
+
+scaleTime.nTimes <- list(
+  week = 5*52,
+  month = 5*12,
+  year = 5,
+  "5 years" = 1
+)
+
+
+d.tidy<- d %>% 
+  select(workerid, category, item, ends_with("_men"), ends_with("_women")) %>%
+  mutate(menFreq = nPersons_men / comparisonNum_men,
+         womenFreq = nPersons_women / comparisonNum_women) %>%
+  rowwise() %>%
+  mutate(menRate = scaleTime2[[as.character(comparisonTime_men)]]/nInstances_men,
+         womenRate = scaleTime2[[as.character(comparisonTime_women)]]/nInstances_women) %>%
+  mutate(menRate = ifelse(menRate==Inf, 5*365, menRate),
+         womenRate = ifelse(womenRate==Inf, 5*365, womenRate)) %>%
+  mutate(item = gsub("sell things on eBay", "sells things on eBay", item))
+
+
+
+d.nTimes<- d %>% 
+  select(workerid, category, item, ends_with("_men"), ends_with("_women")) %>%
+  mutate(menFreq = nPersons_men / comparisonNum_men,
+         womenFreq = nPersons_women / comparisonNum_women) %>%
+  rowwise() %>%
+  mutate(Ntimes_m = scaleTime.nTimes[[as.character(comparisonTime_men)]]*
+           nInstances_men,
+         Ntimes_f = scaleTime.nTimes[[as.character(comparisonTime_women)]]*
+           nInstances_women) %>%
+  select(-starts_with("effective"), -starts_with("comparisonNum"),
+         -starts_with("nPersons"))%>%
+  select(category, item, Ntimes_m, Ntimes_f) %>%
+  gather(key, val, -category, -item) %>%
+  mutate(logval = log(val),
+         gender = factor(key, levels=c("Ntimes_m", "Ntimes_f"),
+                         labels=c("male", "female")),
+        item = gsub("sell things on eBay", "sells things on eBay", item),
+        logval = ifelse(logval==-Inf, 0, logval))
+
+
 ```
 
 ## Existence question
 
-```{r}
-filePath <- "~/Documents/research/habituals/models/priors/results/"
+```{r q1.load}
 prefix <- "priors2-existenceQ-betaModel-incrMH"
 samples <- 100000
 burn <- samples / 2
@@ -39,7 +92,7 @@ m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
 
 ### Posterior over parameters
 
-```{r}
+```{r q1.params}
 m.params<-m.samples %>% filter(Parameter!='predictive')
 
 ggplot(m.params,aes(x=Value, fill=Gender))+
@@ -58,7 +111,7 @@ ggsave(paste(filePath, "plots/priors2-existence-", prefix,
 ### Posterior predictive
 
 
-```{r}
+```{r q1.predictive}
 m.predictive<-m.samples %>% filter(Parameter=='predictive')
 
 ggplot(m.predictive,aes(x=Value, fill=Gender))+
@@ -79,25 +132,8 @@ ggsave(paste(filePath, "plots/priors2-existence-predictive-", prefix,
 ### Model - data fit
 
 
-```{r}
-d<-read.csv("~/Documents/research/habituals/data/priors/priors-2.csv")
+```{r q1.mdfit}
 
-scaleTime2 <- list(
-  week = 7,
-  month = 30,
-  year = 365,
-  "5 years" = 5*365
-)
-
-d.tidy<- d %>% 
-  select(workerid, category, item, ends_with("_men"), ends_with("_women")) %>%
-  mutate(menFreq = nPersons_men / comparisonNum_men,
-         womenFreq = nPersons_women / comparisonNum_women) %>%
-  rowwise() %>%
-  mutate(menRate = scaleTime2[[as.character(comparisonTime_men)]]/nInstances_men,
-         womenRate = scaleTime2[[as.character(comparisonTime_women)]]/nInstances_women) %>%
-  mutate(menRate = ifelse(menRate==Inf, 5*365, menRate),
-         womenRate = ifelse(womenRate==Inf, 5*365, womenRate))
 
 
 # create histogram from responses
@@ -142,8 +178,9 @@ with(md.freq, cor(model_count, norm_count))^2
 
 # Frequency question
 
-```{r freq.load}
-prefix <- "waitQ-logNormalModel-incrMH"
+```{r q2.load}
+#prefix <- "waitQ-logNormalModel-incrMH"
+prefix <- "waitQ-logNTimes-2logNormalsModel-1gender-incrMH"
 #prefix <- "waitQ-poissonModel-incrMH"
 samples <- 100000
 burn <- samples / 2
@@ -152,12 +189,14 @@ m2<- as.data.frame.matrix(fread(paste(filePath, prefix,
                    burn/1000, "k.csv",sep="")))
 
 m2.samples <- m2[rep(row.names(m2), m2$Probability*(samples-burn)), 1:5]
+m2.params<-m2.samples %>% filter(Parameter!='predictive')
+m2.predictive<-m2.samples %>% filter(Parameter=='predictive')
+
 ```
 
 ### Posterior over parameters
 
-```{r}
-m2.params<-m2.samples %>% filter(Parameter!='predictive')
+```{r q2.params}
 
 ggplot(m2.params,aes(x=Value, fill=Gender))+
   geom_histogram()+
@@ -193,8 +232,7 @@ ggsave(paste(filePath, "plots/priors2-frequency-stats-", prefix,
 ### Posterior predictive
 
 
-```{r}
-m2.predictive<-m2.samples %>% filter(Parameter=='predictive')
+```{r q2.predictive}
 
 ggplot(m2.predictive,aes(x=Value, fill=Gender))+
   geom_histogram(position=position_dodge())+
@@ -220,27 +258,55 @@ ggsave(paste(filePath, "plots/frequency-predictive-", prefix,
 
 # Model--data fit
 
-```{r}
+```{r q2.mdfit}
 # create histogram from responses
-d.rate<- d.tidy %>%
-  select(item, menRate, womenRate) %>%
-  gather(Gender, Human, menRate, womenRate) %>%
-  mutate(Gender = factor(Gender, levels=c("menRate", "womenRate"),
-                         labels=c("male", "female"))) %>%
-  rename(Item = item) %>%
-  mutate(Bin = round(log(Human), digits = 0)) %>%
+# d.rate<- d.tidy %>%
+#   select(item, menRate, womenRate) %>%
+#   gather(Gender, Human, menRate, womenRate) %>%
+#   mutate(Gender = factor(Gender, levels=c("menRate", "womenRate"),
+#                          labels=c("male", "female"))) %>%
+#   rename(Item = item) %>%
+#   mutate(Bin = round(log(Human), digits = 0)) %>%
+#   mutate(Bin = factor(Bin)) %>%
+# #  group_by(Item, Gender, Bin) %>%
+#   group_by(Item, Bin) %>%
+#   summarize(count = length(Human)) %>%
+#   ungroup() %>%
+#   group_by(Item) %>%
+# #  group_by(Item, Gender) %>%
+#   mutate(norm_count = count / sum(count)) %>%
+#   select(-count)
+
+nBins=10
+d.times.bins<-d.nTimes %>%
+  group_by(item) %>%
+  summarize(lo_bar = round(quantile(logval, c(0)),1),
+            hi_bar = round(quantile(logval, c(1)),1)) %>%
+  mutate(bin_width = (hi_bar-lo_bar)/nBins)
+                              
+
+binSize=0.5
+
+d.nTimes.binned<-left_join(d.nTimes,
+                           d.times.bins) %>% 
+  mutate(Bin = round(round(logval*1/bin_width, digits = 0)/(1/bin_width), digits=1)) %>%
+  mutate(Bin = ifelse(Bin < lo_bar, lo_bar, Bin)) %>%
+  mutate(Bin = ifelse(Bin > hi_bar, hi_bar, Bin)) %>%
   mutate(Bin = factor(Bin)) %>%
-  group_by(Item, Gender, Bin) %>%
-  summarize(count = length(Human)) %>%
+  rename(Item = item) %>%
+  group_by(Item, Bin) %>%
+  summarize(count = length(Bin)) %>%
   ungroup() %>%
-  group_by(Item, Gender) %>%
+  group_by(Item) %>%
+#  group_by(Item, Gender) %>%
   mutate(norm_count = count / sum(count)) %>%
   select(-count)
 
-
-
-m.rate <- m2.predictive %>% 
-  mutate(Bin = round(Value, 0)) %>%
+m.rate <- left_join(m2.predictive,
+                    d.times.bins %>%rename(Item =item)) %>% 
+  mutate(Bin = round(round(Value*(1/bin_width), digits=0)/(1/bin_width), digits=1)) %>%
+  mutate(Bin = ifelse(Bin < lo_bar, lo_bar, Bin)) %>%
+  mutate(Bin = ifelse(Bin > hi_bar, hi_bar, Bin)) %>%
   mutate(Bin = factor(Bin)) %>%
   group_by(Item, Gender, Bin) %>%
   summarize(count = length(Value)) %>%
@@ -249,7 +315,9 @@ m.rate <- m2.predictive %>%
   mutate(model_count = count / sum(count)) %>%
   select(-count)
 
-md.rate<- left_join(m.rate, d.rate)
+md.rate<- left_join(m.rate,
+                    d.nTimes.binned) %>%
+  mutate(Bin = to.n(Bin))
 md.rate[is.na(md.rate$norm_count),]$norm_count <- 0
 
 ggplot(md.rate, aes(x=model_count, y=norm_count, color = Bin))+
@@ -266,8 +334,23 @@ md.rate<- md.rate %>%
   mutate(sqErr = (model_count - norm_count)^2)
 
 View(md.rate)
+
+ggsave(paste(filePath, "plots/priors2-reconstruction-10binsPerItem-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""))
 ```
 
+```{r q2.deviations}
+top5.dev<-md.rate[order(md.rate$sqErr, decreasing=T),]$Item[1:10]
+
+md.dev<- md.rate %>% #filter(Item %in% top5.dev) %>%
+  gather(src,val, model_count, norm_count)
+
+ggplot(md.dev, aes(x = factor(Bin), y = val, fill=src))+
+  geom_bar(stat='identity', position=position_dodge())+
+  facet_wrap(~Item, scales='free')
+
+```
 # Scatterplot
 
 ```{r}
