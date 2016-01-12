@@ -1,5 +1,6 @@
 // time webppl habituals.wppl --require mht --require tjUtils
 
+var bin_data = mht.readCSV(fpath2+"prior2-discrete_bins.csv").data
 var align2afc = {
 	"agree-key":"habitual",
 	"disagree-key": "mm"
@@ -10,17 +11,28 @@ var df_tj_wRounded = map(function(x){
 						alignedResponse : align2afc[x.response]})
 }, df_tj)
 
+var df_bins = _.object(map(function(lst){
+	var statebins = _.sortBy(_.values(_.omit(lst, "Item"))) // grab and sort state bins
+	var bin_width = statebins[1] - statebins[0] // calculate bin_width based on 1st and 2nd bins (could produce errors if bins are not close to equally spaced)
+	return [lst["Item"], 
+		{"state_bins": statebins,
+		"theta_bins": map(function(x){
+			return Math.round(10*(x - (bin_width / 2))) / 10 // get intermediate points (rounded to nearest 0.1)
+		},statebins)
+		}
+		]
+}, dataFrame(bin_data, ["0","1","2","3","4","5","6","7","8","9","10"])))
 
-var prior_samples = 10000
+
+var prior_samples = 1000
 var prior_burn = prior_samples/2
-var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/20})
+var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/5})
 
 var priorERPobject = _.object(map(function(i){
-	return [i, marginalizeERP(priorERP, i)]
+	return [i, _.object(map(function(q){
+		return [q, 	marginalizeERP(priorERP, [i,q])]
+	}, ["Q1","Q2"]))]
 }, items))
-
-var thetaBins = map(function(x) {return x + binWidth/2;}, priorBins);
-
 
 var model = function(){
 
@@ -32,7 +44,8 @@ var model = function(){
 
 	foreach(items, function(i){
 
-		var pp = sample(priorERPobject[i]); // prior params.
+		var pr_exist = sample(priorERPobject[i]["Q1"]); //exist params
+		var pp = sample(priorERPobject[i]["Q2"]); // freq params.
 		var prior = discretizeLogNormalPrior(pp[0], pp[1], pp[2]);
 		var itemData = subset(df_tj_wRounded, "habitual", i)
 		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
@@ -50,9 +63,7 @@ var model = function(){
 								}, 0, responseData)
 
 			// console.log(i + f + scr)
-
 			// console.log("S2 prob = " + Math.exp(s2_plusGuess.score([], "habitual")))
-
 			factor(scr)
 			query.add(["predictive", i, f, grossLevel], Math.exp(s2_plusGuess.score([], "habitual")))
 		})
@@ -74,5 +85,3 @@ var header = "Type,Item,Level,Period,Value"
 
 tjUtils.erpWriter(resultsERP, outputFile, header)
 console.log("written to " + outputFile)
-
-
