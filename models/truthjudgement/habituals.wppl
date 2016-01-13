@@ -31,7 +31,7 @@ var df_tj_wRounded = map(function(x){
 // console.log(subset(df_tj_wRounded, "habitual", item))
 // console.log(df_bins[item])
 
-var prior_samples = 50000
+var prior_samples = 100000
 var prior_burn = prior_samples/2
 var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/5})
 
@@ -80,6 +80,9 @@ var model = function(){
 		var itemData = subset(df_tj_wRounded, "habitual", i)
 		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
 
+		// console.log("e = " + pr_exist)
+		// console.log("pp = " + pp.join(' '))
+
 		foreach(freqLevels, function(f){
 
 			var freqData = subset(itemData, "roundedFreq", f)
@@ -104,11 +107,11 @@ var model = function(){
 	return query
 }
 
-var samples = 10000
+var samples = 50000
 var burn = samples/2
 var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
 
-var outputFile = "results/tj2-RSA-log_ntimes-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+ prior_samples/1000 + 
+var outputFile = "results/tj2-RSA-log_ntimes-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior-2betas-2lognormals-"+ prior_samples/1000 + 
 	"k_burn" + prior_burn/1000 + "k_discretize0-7-0.5-b.csv"
 
 var header = "Type,Item,Level,Period,Value"

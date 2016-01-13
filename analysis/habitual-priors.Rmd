@@ -202,6 +202,37 @@ d<-read.csv("~/Documents/research/habituals/data/priors/priors-2.csv")
 # everyone passed the catch trial
 ```
 
+
+```{r prior2.q1}
+
+```{r}
+d.tidy <- d %>%
+  select(workerid, category, item, ends_with("_men"), ends_with("_women"))
+
+d.tidy[is.na(d.tidy)]<-1825 #once every 5 years
+
+d.existence<- d.tidy %>%
+  select(category, item, effectiveExistence_men, effectiveExistence_women) %>%
+  gather(key, val, -category, -item)
+
+
+ggplot(d.existence, aes(x=val, fill=key))+
+  geom_histogram(position=position_dodge())+
+  facet_wrap(~item)
+
+d.exist.summary<- d.existence %>%
+  group_by(item, key) %>%
+  multi_boot_standard(column="val")
+
+ggplot(d.exist.summary, aes(x=item, y=mean, fill=key))+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  geom_bar(stat='identity', position=position_dodge())+
+  coord_flip()
+
+fig.path <- "~/Documents/research/habituals/analysis/figures/"
+ggsave(paste(fig.path, "existentialQ-histogram-priors2.pdf", sep=""))
+
+```
 Double-check effective wait time
 
 ```{r prior2.checkWaitTime}
@@ -339,10 +370,11 @@ binSize=0.5
 i.bins<-data.frame()
 for (i in 1:nrow(d.times.bins)){
   df.tmp<-d.times.bins[i,]
-  bins <- seq(df.tmp[["lo_bar"]],df.tmp[["hi_bar"]], df.tmp[["bin_width"]])
-  i.tmp<-data.frame(Item = df.tmp[["item"]],
-             Bins = bins,
-             Bin_num = seq(0,10,1)) %>%
+  bins <- round(seq(df.tmp[["lo_bar"]],df.tmp[["hi_bar"]], df.tmp[["bin_width"]]),1)
+  i.tmp<-data.frame(Bin_num = seq(0,10,1),
+                    Item = df.tmp[["item"]],
+             Bins = bins
+             ) %>%
     spread(Bin_num, Bins)
   
   i.bins<- bind_rows(i.bins, i.tmp)
@@ -355,30 +387,6 @@ write.csv(i.bins,
 ```
 
 
-```{r}
-d.tidy <- d %>%
-  select(workerid, category, item, ends_with("_men"), ends_with("_women"))
-
-d.tidy[is.na(d.tidy)]<-1825 #once every 5 years
-
-d.existence<- d.tidy %>%
-  select(category, item, effectiveExistence_men, effectiveExistence_women) %>%
-  gather(key, val, -category, -item)
-
-
-ggplot(d.existence, aes(x=val, fill=key))+
-  geom_histogram(position=position_dodge())+
-  facet_wrap(~item)
-
-d.exist.summary<- d.existence %>%
-  group_by(item, key) %>%
-  multi_boot_standard(column="val")
-
-ggplot(d.exist.summary, aes(x=item, y=mean, fill=key))+
-  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
-  geom_bar(stat='identity', position=position_dodge())+
-  coord_flip()
-```
 
 
 

@@ -52,8 +52,30 @@ d2<-d %>%
   ungroup() %>%
   mutate(logFreq = log(frequency))
 
-#write.csv(d2,"~/Documents/research/habituals/models/truthjudgement/data/tj-2.csv", 
-#           row.names=F)
+
+scaleTime.nTimes <- list(
+  week = 5*52,
+  "2 weeks" = (5*52)/2,
+  month = 5*12,
+  "2 months" = (5*12)/2,
+  "6 months" = (5*12)/6,
+  year = 5,
+  "2 years" = 5 / 2,
+  "5 years" = 1
+)
+
+d3<-d %>%
+  mutate(time_period = as.character(time_period),
+         n_instances = to.n(n_instances)) %>%
+  rowwise() %>%
+  mutate(n_times = scaleTime.nTimes[[time_period]]*n_instances) %>%
+  ungroup() %>%
+  mutate(log_times = log(n_times))
+
+
+
+write.csv(d3,"~/Documents/research/habituals/models/truthjudgement/data/tj-2-logtimes.csv", 
+          row.names=F)
 ```
 
 
@@ -190,23 +212,27 @@ ggplot(d.gen, aes(x=mean))+
 ```
 
 
-
 # Modeling
+
+
 ```{r tj1.model.load}
 filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
-prefix <- "tj2-RSA-so-phi-IncrMH"
-samples <- 30000
+#prefix <- "tj2-RSA-so-phi-IncrMH"
+prefix <-"tj2-RSA-log_ntimes-so-phi-IncrMH"
+samples <- 50000
 burn <- samples / 2
-priorsamples <- 10000
+priorsamples <- 100000
 priorburn <- priorsamples / 2
 m.samples<- data.frame()
-for (i in c("a", "b", "c")){
+i = "b"
+for (i in c("a", "b")){
   m<-read.csv(paste(filePath, prefix, 
                      samples/1000, "k_burn", 
-                     burn/1000, "k_prior",
+                     burn/1000, "k_prior-2betas-2lognormals-",
                      priorsamples/1000, "k_burn",
                      priorburn/1000,
-                     "k+discBins18",i,".csv",sep=""))  
+                     "k_discretize0-7-0.5-",i,".csv",sep=""))  
+#                     "k_discretize10ByItemPlus0-",i,".csv",sep=""))  
   m.samp <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
   m.samples<- bind_rows(m.samples, m.samp)
   print(i)
@@ -220,7 +246,7 @@ for (i in c("a", "b", "c")){
 ```{r tj1.model.params}
 m.params <- m.samples %>% filter(Type =='parameter')
 qplot(data=m.params, x= Value, geom='histogram')+
-  facet_wrap(~Level)
+  facet_wrap(~Level, scales='free')
 
 m.params %>%
   group_by(Level) %>%
@@ -249,8 +275,8 @@ plt2<-ggplot(m.d,aes(x=MAP, y = mean, fill=logFreq))+
   geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper))+
   geom_errorbarh(aes(xmin=credLow, xmax = credHigh))+
     geom_point(shape=21, size=4)+
-  xlim(-0.05,1.05)+
-  ylim(-0.05,1.05)+
+  #xlim(-0.05,1.05)+
+ # ylim(-0.05,1.05)+
   theme_paper()+
   coord_fixed()+
   xlab("\n Model posterior predictive")+
@@ -274,6 +300,7 @@ plt2
 
 with(m.d, cor(MAP, mean))^2
 
+with(m.d, cor(MAP, mean, use="complete.obs"))^2
 
 with(m.d %>% filter(logFreq >= 4.5),
      cor(MAP,mean))^2

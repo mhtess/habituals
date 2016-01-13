@@ -285,6 +285,14 @@ d.times.bins<-d.nTimes %>%
   mutate(bin_width = (hi_bar-lo_bar)/nBins)
                               
 
+d.times.bins<-d.nTimes %>%
+  group_by(item) %>%
+  summarize(lo_bar = 0,
+            hi_bar = 7) %>%
+  mutate(bin_width = 0.5)
+                              
+
+
 binSize=0.5
 
 d.nTimes.binned<-left_join(d.nTimes,
@@ -335,7 +343,7 @@ md.rate<- md.rate %>%
 
 View(md.rate)
 
-ggsave(paste(filePath, "plots/priors2-reconstruction-10binsPerItem-", prefix, 
+ggsave(paste(filePath, "plots/priors2-reconstruction-0-7-0.5-", prefix, 
                    samples/1000, "k_burn", 
                    burn/1000, "k.pdf", sep=""))
 ```
@@ -343,14 +351,21 @@ ggsave(paste(filePath, "plots/priors2-reconstruction-10binsPerItem-", prefix,
 ```{r q2.deviations}
 top5.dev<-md.rate[order(md.rate$sqErr, decreasing=T),]$Item[1:10]
 
-md.dev<- md.rate %>% #filter(Item %in% top5.dev) %>%
+md.dev<- md.rate %>% filter(Item %in% top5.dev) %>%
   gather(src,val, model_count, norm_count)
 
-ggplot(md.dev, aes(x = factor(Bin), y = val, fill=src))+
+ggplot(md.dev, aes(x =Bin, y = val, fill=src))+
+#ggplot(md.dev, aes(x = (round(exp(Bin)/5, digits=1)), y = val, fill=src))+
   geom_bar(stat='identity', position=position_dodge())+
-  facet_wrap(~Item, scales='free')
+  facet_wrap(~Item, scales='fixed')+
+  xlab("logn instances / year")
 
+ggsave(paste(filePath, "plots/priors2-top9dev-reconstruction-0-7-0.5-", prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.pdf", sep=""), width=30, height = 12)
 ```
+
+
 # Scatterplot
 
 ```{r}
