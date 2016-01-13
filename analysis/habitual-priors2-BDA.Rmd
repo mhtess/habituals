@@ -81,11 +81,12 @@ d.nTimes<- d %>%
 
 ```{r q1.load}
 prefix <- "priors2-existenceQ-betaModel-incrMH"
-samples <- 100000
+prefix <- "priors2-existenceQ-2betaModel-1gender-MH"
+samples <- 10000
 burn <- samples / 2
 m<- as.data.frame.matrix(fread(paste(filePath, prefix, 
                    samples/1000, "k_burn", 
-                   burn/1000, "k.csv",sep="")))
+                   burn/1000, "ka.csv",sep="")))
 
 m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
 ```
@@ -153,6 +154,21 @@ d.freq<- d.tidy %>%
   select(-count)
 
 
+# histogram -- No Gender
+d.freq<- d.tidy %>%
+  select(item, menFreq, womenFreq) %>%
+  gather(Gender, Human, menFreq, womenFreq) %>%
+  select(-Gender) %>%
+  rename(Item = item) %>%
+  mutate(Bin = round(Human, digits = 1)) %>%
+  mutate(Bin = factor(Bin)) %>%
+  group_by(Item, Bin) %>%
+  summarize(count = length(Human)) %>%
+  ungroup() %>%
+  group_by(Item) %>%
+  mutate(norm_count = count / sum(count)) %>%
+  select(-count)
+
 m.freq <- m.predictive %>% 
   mutate(Bin = round(Value, 1)) %>%
   mutate(Bin = factor(Bin)) %>%
@@ -161,7 +177,9 @@ m.freq <- m.predictive %>%
   ungroup() %>%
   group_by(Item, Gender) %>%
   mutate(model_count = count / sum(count)) %>%
-  select(-count)
+  select(-count) %>% 
+  ungroup() %>%
+  select(-Gender)
 
 md.freq<- left_join(m.freq, d.freq)
 md.freq[is.na(md.freq$norm_count),]$norm_count <- 0

@@ -125,13 +125,22 @@ ggplot(d.tidy, aes(x=sentence, y = mean-0.5))+
 
 ```{r tj.freq.scatter}
 
-plt1<-ggplot(d.tidy, aes(x=logFreq, y=mean, fill=logFreq))+
+d.tidy3 <- d3 %>%
+  mutate(boolResponse = (response=="agree-key")) %>%
+  group_by(habitual, log_times, n_instances, time_period, category) %>%
+  multi_boot_standard(column="boolResponse") %>%
+  ungroup() %>%
+  mutate(sentence = paste(habitual, 
+                          paste(n_instances, time_period,sep="/"), sep='--')) %>%
+  mutate(sentence = reorder(sentence, mean, function(x){return(x)}))
+
+plt1<-ggplot(d.tidy3, aes(x=log_times, y=mean, fill=log_times))+
   geom_jitter(shape=21, size = 4, position=position_jitter(width=0.1))+
   theme_paper()+
 #   geom_errorbar(aes(ymin = ci_lower, ymax=ci_upper), size = 1, width = 0.01,
 #                 position=position_dodge())+
   #geom_abline(intercept=0,slope=1,linetype=2, size=1,color='grey39')+
-  xlab("\n Log Time interval")+
+  xlab("\n Log Frequency")+
   ylab("Proportion human endorsement \n")+
 #  guides()+
   #xlim(-0.05,1.05)+
@@ -153,11 +162,11 @@ plt1<-ggplot(d.tidy, aes(x=logFreq, y=mean, fill=logFreq))+
   theme(legend.title = element_text(hjust=0),
         legend.position="bottom",
         legend.direction="horizontal")
+plt1
 
-
-with(d.tidy, cor(logFreq, mean))^2
-with(d.tidy %>% filter(logFreq >= 4.5),
-     cor(logFreq,mean))^2
+with(d.tidy3, cor(log_times, mean))^2
+with(d.tidy3 %>% filter(log_times < 4),
+     cor(log_times,mean))^2
 
 ```
 
