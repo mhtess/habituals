@@ -227,3 +227,25 @@ Task took me 5m. Paying $0.55.
 n = 150
 
 cost = 150 * 0.55 = $82.5 + $16.5 = $99
+
+### TJ3: Enabling and preventative conditions
+
+Design: 21 of the 31 items from TJ2. Picked the frequency level that people that had the most intermediate responses (1 per item), in order to allow for the largest deviations from baselin. 
+
+Each participant saw each of the 21 items randomly assigned to one of three conditions.
+
+1.  Baseline (same as TJ2)
+2. Enabling -- extra sentence about the actor making a plan to do the action again in the future
+3. Preventative -- extra sentence about how the actor is unable or unwilling to do the action again in the future
+
+I expect preventative to have a larger effect than enabling because in some sense: "the proof is in the pudding" (talk is cheap, I want to wait until you do something before I say you do it). The preventative items were chosen to be very strong and in some cases -- horrific (losing limbs). It's not clear if some of my preventative items will have an effect because they are more about actors' intentions as opposed to their capabilities (some intensions, while good, are hard to follow through with).
+
+
+I plan to collect approximately 50 participants of data for each item X condition.
+Task took me 4m (with distractions). Paying $0.4.
+
+n  = 50 x 3 conditions = 150
+
+cost = 150 * 0.4 = 60 + 12 = 72
+
+
