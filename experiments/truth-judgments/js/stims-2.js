@@ -10,7 +10,7 @@ var stimuli = [
 		// requires: "possessive"
 	},
 	enabling: {
-		verb: "remembered how much fun that was",
+		verb: "remembered how much fun those times were",
 		obj: "and bought a lot of new hiking gear"
 	},
 	filler: {
@@ -30,7 +30,7 @@ var stimuli = [
 		// requires: "possessive"
 	},
 	enabling: {
-		verb: "remembered how much fun that was",
+		verb: "remembered how much fun those times were",
 		obj: "and bought a new pair of running shoes"
 	},
 	filler: {
@@ -67,8 +67,8 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
-		verb: "developed crippling arthritis in both elbows and can only move her arms extremely",
-		obj: "slowly",
+		verb: "developed crippling arthritis in both elbows and can only move",
+		obj: "arms extremely slowly",
 		requires: "possessive"
 	},
 	enabling: {
@@ -87,7 +87,7 @@ var stimuli = [
 	category: "hobby",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
-		verb: "gave up all strenuous physical exercise because",
+		verb: "turned 80 and gave up all strenuous physical exercise because",
 		obj: "doctor said it would be deadly",
 		requires: "possessive"
 	},
@@ -96,7 +96,7 @@ var stimuli = [
 		obj: "bought a lot of new mountain climbing gear"
 	},
 	filler: {
-		verb: "started taking Vitamin B pills because",
+		verb: "turned 80 and started taking Vitamin B pills because",
 		obj: "doctor said it would be helpful",
 		requires: "possessive"
 	}
@@ -176,7 +176,7 @@ var stimuli = [
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
-		obj: "job to focus on writing",
+		obj: "other job to focus on writing",
 		requires: "possessive"
 	},
 	filler: {
@@ -197,10 +197,10 @@ var stimuli = [
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
-		obj: "job to focus on writing",
+		obj: "other job to focus on writing",
 		requires: "possessive"
 	},
-	preventative:{
+	filler:{
 		verb: "decided to never buy ice cream again in order to",
 		obj: "lose weight",
 		requires: "possessive"
@@ -270,7 +270,7 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
-		verb: "grew disillusioned with the soup kitchens in the area",
+		verb: "grew disillusioned with the soup kitchen system",
 		obj: "and wants nothing to do with it anymore"
 	},
 	enabling: {
@@ -343,6 +343,10 @@ var stimuli = [
 		verb: "was caught for a heinous crime and is going to spend the rest of",
 		obj: "life in prison",
 		requires: "possessive"
+	},
+	enabling: {
+		verb: "remembered how much enjoyable that was and researched",
+		obj: "all of the space launches in the next year within driving distance"
 	},
 	filler: {
 		verb: "was caught for stealing and was fined",
@@ -432,7 +436,8 @@ var stimuli = [
 		obj: "smoking cigarettes"
 	},
 	enabling: {
-		verb: "bought a pack of cigarettes"
+		verb: "wanted a smoke and",
+		obj: "bought a pack of cigarettes"
 	},
 	filler: {
 		verb: "quit",
@@ -445,12 +450,12 @@ var stimuli = [
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
-		verb: "gave up smoking marijuana because it bothered",
-		obj: "significant other",
-		requires: "possessive"
+		verb: "gave up smoking marijuana and entered",
+		obj: "into Marijuana Anonymous"
 	},
 	enabling: {
-		verb: "bought some marijuana"
+		verb: "wanted to get high and",
+		obj: "bought some marijuana"
 	},
 	filler: {
 		verb: "gave up playing softball because it bothered",
@@ -468,7 +473,8 @@ var stimuli = [
 		obj: "into Narcotics Anonymous"
 	},
 	enabling: {
-		verb: "bought some cocaine"
+		verb: "wanted to get high and",
+		obj: "bought some cocaine"
 	},
 	filler: {
 		verb: "entered",
@@ -481,11 +487,12 @@ var stimuli = [
 	category: "food",
 	frequency: ["year","month", "2 weeks","week"],
 	preventative:{
-		verb: "gave up alchol and entered",
+		verb: "gave up alcohol and entered",
 		obj: "into Alcoholics Anonymous"
 	},
 	enabling: {
-		verb: "bought a six-pack of beer"
+		verb: "wanted to get tipsy and",
+		obj: "bought a six-pack of beer"
 	},
 	filler: {
 		verb: "entered",
@@ -502,7 +509,8 @@ var stimuli = [
 		obj: "and decided to give up all caffeine"
 	},
 	enabling: {
-		verb: "bought a pound of fresh roasted coffee"
+		verb: "wanted a morning jolt and",
+		obj: "bought a pound of fresh roasted coffee"
 	},
 	filler: {
 		verb: "developed a nut allergy",

@@ -38,6 +38,7 @@ function make_slides(f) {
 
       // for production
       this.stim = stim 
+      this.condition = condition
       // var condition = _.sample(["preventative","enabling","filler", null])
       
       // for testing purposes
@@ -49,10 +50,16 @@ function make_slides(f) {
       // debugger;
       // debugger;
       // var condition = 
-      // var freq = _.sample([_.last(stim.frequency),
-      //                       _.first(stim.frequency)])//_.omit(habit, "habitual")
 
-      var freq = _.last(stim.frequency)
+      // for null condition, sample both hi and lo frquency
+      // otherwise, do a mismatch
+      // var freq = condition == null ?  _.sample([_.last(stim.frequency), _.first(stim.frequency)]) :
+      //           condition == "preventative" ? _.last(stim.frequency) : 
+      //                                          _.first(stim.frequency)
+
+      var freq = _.sample([_.last(stim.frequency), _.first(stim.frequency)])
+
+      // var freq = _.last(stim.frequency)
       this.stim.freq = "3"
       this.stim.interval = freq
       // var description = stim.condition
@@ -77,6 +84,8 @@ function make_slides(f) {
         possessive +  stim[condition]["obj"]+  "."
 
       $(".extraSentence").html(extraSentence)
+
+      this.extraSentence = extraSentence
 
       $(".habitual").html('"' + stim.character.name  + ' ' + stim.habitual + '."');
 
@@ -120,9 +129,11 @@ function make_slides(f) {
         "trial_type" : "truthJudge",
         "habitual":habit,
         "freqLevel": "NA",
+        "condition": _s.condition,
         "n_instances": nInstances,
         "time_period": freqLevel,
         "evidenceStatement": evidenceStatement,
+        "extraStatement": _s.extraSentence,
         "characterName": name,
         "characterGender":gender,
         "response" : response,
@@ -202,7 +213,7 @@ function init() {
 
   repeatWorker = false;
   (function(){
-      var ut_id = "mht-habituals-20151229";
+      var ut_id = "mht-habituals-20160113";
       if (UTWorkerLimitReached(ut_id)) {
         $('.slide').empty();
         repeatWorker = true;
@@ -238,25 +249,27 @@ function init() {
 
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
 
-  var stimsWNames =  _.flatten(_.map(usuableStims, function(s){
+  var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
     return !(_.contains(bothGenders,s.habitual)) ? 
     _.extend(s, {character: allGenders.pop()}) :
       [_.extendOwn(s, {character: someMen.pop()}), 
       _.extendOwn(newObj, {character: someWomen.pop()})]
-  }), true)
+  }), true))
+
+  var conditions  = _.flatten(utils.fillArray(["preventative","enabling", null],stimsWNames.length/3))
 
 
 
   var allPossibleStims = _.flatten(_.map(stimsWNames,
     function(s){
       // return _.map(["preventative","enabling","filler", null], function(c){
-      return _.map(["preventative","filler", null], function(c){
+      return _.map(["preventative","enabling", null], function(c){
         return [c, s]
       })
     }), true)
-  console.log(allPossibleStims.length)
-  console.log(usuableStims.length)
+  // console.log(allPossibleStims.length)
+  // console.log(usuableStims.length)
   // debugger;
 
 
@@ -277,9 +290,9 @@ function init() {
   // var femaleCharNames = _.shuffle(femaleCharacters).slice(0, stimsUnpacked2.length)
 
   // exp.stims = _.shuffle(stimsWNames)
-  exp.stims = allPossibleStims
+  exp.stims = _.zip(conditions, stimsWNames)
   // debugger;
-  console.log(_.flatten(_.pluck(stimsWNames, "frequency")).length)
+  // console.log(_.flatten(_.pluck(stimsWNames, "frequency")).length)
 
     // _.flatten([_.zip(stimsUnpacked1, maleCharNames),
     //                     _.zip(stimsUnpacked2, femaleCharNames)], true)
@@ -300,8 +313,7 @@ function init() {
     };
     
   //blocks of the experiment:
-   exp.structure=[
-   "truthJudge","i0", "instructions", "truthJudge","check",'subj_info', 'thanks'];
+   exp.structure=["i0", "instructions", "truthJudge","check",'subj_info', 'thanks'];
  
   exp.data_trials = [];
   //make corresponding slides:
