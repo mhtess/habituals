@@ -170,9 +170,8 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
-		verb: "decided to never write again in order to focus on",
-		obj: "true passion: gardening",
-		requires: "possessive"
+		verb: "became fed up with the literary world and",
+		obj: "decided to never write anything again"
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
@@ -191,9 +190,8 @@ var stimuli = [
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
-		verb: "decided to never write again in order to focus on spending time with",
-		obj: "family",
-		requires: "possessive"
+		verb: "became fed up with the poetry world and",
+		obj: "decided to never write poems again"
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
@@ -321,7 +319,7 @@ var stimuli = [
 	frequency: ["2 years","year","month"],
 	preventative: {
 		verb: "learned about all the corruption in professional sports and",
-		obj: "no longer wants to watch it"
+		obj: "no longer can watch it"
 	},
 	enabling: {
 		verb: "remembered how much enjoyable that was and upgraded",
@@ -340,8 +338,8 @@ var stimuli = [
 	category: "entertainment",
 	frequency: ["2 years", "year","month"],
 	preventative: {
-		verb: "was caught for a heinous crime and is going to spend the rest of",
-		obj: "life in prison",
+		verb: "went through a radical transformation and now it is against",
+		obj: "belief to witness anything relating to space travel",
 		requires: "possessive"
 	},
 	enabling: {
