@@ -257,9 +257,7 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
-  var conditions  = _.flatten(utils.fillArray(["preventative","enabling", null],stimsWNames.length/3))
-
-
+  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", null],stimsWNames.length/3)))
 
   var allPossibleStims = _.flatten(_.map(stimsWNames,
     function(s){
