@@ -17,7 +17,9 @@ var stimuli = [
 		verb: "was in a motorcycle accident and got",
 		obj: "license suspended",
 		requires:"possessive"
-	}
+	},
+	prevent_test_freq: ["year"]
+	// prevent_test_freq: ["2 years", "2 months"]
 },
 {
 	habitual: "runs",
@@ -37,7 +39,8 @@ var stimuli = [
 		verb: "was in a car accident and",
 		obj: "has to go to driving school",
 		// requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["2 months"]
 },
 {
 	habitual: "plays the banjo",
@@ -58,7 +61,8 @@ var stimuli = [
 		verb: "developed a rash on",
 		obj: "leg and has to put ointment on it",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["year"]
 	// enabling: "really enjoys playing the banjo"
 },
 {
@@ -79,7 +83,8 @@ var stimuli = [
 		verb: "developed a soreness on",
 		obj: "neck and has to put ice on it every night",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "climbs mountains",
@@ -99,7 +104,8 @@ var stimuli = [
 		verb: "turned 80 and started taking Vitamin B pills because",
 		obj: "doctor said it would be helpful",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "wears a suit",
@@ -120,6 +126,7 @@ var stimuli = [
 		obj: "job on Wall Street, and now works for the government in DC",
 		requires: "possessive"
 	},
+	prevent_test_freq: ["month"]
 
 },
 {
@@ -175,14 +182,15 @@ var stimuli = [
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
-		obj: "other job to focus on writing",
+		obj: "other job to focus on writing novels",
 		requires: "possessive"
 	},
 	filler: {
 		verb: "decided to never drive again in order to cut reduce",
 		obj: "carbon football",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "writes poems",
@@ -195,7 +203,7 @@ var stimuli = [
 	},
 	enabling: {
 		verb: "finished an MFA program and quit",
-		obj: "other job to focus on writing",
+		obj: "other job to focus on writing poems",
 		requires: "possessive"
 	},
 	filler:{
@@ -203,6 +211,7 @@ var stimuli = [
 		obj: "lose weight",
 		requires: "possessive"
 	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "sells things on eBay",
@@ -242,7 +251,8 @@ var stimuli = [
 	filler: {
 		verb: "went through a radical transformation, vowing",
 		obj: "to never run a red light again"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "steals chewing gum",
@@ -260,7 +270,8 @@ var stimuli = [
 	filler: {
 		verb: "vowed",
 		obj: "to never eat meat again"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "volunteers for soup kitchens",
@@ -279,7 +290,8 @@ var stimuli = [
 		verb: "grew disillusioned with the recycling industry in the area and wants to drive",
 		obj: "recycling to the next town",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "volunteers for political campaigns",
@@ -297,7 +309,8 @@ var stimuli = [
 	filler: {
 		verb: "grew disillusioned with the documentary film industry and",
 		obj: "does not want to see a documentary again"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 {
 	habitual: "goes to the movies",
@@ -330,7 +343,8 @@ var stimuli = [
 		verb: "learned about all the corruption in professional sports and",
 		obj: "vowed to help bring an end to it",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "watches space launches",
@@ -349,8 +363,8 @@ var stimuli = [
 	filler: {
 		verb: "was caught for stealing and was fined",
 		obj: "a thousand dollars"
-
-	}
+	},
+	prevent_test_freq: ["2 years"]
 },
 // {
 // 	habitual: "listens to Pandora",
@@ -398,7 +412,8 @@ var stimuli = [
 	filler: {
 		verb: "developed an affinity",
 		obj: "for chocolate covered raisins"
-	}
+	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "eats caviar",
@@ -416,7 +431,8 @@ var stimuli = [
 	filler: {
 		verb: "developed an affinity",
 		obj: "for sauteed tofu"
-	}
+	},
+	prevent_test_freq: ["5 years"]
 },
 // {
 // 	habitual: "eats cereal",
@@ -440,7 +456,8 @@ var stimuli = [
 	filler: {
 		verb: "quit",
 		obj: "bowling on Tuesdays"
-	}
+	},
+	prevent_test_freq: ["month"]
 },
 {
 	habitual: "smokes marijuana",
@@ -460,7 +477,8 @@ var stimuli = [
 		verb: "gave up playing softball because it bothered",
 		obj: "significant other",
 		requires: "possessive"
-	}
+	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "does cocaine",
@@ -479,7 +497,8 @@ var stimuli = [
 	filler: {
 		verb: "entered",
 		obj: "into a weight loss program"
-	}
+	},
+	prevent_test_freq: ["year"]
 },
 {
 	habitual: "drinks beer",
@@ -497,7 +516,8 @@ var stimuli = [
 	filler: {
 		verb: "entered",
 		obj: "into a food co-op"
-	}
+	},
+	prevent_test_freq: ["month"]
 },
 {
 	habitual: "drinks coffee",
@@ -515,7 +535,8 @@ var stimuli = [
 	filler: {
 		verb: "developed a nut allergy",
 		obj: "and decided to walk every morning"
-	}
+	},
+	prevent_test_freq: ["month"]
 }
 ];
 

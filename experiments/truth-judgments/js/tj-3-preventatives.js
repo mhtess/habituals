@@ -57,7 +57,9 @@ function make_slides(f) {
       //           condition == "preventative" ? _.last(stim.frequency) : 
       //                                          _.first(stim.frequency)
 
-      var freq = _.sample([_.last(stim.frequency), _.first(stim.frequency)])
+      // var freq = _.sample([_.last(stim.frequency), _.first(stim.frequency)])
+
+      var freq = stim.prevent_test_freq[0]
 
       // var freq = _.last(stim.frequency)
       this.stim.freq = "3"
@@ -239,6 +241,10 @@ function init() {
 
 
   var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
+
+  // debugger;
+
+  // var stimsWMultipleFreq = _.filter(stimuli, function(x) {return x.prevent_test_freq ? x.prevent_test_freq.length>1 : 0})
 
   var bothGenders = [];
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
