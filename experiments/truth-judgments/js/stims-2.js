@@ -450,8 +450,9 @@ var stimuli = [
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
-		verb: "gave up smoking marijuana and entered",
-		obj: "into Marijuana Anonymous"
+		verb: "realized",
+		obj: "is severely allergic to marijuana and will no longer smoke it",
+		requires: "pronoun"
 	},
 	enabling: {
 		verb: "wanted to get high and",
@@ -469,8 +470,9 @@ var stimuli = [
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
-		verb: "gave up drugs and entered",
-		obj: "into Narcotics Anonymous"
+		verb: "realized",
+		obj: "is severely allergic to cocaine and will no longer do it",
+		requires: "pronoun"
 	},
 	enabling: {
 		verb: "wanted to get high and",

@@ -74,14 +74,16 @@ function make_slides(f) {
          stim.character.name  + " " + stim.past + " <em>3 times</em>.");
       // $(".frequency").html("Suppose: " + charName.name  + " " + habit.habitual + " <em>" + _.values(freq)[0] + "</em>.");
 
-      var possessive = condition == null? "" : stim[condition]["requires"] ? 
+      var possessive = condition == null? "" : stim[condition]["requires"] == "possessive" ? 
         stim.character.gender == "male" ? "his " :
                                           "her " :
                                           ""
+       var pronoun = condition == null? "" : stim[condition]["requires"] == "pronoun" ? 
+        stim.character.gender == "male" ? "he " : "she "  : ""
 
       var extraSentence = condition == null ? "" :
-        "Earlier today, " + stim.character.name + " " + stim[condition]["verb"] + " " +
-        possessive +  stim[condition]["obj"]+  "."
+        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+        possessive + pronoun +  stim[condition]["obj"]+  "."
 
       $(".extraSentence").html(extraSentence)
 
