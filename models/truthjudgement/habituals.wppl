@@ -6,10 +6,6 @@ var align2afc = {
 	"disagree-key": "mm"
 }
 
-var df_tj_wRounded = map(function(x){
-	return _.extend(x, {roundedFreq: nearestPriorBin(x.logFreq),
-						alignedResponse : align2afc[x.response]})
-}, df_tj)
 
 var df_bins = _.object(map(function(lst){
 	var statebins = _.sortBy(_.values(_.omit(lst, "Item"))) // grab and sort state bins
@@ -24,7 +20,18 @@ var df_bins = _.object(map(function(lst){
 }, dataFrame(bin_data, ["0","1","2","3","4","5","6","7","8","9","10"])))
 
 
-var prior_samples = 1000
+var df_tj_wRounded = map(function(x){
+	var i = x["habitual"]
+	// var statebins = df_bins[i]["state_bins"]
+	var statebins = _.range(0, 7.5, 0.5)
+	return _.extend(x, {roundedFreq: nearestPriorBin(x["log_times"], statebins),
+						alignedResponse : align2afc[x.response]})
+}, df_tj)
+
+// console.log(subset(df_tj_wRounded, "habitual", item))
+// console.log(df_bins[item])
+
+var prior_samples = 50000
 var prior_burn = prior_samples/2
 var priorERP = IncrementalMH(priorModel, prior_samples, {burn:prior_burn, verbose:true, verboseLag: prior_burn/5})
 
@@ -33,6 +40,25 @@ var priorERPobject = _.object(map(function(i){
 		return [q, 	marginalizeERP(priorERP, [i,q])]
 	}, ["Q1","Q2"]))]
 }, items))
+
+// var i = "wears socks"
+// var item_bins = df_bins[i]
+
+
+// var pr_exist = sample(priorERPobject[i]["Q1"]); //exist params
+// var pp = sample(priorERPobject[i]["Q2"]); // freq params.
+
+// var prior = mix2GaussiansWithDelta(pr_exist, pp[0], pp[1], pp[2], pp[3], pp[4], item_bins["state_bins"]);
+// // prior
+// expectation(priorERPobject[i]["Q1"])
+
+// var item_bins = {state_bins: _.range(0, 7, 0.5),
+// 				theta_bins: _.range(-0.25,6.75,0.5)}
+
+var item_bins = {
+	state_bins: _.range(0, 7.5, 0.5),
+	theta_bins: _.range(0.25,7.25,0.5)
+}
 
 var model = function(){
 
@@ -44,9 +70,13 @@ var model = function(){
 
 	foreach(items, function(i){
 
+
+		// var item_bins = df_bins[i]
+
 		var pr_exist = sample(priorERPobject[i]["Q1"]); //exist params
 		var pp = sample(priorERPobject[i]["Q2"]); // freq params.
-		var prior = discretizeLogNormalPrior(pp[0], pp[1], pp[2]);
+
+		var prior = mix2GaussiansWithDelta(pr_exist, pp[0], pp[1], pp[2], pp[3], pp[4], item_bins["state_bins"]);
 		var itemData = subset(df_tj_wRounded, "habitual", i)
 		var freqLevels = _.uniq(_.pluck(itemData, "roundedFreq"))
 
@@ -55,7 +85,7 @@ var model = function(){
 			var freqData = subset(itemData, "roundedFreq", f)
 			var grossLevel = freqData[0]["time_period"]
 			var responseData = _.pluck(freqData, "alignedResponse")
-			var s2 = speaker2(f, prior, speaker_optimality, thetaBins)
+			var s2 = speaker2(f, prior, speaker_optimality, item_bins["theta_bins"])
 			var s2_plusGuess = guessingLink(s2, phi)
 
 			var scr = reduce(function(response, memo) {
@@ -74,12 +104,12 @@ var model = function(){
 	return query
 }
 
-var samples = 50000
+var samples = 10000
 var burn = samples/2
 var resultsERP = IncrementalMH(model, samples, {verbose: true, verboseLag: samples/20, burn: burn})
 
-var outputFile = "results/tj2-RSA-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+ prior_samples/1000 + 
-	"k_burn" + prior_burn/1000 + "k+discBins"+priorBins.length+"a.csv"
+var outputFile = "results/tj2-RSA-log_ntimes-so-phi-IncrMH" + samples/1000 +"k_burn" + burn/1000 +"k_prior"+ prior_samples/1000 + 
+	"k_burn" + prior_burn/1000 + "k_discretize0-7-0.5-b.csv"
 
 var header = "Type,Item,Level,Period,Value"
 
