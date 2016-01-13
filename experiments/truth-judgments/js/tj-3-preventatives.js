@@ -80,7 +80,7 @@ function make_slides(f) {
                                           ""
 
       var extraSentence = condition == null ? "" :
-        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+        "Earlier today, " + stim.character.name + " " + stim[condition]["verb"] + " " +
         possessive +  stim[condition]["obj"]+  "."
 
       $(".extraSentence").html(extraSentence)
