@@ -76,14 +76,14 @@ function make_slides(f) {
          stim.character.name  + " " + stim.past + " <em>3 times</em>.");
       // $(".frequency").html("Suppose: " + charName.name  + " " + habit.habitual + " <em>" + _.values(freq)[0] + "</em>.");
 
-      var possessive = condition == null? "" : stim[condition]["requires"] == "possessive" ? 
+      var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
         stim.character.gender == "male" ? "his " :
                                           "her " :
                                           ""
-       var pronoun = condition == null? "" : stim[condition]["requires"] == "pronoun" ? 
+       var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
         stim.character.gender == "male" ? "he " : "she "  : ""
 
-      var extraSentence = condition == null ? "" :
+      var extraSentence = condition == "baseline" ? "" :
         "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
         possessive + pronoun +  stim[condition]["obj"]+  "."
 
@@ -265,12 +265,12 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
-  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", null],stimsWNames.length/3)))
+  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
 
   var allPossibleStims = _.flatten(_.map(stimsWNames,
     function(s){
       // return _.map(["preventative","enabling","filler", null], function(c){
-      return _.map(["preventative","enabling", null], function(c){
+      return _.map(["preventative","enabling", "baseline"], function(c){
         return [c, s]
       })
     }), true)

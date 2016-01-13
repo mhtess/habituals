@@ -336,7 +336,7 @@ var stimuli = [
 	},
 	enabling: {
 		verb: "remembered how much enjoyable that was and upgraded",
-		obj: "cable to have acccess to all professional football games",
+		obj: "cable to have access to all professional football games",
 		requires: "possessive"
 	},
 	filler: {
