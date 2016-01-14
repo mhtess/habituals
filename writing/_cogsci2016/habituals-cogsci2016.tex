@@ -329,9 +329,47 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 \subsection{Behavioral results}
 
 Figure \ref{fig:tj3} shows the results of the experiment, together with the analogous data from Expt.~2. 
+There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (purple bars).
+When collapsing across items and subjecting the data to a mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89 [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) --- $\beta = 0.42; SE = 0.15; z = 2.8; p = 0.005$, in addition to a large effect of \emph{preventative} conditions on endorsements (M = 0.29 [0.26, 0.31]) --- $\beta = -3.22; SE = 0.21; z = -15.2; p < 0.001$. 
+Finally, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items (compare green bars to red bars).
+This may be due, in part, to an effect of the experiment context on participants: Participants are viewing extra information that strongly disables the action from occurring; when that information is not present, participants may be more inclined to endorse the habitual.
+
+%     condition      mean  ci_lower  ci_upper
+%        (fctr)     (dbl)     (dbl)     (dbl)
+%1     enabling 0.8942857 0.8752381 0.9133333
+%2     baseline 0.8504762 0.8304762 0.8714524
+%3 preventative 0.2885714 0.2628333 0.3161905
 
 
-Our results suggest the underlying scale for habituals is \emph{predictive} frequency of action, and that habituals are used to talk about future predictions of people's actions.
+%Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) ['glmerMod']
+% Family: binomial  ( logit )
+%Formula: response ~ condition + (1 | workerid) + (1 + condition | habitual)
+%   Data: d
+%
+%     AIC      BIC   logLik deviance df.resid 
+%  2684.2   2744.7  -1332.1   2664.2     3140 
+%
+%Scaled residuals: 
+%    Min      1Q  Median      3Q     Max 
+%-3.8931 -0.4064 -0.2551  0.4292  7.4117 
+%
+%Random effects:
+% Groups   Name                  Variance Std.Dev. Corr       
+% workerid (Intercept)           0.891215 0.9440              
+% habitual (Intercept)           0.316971 0.5630              
+%          conditionenabling     0.004135 0.0643    0.09      
+%          conditionpreventative 0.561694 0.7495   -0.61  0.73
+%Number of obs: 3150, groups:  workerid, 150; habitual, 21
+%
+%Fixed effects:
+%                      Estimate Std. Error z value Pr(>|z|)    
+%(Intercept)            -2.1220     0.1791 -11.848  < 2e-16 ***
+%conditionenabling      -0.4190     0.1508  -2.779  0.00546 ** 
+%conditionpreventative   3.2262     0.2125  15.181  < 2e-16 ***
+%---
+
+These results suggest that the felicity of habituals is based on an underlying scale of \emph{predictive} frequency of action.
+Habitual language is useful when it corresponds to future predictions of people's actions.
 
 %\subsection{Model results}
 
@@ -348,14 +386,14 @@ In the psychological literature, habituals have received relatively little atten
 Generics often use a bare plural (e.g. \emph{Bears like to eat ants.}) and don't lay claim to any well-defined set of individuals (e.g. many bears may not like to eat ants).
 Habituals use the simple present tense (e.g. \emph{John smokes}) without any well-defined period of time (e.g. John may go many days without smoking). 
 In both cases, we are able to explain the varying truth conditions of these kinds of sentences by using a pragmatically inferred threshold on the set of individuals or on the period of time, respectively. 
-Scales, and scalar representations, provide a simple, general, and quantitative way to express truth conditions.
+Scales, and scalar representations, provide a simple and general quantitative way to express truth conditions.
 
 Generics are ubiquitous in everyday conversation and in child-direction speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
 What might habitual language be used for?
 One possibility is that we describe individuals in terms of their enduring traits and habits. 
 Habituals may be weaker forms of trait language \cite{Gelman1999} and perhaps may be the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
 Future work should explore this connection more directly.
-
+	
 \mht{kind of rough and needs more meat}
 The similarities between habitual and generic language may be useful for methodological reasons. 
 In Expt.~3, we manipulated participants' beliefs about the expected, future frequency of a behavior in a person.
