@@ -197,8 +197,8 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 Question 1 elicits the proportion of people who have done an action before. 
 We model this data as a frequency coming from a Beta distribution. 
 Question 2 elicits the relative frequency in the past a person has done an action before.
-This was modeled by a log-normal distribution \mht{test Poisson / Exponential}. 
-Each item was modeled independently.
+This was modeled by a log-normal distribution. 
+Each item was modeled independently for each gender.
 %
 \begin{minipage}{0.5 \textwidth} \small
 \begin{align*}
@@ -234,7 +234,7 @@ On each trial, participants were presented with a \emph{past frequency statement
 The frequency statement was of the form: ``In the past $M$ \{weeks, months, years\}, \textsc{person} \textsc{event} 3 times''.
 We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
 The particular intervals used (number $M$ and window \{weeks, months, years\}) were selected by examining the predictions of the speaker model (Eq.~\ref{eq:S2}) for each item independently, and aimed to elicit a variety of predictions.
-The materials were the same as in Expt. ~1a.
+The materials were the same as in Expt. ~1.
 
 Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person event}''.
 We selected 6 items for which the priors for men and women varied substantially in Expt.~1 to explore whether or not the prior distribution in Eq.~\ref{eq:L1}, \ref{eq:L0} should be with respect to all people or to males and females separately (e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
@@ -278,7 +278,7 @@ If they were not the type of person to have done the action, we assume they will
 
 Having fit the prior empirically, the model was one parameter -- the speaker optimality parameter in Eq.~\ref{eq:S1}. 
 Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
-We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~1b.
+We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~2.
 
 To attain credible values of the model parameters as well as the posterior predictive distribution over responses, we collected 3 MCMC chains of 30,000 iterations, discarding the first 15,000 iterations of each chain for burn in.
 The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is 4.7 [3.7,5.2].
@@ -388,7 +388,7 @@ Habituals use the simple present tense (e.g. \emph{John smokes}) without any wel
 In both cases, we are able to explain the varying truth conditions of these kinds of sentences by using a pragmatically inferred threshold on the set of individuals or on the period of time, respectively. 
 Scales, and scalar representations, provide a simple and general quantitative way to express truth conditions.
 
-Generics are ubiquitous in everyday conversation and in child-direction speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
+Generics are ubiquitous in everyday conversation and in child-directed speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
 What might habitual language be used for?
 One possibility is that we describe individuals in terms of their enduring traits and habits. 
 Habituals may be weaker forms of trait language \cite{Gelman1999} and perhaps may be the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
