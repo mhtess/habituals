@@ -86,9 +86,9 @@ events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 
 If you learn that Bill smoked a cigarette exactly three times last month, would you say that \emph{Bill smokes}?
 Habitual sentences like \emph{Bill smokes.} describe generalizations about events and have similarly puzzling qualities to generic sentences (e.g. \emph{Swans are white.}) which convey generalizations about categories \cite{Carlson2005}.
-Generic language is central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}, and have received a lot of attention from psychologists, linguists, and philosophers.
-Presumably, habitual language is similarly important to our intuitive theories of people and their behavior.
-Yet surprisingly little empirical work has looked into the basic inferences that are made from habitual sentences.
+Generic language is central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}, and has received a lot of attention from psychologists, linguists, and philosophers.
+Habitual language is presumably similarly important to our intuitive theories of people and behavior.
+Yet surprisingly little empirical work has looked into the basic properties of habitual sentences.
 
 Habitual sentences are interesting because they are likely central to our theories of other people. 
 Young children can use actors' behaviors to make inferences about what the actors are like more generally \cite<e.g.>{Repacholi1997, Seiver2013}.
@@ -207,18 +207,22 @@ d_{1} &\sim \text{Beta}(\gamma_{1}, \xi_{1}) \\
 \end{align*}
 \end{minipage}
 %
-We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and we learned about the credible values of the parameters and the posterior predictive distributions of the data by running MCMC using a variant of the Metropolis-Hastings algorithm.
+We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and we learned about the credible values of the parameters and the posterior predictive distributions of the data by running MCMC for 100,000 iterations, discarding the first 50,000 for burnin.
 %
-
+%The parametrized priors are a reasonable description of the prior elicitation data, though 
 
 The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
 We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
-
 This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
-The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$) \mht{are there systemic deviations?}, and we use these parameterized priors going forward.
+
+\mht{I've cut out the "posterior predictive" $r^2$ because I think it is not a reasonable metric. We should really come up with an appropriate fitness metric.}
+
+%To assess how well these parametrized priors capture the prior elicitation data, we compare the posterior predictive distribution to the experimental data.
+%We do this by discretizing the distributions as well as truncating at the endpoints 
+%The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$) \mht{are there systemic deviations?}, and we use these parameterized priors going forward.
 
 
-\section{Experiment 2: felicity judgments}
+\section{Experiment 2: Felicity judgments}
 
 \subsection{Method}
 
