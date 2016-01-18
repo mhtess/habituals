@@ -238,19 +238,22 @@ This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will prod
 \subsubsection{Participants}
 
 We recruited 150 participants from MTurk.
-We arrive at this number, we performed a Bayesian precision analysis to determine the minimum sample size necessary to reliably ensure 95\% posterior credible intervals no larger than 0.3 for a parameter whose true value is 0.5 and for which the data is a 2 alternative forced choice. This analysis revealed a minimum sample size of 50 per item; since participants only completed about one third of the items, we recruited 150 participants.
+To arrive at this number, we performed a Bayesian precision analysis to determine the minimum sample size necessary to reliably ensure 95\% posterior credible intervals no larger than 0.3 for a parameter whose true value is 0.5 and for which the data is a 2 alternative forced choice. This analysis revealed a minimum sample size of 50 per item; since participants only completed about one third of the items, we recruited 150 participants.
 The experiment took 4 minutes on average on participants were compensated \$0.55 for their work.
 
 \subsubsection{Procedure and materials}
 
-On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior. 
-The frequency statement was of the form: ``In the past $M$ \{weeks, months, years\}, \textsc{person} \textsc{event} 3 times''.
+On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior of the form: ``In the past $M$ \{weeks, months, years\}, \textsc{person} \textsc{event} 3 times''.
 We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
-The particular intervals used (number $M$ and window \{weeks, months, years\}) were selected by examining the predictions of the speaker model (Eq.~\ref{eq:S2}) for each item independently, and aimed to elicit a variety of predictions.
-The materials were the same as in Expt. ~1.
+The particular intervals used (number $M$ and window \{weeks, months, years\}) were selected by examining the predictions of the speaker model (Eq.~\ref{eq:S2}) for each item independently, and aimed to yield a variety of predicted endorsement rates.
+The items were the same as in Expt. ~1.
+
+\ndg{it would be good to give and example sentence for each of the schematic materials here and in other methods sections. ie. "In the past 2 weeks, Bob got wasted 3 times." do you agree "Bob gets wasted."?
+also, specifcy the grammar more precisely (got / gets)..}
 
 Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person event}''.
 We selected 6 items for which the priors for men and women varied substantially in Expt.~1 to explore whether or not the prior distribution in Eq.~\ref{eq:L1}, \ref{eq:L0} should be with respect to all people or to males and females separately (e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
+\ndg{unclear what we did with these six items. the way it's phrased makes it sound like we only collected data for these 6...}
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-2.html}.
 
 %The model predicts that some items would not exhibit variability in endorsements in given ranges (e.g. if a person stole a car 3 times in the past \emph{week} vs. \emph{month}); we omitted particular intervals when the model predicted non-meaningful differences in endorsements. 
@@ -268,7 +271,7 @@ Overall, the time interval predicts only a fraction of the variability in respon
 For actions that are done on the time scale of years or more (upper median of time interval), time interval itself no longer explains the endorsements  ($r^2(50) = 0.07$)
 
 We notice that none of our items receive less than 25\% endorsement (i.e. only 75\% of participants disagree with the felicity of the utterance).
-This may be due to the fact that actor has done the action in the past a plurality of times; we would expect to get strong disagreement with the utterance (endorsement = 0\%) when the person has never done the action, or perhaps done it only once.
+This may be due to the fact that actor has done the action in the past a plurality of times; we would expect to get strong disagreement with the habitual when the person has never done the action, or perhaps done it only once.
 
 \subsection{Model fit and results}
 
@@ -291,13 +294,15 @@ If they were not the type of person to have done the action, we assume they will
 
 Having fit the prior empirically, the model was one parameter -- the speaker optimality parameter in Eq.~\ref{eq:S1}. 
 Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
-We use Bayesian data analytic techniques to integrate out these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~2.
+We use Bayesian data analytic techniques to integrate over these parameters \cite{LW2014}, and compare the posterior predictive distribution of this model to the empirical data in Expt.~2.
 
 To attain credible values of the model parameters as well as the posterior predictive distribution over responses, we collected 3 MCMC chains of 30,000 iterations, discarding the first 15,000 iterations of each chain for burn in.
 The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is 4.7 [3.7,5.2].
 The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by our pragmatic speaker model.
 
-The probabilistic pragmatics model does a better job of accounting for the variability in responses ($r^2(93) = 0.89$), including actions done on the time scale of years or more  ($r^2(50) = 0.89$) (Figure \ref{fig:tjScatters} right).
+The probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.89$), including actions done on the time scale of years or more  ($r^2(50) = 0.89$) (Figure \ref{fig:tjScatters} right).
+
+\ndg{save this for discussion. leave out or small bridge to next section...}
 The model designed to describe generic language (e.g. \emph{Swans are white.}) can describe habitual language (e.g. \emph{John smokes.}) equally as well by specifying the underlying degree as the frequency with which an individuals performs an action.
 This provides a formal bridge between generalizations of properties about categories (i.e. \emph{generics}) and generalizations about individuals or events (i.e. \emph{habituals}), a connection often noted in the linguistics literature \cite{Carlson1977, Carlson2005, Cohen1999}. 
 
