@@ -158,10 +158,11 @@ Critically, speaker $S_{2}$ doesn't have a particular meaning of the habitual in
 %Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
 %We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
 %
-$P(x)$ in Eqs.~\ref{eq:L1}, \ref{eq:L0} specifies prior beliefs about the frequency of action $x$ for a specific event or behavior (e.g. \emph{smoking}).
+$P(x)$ in Eqs.~\ref{eq:L1} and \ref{eq:L0} specifies prior beliefs about the frequency of a specific event or behavior $x$  (e.g. \emph{smoking}).
+\ndg{note: P(x) is actually a probability over probability densities, right? this might be worth specifying more clearly in the model section...}
 Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between these two possibilities, similar in spirit to Hurdle Models of epidemiological data \cite{hurdleModels}.
-There may be in fact more than these two possibilities, owing to potential gender or age differences in intuitive theories of behavior. 
-We explore these hypothesis in this experiment.
+Indeed, there may be more than these two possibilities, corresponding to different kinds of participants, for instance different expected frequencies depending on gender or age. 
+In this experiment we elicit the prior $P(x)$ for different events, and explore there hypotheses about the structure of these priors.
 
 \subsection{Method}
 
@@ -169,6 +170,11 @@ We explore these hypothesis in this experiment.
 We recruited 40 participants from Amazon's Mechanical Turk.
 Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
 The experiment took on average 12 minutes and participants were compensated \$1.25 for their work.
+
+\subsubsection{Materials}
+
+We created thirty-one events organized into pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
+Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item. \ndg{minimal in what sense?}
 
 \subsubsection{Procedure}
 
@@ -179,15 +185,10 @@ For each event, participants were asked two questions:
 \end{enumerate}
 
 Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
-Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years.
+Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years. \ndg{it's not totally clear how this procedure works... reword for clarity.}
 
 We expected there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total per slide, order of male / female randomized between-subjects), and every participant completed all 31 items.
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/priors/priors-2.html}.
-
-\subsubsection{Materials}
-
-We used thirty-one events organized into minimal pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
-Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item.
 
 \begin{figure*}[t]
 \centering
@@ -199,9 +200,10 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 
 \subsection{Data analysis and results}
 
+\ndg{say why we build this bayesian data analysis model, rather than just plugging into the model -- smoothing and better capturing tails??}
 Question 1 elicits the proportion of people who have done an action before. 
-We model this data as a frequency coming from a Beta distribution. 
-Question 2 elicits the relative frequency in the past a person has done an action before.
+We model this data as coming from a Beta distribution. 
+Question 2 elicits the relative frequency in the past that a person has done an action before.
 This was modeled by a log-normal distribution. 
 Each item was modeled independently for each gender.
 %
@@ -216,8 +218,9 @@ We implemented this model using the probabilistic programming language WebPPL \c
 %
 %The parametrized priors are a reasonable description of the prior elicitation data, though 
 
+\ndg{what's up with "log interval time"? need to explain, or switch to something easier to understand.}
 The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
-We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
+We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently when done at all, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
 This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
 
 \mht{I've cut out the "posterior predictive" $r^2$ because I think it is not a reasonable metric. We should really come up with an appropriate fitness metric.}
@@ -226,6 +229,7 @@ This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will prod
 %We do this by discretizing the distributions as well as truncating at the endpoints 
 %The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$) \mht{are there systemic deviations?}, and we use these parameterized priors going forward.
 
+\ndg{talk about gender differences?}
 
 \section{Experiment 2: Felicity judgments}
 
