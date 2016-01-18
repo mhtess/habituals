@@ -105,12 +105,14 @@ In Expt.~2, we use those priors and the pragmatic theory to make predictions abo
 In Expt.~3, we further explore the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
 
 \section{Computational model}
+\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
 
 Habituals express a relation between an individual (e.g. \textsc{Bill}) and an event (e.g. \textsc{to smoke}), in an analogous way to how generics express a relation between a kind (e.g. \textsc{robins}) and a property (e.g. \textsc{lays eggs}) \cite{Carlson1995}. 
 \citeA{TesslerUnderReview} introduced a computational model that explains the hitherto puzzling phenomena surrounding generic language (e.g. why \emph{Robins lay eggs} is felicitous while \emph{Robins are female} is not), with a simple semantics based on the property prevalence (e.g. the proportion of robins that lay eggs or are female), coupled with basic communicative pressures to be truthful and informative. 
 We apply this same model to habituals, adopting as the underlying scale the frequency of the event.
  
 For a given individual $I$ (e.g.~\textsc{Bill}) and an event or behavior $B$ (e.g.~\textsc{smoking}), we refer to the probability that individual $I$ will partake in beahvior $B$, that is $P(B\mid I)$, as the \emph{subjective frequency} of $B$ for $I$.
+\ndg{are you sure we want to call this subjective frequency? i think this is going to garden path people, since expt 3 is specifically making the point that it isn't frequency. how about propensity, which we define as subjective probability that I will do B in the next time window?}
 %It is not clear at this point whether this frequency is a retrospective (how often has Bill smoked in the past) or a prospective frequency (how often to I expect Bill to smoke in the future); for the time being, we assume time is \emph{homogenous} with respect to past and present (i.e. however often Bill has smoked in the past will be how often he smokes in the future). 
 The semantics of a habitual sentence is a simple threshold on frequency $P(B\mid I)>\tau$ \cite<c.f.>{Cohen1999}.
 This threshold is not a fixed property of the language, however, but is established by pragmatic inference.
@@ -122,6 +124,7 @@ P_{S_{1}}(u \mid x, \tau) &\propto&  {P_{L_{0}}(x \mid u, \tau)}^{\lambda} \labe
 P_{L_{0}}(x \mid u, \tau) &\propto& {\delta_{\denote{u}(x, \tau)} P(x)}. \label{eq:L0}
 \end{eqnarray}
 
+\ndg{since we don't use $L_1$ directly here, i'd stick $S_2$ onto the top of the above eqnarray and just start there...}
 The pragmatic listener $L_1$ (Eq.~\ref{eq:L1}) is a model of interpreting habituals: Upon hearing a habitual, what frequency is a listener likely to infer?
 We can now imagine a speaker $S_2$ who reasons about this type of listener: 
 %
@@ -130,11 +133,11 @@ P_{S_{2}}(u \mid x) \propto  \int_{\theta} P_{L_{1}}(x , \tau \mid u)
 \label{eq:S2}
 \end{equation}
 %
-Speaker $S_2$ is a model of felicity or truth judgments \cite{Degen2014, TesslerUnderReview}.
+If we take the two utterances considered by speaker $S_2$ to be the habitual or nothing (staying silent), then Equation \ref{eq:S2} can be interpreted as a model of felicity or truth judgments \cite{Degen2014, TesslerUnderReview}.
 The speaker considers the thought-processes of listener $L_1$ (Eq.~\ref{eq:L1}) and decides if the habitual is a good way to describe the frequency $x$. 
-$S_2$'s decision is with respect to the alternative of saying nothing: 
-He will choose to produce the habitual when the true frequency $x$ is more likely under $L_1$'s posterior than under her prior. 
-Critically, speaker $S_{2}$ doesn't actually know what the habitual means (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will have to consider it, and integrates over the likely values she'll consider.
+$S_2$'s decision is with respect to the alternative of saying nothing. 
+He will choose to produce the habitual when the true frequency $x$ is more likely under $L_1$'s posterior given the habitual than under her prior. 
+Critically, speaker $S_{2}$ doesn't have a particular meaning of the habitual in mind (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will consider it, and integrates over the likely values she'll consider.
 
 %Herein lies an interesting deviation from generic language about natural kinds: Natural kinds change over the course of biological time. 
 %People, on the other hand, develop from babies to children to adults and elderly adults; People make resolutions to explicitly change their behavior and people discover things about themselves that cause them to change behavior. 
