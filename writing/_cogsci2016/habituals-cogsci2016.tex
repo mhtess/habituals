@@ -67,7 +67,8 @@
 
 \begin{abstract}
 \ndg{the basic framing shouldn't be habituals vs generics. it should be how do habituals work to convey generalizations about events? and then the analogy with generics motivates our approach...}
-Habitual sentences (e.g. \emph{Bills smokes.}) generalize an event over time and are thought to have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
+Habitual sentences (e.g. \emph{Bills smokes.}) generalize an event over time, but what makes a habitual sentence true?
+% and are thought to have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
 Little empirical work has tested this relation with respect to the truth conditions of these sentences. 
 We test the analogy between habitual and generic language by applying a recent formal theory of generic language to the domain of events.
 In Expts.~1 \& 2, we measure the prior and explore the predictions of this model for the
@@ -84,20 +85,37 @@ Methodological implications from this are discussed.
 events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 \end{abstract}
 
-\ndg{need to revise this intro with some strong perspective taking: your target audience is smart cogsci people who don't know that much about these topics (think josh t).}
+%\ndg{need to revise this intro with some strong perspective taking: your target audience is smart cogsci people who don't know that much about these topics (think josh t).}
 
-If you learn that Bill smoked a cigarette exactly three times last month, would you say that \emph{Bill smokes}?
-Habitual sentences like \emph{Bill smokes.} describe generalizations about events and have similarly puzzling qualities to generic sentences (e.g. \emph{Swans are white.}) which convey generalizations about categories \cite{Carlson2005}. \ndg{what puzzling qualities? don't assume readers already know about generics...}
-Generic language is central to how we communicate and learn about categories \cite{Carlson1977, Gelman2004}, and has received a lot of attention from psychologists, linguists, and philosophers.
-Habitual language is presumably similarly important to our intuitive theories of events, especially the activities of people.
-Yet surprisingly little empirical work has looked into the basic properties of habitual sentences.
+If you learn that Bill smoked three cigarettes last month, would you say that \emph{Bill smokes}?
+Generalizing an event (such as Bill smoking) over time is useful for future predictions about the occurrence of the event.
+But what evidence do you need to make and communicate such a generalization? 
+Three cigarettes in a month may not be enough to say that \emph{Bill smokes}, but Bill might feel entitled to say he volunteers, after helping out at a soup kitchen three times last month.
 
-Habitual sentences are interesting because they are likely central to our theories of other people. 
-Young children can use actors' behaviors to make inferences about what the actors are like more generally \cite<e.g.>{Repacholi1997, Seiver2013}.
-There is evidence to suggest the habitual sentences are weaker forms of trait language and convey behaviors that are relatively enduring \cite{Gelman1999}.
-And although linguists have often described habitual and generic sentences in the same breath \cite{Carlson1977, Cohen1999}, experimentalists have yet to test the correspondence between the two. 
+Habitual sentences (e.g. \emph{Bill smokes.}; \emph{It rains around here.}) are the linguistic means by which generalizations about events are conveyed.
+Habituals about people are particularly interesting because they are likely central to intuitive theories of personality and behavior. 
+\citeA{McGuire1986} explored 5th to 12th graders' responses to open ended probes such as ``Tell us about your school / family''. 
+A surprisingly large number of utterances (over 85\% in their study) were about people, and roughly two-thirds of those utterances used action verbs (e.g. ``My brother works part-time at the restaurant.''). 
+Habitual language may be a more conservative form of trait language (e.g. \emph{Bill is a smoker.}) and convey that behaviors are relatively enduring \cite{Gelman1999, Gelman2004}.
+Despite the prevalence of habitual utterances in descriptions of the self and others and a theoretical interest in how trait language is interpreted and weaved into our intuitive theories, no empirical work to our knowledge addresses the question of what makes a habitual sentence true or false.
 
-In this paper, we elaborate a recent computational theory of generic language to derive predictions for the truth conditions of habitual sentences. 
+Linguists have pointed out the parallel between habituals like \emph{Bill smokes} and generic sentences like \emph{Swans are white.} \cite{Carlson1977, Carlson2005, Cohen1999}.
+Both convey generalizations (about events and categories, respectively), and both exhibit dramatic flexibility in their truth conditions: \emph{Swans are white} even though there are black swans, and it may the case that \emph{Bill smokes} even if he goes without a cigarette for an entire family vacation.
+Indeed, cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of extremely rare actions like \emph{Susan writes novels.}. Susan may only have written 3 novels in the past 10 years, and still this seems like a valid generalization to convey.
+What explains the flexibility of truth conditions for generalizations about events?
+
+
+
+% have similarly puzzling qualities to generic sentences (e.g. \emph{Swans are white.}) which convey generalizations about categories  \ndg{what puzzling qualities? don't assume readers already know about generics...}
+%Generic language is central to how we communicate and learn about categories, and has received a lot of attention from psychologists, linguists, and philosophers.
+%Habitual language is presumably similarly important to our intuitive theories of events, especially the activities of people.
+%Yet surprisingly little empirical work has looked into the basic properties of habitual sentences.
+%
+%Habitual sentences are interesting because they are likely central to our theories of other people. 
+%Young children can use actors' behaviors to make inferences about what the actors are like more generally \cite<e.g.>{Repacholi1997, Seiver2013}.
+%There is evidence to suggest the habitual sentences are weaker forms of trait language And although linguists have often described habitual and generic sentences in the same breath \cite{Carlson1977, Cohen1999}, experimentalists have yet to test the correspondence between the two. 
+
+In this paper, we take the analogy between generic and habitual language seriously by elaborating a recent computational theory of generic language to derive predictions for the truth conditions of habitual sentences. 
 The theory posits the semantics of a generic statement is an uncertain threshold on the degree of property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic, pragmatic inference given the distribution of property prevalence (i.e. in general, what prevalences are species likely to have) \cite{TesslerUnderReview}.
 We adopt the theory by adjusting the underlying degree to be the \emph{frequency of action} (i.e. how often does a person do an action) and derive predictions for felicity judgments of the corresponding habitual.
 In Expt.~1, we measure \emph{a priori} beliefs about how frequently people do a diverse set of actions.
