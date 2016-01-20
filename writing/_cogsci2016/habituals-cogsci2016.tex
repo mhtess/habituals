@@ -127,7 +127,7 @@ In Expt.~2, we use those priors and the pragmatic theory to make predictions abo
 In Expt.~3, we further explore the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
 
 \section{Computational model}
-\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
+%\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
 
 A habitual sentence about an individual expresses a generalization about an event\footnote{
 We articulate the formalization in terms of individuals and events or actions, but the theory applies more generally to events without actors (e.g \emph{It rains around here.}).
@@ -146,7 +146,7 @@ The listener $L_1$ has uncertainty about the threshold for the habitual (i.e. do
 %This inference depends on event and person knowledge, but otherwise follows from a general mechanism of language.
 %We imagine a hypothetical, pragmatic listener ($L_1$) concerned with learning
 \begin{eqnarray}
-P_{S_{2}}(u \mid x) & \propto &  \int_{\theta} P_{L_{1}}(x , \tau \mid u) \label{eq:S2}\\
+P_{S_{2}}(u \mid x) & \propto &  \int_{\tau} P_{L_{1}}(x , \tau \mid u) \label{eq:S2}\\
 P_{L_{1}}(x , \tau \mid u) &\propto& P_{S_{1}}(u \mid x, \tau) \cdot P(x) \cdot P(\tau) \label{eq:L1}\\
 P_{S_{1}}(u \mid x, \tau) &\propto&  {P_{L_{0}}(x \mid u, \tau)}^{\lambda} \label{eq:S1}\\
 P_{L_{0}}(x \mid u, \tau) &\propto& {\delta_{\denote{u}(x, \tau)} P(x)}. \label{eq:L0}
@@ -193,8 +193,8 @@ This model is nearly identical with the model we have proposed for generic langu
 $P(x)$ in Eqs.~\ref{eq:L1} and \ref{eq:L0} specifies prior beliefs about the propensity of a specific event or behavior $x$  (e.g. \emph{smoking}).
 \ndg{note: P(x) is actually a probability over probability densities, right? this might be worth specifying more clearly in the model section...}
 Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
-Indeed, there may be more than these two possibilities, corresponding to different kinds of participants, for instance different expected frequencies depending on gender or age. 
-In this experiment we elicit the prior $P(x)$ for different events, and explore there hypotheses about the structure of these priors.
+Indeed, there may be more than these two possibilities, corresponding to individuals with different traits or demographics, for instance different expected frequencies depending on gender or age. 
+In this experiment we elicit the prior $P(x)$ for different events.
 
 \subsection{Method}
 
@@ -206,20 +206,26 @@ The experiment took on average 12 minutes and participants were compensated \$1.
 \subsubsection{Materials}
 
 We created thirty-one events organized into pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
-Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item. \ndg{minimal in what sense?}
+Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item by having a common superordinate action (e.g. \emph{eating} caviar vs. peanut butter).
 
 \subsubsection{Procedure}
 
-For each event, participants were asked two questions:
+For each event, participants were asked two questions, with associated dependent measures:
 \begin{enumerate}
-\item X out of every 1000 \{men, women\} has \textsc{done action} before.
-\item For a typical \{man, woman\} who has \textsc{done action} before, how frequently does he or she \textsc{do action}? 
+\item How many \{men, women\} have \textsc{done action} before?
+\subitem Response format: N out of every J
+\subitem N = free response
+\subitem J = 1000 - 10 million (default: 1000)
+\item For a typical \{man, woman\} who has \textsc{done action} before, how frequently does he or she \textsc{do action}?
+\subitem Response format: M times in K
+\subitem M = free response
+\subitem K = \{week, month, year, 5 years\} (default: year)
 \end{enumerate}
+Participants filled in values freely for N and M, and chose from drop-down menus for J and K, with the default settings shown above. 
+%Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
+%Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years. \ndg{it's not totally clear how this procedure works... reword for clarity.}
 
-Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
-Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years. \ndg{it's not totally clear how this procedure works... reword for clarity.}
-
-We expected there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total per slide, order of male / female randomized between-subjects), and every participant completed all 31 items.
+We anticipated there might be different beliefs about the frequency of events depending on whether the actor is male or female, so we asked about both genders. Participants answered both questions for each gender on each slide (4 questions total per slide, order of male / female randomized between-subjects), and every participant completed all 31 items in random order.
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/priors/priors-2.html}.
 
 \begin{figure*}[t]
@@ -231,8 +237,12 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 
 \subsection{Data analysis and results}
+We built a Bayesian data analysis model of the prior elicitation task.
+We do use this as P(x) in our language model as opposed to using the raw data directly for two reasons: (1) To smooth effects that are clearly results of the response format\footnote{For example, a very common rating is \emph{1 time per year}. Presumably participants would be just as happy reporting \emph{approximately} 1 time per year, but the raw data does not reflect this} 
+and (2) to better capture the tails of the prior distribution, which receive such low probability to require many more participants in order to sample accurately.
+%. many ratings are exactly \emph{once a year} and not many ratings are for 2 or 3 times a year, or once every two years)
+%\ndg{say why we build this bayesian data analysis model, rather than just plugging into the model -- smoothing and better capturing tails??}
 
-\ndg{say why we build this bayesian data analysis model, rather than just plugging into the model -- smoothing and better capturing tails??}
 Question 1 elicits the proportion of people who have done an action before. 
 We model this data as coming from a Beta distribution. 
 Question 2 elicits the relative frequency in the past that a person has done an action before.
