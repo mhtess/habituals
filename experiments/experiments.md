@@ -230,6 +230,7 @@ cost = 150 * 0.55 = $82.5 + $16.5 = $99
 
 ### TJ3: Enabling and preventative conditions
 
+01/13/16
 Design: 21 of the 31 items from TJ2. Picked the frequency level that people that had the most intermediate responses (1 per item), in order to allow for the largest deviations from baselin. 
 
 Each participant saw each of the 21 items randomly assigned to one of three conditions.
@@ -247,5 +248,27 @@ Task took me 4m (with distractions). Paying $0.4.
 n  = 50 x 3 conditions = 150
 
 cost = 150 * 0.4 = 60 + 12 = 72
+
+### Predictive 1 (paired with TJ3)
+
+
+01/21/16
+
+Materials: Same as TJ3.
+
+Procedure: Same as TJ3.
+
+Dependent measure: In the next [[time window]], how many times do you think B will do thing?
+
+Prediction: Baseline should track the frequency level given in the stimulus. Preventative should decrease future frequency from the frequency level in the stimulus. Enabling should increase future frequency (relative to baseline).
+
+From the TJ3 data, I would expect *enabling* to have less of an effect on future frequency than the *disabling* (everything relative to baseline).
+
+I plan to collect approximately 40 participants worth of data for each item X condition.
+Paying $0.40.
+
+n  = 40 x 3 = 120.
+
+cost = 120* 0.4 = 48 + 9.6 = 57.6
 
 
