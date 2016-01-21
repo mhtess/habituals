@@ -260,18 +260,23 @@ We implemented this model using the probabilistic programming language WebPPL \c
 %
 %The parametrized priors are a reasonable description of the prior elicitation data, though 
 
-\ndg{what's up with "log interval time"? need to explain, or switch to something easier to understand.}
+%\ndg{what's up with "log interval time"? need to explain, or switch to something easier to understand.}
 The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
-We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-interval time between actions (Question 2) ($r_{1,2} = -0.75; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently when done at all, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
+We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-frequency  of action (Question 2) ($r_{1,2} = 0.74; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently when done at all, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
 This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
 
-\mht{I've cut out the "posterior predictive" $r^2$ because I think it is not a reasonable metric. We should really come up with an appropriate fitness metric.}
+Some items show substantial differences between the genders (e.g. \emph{wears a bra}) and some show subtle differences (e.g. \emph{watches professional football}). 
+It is \emph{a priori} unclear whether or not $P(x)$ in Eqs.~\ref{eq:L1}, \ref{eq:L0} is the distribution over frequency of action with respect to \emph{all people}, or if it is restricted to be gender specific.
+For example, are the frequency conditions by which a man would qualify to ``wear a bra'' (habitually) different than those by which a woman would qualify to ``wear a bra''.
+In order to explore this possibility, we will select items with priors that differ by gender to explore more closely in Experiment 2.
+
+%\mht{I've cut out the "posterior predictive" $r^2$ because I think it is not a reasonable metric. We should really come up with an appropriate fitness metric.}
 
 %To assess how well these parametrized priors capture the prior elicitation data, we compare the posterior predictive distribution to the experimental data.
 %We do this by discretizing the distributions as well as truncating at the endpoints 
 %The posterior predictive distributions reconstruct the experimental data reasonably well for both question 1 ($r^2_{1} = 0.86$) and question 2 ($r^2_{2} = 0.68$) \mht{are there systemic deviations?}, and we use these parameterized priors going forward.
 
-\ndg{talk about gender differences?}
+%\ndg{talk about gender differences?}
 
 \section{Experiment 2: Felicity judgments}
 
