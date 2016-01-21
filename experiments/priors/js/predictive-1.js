@@ -50,29 +50,49 @@ function make_slides(f) {
   slides.single_trial = slide({
     name: "single_trial",
     
-    present: exp.stimuli,
+    present: exp.stims,
 
-    present_handle : function(stim) {
+    present_handle : function(stim0) {
+
+      var condition = stim0[0]
+      var stim = stim0[1]
       this.startTime = Date.now()
       this.stim =  stim; 
-      this.trialNum = exp.stimscopy.indexOf(stim);
+      this.trialNum = exp.stimscopy.indexOf(stim0);
 
       $("#text_response").val('')
 
 
       $(".err").hide();
 
-      $(".question1").html("How many times in the next " + stim.interval + " do you think " + stim.character.name + " will " + stim.predictive + "?")
 
+      this.condition = condition
 
+      var freq = stim.prevent_test_freq[0]
 
-    },
+      this.stim.freq = "3"
+      this.stim.interval = freq
 
-    init_sliders : function() {
-      utils.make_slider("#single_slider", function(event, ui) {
-        exp.sliderPost = ui.value;
-        $(".slider_number").html(Math.round(exp.sliderPost*1000)/10+"%")
-      }, "horizontal", 0.001, 600);
+      $(".frequency").html("In the <strong>past " + freq + "</strong>, " +
+         stim.character.name  + " " + stim.past + " <em>3 times</em>.");
+
+      var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
+        stim.character.gender == "male" ? "his " :
+                                          "her " :
+                                          ""
+       var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
+        stim.character.gender == "male" ? "he " : "she "  : ""
+
+      var extraSentence = condition == "baseline" ? "" :
+        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+        possessive + pronoun +  stim[condition]["obj"]+  "."
+
+      $(".extraSentence").html(extraSentence)
+
+      this.extraSentence = extraSentence
+
+      $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
+
     },
 
     button : function() {
@@ -88,29 +108,18 @@ function make_slides(f) {
 
     log_responses : function() {
 
-      var timeDictionary = {
-        "week":7,
-        "month":30,
-        "year":365,
-        "5 years":1825
-      }
       exp.data_trials.push({
-        "trial_type" : "twostep_elicitation",
+        "trial_type" : "predictive",
         "trial_num": this.trialNum+1,
         "item": this.stim.habitual,
+        "condition": this.condition,
+        "past_freq": this.stim.freq,
+        "past_interval":this.stim.interval,
         "category": this.stim.category,
-        "nPersons_women" :  $("#n_people_"+f).val(),
-        "nPersons_men" : $("#n_people_"+m).val(),
-        "comparisonNum_women": $("#comparison_"+f).val(),
-        "comparisonNum_men" : $("#comparison_"+m).val(),
-        "nInstances_women" : $("#text_response_"+f).val(),
-        "nInstances_men" : $("#text_response_"+m).val(),
-        "comparisonTime_women" : $("#frequency_"+f).val(),
-        "comparisonTime_men" : $("#frequency_"+m).val(),
-        "effectiveExistence_women" : $("#n_people_"+f).val() / $("#comparison_"+f).val(),
-        "effectiveExistence_men" : $("#n_people_"+m).val() / $("#comparison_"+m).val(),
-        "effectiveDayWait_women": timeDictionary[$("#frequency_"+f).val()] / $("#text_response_"+f).val(),
-        "effectiveDayWait_men": timeDictionary[$("#frequency_"+m).val()] / $("#text_response_"+m).val(),
+        "extra_sentence": this.extraSentence,
+        "character": this.stim.character.name,
+        "gender": this.stim.character.gender,
+        "response" :  $("#text_response").val(),
         "rt":this.rt
       });
     }
@@ -158,7 +167,7 @@ function init() {
 
   repeatWorker = false;
   (function(){
-      var ut_id = "mht-hab-priors-20151221a";
+      var ut_id = "mht-habituals-20160113";
       if (UTWorkerLimitReached(ut_id)) {
         $('.slide').empty();
         repeatWorker = true;
@@ -168,12 +177,42 @@ function init() {
 
   exp.trials = [];
   exp.catch_trials = [];
-  exp.stimuli = _.shuffle(stimuli);
   exp.n_trials = stimuli.length
 
   exp.womenFirst = _.sample([true, false])
   // debugger;
-  exp.stimscopy = exp.stimuli.slice(0);
+
+  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
+
+  var bothGenders = [];
+  var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
+
+  var shuffledMen = _.shuffle(maleCharacters)
+  var someMen = shuffledMen.splice(0,nBothGender)
+
+  var shuffledWomen = _.shuffle(femaleCharacters)
+  var someWomen = shuffledWomen.splice(0,nBothGender)
+
+  var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
+  var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
+    var newObj = jQuery.extend(true, {}, s);
+    return !(_.contains(bothGenders,s.habitual)) ? 
+    _.extend(s, {character: allGenders.pop()}) :
+      [_.extendOwn(s, {character: someMen.pop()}), 
+      _.extendOwn(newObj, {character: someWomen.pop()})]
+  }), true))
+
+  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
+
+  var allPossibleStims = _.flatten(_.map(stimsWNames,
+    function(s){
+      return _.map(["preventative","enabling", "baseline"], function(c){
+        return [c, s]
+      })
+    }), true)
+
+  exp.stims = _.zip(conditions, stimsWNames)
+  exp.stimscopy = exp.stims.slice(0);
 
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
@@ -185,7 +224,7 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["single_trial","i0", "instructions","catch",  'subj_info', 'thanks'];
+  exp.structure=["i0", "single_trial", 'subj_info', 'thanks'];
   
   exp.data_trials = [];
   //make corresponding slides:
