@@ -177,7 +177,6 @@ function init() {
 
   exp.trials = [];
   exp.catch_trials = [];
-  exp.n_trials = stimuli.length
 
   exp.womenFirst = _.sample([true, false])
   // debugger;
@@ -213,6 +212,7 @@ function init() {
 
   exp.stims = _.zip(conditions, stimsWNames)
   exp.stimscopy = exp.stims.slice(0);
+  exp.n_trials = exp.stims.length
 
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
