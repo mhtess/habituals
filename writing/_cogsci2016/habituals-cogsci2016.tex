@@ -70,7 +70,8 @@
 Habitual sentences (e.g. \emph{Bills smokes.}) generalize an event over time, but what makes a habitual sentence true?
 % and are thought to have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
 Little empirical work has tested this relation with respect to the truth conditions of these sentences. 
-We test the analogy between habitual and generic language by applying a recent formal theory of generic language to the domain of events.
+We develop a computational model of communicating generalizations about events, and use this guide to our experiments into the truth conditions of habitauls.
+%We test the analogy between habitual and generic language by applying a recent formal theory of generic language to the domain of events.
 In Expts.~1 \& 2, we measure the prior and explore the predictions of this model for the
 ``frequency'' conditions (i.e. how often a person must do an action) 
 by which habituals becomes felicitous.
@@ -366,7 +367,7 @@ People change in a way that natural kinds cannot: People can modify their behavi
 %Yet, there is an ambiguity in the frequency degree semantics over which the pragmatic theory operates.
 %In some sense, one can only know \emph{past frequency} of action because that is all that has occurred.
 %On the other hand, language has a communicative function, and only \emph{predictive frequency} will be helpful in the future.
-Does habitual language indicate a propensity in terms of past frequency or about future expectations?
+Does habitual language communicate a propensity in terms of past frequency or about future expectations?
 In this experiment, we address this by introducing causal factors that enable and prevent future actions (e.g. buying a pack of cigarettes; developing an allergy) and examining felicity judgments of the habitual sentence (e.g. \emph{John smokes cigarettes.}; \emph{John eats peanut butter.}).
 %\ndg{pose the question of this expriment more clearly: is propensity about past frequency or future expectations? then say briefly how we address it.}
 
@@ -446,12 +447,13 @@ This may be due, in part, to an effect of the experiment context on participants
 %---
 
 These results suggest that the felicity of habituals is based on an underlying scale of \emph{predictive} frequency of action.
-If that is the case, we would expect judgments of future frequency to be the object of communication. 
+If that is the case, we would expect judgments of future frequency to be the target of communication. 
+In Expt.~4, we measure predictions about future frequency and use those as input to the speaker model $S_2$ to predict the felicity judgments from Expt.~3.
 
-Habitual language is useful when it corresponds to future predictions of people's actions.
-\ndg{we want to make really clear that this is important both because of the communicative function it suggests (information useful in the future) and because it suggests that the underlying scale is a subjective one that integrates observed frequency with top-down biases from an intuitive theory... some of that may go in discussion.}
+%Habitual language is useful when it corresponds to future predictions of people's actions.
 
 \section{Experiment 4: Predicted frequency}
+\subsection{Method}
 \subsubsection{Participants} 
 
 We recruited 120 participants from MTurk, using the same criterion as Expt.~2.
@@ -465,9 +467,10 @@ Participants were asked ``In the next \textsc{time window}, how many times do yo
 
 \subsection{Behavioral results}
 
-Figure \ref{fig:tj3} (middle) shows the predicted future frequency as a function of the past frequency given to the participant and the type of conceptual information given (in color). 
-We observe in the baseline condition that future frequency perfectly tracks with past frequency. This validates our assumption in our model of Expt.~2, where we assumed what the speaker was intending to communicate was the past frequency.
-We also observe the preventative information appreciably decreasing and the enabling information increasing predicted frequency.
+Figure \ref{fig:tj3} (middle) shows the predicted future frequency as a function of the past frequency given to the participant and the type of conceptual information given (in color; confidence intervals suppressed and jitter added for visual clarity). 
+We observe in the baseline condition that future frequency perfectly tracks past frequency (e.g. participants believe if a person smoked cigarettes 3 times last month, they will smoke cigarettes 3 times next month). 
+This validates the assumption we used in our model of Expt.~2, where the speaker model intended to communicate past frequency.
+Critically, we observe the preventative information appreciably decreasing and the enabling information increasing predicted frequency (Figure \ref{fig:tj3} middle; blue and green dots).
 
 \subsection{Model results}
 
@@ -477,50 +480,50 @@ The model matches the data well ($r^2(63) = 0.91$).
 \section{Discussion}
 
 We presented a computational model for communicating generalizations about events.
-The model decides if a habitual is a useful way to describe a person's behavior, taking into the listener's prior  beliefs about the action --- how common it is and the likely frequency of action --- and the basic conversational principles to be truthful and informative.
-We validate this model by eliciting felicity judgments for habitual sentences covering a wide range of activities with a wide range of experimentally manipulated frequencies of action.
-
-
-Though we validate this model using the speaker component $S_2$ for the evaluation of the felicity of habitual sentences, this model naturally extends to capture \emph{comprehension} of habitual language using the listener $L_1$ component.
-
-We use the domain of human behavior as it provides a well-defined domain of events with wide variability in frequency of action.
-
+The model decides if a habitual is a useful way to describe a person's behavior, taking into the listener's prior beliefs about the action --- how common it is and the likely frequency of action (measured in Expt.~1) --- and the basic conversational principles to be truthful and informative.
+We validate this model by eliciting felicity judgments for habitual sentences covering a wide range of activities with a wide range of experimentally manipulated frequencies of action (Expt.~2).
+We further investigate the nature of the underlying ``propensity'' scale by introducing enabling and disabling conditions, measuring the predicted future frequency of action (Expt.~4) and using that to predict the felicity of habitual sentences (Expt.~3). 
 
 To our knowledge, the experiments presented here are first empirical investigations into the truth conditions of habitual sentences.
+We use a formal theory of the semantics and pragmatics of habitual language in order to derive predictions about the felicity of habituals.
+We adopt as the underlying degree scale the \emph{propensity} with which a person does an action. 
+In Expts.~3 \& 4, we showed that the notion of propensity is tied to the future predictions. 
+Future predictions are important to communicate because the generalization is only useful if it helps predict future events. 
+It further suggests the underlying scale is a subjective one that integrates observed frequency with top-down biases from an intuitive theory.
 
-We are able to do this using a formal theory of the semantics and pragmatics of habitual language, which is almost identical to the our previous work on generic language.
-We adopt as the underlying degree scale the \emph{subjective frequency} with which a person does an action. 
-In Expt.~3, we showed that the notion of subjective frequency is tied to the future, \emph{predictive} frequency, which depends upon both past frequency and other conceptual factors.
-
-Habituals are used to convey generalizations about events.
-They convey \emph{\textsc{X} happens}.
-Knowing that an event generally happens may be a useful abstraction for causal inference \cite<e.g.>{Griffiths2005}. 
-
-\ndg{save this for discussion. leave out or small bridge to next section...}
-The model designed to describe generic language (e.g. \emph{Swans are white.}) can describe habitual language (e.g. \emph{John smokes.}) equally as well by specifying the underlying degree as the frequency with which an individuals performs an action.
+The model we present here is almost identical to a model we've used to describe generic language \cite{TesslerUnderReview}.
 This provides a formal bridge between generalizations of properties about categories (i.e. \emph{generics}) and generalizations about individuals or events (i.e. \emph{habituals}), a connection often noted in the linguistics literature \cite{Carlson1977, Carlson2005, Cohen1999}. 
-
-
-
-\mht{kind of rough and needs more flowers}
 In the psychological literature, habituals have received relatively little attention as compared with \emph{generics}. 
 Generics often use a bare plural (e.g. \emph{Bears like to eat ants.}) and don't lay claim to any well-defined set of individuals (e.g. many bears may not like to eat ants).
 Habituals use the simple present tense (e.g. \emph{John smokes}) without any well-defined period of time (e.g. John may go many days without smoking). 
 In both cases, we are able to explain the varying truth conditions of these kinds of sentences by using a pragmatically inferred threshold on the set of individuals or on the period of time, respectively. 
 Scales, and scalar representations, provide a simple and general quantitative way to express truth conditions.
 
-Generics are ubiquitous in everyday conversation and in child-directed speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
-What might habitual language be used for?
-One possibility is that we describe individuals in terms of their enduring traits and habits. 
-Habituals may be weaker forms of trait language \cite{Gelman1999} and perhaps may be the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
-Future work should explore this connection more directly.
-	
-\mht{kind of rough and needs more meat}
-The similarities between habitual and generic language may be useful for methodological reasons. 
-In Expt.~3, we manipulated participants' beliefs about the expected, future frequency of a behavior in a person.
-This showed that the underlying degree scale is likely to be \emph{predictive} frequency, as opposed to past frequency. 
-We were able to do this because people have rich, structured theories of people's behavior that varies over time. 
-In general, the different aspects of intuitive theories of people vs. categories may facilitate further exploration of how beliefs and language play off one another.
+We use the domain of human behavior as it provides a well-defined domain of events with wide variability in frequency of action.
+We have preliminary evidence from Expt.~2 that the prior over which the intended meaning is derived $P(x)$ is with respect to individuals from both genders: Felicity judgments did not vary appreciably across the two genders, even when the $P_{gender}(x)$ did. 
+This begins to the address the question of the \emph{contrast class} with respect to which generic or habitual meaning is computed. 
+
+%Though we validate this model using the speaker component $S_2$ for the evaluation of the felicity of habitual sentences, this model naturally extends to capture \emph{comprehension} of habitual language using the listener $L_1$ component.
+
+Habituals are used to convey generalizations about events.
+They convey \emph{\textsc{X} happens}.
+Knowing that an event generally happens may be a useful abstraction for causal inference \cite<e.g.>{Griffiths2005}. 
+In addition, habituals may be weaker forms of trait language \cite{Gelman1999} and may serve as the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
+
+
+%\mht{kind of rough and needs more flowers}
+%
+%Generics are ubiquitous in everyday conversation and in child-directed speech \cite{Gelman2008} and are thought to be central to how concepts are developed \cite{Gelman2004}.
+%What might habitual language be used for?
+%One possibility is that we describe individuals in terms of their enduring traits and habits. 
+%Future work should explore this connection more directly.
+%	
+%\mht{kind of rough and needs more meat}
+%The similarities between habitual and generic language may be useful for methodological reasons. 
+%In Expt.~3, we manipulated participants' beliefs about the expected, future frequency of a behavior in a person.
+%This showed that the underlying degree scale is likely to be \emph{predictive} frequency, as opposed to past frequency. 
+%We were able to do this because people have rich, structured theories of people's behavior that varies over time. 
+%In general, the different aspects of intuitive theories of people vs. categories may facilitate further exploration of how beliefs and language play off one another.
 
 
 %The habitual sentences we explored were all presented in the simple, present tense.
