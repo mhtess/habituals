@@ -80,26 +80,45 @@ d.nTimes<- d %>%
 ## Existence question
 
 ```{r q1.load}
+#priors2-existenceQ-betaModel-incrMH100k_burn50k
 prefix <- "priors2-existenceQ-betaModel-incrMH"
-prefix <- "priors2-existenceQ-2betaModel-1gender-MH"
-samples <- 10000
+#prefix <- "priors2-existenceQ-2betaModel-1gender-MH"
+samples <- 100000
 burn <- samples / 2
 m<- as.data.frame.matrix(fread(paste(filePath, prefix, 
                    samples/1000, "k_burn", 
-                   burn/1000, "ka.csv",sep="")))
+                   burn/1000, "k.csv",sep="")))
 
 m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
+m.params<-m.samples %>% filter(Parameter!='predictive')
+m.predictive<-m.samples %>% filter(Parameter=='predictive')
+
 ```
 
 ### Posterior over parameters
 
 ```{r q1.params}
-m.params<-m.samples %>% filter(Parameter!='predictive')
 
 ggplot(m.params,aes(x=Value, fill=Gender))+
   geom_histogram(position=position_dodge())+
   facet_grid(Item~Parameter, scales='free')+
   theme(strip.text.y = element_text(angle=0))
+
+
+
+m.params.stats <- m.params %>%
+  group_by(Parameter, Item, Gender) %>%
+  summarize(MAP = estimate_mode(Value),
+            credHigh = HPDhi(Value),
+            credLow = HPDlo(Value))
+
+ggplot(m.params.stats %>% filter(Parameter=='gamma'),
+       aes(x=Item, y=MAP, fill=Gender))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin = credLow, ymax = credHigh),
+                position=position_dodge())+
+  facet_wrap(~Parameter)+
+  coord_flip()
 
 
 ggsave(paste(filePath, "plots/priors2-existence-", prefix, 
@@ -113,12 +132,14 @@ ggsave(paste(filePath, "plots/priors2-existence-", prefix,
 
 
 ```{r q1.predictive}
-m.predictive<-m.samples %>% filter(Parameter=='predictive')
 
 ggplot(m.predictive,aes(x=Value, fill=Gender))+
   geom_histogram(position=position_dodge(), binwidth=0.03)+
   facet_wrap(~Item, scales='fixed')+
   xlab("% of Americans who ___")
+
+
+
 
 ggsave(paste(filePath, "plots/priors2-existence-predictive-", prefix, 
                    samples/1000, "k_burn", 
@@ -198,8 +219,9 @@ with(md.freq, cor(model_count, norm_count))^2
 
 ```{r q2.load}
 #prefix <- "waitQ-logNormalModel-incrMH"
-prefix <- "waitQ-logNTimes-2logNormalsModel-1gender-incrMH"
+#prefix <- "waitQ-logNTimes-2logNormalsModel-1gender-incrMH"
 #prefix <- "waitQ-poissonModel-incrMH"
+prefix<-"waitQ-logNTimes-logNormal-byGender-incrMH"
 samples <- 100000
 burn <- samples / 2
 m2<- as.data.frame.matrix(fread(paste(filePath, prefix, 
@@ -233,7 +255,7 @@ m2.params.stats <- m2.params %>%
             credHigh = HPDhi(Value),
             credLow = HPDlo(Value))
 
-ggplot(m2.params.stats,
+ggplot(m2.params.stats %>% filter(Parameter=='mu'),
        aes(x=Item, y=MAP, fill=Gender))+
   geom_bar(stat='identity', position=position_dodge())+
   geom_errorbar(aes(ymin = credLow, ymax = credHigh),
@@ -296,12 +318,12 @@ ggsave(paste(filePath, "plots/frequency-predictive-", prefix,
 #   select(-count)
 
 nBins=10
-d.times.bins<-d.nTimes %>%
-  group_by(item) %>%
-  summarize(lo_bar = round(quantile(logval, c(0)),1),
-            hi_bar = round(quantile(logval, c(1)),1)) %>%
-  mutate(bin_width = (hi_bar-lo_bar)/nBins)
-                              
+# d.times.bins<-d.nTimes %>%
+#   group_by(item) %>%
+#   summarize(lo_bar = round(quantile(logval, c(0)),1),
+#             hi_bar = round(quantile(logval, c(1)),1)) %>%
+#   mutate(bin_width = (hi_bar-lo_bar)/nBins)
+#                               
 
 d.times.bins<-d.nTimes %>%
   group_by(item) %>%
@@ -319,12 +341,13 @@ d.nTimes.binned<-left_join(d.nTimes,
   mutate(Bin = ifelse(Bin < lo_bar, lo_bar, Bin)) %>%
   mutate(Bin = ifelse(Bin > hi_bar, hi_bar, Bin)) %>%
   mutate(Bin = factor(Bin)) %>%
-  rename(Item = item) %>%
-  group_by(Item, Bin) %>%
+  rename(Item = item,
+         Gender= gender) %>%
+  group_by(Item, Gender, Bin) %>%
   summarize(count = length(Bin)) %>%
   ungroup() %>%
-  group_by(Item) %>%
-#  group_by(Item, Gender) %>%
+#  group_by(Item) %>%
+  group_by(Item, Gender) %>%
   mutate(norm_count = count / sum(count)) %>%
   select(-count)
 
@@ -369,7 +392,7 @@ ggsave(paste(filePath, "plots/priors2-reconstruction-0-7-0.5-", prefix,
 ```{r q2.deviations}
 top5.dev<-md.rate[order(md.rate$sqErr, decreasing=T),]$Item[1:10]
 
-md.dev<- md.rate %>% filter(Item %in% top5.dev) %>%
+md.dev<- md.rate %>% #filter(Item %in% top5.dev) %>%
   gather(src,val, model_count, norm_count)
 
 ggplot(md.dev, aes(x =Bin, y = val, fill=src))+
@@ -401,7 +424,9 @@ e.stats <- m.params %>%
   group_by(Item, Gender) %>%
   summarize(eMAP = estimate_mode(Value),
             ecredHigh = HPDhi(Value),
-            ecredLow = HPDlo(Value))
+            ecredLow = HPDlo(Value)) %>%
+  ungroup() %>%
+  mutate(Item = gsub("sell things on eBay", "sells things on eBay", Item))
   
 
 f.stats <- m2.params %>%
@@ -416,20 +441,39 @@ prior.stats<- left_join(left_join(e.stats, f.stats),
                         categs)
 
 
-with(prior.stats, cor(fMAP, eMAP))^2
+with(prior.stats, cor(fMAP, eMAP))
+
+prior.stats$Category = factor(prior.stats$Category,
+                              levels=c("food", 
+                                       "employment",
+                                       "clothing",
+                                       "entertainment",
+                                       "hobby"),
+                              labels=c("Food & drug",
+                                       "Work",
+                                       "Clothing",
+                                       "Entertainment",
+                                       "Hobbies"))
+
+prior.stats$Gender = factor(prior.stats$Gender,
+                            levels=c("female","male"),
+                            labels=c("Female", "Male"))
 
 
-  ggplot(prior.stats, aes(x = eMAP, y = fMAP, color = Category, shape = Gender))+
-  geom_point()+
-  geom_errorbar(aes(ymin = fcredLow, ymax = fcredHigh))+
-  geom_errorbarh(aes(xmin = ecredLow, xmax = ecredHigh))+
+ggplot(prior.stats, aes(x = eMAP, y = fMAP, color = Category, shape = Gender))+
+  geom_point(size=4)+
+  geom_errorbar(aes(ymin = fcredLow, ymax = fcredHigh), alpha=0.5)+
+  geom_errorbarh(aes(xmin = ecredLow, xmax = ecredHigh),alpha=0.5)+
   xlab("% of Americans who have DONE ACTION")+
-  ylab("Log Interval Time of DOING ACTION")+
+  ylab("Log Frequency of DOING ACTION")+
   theme_paper()+
   #scale_color_solarized()
-  scale_color_brewer(palette='Set1')
+  scale_color_brewer(palette='Set1')+
+  coord_fixed(ratio = 1/8)
 
 ggsave("~/Documents/research/habituals/writing/_cogsci2016/figures/prior-scatter.pdf")
+
+#save(prior.stats, file= "~/Documents/research/habituals/writing/_cogsci2016/rdata/expt1-prior-stats.RData")
 
 ```
 
@@ -479,7 +523,7 @@ for (i in 1:100){
                                 rnorm(50, d.samp[[k, "mu"]], 
                                           d.samp[[k, "sigma"]]
                                     )
-                                } else {rep(10,50)}
+                                } else {rep(0,50)}
                )
     d.samples<-bind_rows(d.samples, d.iter)
   }
@@ -498,41 +542,46 @@ for (i in 1:100){
 #   rowwise() %>%
 #   mutate(Frequency = ifelse(Prevalence==0, 10, Prevalence))
 
+d.samples$Gender <- factor(d.samples$Gender, levels=c("male", "female"),
+                           labels=c("Male", "Female"))
 
 for (t in levels(factor(d.samples$Item))){
   
  ggplot(d.samples %>% filter(Item == t), 
-         aes(x=Frequency, color = Gender))+
+         aes(x=Frequency, fill = Gender, color=Gender))+
     geom_density(aes(y=..scaled..), 
-                 size=1, 
-                 alpha = 0.3,
+                 size=1.5, 
+                 alpha = 0.5
                  #color ='black',
-                 fill='black')+
+                 #fill='black'
+                 )+
     theme_paper()+
-    scale_color_solarized()+
+    scale_fill_manual(values = c("#7fbf7b","#af8dc3"))+
+    scale_color_manual(values = c("#7fbf7b","#af8dc3"))+
     #scale_color_manual(values=c("#bdbdbd","#f0f0f0"))+
-    scale_alpha_manual(values=c(0.6,0.1))+
+    #scale_alpha_manual(values=c(0.6,0.1))+
     #geom_density(size=1, alpha=0.7)+
 #      geom_errorbarh(data = m.prevTargets %>% filter(Property==t),
 #                     aes(x= map, xmin = credLow, xmax = credHigh,
 #                     y = 1.05), color='#2ca25f', size = 1.1,
 #                     height = 0.1, inherit.aes=F)+
     scale_linetype_manual(values=c(1,2))+
-    xlab("Log Interval time")+
-    guides(fill=F, alpha=F, linetype=F)+
+    xlab("Log frequency")+
+    guides(alpha=F, color=F, fill=F, linetype=F)+
     facet_wrap(~Item, scales='free')+
-    scale_x_continuous(limits=c(-1,10), breaks=c(0,2,4,6,8,10))+
-    scale_y_continuous(limits=c(0,1.1), breaks=c(0,0.5,1))+
+    scale_x_continuous(limits=c(0,8), breaks=c(0,2,4,6,8,10))+
+    scale_y_continuous(limits=c(0,1.05), breaks=c(0,0.5,1))+
+    #coord_fixed(ratio = 1/8)+
     ylab("Scaled density")+
-    theme(strip.text.x=element_text(size=16))+
-    coord_fixed()
+    theme(strip.text.x=element_text(size=16))
       
 
-ggsave(file=paste('~/Documents/research/habituals/writing/_cogsci2016/figures/interval-priors-',t,'.pdf',sep=''), width=5, height=3.5)
+ggsave(file=paste('~/Documents/research/habituals/writing/_cogsci2016/figures/logfreq-priors-',t,'.pdf',sep=''), width=5, height=3.5)
 
 print(t)
 
 }
+save(d.samples, file= "~/Documents/research/habituals/writing/_cogsci2016/rdata/expt1-prior-predictives.RData")
 
 ```
 

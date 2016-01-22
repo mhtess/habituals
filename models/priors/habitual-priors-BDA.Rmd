@@ -66,14 +66,39 @@ ggplot(m.predictive,aes(x=Value))+
 ggsave(paste(filePath, "plots/existence-predictive-", prefix, 
                    samples/1000, "k_burn", 
                    burn/1000, "k.pdf", sep=""))
+
+
+
+used.in.tj<- c("bikes to work",
+               "drinks beer",
+               "drives to work",
+               "eats granola for breakfast",
+               "hikes",
+               "plays computer games",
+               "runs",
+               "smokes",
+               "steals cars",
+               "vacations in Switzerland",
+               "writes novels",
+               "writes poems")
+
+ggplot(m.predictive %>% filter(Item%in%used.in.tj), aes(x=Value))+
+  geom_histogram(binwidth=0.03)+
+  #geom_density()+
+  facet_wrap(~Item, scales='fixed')+
+  xlab("% of Americans who ___")
+
+
+fig.path <- "~/Documents/research/habituals/talks/lab-mtg-120115/images/"
+ggsave(paste(fig.path, "existentialQ-bda-histogram-priors1.pdf", sep=""), width = 8, height =5)
 ```
 
 
 
-## Frequency question
+# Frequency question
 
-```{r}
-prefix <- "frequencyQ-2logNormalModel-incrMH"
+```{r freq.load}
+prefix <- "frequencyQ-logNormalModel-workdayForWork-incrMH"
 samples <- 100000
 burn <- samples / 2
 m2<- as.data.frame.matrix(fread(paste(filePath, prefix, 
@@ -90,7 +115,8 @@ m2.params<-m2.samples %>% filter(Parameter!='predictive')
 
 ggplot(m2.params,aes(x=Value))+
   geom_histogram()+
-  facet_grid(Item~Parameter, scales='free')
+  facet_grid(Item~Parameter, scales='free')+
+  theme(strip.text.y = element_text(angle=0))
 
 ggsave(paste(filePath, "plots/frequency-parameters-", prefix, 
                    samples/1000, "k_burn", 
@@ -161,10 +187,10 @@ ggsave(paste(filePath, "plots/frequency-log-predictive-", prefix,
                    burn/1000, "k.pdf", sep=""), width =14, height = 6)
 
 
-ggplot(m2.predictive,aes(x=exp(Value)))+
+ggplot(m2.predictive,aes(x=exp(Value)/52))+
   geom_histogram()+
   facet_wrap(~Item, scales='fixed')+
-  xlim(0,500)
+  xlim(0,10)
 
 ggsave(paste(filePath, "plots/frequency-predictive-", prefix, 
                    samples/1000, "k_burn", 
@@ -173,9 +199,9 @@ ggsave(paste(filePath, "plots/frequency-predictive-", prefix,
 
 items<-levels(factor(m2.predictive$Item))
 
-ggplot(m2.predictive %>% filter(Item == "drinks beer"), aes(x=exp(Value)))+
-  geom_histogram()+
-  xlim(0,500)
+ggplot(m2.predictive %>% 
+         filter(Item == "smokes"),aes(x=exp(Value)/365))+
+  geom_histogram()
 
 ggplot(m2.predictive %>% filter(Item == items[1]), aes(x=exp(Value)))+
   geom_histogram()+
@@ -204,5 +230,144 @@ ggplot(m2.predictive %>% filter(Item == items[7]), aes(x=exp(Value)))+
   geom_histogram()+
   xlim(0,500)+
   ggtitle(items[7])
+
+
+
+ggplot(m2.predictive %>% filter(Item%in%used.in.tj), aes(x=Value))+
+  geom_histogram()+
+  #geom_density()+
+  facet_wrap(~Item, scales='fixed')+
+  xlab("Log Frequency")+
+  xlim(-10,10)
+
+
+ggsave(paste(fig.path, "frequency-bda-histogram-priors1.pdf", sep=""), width = 7, height =4)
+```
+
+By item prevalence levels
+
+```{r}
+items <- levels(factor(m2.predictive$Item))
+
+i = "fails at things"
+m.item <- m2.predictive %>% filter(Item==i)
+quantile(exp(m.item$Value), probs = c(0.25, 0.5,0.75))
+quantile(exp(m.item$Value), probs = seq(0,1,0.1))
+
+
+```
+
+## Discretized posterior predictive 
+
+```{r}
+filePath <- "~/Documents/research/habituals/models/priors/results/"
+prefix <- "predictive-freq-logNormalModel-workdayForWork-incrMH"
+samples <- 100000
+burn <- samples / 2
+
+m<- as.data.frame.matrix(fread(paste(filePath, prefix, 
+                   samples/1000, "k_burn", 
+                   burn/1000, "k.csv",sep=""), header=T))
+
+# m<-read.csv(paste(filePath, prefix, 
+#                    samples/1000, "k_burn", 
+#                    burn/1000, "k.csv",sep=""), header=T)
+
+m.samples <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:length(names(m))-1]
+
+m.tidy <- m.samples %>%
+  gather(Bin, Value, -Item) %>%
+  group_by(Item, Bin) %>%
+  summarise(MAP = mean(Value)) %>%
+#   summarise(MAP = estimate_mode(Value),
+#             credHigh = HPDhi(Value),
+#             credLow = HPDlo(Value)) %>%
+  ungroup() %>%
+  mutate(Bin = factor(round(to.n(Bin),2)))
+```
+
+
+### Load human data
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/priors/priors-1.csv")
+
+min_bin<-min(to.n(levels(m.tidy$Bin)))
+max_bin<-max(to.n(levels(m.tidy$Bin)))
+
+nearestBin <- function(x){
+  return(levels(m.tidy$Bin)[
+    round(length(levels(m.tidy$Bin))*(x-min_bin)/(max_bin-min_bin))
+    ])
+}
+
+scaleTime <- list(
+  day = 365,
+  ## day is ambiguous between work-day and day of the week
+  week = 52,
+  month = 12,
+  year = 1,
+  life = 1/80
+)
+
+d[(d$item=='drives to work' & d$timeWindow=='day'),]$nTimes <- d[(d$item=='drives to work' & d$timeWindow=='day'),]$nTimes * 5
+d[(d$item=='drives to work' & d$timeWindow=='day'),]$timeWindow <- "week"
+
+d[(d$item=='bikes to work' & d$timeWindow=='day'),]$nTimes <- d[(d$item=='bikes to work' & d$timeWindow=='day'),]$nTimes * 5
+d[(d$item=='bikes to work' & d$timeWindow=='day'),]$timeWindow <- "week"
+
+d.tidy<-d %>% 
+  mutate(timeWindow = as.character(timeWindow)) %>%
+  rowwise() %>%
+  mutate(frequency = nTimes*scaleTime[[timeWindow]]) %>%
+  ungroup()
+
+d.tidy[d.tidy$frequency==0,]$frequency<-0.01
+
+d.out<-d.tidy %>% 
+  select(-category, -trial_type, -rt) %>%
+  mutate(logFreq = log(frequency)) %>%
+  rowwise() %>%
+  mutate(roundedLogFreq = nearestBin(logFreq))
+
+```
+
+## Join human data with model
+
+```{r}
+
+d.stats <- d.out %>%
+  ungroup() %>%
+  group_by(item, roundedLogFreq) %>%
+  summarize(count = length(trial_num)) %>%
+  ungroup() %>%
+  group_by(item) %>%
+  mutate(norm_count = count / sum(count)) %>%
+  ungroup() %>%
+  rename(Item = item,
+         Bin = roundedLogFreq)
+
+prior.md<-left_join(m.tidy, d.stats)
+prior.md[is.na(prior.md$norm_count),]$norm_count <- 0
+
+prior.md <- prior.md %>%
+  mutate(Bin = factor(Bin))
+
+
+ggplot(prior.md, aes(x=MAP, y = norm_count, color=Bin))+
+  geom_point()+
+  geom_abline(intercept =0, slope=1,linetype=2)+
+  #geom_errorbarh(aes(xmin=credLow, xmax=credHigh), position=position_dodge())+
+  xlab("Posterior predictive of prior model")+
+  ylab("Normalized counts of human responses")+
+  coord_fixed()
+
+#ggsave(file='~/Documents/research/generics/manuscript/figures/postPred-priorModel.pdf')
+
+with(prior.md, cor(MAP, norm_count))^2
+
+# Check outliers
+View(prior.md %>% filter(norm_count < .2 & MAP > .18))
+
 
 ```

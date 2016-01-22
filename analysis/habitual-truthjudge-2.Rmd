@@ -28,7 +28,7 @@ options("scipen"=10)
 
 
 
-```{r tj1.load}
+```{r tj2.load}
 filePath <- "~/Documents/research/habituals/data/truthjudgments/"
 d<- read.csv(paste(filePath, "truthjudge-2-trials.csv", sep=""))
 catch<- read.csv(paste(filePath, "truthjudge-2-catch_trials.csv", sep=""))
@@ -74,8 +74,8 @@ d3<-d %>%
 
 
 
-write.csv(d3,"~/Documents/research/habituals/models/truthjudgement/data/tj-2-logtimes.csv", 
-          row.names=F)
+#write.csv(d3,"~/Documents/research/habituals/models/truthjudgement/data/tj-2-logtimes.csv", 
+          #row.names=F)
 ```
 
 
@@ -89,6 +89,8 @@ d.tidy <- d2 %>%
                           paste(n_instances, time_period,sep="/"), sep='--')) %>%
   mutate(sentence = reorder(sentence, mean, function(x){return(x)}))
 
+
+
 ggplot(d.tidy, aes(x=habitual, fill = frequency, y = mean, group=frequency))+
   geom_bar(stat='identity', position=position_dodge())+
   geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
@@ -99,6 +101,23 @@ ggplot(d.tidy, aes(x=habitual, fill = frequency, y = mean, group=frequency))+
   ylab("Proportion agreement")
   
   #coord_flip()
+
+
+d.tidy <- d.tidy %>%
+  mutate(time_period = factor(time_period, levels=c("5 years","2 years",
+                                                    "year", "6 months",
+                                                    "2 months", "month",
+                                                    "2 weeks", "week")))
+
+ggplot(d.tidy, aes(x=time_period, fill = time_period, y = mean, group=time_period))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  #scale_fill_solarized()+
+  facet_wrap(~habitual)+
+  xlab("")+
+  ylab("Proportion agreement")
+  
 
 #ggsave("~/Documents/research/habituals/talks/lab-mtg-120115/images/tj1-bars-grouped.pdf")
 ```

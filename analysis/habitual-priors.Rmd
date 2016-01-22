@@ -414,3 +414,94 @@ ggplot(d.wait.summary, aes(x=item, y=mean, fill=key))+
   facet_wrap(~category)+
   coord_flip()
 ```
+
+
+# Predictive elicitation
+
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/priors/predictive-1-trials.csv")
+# participant reported this in the comments section
+d[(d$workerid==44 & d$item=="smokes cigarettes"),"response"] <- 5
+
+
+qplot(data=d, x=response, geom='histogram')+
+  facet_wrap(~condition)
+
+d %>% group_by(condition) %>%
+  multi_boot_standard(column="response")
+
+
+d.item<-d %>% group_by(condition,item) %>%
+  multi_boot_standard(column="response")
+
+ggplot(d.item, aes(x = item, y = mean, ymax = ci_upper, ymin=ci_lower, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(position=position_dodge())
+
+```
+
+```{r}
+scaleTime.nTimes <- list(
+  week = 5*52,
+  month = 5*12,
+  "2 months"= 5*6,
+  year = 5,
+  "2 years" = 5/2,
+  "5 years" = 1
+)
+
+d.tidy<- d %>% 
+  select(workerid, category, item, past_interval, past_freq, condition, response) %>%
+  rowwise() %>%
+  mutate(past_frequency = scaleTime.nTimes[[as.character(past_interval)]]*past_freq,
+        future_frequency=scaleTime.nTimes[[as.character(past_interval)]]*to.n(response)) %>%
+  mutate(past_logfreq = log(past_frequency),
+         future_logfreq = log(future_frequency)) %>%
+  mutate(future_logfreq = ifelse(future_logfreq==-Inf, 0, future_logfreq))
+
+
+
+d.item.freq <- d.tidy %>%
+  ungroup() %>%
+  group_by(condition, item, category,past_logfreq, past_interval) %>%
+  multi_boot_standard(column = "future_logfreq")
+
+
+ggplot(d.item.freq, aes(x=past_logfreq, y = mean, ymin = ci_lower, ymax = ci_upper, fill = condition))+
+  #geom_point(size = 3.5)+
+  #geom_point(shape=21, size=4)+
+  geom_jitter(size=4,shape=21,position = position_jitter(width = .2))+
+  geom_abline(intercept = 0, slope = 1, lty =3)+
+  #geom_errorbar(width=0.1)+
+  xlim(-0.5,7.5)+
+  ylim(-0.5,7.5)+
+  coord_fixed()+
+  scale_fill_solarized()+
+  xlab("Past (log) frequency")+
+  ylab("Predicted (log) frequency")
+
+#ggsave("~/Documents/research/habituals/analysis/figures/predictive-past-scatter.pdf")
+ggsave("~/Documents/research/habituals/writing/_cogsci2016/figures/predictive-scatter.pdf")
+
+```
+
+
+
+```{r}
+ggplot(d.item.freq, aes(x=condition, y = mean, 
+                        ymin = ci_lower, ymax = ci_upper, 
+                        fill = condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(position=position_dodge(), width=0.5, size = 1.1)+
+  facet_wrap(~item, nrow=3)+
+  theme(axis.text.x = element_blank())+
+  ylab("Predicted log frequency")+
+  xlab("")
+
+ggsave("~/Documents/research/habituals/analysis/figures/predictive-logfreq-bars.pdf", width = 20, height = 7)
+
+
+save(d.item.freq,
+     file="~/Documents/research/habituals/analysis/predictive-1-stats.RData")
+```

@@ -1,0 +1,303 @@
+---
+title: "tj-3"
+author: "mht"
+date: "January 13, 2016"
+output: html_document
+---
+
+```{r}
+library(data.table)
+library(coda)
+estimate_mode <- function(s) {
+  d <- density(s)
+  return(d$x[which.max(d$y)])
+}
+HPDhi<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","upper"])
+}
+HPDlo<- function(s){
+  m <- HPDinterval(mcmc(s))
+  return(m["var1","lower"])
+}
+options("scipen"=10)   
+```
+
+
+
+
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/truthjudgments/truthjudge-3-trials.csv")
+catch <- read.csv("~/Documents/research/habituals/data/truthjudgments/truthjudge-3-catch_trials.csv")
+
+d.passed <- left_join(d, catch %>% select(workerid, pass), by="workerid") %>%
+  filter(pass==1)
+
+d.tidy<-d %>%
+  mutate(response = response=="agree-key",
+         time_period = factor(time_period,
+                              levels=c("month",
+                                       "2 months",
+                                       "year",
+                                       "2 years",
+                                       "5 years")),
+         condition = factor(condition,
+                            levels=c("enabling", "baseline", "preventative")),
+         hab_time = paste(habitual, time_period, sep='-')) %>%
+  group_by(habitual, condition, hab_time, time_period) %>%
+  multi_boot_standard(column="response")
+
+
+ggplot(d.tidy, aes(x=time_period, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  facet_wrap(~habitual, nrow=3)+
+  scale_fill_solarized()+
+  theme(axis.text.x = element_text(angle=90))
+
+```
+
+```{r}
+
+rs<-glmer(response ~ condition + (1 | workerid) + (1 + condition | habitual), data = d, family='binomial')
+
+summary(rs)
+
+
+```
+
+
+
+```{r}
+d0<-read.csv("~/Documents/research/habituals/data/truthjudgments/truthjudge-2-trials.csv")
+
+d0.tidy<-d0 %>%
+  mutate(condition = 'expt-1',
+         response = response=="agree-key",
+         time_period = factor(time_period, levels=c("5 years","2 years",
+                                                    "year", "6 months",
+                                                    "2 months", "month",
+                                                    "2 weeks", "week")),
+         hab_time = paste(habitual, time_period, sep='-')) %>%
+  filter(habitual %in% levels(factor(d$habitual))) %>%
+  filter(hab_time %in% levels(factor(d.tidy$hab_time))) %>%
+  group_by(habitual, condition, hab_time,time_period) %>%
+  multi_boot_standard(column="response")
+
+
+d.joined<-bind_rows(d.tidy, d0.tidy) %>%
+  mutate(time_period = factor(time_period, levels=c("5 years","2 years",
+                                                    "year", "6 months",
+                                                    "2 months", "month",
+                                                    "2 weeks", "week")),
+        condition = factor(condition, levels=c( "expt-1","baseline","enabling", "preventative")))
+ggplot(d.joined, aes(x=time_period, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge(), color='black')+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  facet_wrap(~habitual, nrow=3)+
+  #scale_f()+
+  theme(axis.text.x = element_text(angle=90))
+
+ggsave("~/Documents/research/habituals/analysis/figures/truth-judgments-3items-withtj2.pdf", width = 30, height = 10)
+
+```
+
+
+```{r}
+d.main<-d %>%
+  mutate(response = response=="agree-key",
+         time_period = factor(time_period,
+                              levels=c("month",
+                                       "2 months",
+                                       "year",
+                                       "2 years",
+                                       "5 years")),
+         condition = factor(condition,
+                            levels=c("enabling", "baseline", "preventative")),
+         hab_time = paste(habitual, time_period, sep='-')) %>%
+  group_by(condition) %>%
+  multi_boot_standard(column="response")
+
+
+ggplot(d.main, aes(x=condition, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge(), color='black')+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  #scale_f()+
+  theme(axis.text.x = element_text(angle=90))
+```
+
+
+### With expt 4: predictive frequency
+
+```{r}
+load("~/Documents/research/habituals/analysis/predictive-1-stats.RData")
+
+d.out4<-left_join(d,
+  d.item.freq %>%
+              rename(habitual=item,
+                   time_period = past_interval,
+                   future_logfreq = mean) %>%
+  select(habitual, condition, past_logfreq, future_logfreq))
+
+write.csv(d.out4,"~/Documents/research/habituals/models/truthjudgement/data/tj-3.csv", row.names=F)
+
+```
+
+
+```{r}
+d.predict.tj<-left_join(d.tidy, 
+                    d.item.freq %>%
+                      rename(habitual=item,
+                             time_period = past_interval),
+                    by=c("habitual", "condition", "time_period"))
+
+
+plt1<-ggplot(d.predict.tj, aes(x=mean.y, y=mean.x, color=condition, xmin = ci_lower.y, xmax=ci_upper.y,
+                               ymin=ci_lower.x, ymax = ci_upper.x))+
+  #geom_jitter(shape=21, size = 4, position=position_jitter(width=0.1))+
+  theme_paper()+
+  geom_errorbar()+
+  geom_errorbarh()+
+  #geom_abline(intercept=0,slope=1,linetype=2, size=1,color='grey39')+
+  xlab("\n Predictive Log Frequency")+
+  ylab("Proportion human endorsement \n")+
+#  guides()+
+ # xlim(-0.05,8.05)+
+ # ylim(-0.05,1.05)+
+ # coord_fixed(ratio=8)+
+  #scale_color_gradient(low='#386cb0', high = '#f0027f')+
+#   scale_fill_gradient(
+#                       high='#92c5de', 
+#                       # high = "#fed976",
+#                        low = "#023858",
+#                        #low = "#4d9221",
+#                        #high = "#f1b6da",
+#                        #high = "black",
+#                        #low = "white",
+#                        #high ='#e78ac3',
+#                       # limits=c(0,6),
+#                        breaks=c(0,2,4,6)
+#                        )+
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt1
+
+with(d.predict.tj, cor(mean.y, mean.x))^2
+with(d.predict.tj %>% filter(mean.y < 3),
+     cor(mean.y,mean.x))^2
+
+```
+
+# Model
+
+
+```{r tj3.model.load}
+filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
+prefix <-"tj3-RSA-future_log_ntimes-so-phi-IncrMH"
+samples <- 1000
+burn <- samples / 2
+priorsamples <- 50000
+priorburn <- priorsamples / 2
+m.samples<- data.frame()
+i = "b"
+for (i in c("a", "b")){
+  m<-read.csv(paste(filePath, prefix, 
+                     samples/1000, "k_burn", 
+                     burn/1000, "k_prior-mixGenders0.5-",
+                     priorsamples/1000, "k_burn",
+                     priorburn/1000,
+                     "k_discretize-1-8.5-0.5-",i,".csv",sep=""))  
+#                     "k_discretize10ByItemPlus0-",i,".csv",sep=""))  
+  m.samp <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
+  m.samples<- bind_rows(m.samples, m.samp)
+  print(i)
+}
+
+
+
+```
+
+
+```{r tj3.model.params}
+m.params <- m.samples %>% filter(Type =='parameter')
+qplot(data=m.params, x= Value, geom='histogram')+
+  facet_wrap(~Level, scales='free')
+
+m.params %>%
+  group_by(Level) %>%
+    summarise(MAP = estimate_mode(Value),
+            credHigh = HPDhi(Value),
+            credLow = HPDlo(Value)) 
+```
+
+
+
+```{r tj2.model.pred}
+m.pred <- m.samples %>% filter(Type == 'predictive')
+
+m.predStats <- m.pred %>%
+  group_by(Item, Level, Period) %>%
+  summarise(MAP = estimate_mode(Value),
+            credHigh = HPDhi(Value),
+            credLow = HPDlo(Value)) %>%
+  rename(habitual = Item,
+         time_period = Period) %>%
+  ungroup() %>%
+  mutate(Level = to.n(Level))
+
+m.d<- left_join(d.predict.tj %>%
+                  mutate(Level = round(mean.y*2)/2), 
+                m.predStats)
+
+plt2<-ggplot(m.d,aes(x=MAP, y = mean.x, fill=condition))+
+  geom_abline(intercept = 0, slope = 1, lty = 2)+
+  geom_errorbar(aes(ymin = ci_lower.x, ymax = ci_upper.x))+
+  geom_errorbarh(aes(xmin=credLow, xmax = credHigh))+
+    geom_point(shape=21, size=4)+
+  xlim(-0.05,1.05)+
+  ylim(-0.05,1.05)+
+  theme_paper()+
+  coord_fixed()+
+  xlab("\n Model posterior predictive")+
+  ylab("Proportion human endorsement \n")+
+#   scale_fill_gradient(
+#                       high='#92c5de', 
+#                       # high = "#fed976",
+#                        low = "#023858",
+#                        #low = "#4d9221",
+#                        #high = "#f1b6da",
+#                        #high = "black",
+#                        #low = "white",
+#                        #high ='#e78ac3',
+#                       # limits=c(0,6),
+#                        breaks=c(0,2,4,6)
+#                        )+
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt2
+# 
+with(m.d, cor(MAP, mean.x))^2
+
+with(m.d, cor(MAP, mean, use="complete.obs"))^2
+
+# with(m.d %>% filter(logFreq >= 4.5),
+#      cor(MAP,mean))^2
+# 
+# 
+# plt3<-grid.arrange(plt1, plt2, nrow=1)
+# plt3<-arrangeGrob(plt1,plt2,nrow=1)
+# 
+# ggsave(file="~/Documents/research/habituals/writing/_cogsci2016/figures/tj-scatters.pdf", 
+#        plot=plt3)#"talks/lab-mtg-120115/images/tj1-md-scatter-3colors.pdf")
+# 
+# 
+# m.d <- m.d %>%
+#   mutate(sqerr = (MAP-mean)^2)
+# View(m.d)
+```
+
+
+
