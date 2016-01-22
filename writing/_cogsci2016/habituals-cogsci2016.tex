@@ -181,7 +181,7 @@ This model is nearly identical with the model we have proposed for generic langu
 \begin{figure*}[t]
 \centering
   \includegraphics[width=\textwidth]{prior-scatter-insets}
-  \caption{}
+  \caption{Frequency prior distributions empirically elicited for thirty-one events for both male and female genders. Prior distributions are summarized by $\theta$ --- the proportion of people who have done the action before --- and $\gamma$ --- the mean log frequency of doing the action (for people who had done it before).  Inset plots display posterior predictive distributions on frequency using the structured Bayesian model in Eq.~\ref{eq:priorModel}. Error bars denote 95\% Bayesian credible intervals.}
   \label{fig:priorScatter}
 \end{figure*}
 %
@@ -233,7 +233,8 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 \begin{figure*}[t]
 \centering
   \includegraphics[width=\textwidth]{tj-scatters}
-  \caption{}
+  \caption{Human acceptability judgments as a function of the log frequency of action (left) and speaker $S_2$ model predictions (right) for ninety-three unique items (action X frequency level). 
+  Color denotes target-individual frequency of action (log scale), with lighter colors indicating more frequent actions. Error bars correspond to 95\% bootstrapped confidence intervals for the participant data and 95\% highest probability intervals for the model predictions. Error bars suppressed and points jittered on left facet for visual clarity.}
   \label{fig:tjScatters}
 \end{figure*}
 
@@ -337,13 +338,13 @@ If the sampled person was the kind of person to have done the action before, the
 If they were not the type of person to have done the action, we assume they will never or only rarely do it.
 Because we observe no difference between the felicity judgments for habituals of male and female characters, we use a 50\% mixture of the inferred priors for each gender to construct a single frequency across individuals.
 \begin{minipage}{0.5 \textwidth} \small
-\begin{align*}
-\theta & \sim \text{Beta}(\gamma_{1}, \xi_{1}) \\ 
-\ln x & \sim \begin{cases} 
-		\text{Gaussian}(\mu_{2}, \sigma_{2}) &\mbox{if } \text{Bernoulli}(\theta) = \textsc{t} \\
+\begin{align}
+\theta & \sim \text{Beta}(\gamma_{1}, \xi_{1}) \nonumber \\ 
+\ln x & \sim \begin{cases}
+		\text{Gaussian}(\mu_{2}, \sigma_{2}) &\mbox{if } \text{Bernoulli}(\theta) = \textsc{t} \label{eq:priorModel}  \\
 				\delta_{x=-\infty} &\mbox{if } \text{Bernoulli}(\theta) = \textsc{f} \\
-		\end{cases} \\
-\end{align*}
+		\end{cases}
+\end{align}
 \end{minipage}
 
 Having fit the prior empirically, the model was one parameter -- the speaker optimality parameter in Eq.~\ref{eq:S1}. 
