@@ -87,17 +87,17 @@ events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 
 %\ndg{need to revise this intro with some strong perspective taking: your target audience is smart cogsci people who don't know that much about these topics (think josh t).}
 
-Predicting events is critical for survival and development, and generalizing a prediction over time is a useful synthesis for future prediction and abstraction.
+Predicting events and the behavior of others is critical for survival and development, and generalizing a prediction over time is a useful synthesis for future prediction and abstraction.
 %Predicting physical events is important for discovering how the world works.
 %Predicting the behaviors of others is  is necessary to figure out what others will do. Must be able to predict caretaker?s behavior.
-Language allows us to communicate hard-won generalizations to each other, but under what evidence would you make and communicate such generalizations?
+Language allows us to communicate generalizations to each other, but under what evidence would you make and communicate such generalizations?
 If Bill smoked three cigarettes last month, would you say that \emph{Bill smokes}?
 %Generalizing an event (such as Bill smoking) over time is useful for future predictions about the occurrence of that event.
 %But what evidence do you need to make and communicate such a generalization? 
 Three cigarettes in a month may not be enough to say that \emph{Bill smokes}, but Bill might feel entitled to say he volunteers, after helping out at a soup kitchen the same number of times in the same time period.
 
 Habitual sentences (e.g. \emph{Bill smokes.}; \emph{It rains around here.}) are the linguistic means by which generalizations about events are conveyed.
-Habituals about people are particularly interesting because they are likely central to intuitive theories of personality and behavior. 
+Habituals about people are of particularly importance because they are likely central to intuitive theories of personality and behavior. 
 \citeA{McGuire1986} explored 5th to 12th graders' responses to open ended probes such as ``Tell us about your school / family''. 
 A surprisingly large number of utterances (over 85\% in their study) were about people, and roughly two-thirds of those utterances used action verbs (e.g. ``My brother works part-time at the restaurant.''). 
 Habitual language may be a more conservative form of trait language (e.g. \emph{Bill is a smoker.}) and convey that behaviors are relatively enduring \cite{Gelman1999, Gelman2004}.
@@ -105,7 +105,7 @@ Despite the prevalence of habitual utterances in descriptions of the self and ot
 
 Linguists have pointed out the parallel between habituals like \emph{Bill smokes} and generic sentences like \emph{Swans are white.} \cite{Carlson1977, Carlson2005, Cohen1999}.
 Both convey generalizations (about events and categories, respectively), and both exhibit dramatic flexibility in their truth conditions: \emph{Swans are white} even though there are black swans, and it may the case that \emph{Bill smokes} even if he goes without a cigarette for an entire family vacation.
-Indeed, cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of extremely rare actions like \emph{Susan writes novels.}. Susan may only have written 3 novels in the past 10 years, and still this seems like a valid generalization to convey.
+Indeed, cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of extremely rare actions like \emph{Susan writes novels.}. Susan may only have written 3 novels in her life, and --- barring major disabling conditions --- still this seems like a valid generalization to convey.
 What explains the flexibility of truth conditions for generalizations about events?
 
 
@@ -124,7 +124,9 @@ The theory posits the semantics of a generic statement is an uncertain threshold
 We adopt the theory by adjusting the underlying degree to be the \emph{frequency of action} (i.e. how often does a person do an action) and derive predictions for felicity judgments of the corresponding habitual.
 In Expt.~1, we measure \emph{a priori} beliefs about how frequently people do a diverse set of actions.
 In Expt.~2, we use those priors and the pragmatic theory to make predictions about the truth conditions of habitual sentences under different frequencies of action. 
-In Expt.~3, we further explore the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
+In Expts.~3 \& 4, we use a similar method to show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
+
+% the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
 
 \section{Computational model}
 %\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
@@ -372,8 +374,9 @@ In this experiment, we address this by introducing causal factors that enable an
 \subsection{Method}
 \begin{figure*}[t]
 \centering
-  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
-  \caption{}
+%  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
+  \includegraphics[width=\textwidth]{expt3-4-scatters.pdf}
+  \caption{Left: Endorsements of habitual sentences (Expt.~3) vs. Predicted log frequency (Expt.~4). Middle: Predicted log frequency as a function of past log frequency supplied to the participant (Expt.~4). Right: Human endorsements (Expt.~3) vs. Speaker $S_2$ model predictions using the empirically elicited predictive frequencies (Expt.~4)}
   \label{fig:tj3}
 \end{figure*}
 
@@ -401,8 +404,9 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 \subsection{Behavioral results}
 
-There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (purple bars).
+There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (Figure \ref{fig:tj3}, left; blue points).
 When collapsing across items and subjecting the data to a mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89 [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) --- $\beta = 0.42; SE = 0.15; z = 2.8; p = 0.005$, in addition to a large effect of \emph{preventative} conditions on endorsements (M = 0.29 [0.26, 0.31]) --- $\beta = -3.22; SE = 0.21; z = -15.2; p < 0.001$. 
+\mht{should I add points from Expt. 2 to left-most scatter, or maybe there is a better plot?}
 Finally, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items (compare green bars to red bars).
 This may be due, in part, to an effect of the experiment context on participants: Participants are viewing extra information that strongly disables the action from occurring; when that information is not present, participants may be more inclined to endorse the habitual.
 \ndg{we should think about where in the model this calibbration effect would be seen. Overall it would be nice to tie this expt more to the model, even if in a relatively shallow way.}
@@ -458,14 +462,25 @@ The experiment took 4 minutes on average on participants were compensated \$0.40
 
 The only difference from Expt.~3 is in the dependent measure.
 Participants were asked ``In the next \textsc{time window}, how many times do you think \textsc{person} does \textsc{event}?'', where the \textsc{time window} was the same as given in the \emph{past frequency statement}.
+
 \subsection{Behavioral results}
 
+Figure \ref{fig:tj3} (middle) shows the predicted future frequency as a function of the past frequency given to the participant and the type of conceptual information given (in color). 
+We observe in the baseline condition that future frequency perfectly tracks with past frequency. This validates our assumption in our model of Expt.~2, where we assumed what the speaker was intending to communicate was the past frequency.
+We also observe the preventative information appreciably decreasing and the enabling information increasing predicted frequency.
+
 \subsection{Model results}
+
+We use the mean predicted log frequency as the input to the speaker $S_2$ and infer the parameter using the same analysis approach in Expt.~2. 
+The model matches the data well ($r^2(63) = 0.91$).
 
 \section{Discussion}
 
 We presented a computational model for communicating generalizations about events.
-The model decides if a habitual is a useful way to describe a person's behavior, taking into the listener's beliefs about how common the action is, the likely frequency of action, and the basic conversational principles to be truthful and informative.
+The model decides if a habitual is a useful way to describe a person's behavior, taking into the listener's prior  beliefs about the action --- how common it is and the likely frequency of action --- and the basic conversational principles to be truthful and informative.
+We validate this model by eliciting felicity judgments for habitual sentences covering a wide range of activities with a wide range of experimentally manipulated frequencies of action.
+
+
 Though we validate this model using the speaker component $S_2$ for the evaluation of the felicity of habitual sentences, this model naturally extends to capture \emph{comprehension} of habitual language using the listener $L_1$ component.
 
 We use the domain of human behavior as it provides a well-defined domain of events with wide variability in frequency of action.
