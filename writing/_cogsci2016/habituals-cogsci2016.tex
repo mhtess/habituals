@@ -69,44 +69,62 @@
 %\ndg{the basic framing shouldn't be habituals vs generics. it should be how do habituals work to convey generalizations about events? and then the analogy with generics motivates our approach...}
 Habitual sentences (e.g. \emph{Bills smokes.}) generalize an event over time, but what makes a habitual sentence true?
 % and are thought to have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
-We develop a computational model of communicating generalizations about events, and use this to guide experiments into the truth conditions of habitual language.
+We develop a computational model and use this to guide experiments into the truth conditions of habitual language.
 %Little empirical work has tested this relation with respect to the truth conditions of these sentences. 
 %We test the analogy between habitual and generic language by applying a recent formal theory of generic language to the domain of events.
-In Expts.~1 \& 2, we measure participants' prior expectations about the frequency with which an action is carried out and explore the predictions of the model for the``propensity'' conditions (i.e. how often a person must do an action) by which habituals becomes felicitous.
+In Expts.~1 \& 2, we measure participants' prior expectations about the frequency with which an action is carried out and explore the predictions of the model for when a habitual sentence becomes acceptable.
+%the``propensity'' conditions (i.e. how often a person must do an action) by which habituals becomes felicitous.
 % the under which various habituals may be felicitous utterances. 
-In Expts.~3 \& 4, we harness the richness of intuitive theories of human behavior to explore more deeply the nature of propensity conditions with respect to time.
-We find that predicted, future frequency requires an integration of observed frequency with top-down biases from intuitive theories.
-This provides the first empirical work to address the posited connection between generalizations about categories (i.e. generic language) and habituals. 
-Using our computational approach, we find the analogy between generic and habitual language to be well-suited.
-
+In Expts.~3 \& 4, we show that habituals are sensitive to top-down moderators of expected frequency: it is the expectation of future tendency that matters for habitual language.
+%harness the richness of intuitive theories of human behavior to explore more deeply the nature of propensity conditions with respect to time.
+%find that predicted, future frequency 
+%requires an integration of observed frequency with top-down biases from intuitive theories.
+%This provides the first empirical work to address the posited connection between generalizations about categories (i.e. generic language) and habituals. 
+%Using our computational approach, we find the analogy between generic and habitual language to be well-suited.
 %by manipulating X and show that \emph{predictive} future frequency is what drives the model predictions and human judgments. 
-
 \textbf{Keywords:} 
 events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 \end{abstract}
 
-%\ndg{need to revise this intro with some strong perspective taking: your target audience is smart cogsci people who don't know that much about these topics (think josh t).}
 
-Predicting events and the behavior of others is critical for survival and development, and generalizing a prediction over time is a useful synthesis for future prediction and abstraction.
-%Predicting physical events is important for discovering how the world works.
-%Predicting the behaviors of others is  is necessary to figure out what others will do. Must be able to predict caretaker?s behavior.
-Language allows us to communicate generalizations to each other, but under what evidence would you make and communicate such generalizations?
-If Bill smoked three cigarettes last month, would you say that \emph{Bill smokes}?
+
+The tendency of certain people or things to participate in an event can be crucial and hard-won knowledge. 
+It is thus not surprising that language has ways to convey this information about propensity:
+\emph{Bill smokes}, \emph{That man steals from children}, \emph{My car doesn't start}.
+These are called \emph{habitual sentences}.
+%Predicting events and the behavior of others is critical for survival and development, and generalizing a prediction over time is a useful synthesis for future prediction and abstraction.
+%%Predicting physical events is important for discovering how the world works.
+%%Predicting the behaviors of others is  is necessary to figure out what others will do. Must be able to predict caretaker?s behavior.
+%Language allows us to communicate generalizations to each other, but under what evidence would you make and communicate such generalizations?
+Like many other linguistic means of conveying generalizations, the truth-conditions of habituals are extremely flexible:
+If Bill smoked three cigarettes last month, would you say that \emph{Bill smokes}? If he smoked three cigarettes last week? If he smoked three last week, but had just sworn a solemn oath to quit smoking?
 %Generalizing an event (such as Bill smoking) over time is useful for future predictions about the occurrence of that event.
 %But what evidence do you need to make and communicate such a generalization? 
-Three cigarettes in a month may not be enough to say that \emph{Bill smokes}, but Bill might feel entitled to say he volunteers, after helping out at a soup kitchen the same number of times in the same time period.
+%This may not be often enough to say that \emph{Bill smokes}, but perhaps you would say \emph{Bill volunteers} if he helped at a soup kitchen with the same frequency. 
+In this paper we present the first empirical data on the felicity of habitual sentences. 
+We describe a formal model of habitual interpretation, based on recent Bayesian models of the pragmatics of vague language, and show that this model explains the pattern of endorsements in our data.
 
-Habitual sentences (e.g. \emph{Bill smokes.}; \emph{It rains around here.}) are the linguistic means by which generalizations about events are conveyed.
-Habituals about people are of particularly importance because they are likely central to intuitive theories of personality and behavior. 
-\citeA{McGuire1986} explored 5th to 12th graders' responses to open ended probes such as ``Tell us about your school / family''. 
-A surprisingly large number of utterances (over 85\% in their study) were about people, and roughly two-thirds of those utterances used action verbs (e.g. ``My brother works part-time at the restaurant.''). 
-Habitual language may be a more conservative form of trait language (e.g. \emph{Bill is a smoker.}) and convey that behaviors are relatively enduring \cite{Gelman1999, Gelman2004}.
-Despite the prevalence of habitual utterances in descriptions of the self and others and a theoretical interest in how trait language is interpreted and weaved into our intuitive theories, no empirical work to our knowledge addresses the question of what makes a habitual sentence true or false.
+
+%Despite the prevalence of habitual utterances in descriptions of the self and others and a theoretical interest in how trait language is interpreted and weaved into our intuitive theories, no empirical work to our knowledge addresses the question of what makes a habitual sentence true or false.
+
+
+%Habitual sentences (e.g. \emph{Bill smokes.}; \emph{It rains around here.}) are the linguistic means by which generalizations about events are conveyed.
+
+
+
+%%%%%%%NOTE: i removed this paragraph because it feels extraneous, and we are short on space....
+%Habituals about people are of particularly importance because they are likely central to intuitive theories of personality and behavior. 
+%\citeA{McGuire1986} explored 5th to 12th graders' responses to open ended probes such as ``Tell us about your school / family''. 
+%A surprisingly large number of utterances (over 85\% in their study) were about people, and roughly two-thirds of those utterances used action verbs (e.g. ``My brother works part-time at the restaurant.''). 
+%Habitual language may be a more conservative form of trait language (e.g. \emph{Bill is a smoker.}) and convey that behaviors are relatively enduring \cite{Gelman1999, Gelman2004}.
+
 
 Linguists have pointed out the parallel between habituals like \emph{Bill smokes} and generic sentences like \emph{Swans are white.} \cite{Carlson1977, Carlson2005, Cohen1999}.
 Both convey generalizations (about events and categories, respectively), and both exhibit dramatic flexibility in their truth conditions: \emph{Swans are white} even though there are black swans, and it may the case that \emph{Bill smokes} even if he goes without a cigarette for an entire family vacation.
-Indeed, cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of extremely rare actions like \emph{Susan writes novels.}. Susan may only have written 3 novels in her life, and --- barring major disabling conditions --- still this seems like a valid generalization to convey.
-What explains the flexibility of truth conditions for generalizations about events?
+Indeed, cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of extremely rare actions like \emph{Susan writes novels}. Susan may only have written 3 novels in her life, and
+% --- barring major disabling conditions --- 
+ still this seems like a valid generalization to convey.
+What explains the flexibility of truth conditions for habitual generalizations about events?
 
 
 
@@ -120,11 +138,14 @@ What explains the flexibility of truth conditions for generalizations about even
 %There is evidence to suggest the habitual sentences are weaker forms of trait language And although linguists have often described habitual and generic sentences in the same breath \cite{Carlson1977, Cohen1999}, experimentalists have yet to test the correspondence between the two. 
 
 In this paper, we take the analogy between generic and habitual language seriously by elaborating a recent computational theory of generic language to derive predictions for the truth conditions of habitual sentences. 
-The theory posits the semantics of a generic statement is an uncertain threshold on the degree of property prevalence (i.e. how many instances of the kind have the feature) and derives context-sensitive meanings through basic, pragmatic inference given the distribution of property prevalence (i.e. in general, what prevalences are species likely to have) \cite{TesslerUnderReview}.
-We adopt the theory by adjusting the underlying degree to be the \emph{frequency of action} (i.e. how often does a person do an action) and derive predictions for felicity judgments of the corresponding habitual.
+The theory of \citeA{TesslerUnderReview} posits that the semantics of a generic statement is an uncertain threshold on the degree of property prevalence (i.e.~how many instances of the kind have the feature) and derives context-sensitive meanings through pragmatic inference given the distribution of property prevalence (i.e.~in general, what prevalences are species likely to have).
+We adopt this theory to explain habituals by adjusting the underlying degree to be the \emph{propensity toward an action} (i.e.~how often does a person tend to do an action) and derive predictions for felicity judgments of a range of habituals.
 In Expt.~1, we measure \emph{a priori} beliefs about how frequently people do a diverse set of actions.
 In Expt.~2, we use those priors and the pragmatic theory to make predictions about the truth conditions of habitual sentences under different frequencies of action. 
+
+Habituals, unlike generics, make it possible to explore an important issue in this theoretical framework: is the underlying dimension the actual, or past frequency of the event (e.g.~how often Bill has actually smoked in the past month) or the predictive probability that this event will happen in the near future (e.g.~how likely it is that Bill will smoke in the next week)?
 In Expts.~3 \& 4, we use a similar method to show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
+This has important implications about the relationship between linguistic generalization and intuitive theories, which we explore briefly in the conclusion.
 
 % the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
 
