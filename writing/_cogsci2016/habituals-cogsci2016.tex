@@ -215,10 +215,11 @@ This model is nearly identical with the model we have proposed for generic langu
 %Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
 %We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
 %
-$P(x)$ in Eqs.~\ref{eq:L1} and \ref{eq:L0} specifies prior beliefs about the propensity of a specific event or behavior $x$  (e.g. \emph{smoking}).
-Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
+The prior, $P(x)$ in Eqs.~\ref{eq:L1} and \ref{eq:L0}, specifies prior beliefs about the propensity of a specific event or behavior (e.g.~\emph{smoking}) across different people.
+\ndg{do we have to say something about contrast classes? maybe in model section?}
+Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between (at least) these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
 Indeed, there may be more than these two possibilities, corresponding to individuals with different traits or demographics, for instance different expected frequencies depending on gender or age. 
-In this experiment we elicit the prior $P(x)$ for different events.
+In this experiment we elicit the prior $P(x)$ for different events, so that we can generate model predictions for corresponding habituals.
 
 \subsection{Method}
 
@@ -236,16 +237,19 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 
 For each event, participants were asked two questions, with associated dependent measures:
 \begin{enumerate}
-\item How many \{men, women\} have \textsc{done action} (e.g. smoked cigarettes) before?
-\subitem Response format: N out of every J
-\subitem N = free response
-\subitem J = 1000 - 10 million (default: 1000)
-\item For a typical \{man, woman\} who has \textsc{done action}  (e.g. smoked cigarettes) before, how frequently does he or she \textsc{do action} (e.g. smoke cigarettes)?
-\subitem Response format: M times in K
-\subitem M = free response
-\subitem K = \{week, month, year, 5 years\} (default: year)
+\item ``How many \{men, women\} have \textsc{done action} before?'' Participants responded ``N out of every J,'' by entering a number for N and choosing J from a drop-down with options 1000 - 10 million (default: 1000).
+% 
+%\subitem Response format: N out of every J
+%\subitem N = free response
+%\subitem J = 1000 - 10 million (default: 1000)
+\item ``For a typical \{man, woman\} who has \textsc{done action}  (e.g. smoked cigarettes) before, how frequently does he or she \textsc{do action} (e.g. smoke cigarettes)?''  Participants responded ``M times in K,'' by entering a number for M and choosing K from a drop-down with options week, month, year, and 5 years (default: year).
+%
+%\subitem Response format: M times in K
+%\subitem M = free response
+%\subitem K = \{week, month, year, 5 years\} (default: year)
 \end{enumerate}
-Participants filled in values freely for N and M, and chose from drop-down menus for J and K, with the default settings shown above. 
+For example one set of questions read: ``How many men have smoked cigarettes before?'' and ``For a typical man who has smoked cigarettes before, how frequently does he smoke cigarettes?''. 
+%Participants filled in values freely for N and M, and chose from drop-down menus for J and K, with the default settings shown above. 
 %Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
 %Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years. \ndg{it's not totally clear how this procedure works... reword for clarity.}
 
@@ -262,12 +266,7 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 
 \subsection{Data analysis and results}
-We built a Bayesian data analysis model of the prior elicitation task.
-We do use this as P(x) in our language model as opposed to using the raw data directly for two reasons: (1) To smooth effects that are clearly results of the response format\footnote{For example, a very common rating is \emph{1 time per year}. Presumably participants would be just as happy reporting \emph{approximately} 1 time per year, but the raw data does not reflect this} 
-and (2) to better capture the tails of the prior distribution, which receive such low probability to require many more participants in order to sample accurately.
-%. many ratings are exactly \emph{once a year} and not many ratings are for 2 or 3 times a year, or once every two years)
-%\ndg{say why we build this bayesian data analysis model, rather than just plugging into the model -- smoothing and better capturing tails??}
-
+We built a Bayesian data analysis model for this prior elicitation task.
 Question 1 elicits the proportion of people who have done an action before. 
 We model this data as coming from a Beta distribution. 
 Question 2 elicits the relative frequency in the past that a person has done an action before.
@@ -281,19 +280,24 @@ d_{1} &\sim \text{Beta}(\gamma_{1}, \xi_{1}) \\
 \end{align*}
 \end{minipage}
 %
-We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and we learned about the credible values of the parameters and the posterior predictive distributions of the data by running MCMC for 100,000 iterations, discarding the first 50,000 for burnin.
+We implemented this model using the probabilistic programming language WebPPL \cite{dippl}, and found the credible values of the parameters and the posterior predictive distributions of the data by running MCMC for 100,000 iterations, discarding the first 50,000 for burnin.
 %
 %The parametrized priors are a reasonable description of the prior elicitation data, though 
 
-%\ndg{what's up with "log interval time"? need to explain, or switch to something easier to understand.}
-The priors elicited indeed cover a range of possible parameter values (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
+The priors elicited cover a range of possible parameter values as intended (Figure \ref{fig:priorScatter}, scatter), resulting in parametrized distributions of dramatically different shapes (insets).  
 We observe a correlation in our items between the mean \% of Americans who have \textsc{done action} before (Question 1) and the mean log-frequency  of action (Question 2) ($r_{1,2} = 0.74; r^2_{1,2} = 0.55$); our items that tend to be more popular actions also tend to be more frequent actions (e.g. \textsc{wears socks}) and visa-versa (e.g. \textsc{steals cars}), though there are notable exceptions (e.g. \textsc{plays the banjo} is not popular but done frequently when done at all, as is \textsc{smokes cigarettes}; \textsc{goes to the movies} is a popular activity though not done very often). 
 This diversity is relevant because the speaker model (Eq.~\ref{eq:S2}) will produce habitual sentences (e.g. \emph{Sam goes to the movies / goes to the ballet.}) contingent on the shape of the prior distribution. 
 
+From the inferred parameters and assumed functional forms, we get an inferred $P(x)$. We will use this inferred prior in our language model, as opposed to using the raw data directly, for two reasons: (1) To smooth effects that are clearly results of the response format\footnote{For example, a very common rating is \emph{1 time per year}. Presumably participants would be just as happy reporting \emph{approximately} 1 time per year; the raw data does not reflect this due to demands of the dependent measure.} 
+and (2) to better capture the tails of the prior distribution which have relatively little data and are regularized by the analysis model.
+%, which receive such low probability to require many more participants in order to sample accurately.
+
 Some items show substantial differences between the genders (e.g. \emph{wears a bra}) and some show subtle differences (e.g. \emph{watches professional football}). 
 It is \emph{a priori} unclear whether or not $P(x)$ in Eqs.~\ref{eq:L1}, \ref{eq:L0} is the distribution over frequency of action with respect to \emph{all people}, or if it is restricted to be gender specific.
-For example, are the frequency conditions by which a man would qualify to ``wear a bra'' (habitually) different than those by which a woman would qualify to ``wear a bra''.
-In order to explore this possibility, we will select items with priors that differ by gender to explore more closely in Experiment 2.
+For example, are the frequency conditions by which a man would qualify to ``wear a bra'' (habitually) different than those by which a woman would qualify to ``wear a bra''?
+We will explore this possibility in Experiment 2, for select items with priors that differ by gender.
+%In order to explore this possibility, we will select items with priors that differ by gender to explore more closely in Experiment 2.
+
 
 %\mht{I've cut out the "posterior predictive" $r^2$ because I think it is not a reasonable metric. We should really come up with an appropriate fitness metric.}
 
