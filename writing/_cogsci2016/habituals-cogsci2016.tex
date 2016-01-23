@@ -386,16 +386,20 @@ The model decides when the habitual is a useful way to describe the person's beh
 This raises an interesting question: Does the propensity communicated by the habitual indicate a past frequency or a future expectation?
 
 
-\section{Experiment 3: Frequency versus expectation}
+\section{Experiment 3: Observed frequency versus expectation}
 
-People change in a way that natural kinds cannot: People can modify their behavior overnight.
+%People change in a way that natural kinds cannot: People can modify their behavior overnight.
 %Yet, there is an ambiguity in the frequency degree semantics over which the pragmatic theory operates.
 %In some sense, one can only know \emph{past frequency} of action because that is all that has occurred.
 %On the other hand, language has a communicative function, and only \emph{predictive frequency} will be helpful in the future.
-Does habitual language communicate a propensity in terms of past frequency or about future expectations?
-In this set of experiments, we address this by introducing causal factors that enable and prevent future actions (e.g. buying a pack of cigarettes; developing an allergy).
-In Expt.~3a, we measure \emph{predictive frequency} when these causal factors are introduced as well as when just a past frequency is observed; testing the correspondence of past frequency with future frequency allows us validate the model predictions in Expt.~2 (where past frequency was assumed to be the target of communication).
-In Expt.~3b, we examine felicity judgments of the habitual sentence (e.g. \emph{John smokes cigarettes.}; \emph{John eats peanut butter.}) and use the speaker $S_2$ model to predict the truth judgments using the elicited \emph{predictive frequency}  as the input to the model.
+
+While past frequency is often a good indicator of future tendency, people can change abruptly do to a variety of decisions and outside events.
+Does habitual language communicate propensity in terms of past frequency or future expectations?
+In this set of experiments, we address this by introducing causal factors that enable or prevent future actions (e.g. buying a pack of cigarettes; developing an allergy).
+In Expt.~3a, we measure \emph{predictive frequency} when these causal factors are introduced as well as when just a past frequency is observed.
+In Expt.~3b, we examine felicity judgments of the habitual sentence (e.g. \emph{John smokes cigarettes.}; \emph{John eats peanut butter.}) in the presence of these causal modifiers.
+This will allow us to test whether habituals are best explained by as a speaker $S_2$ who wants to communicate past or \emph{predictive} frequency.
+% and use the speaker $S_2$ model to predict the truth judgments using the elicited \emph{predictive frequency}  as the input to the model.
 %\ndg{pose the question of this expriment more clearly: is propensity about past frequency or future expectations? then say briefly how we address it.}
 
 \subsection{Experiment 3a: Prediction elicitation with causal knowledge}
@@ -427,17 +431,19 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 \subsubsection{Materials}
 
-Twenty-one of the original thirty-one items were used in order to shorten the experiment.
+Only twenty-one of the original thirty-one items were used in order to shorten the experiment.
 To increase expected variability, participants saw the frequencies that led to most intermediate endorsement of the habitual in Expt.~2. 
 In addition, we did not include trials for both male and female names for the select items we did in Expt.~2, since we saw no differences in their endorsements of the habitual.
 %The dependent measure was the same as in Expt.~2. 
 
-\subsubsection{Behavioral results}
+\subsection{Behavioral results}
 
-Figure \ref{fig:tj3} (middle) shows the predicted future frequency as a function of the past frequency given to the participant and the type of conceptual information given (in color; confidence intervals suppressed and jitter added for visual clarity). 
+Figure \ref{fig:tj3} (middle) shows the predicted future frequency as a function of the past frequency given to the participant and the type of causal information given (in color; confidence intervals suppressed and jitter added for visual clarity). 
 We observe in the baseline condition that future frequency perfectly tracks past frequency (e.g. participants believe if a person smoked cigarettes 3 times last month, they will smoke cigarettes 3 times next month). 
-This validates the assumption we used in our model of Expt.~2, where the speaker model intended to communicate past frequency.
-Critically, we observe the preventative information appreciably decreasing and the enabling information increasing predicted frequency (Figure \ref{fig:tj3} middle; blue and green dots).
+This means that our model makes identical predictions for Expt.~2 whether the target is past frequency or expected future frequency (indicating, as expected, that we must look to the new data to distinguish these models).
+% the assumption we used in our model of Expt.~2, where the speaker model intended to communicate past frequency.
+%; testing the correspondence of past frequency with future frequency allows us validate the model predictions in Expt.~2 (where past frequency was assumed to be the target of communication).
+Critically, we observe the preventative information appreciably decreasing and the enabling information slightly increasing predicted frequency (Figure \ref{fig:tj3} middle; blue and green dots).
 
 
 
@@ -459,14 +465,15 @@ On each trial, participants were asked if they agreed or disagreed with the corr
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-3-preventative.html}.
 
 
-\subsubsection{Behavioral results}
+\subsection{Results}
 
 There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (Figure \ref{fig:tj3}, left; blue points).
 When collapsing across items and subjecting the data to a mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89 [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) --- $\beta = 0.42; SE = 0.15; z = 2.8; p = 0.005$, in addition to a large effect of \emph{preventative} conditions on endorsements (M = 0.29 [0.26, 0.31]) --- $\beta = -3.22; SE = 0.21; z = -15.2; p < 0.001$. 
 \mht{should I add points from Expt. 2 to left-most scatter, or maybe there is a better plot?}
-Finally, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items (compare green bars to red bars).
-This may be due, in part, to an effect of the experiment context on participants: Participants are viewing extra information that strongly disables the action from occurring; when that information is not present, participants may be more inclined to endorse the habitual.
-\ndg{we should think about where in the model this calibbration effect would be seen. Overall it would be nice to tie this expt more to the model, even if in a relatively shallow way.}
+
+Interestingly, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items. 
+This may be due, in part, to an effect of the experiment context on participants: Participants are viewing extra information that strongly disables the action from occurring in may cases; when that information is not present, participants may be more inclined to endorse the habitual.
+\ndg{we should think about where in the model this calibration effect would be seen. Overall it would be nice to tie this expt more to the model, even if in a relatively shallow way.}
 
 %     condition      mean  ci_lower  ci_upper
 %        (fctr)     (dbl)     (dbl)     (dbl)
@@ -502,14 +509,14 @@ This may be due, in part, to an effect of the experiment context on participants
 %conditionpreventative   3.2262     0.2125  15.181  < 2e-16 ***
 %---
 
-\subsection{Model results}
+%\subsection{Model results}
 
 We use the mean predicted log frequency from Expt.~3a as the input to the speaker $S_2$ model to predict the felicity judgments measured in Expt.~3b.
 We infer the one model parameter using the same analysis approach in Expt.~2. 
-The model matches the data well ($r^2(63) = 0.91$).
-These results suggest that the felicity of habituals is based on an underlying scale of \emph{predictive} frequency of action.
+The model matches the data well ($r^2(63) = 0.91$; Figure \ref{fig:tj3}, right).
+\ndg{report r2 for past frequency based model, to make the point.}
+These results suggest that the felicity of habituals is based on an underlying scale of predicted future propensity, or frequency, not the mere observed frequency in the past.
 
-%Habitual language is useful when it corresponds to future predictions of people's actions.
 
 \section{Discussion}
 
