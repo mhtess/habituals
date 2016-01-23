@@ -152,32 +152,34 @@ This has important implications about the relationship between linguistic genera
 \section{Computational model}
 %\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
 
-A habitual sentence about an individual expresses a generalization about an event\footnote{
-We articulate the formalization in terms of individuals and events or actions, but the theory applies more generally to events without actors (e.g \emph{It rains around here.}).
+A habitual sentence expresses a generalization about the tendency of an individual to participate in a kind of event\footnote{
+We articulate the formalization in terms of individuals, but the theory applies straightforwardly to events without actors (e.g \emph{It rains around here.}).
 }.
 For a given individual $I$ (e.g.~\textsc{Bill}) and an event or behavior $B$ (e.g.~\textsc{smoking}), we refer to the probability that individual $I$ will perform behavior $B$ in the next time window, that is $ P(B\mid I) = \int_{t} ** dt$, as the \emph{propensity} of $I$ doing $B$.
+\ndg{maybe it's better to talk about the underlying scale as a rate? what's up with the ** in the integral here?}
 %
-The natural semantics would then a simple threshold on frequency $P(B\mid I)>\tau$ \cite<c.f.>{Cohen1999}, yet there is no fixed value for $\tau$ would explain the flexibility of truth conditions (e.g. \emph{Bill smokes} vs. \emph{Bill volunteers.}).
-Building on \citeA{Lassiter2013}, we posit that this threshold is not a fixed property of the language, but is established by pragmatic inference.
+A natural denotation for the habitual is a simple threshold on propensity $P(B\mid I)>\tau$ \cite<c.f.>{Cohen1999}, yet no fixed value for $\tau$ would lead to the observed flexibility of truth conditions (e.g. \emph{Bill smokes} vs. \emph{Bill volunteers.}).
+Building on \citeA{Lassiter2013,Lassiter2015}, we posit that this threshold is not a fixed property of the language, but is established by pragmatic inference.
 
-We introduce a model of a pragmatic speaker $S_2$ who reasons about a pragmatic listener $L_1$ concerned with learning the propensity of a certain behavior for a certain individual, $x=P(B \mid I)$.
-The listener $L_1$ has uncertainty about the threshold for the habitual (i.e. doesn't know precisely what it means), and reasons about what an informative speaker $S_1$ would be likely to convey, given the speaker $S_1$ is reasoning about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
-  and decides whether to produce the habitual or stay silent (i.e. produce a \emph{null} utterance that has no informative content).
+We model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this listener is considering the propensity of a certain behavior for a certain individual, $x=P(B \mid I)$.
+The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context, and reasons about what an informative speaker $S_1$ would be likely to say. The speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
+%$S_2$ ultimately decides whether to produce the habitual or stay silent (i.e.~produce a \emph{null} utterance that has no information content).
 %
 %\ndg{are you sure we want to call this subjective frequency? i think this is going to garden path people, since expt 3 is specifically making the point that it isn't frequency. how about propensity, which we define as subjective probability that I will do B in the next time window?}
 %It is not clear at this point whether this frequency is a retrospective (how often has Bill smoked in the past) or a prospective frequency (how often to I expect Bill to smoke in the future); for the time being, we assume time is \emph{homogenous} with respect to past and present (i.e. however often Bill has smoked in the past will be how often he smokes in the future). 
 %This inference depends on event and person knowledge, but otherwise follows from a general mechanism of language.
 %We imagine a hypothetical, pragmatic listener ($L_1$) concerned with learning
+Writing the propensity as $x$, this leads to a set of equations:
 \begin{eqnarray}
 P_{S_{2}}(u \mid x) & \propto &  \int_{\tau} P_{L_{1}}(x , \tau \mid u) \label{eq:S2}\\
 P_{L_{1}}(x , \tau \mid u) &\propto& P_{S_{1}}(u \mid x, \tau) \cdot P(x) \cdot P(\tau) \label{eq:L1}\\
 P_{S_{1}}(u \mid x, \tau) &\propto&  {P_{L_{0}}(x \mid u, \tau)}^{\lambda} \label{eq:S1}\\
 P_{L_{0}}(x \mid u, \tau) &\propto& {\delta_{\denote{u}(x, \tau)} P(x)}. \label{eq:L0}
 \end{eqnarray}
-If we take the pragmatic speaker $S_2$ to consider two utterances: the habitual or nothing (staying silent), then Equation \ref{eq:S2} can be interpreted as a model of felicity or truth judgments \cite{Degen2014, TesslerUnderReview}.
+We take the pragmatic speaker $S_2$ to consider two utterances: the habitual, with $\denote{u}(x, \tau) := x>\tau$, or nothing (staying silent), with $\denote{u}(x, \tau) := \text{True}$.
+Equation \ref{eq:S2} can then be interpreted as a model of felicity or truth judgments \cite{Degen2014, TesslerUnderReview}.
 The speaker will choose to produce the habitual when the true propensity $x$ is more likely under $L_1$'s posterior given the habitual than under her prior. 
-Critically, speaker $S_{2}$ doesn't have a particular meaning of the habitual in mind (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will consider it, and integrates over the likely values she'll consider.
-
+%Critically, speaker $S_{2}$ doesn't have a particular meaning of the habitual in mind (i.e. doesn't have access to the threshold $\tau$), but knows that $L_{1}$ will consider it, and integrates over the likely values she'll consider.
 This model is nearly identical with the model we have proposed for generic language \cite{TesslerUnderReview}, with the only difference being the underlying degree scale----\emph{propensity} of a behavior vs. \emph{prevalence} of a property. 
 
 %\ndg{since we don't use $L_1$ directly here, i'd stick $S_2$ onto the top of the above eqnarray and just start there...}
@@ -214,7 +216,6 @@ This model is nearly identical with the model we have proposed for generic langu
 %We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
 %
 $P(x)$ in Eqs.~\ref{eq:L1} and \ref{eq:L0} specifies prior beliefs about the propensity of a specific event or behavior $x$  (e.g. \emph{smoking}).
-\ndg{note: P(x) is actually a probability over probability densities, right? this might be worth specifying more clearly in the model section...}
 Given that some individuals rarely or never engage in a behavior, while others do quite frequently, we would expect the prior to be a mixture distribution between these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
 Indeed, there may be more than these two possibilities, corresponding to individuals with different traits or demographics, for instance different expected frequencies depending on gender or age. 
 In this experiment we elicit the prior $P(x)$ for different events.
