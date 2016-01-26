@@ -7,10 +7,6 @@
 
 % to do:
 
-%% expt 1: test different functional forms of prior
-%% expt 2: address male / female differences with tests? and talk about the contrast class in the discussion?
-%% expt 3: run. model?
-
 
 \documentclass[10pt,letterpaper]{article}
 
@@ -72,7 +68,7 @@ Habitual sentences (e.g. \emph{Bills smokes.}) generalize an event over time, bu
 We develop a computational model and use this to guide experiments into the truth conditions of habitual language.
 %Little empirical work has tested this relation with respect to the truth conditions of these sentences. 
 %We test the analogy between habitual and generic language by applying a recent formal theory of generic language to the domain of events.
-In Expts.~1 \& 2, we measure participants' prior expectations about the frequency with which an action is carried out and explore the predictions of the model for when a habitual sentence becomes acceptable.
+In Expts.~1 \& 2, we measure participants' prior expectations about the frequency with which an event occurs and explore the predictions of the model for when a habitual sentence becomes acceptable.
 %the``propensity'' conditions (i.e. how often a person must do an action) by which habituals becomes felicitous.
 % the under which various habituals may be felicitous utterances. 
 In Expts.~3 \& 4, we show that habituals are sensitive to top-down moderators of expected frequency: it is the expectation of future tendency that matters for habitual language.
@@ -88,7 +84,7 @@ events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 
 
 
-The tendency of certain people or things to participate in an event can be crucial and hard-won knowledge. 
+The tendency of particular individuals to participate in an event can be crucial and hard-won knowledge. 
 It is thus not surprising that language has ways to convey this information about propensity:
 \emph{Bill smokes}, \emph{That man steals from children}, \emph{My car doesn't start}.
 These are called \emph{habitual sentences}.
@@ -143,6 +139,7 @@ We adopt this theory to explain habituals by adjusting the underlying degree to 
 In Expt.~1, we measure \emph{a priori} beliefs about how frequently people do a diverse set of actions.
 In Expt.~2, we use those priors and the pragmatic theory to make predictions about the truth conditions of habitual sentences under different frequencies of action. 
 
+\mht{is it possible to make this important for more than just our "theoretical framework"?}
 Habituals, unlike generics, make it possible to explore an important issue in this theoretical framework: is the underlying dimension the actual, or past frequency of the event (e.g.~how often Bill has actually smoked in the past month) or the predictive probability that this event will happen in the near future (e.g.~how likely it is that Bill will smoke in the next week)?
 In Expts.~3 \& 4, we use a similar method to show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
 This has important implications about the relationship between linguistic generalization and intuitive theories, which we explore briefly in the conclusion.
@@ -158,7 +155,7 @@ We articulate the formalization in terms of individuals, but the theory applies 
 For a given individual $I$ (e.g.~\textsc{Bill}) and an event or behavior $B$ (e.g.~\textsc{smoking}), we refer to the probability that individual $I$ will perform behavior $B$ in the next time window, that is $ P(B\mid I) = \int_{t} ** dt$, as the \emph{propensity} of $I$ doing $B$.
 \ndg{maybe it's better to talk about the underlying scale as a rate? what's up with the ** in the integral here?}
 %
-A natural denotation for the habitual is a simple threshold on propensity $P(B\mid I)>\tau$ \cite<c.f.>{Cohen1999}, yet no fixed value for $\tau$ would lead to the observed flexibility of truth conditions (e.g. \emph{Bill smokes} vs. \emph{Bill volunteers.}).
+A natural denotation for the habitual is a simple threshold on propensity $P(B\mid I)>\tau$ \cite<c.f.>{Cohen1999}, yet no fixed value for $\tau$ would lead to the observed flexibility of truth conditions (e.g. \emph{Bill smokes} vs. \emph{writes novels}).
 Building on \citeA{Lassiter2013,Lassiter2015}, we posit that this threshold is not a fixed property of the language, but is established by pragmatic inference.
 
 We model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this listener is considering the propensity of a certain behavior for a certain individual, $x=P(B \mid I)$.
