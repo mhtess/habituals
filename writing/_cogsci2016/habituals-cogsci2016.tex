@@ -335,15 +335,16 @@ The experiment took 4 minutes on average on participants were compensated \$0.55
 
 \subsubsection{Procedure and materials}
 
-On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior of the form: ``In the past M \{weeks, months, years\}, \textsc{person} \textsc{event} 3 times''.
+On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior of the form: ``In the past M \{weeks, months, years\}, \textsc{person} \textsc{did x} 3 times''.
 For example, \emph{In the past month, Bill smoked cigarettes 3 times}.
+\mht{Should we add: Because it is a matter of debate what constitutes a discrete event (cite someone who does event segmentation), we intentionally kept the frame of \textsc{did x} 3 times, as opposed to e.g. smoked 3 cigarettes.}
 We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
 The particular intervals used (number M and window \{weeks, months, years\}) were selected after examining the predictions of the speaker model (Eq.~\ref{eq:S2}), for each item independently, to yield a variety of predicted endorsement rates.
 The items were the same as in Expt. ~1.
 
-Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person event}'' (e.g. \emph{Bill smokes cigarettes}).
-Participants saw 25 out of the 31 items paired randomly with a male or female character name; the other 6 trials were presented with both male and female names (on separate trials; 37 trials total).  
-These 6 items were chosen because the priors for men and women varied substantially in Expt.~1; this will allow us to explore whether or not the prior distribution in Eq.~\ref{eq:L1}, \ref{eq:L0} should be with respect to all people or to males and females separately. 
+Participants were asked whether they agreed or disagreed with the corresponding habitual sentence: ``\textsc{person does x}'' (e.g. \emph{Bill smokes cigarettes}).
+Participants saw 25 out of the 31 items paired randomly with a male or female character name; the other 6 trials were presented with both male and female names (on separate trials; 37 trials total) to explore the nature of the contrast class (see Model section).  
+%These 6 items were chosen because the priors for men and women varied substantially in Expt.~1; this will allow us to explore whether or not the prior distribution in Eq.~\ref{eq:L1}, \ref{eq:L0} should be with respect to all people or to males and females separately. 
 %(e.g. if there is a frequency at which a male would be judged to (habitually) \textsc{wear a bra} but a woman would not be judged to). 
 %\ndg{unclear what we did with these six items. the way it's phrased makes it sound like we only collected data for these 6...}
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-2.html}.
@@ -358,14 +359,19 @@ On each trial of the experiment, the participant was told a person did a particu
 Figure \ref{fig:tjScatters} (left) shows the correspondence between the frequency of the event and the felicity of the corresponding habitual sentence. 
 It is clear that a habitual sentence can receive strong agreement even when the actions are very infrequent (log frequency $<$ 2; time interval of years or longer; e.g. writing 3 novels, stealing 3 cars in a 5 year interval).
 We also see habitual sentences that participants are reluctant to endorse completely (e.g. wears socks, drinks coffee), even when they are relatively frequent in occurrence (3 times in a one month interval; log frequency $\sim$ 5).
-In our data, actions that completed with a high frequency rate (3 times in a one week interval; log frequency $\sim$ 6.5) receive at least 75\% endorsement, though there is still variability among them (e.g. smoking cigarettes and wearing socks are endorsed the least). %, suggesting that even actions that are completed almost everyday can insufficient to generalize.
+In our data, actions completed with a high frequency rate (3 times in a one week interval; log frequency $\sim$ 6.5) receive at least 75\% endorsement, though there is still variability among them (e.g. smoking cigarettes and wearing socks are endorsed the least). %, suggesting that even actions that are completed almost everyday can insufficient to generalize.
 Overall, frequency of action predicts only a fraction of the variability in responses ($r^2(93) = 0.33$).
 For actions that are done on the time scale of years or longer (lower median of frequency), frequency itself no longer explains the endorsements ($r^2(50) = 0.07$)
 
 We further examined the six items for which we observed gender differences in the prior elicitation task (Expt.~1).
-We observe no difference between endorsements of the habitual of characters with male and female names. 
-Overall, the mean endorsements by gender are heavily correlated $r(93) = 0.91$. \mht{compare with split half correlation?}
-\ndg{say something more about why this is? or save this for model comparison? what does model predict?}
+We observe no difference between endorsements of the habitual of characters with male and female names, and overall, the mean endorsements by gender are heavily correlated $r(93) = 0.91$. 
+This may be because the felicity of habitual sentences depends on a comparison to individuals of both genders (i.e, the \emph{contrast class} is other people; not just other men or women). 
+Less interestingly, the lack of a difference may be the result of gender being not very salient in our paradigm.
+It is conceivable that elicit gender-differences in truth conditions could be elicited if the gender-specific contrast is made salient (e.g., by making salient stereotypes) .
+% It is transparent to the participant that we are changing the frequencies and the actions, and perhaps less salient that the gender of the character is changing. 
+
+%\mht{compare with split half correlation?}
+%\ndg{say something more about why this is? or save this for model comparison? what does model predict?}
 
 %We observe that none of our items receive less than 25\% endorsement (i.e. only 75\% of participants disagree with the felicity of the utterance).
 %This may be due to the fact that actor has done the action in the past a plurality of times; we would expect to get strong disagreement with the habitual when the person has never done the action, or perhaps done it only once.
@@ -373,8 +379,8 @@ Overall, the mean endorsements by gender are heavily correlated $r(93) = 0.91$. 
 \subsection{Model fit and results}
 
 We used the pragmatic speaker model $S_2$ (Eq.~\ref{eq:S2}) with the priors elicited above (Expt.~1) to predict felicity judgments in Expt.~2, assuming the target propensity (to be conveyed by $S_2$) is the provided frequency.
-\ndg{revise once we finalize treatment of gender: Because we observe no difference between the felicity judgments for habituals of male and female characters, we use a 50\% mixture of the inferred priors for each gender to construct a single frequency across individuals. }
-The model has one free parameter---the speaker optimality parameter, $\gamma$, in Eq.~\ref{eq:S1}. 
+Because we observe no difference between the felicity judgments for habituals of male and female characters, we use a 50\% mixture of the inferred priors for each gender to construct a single frequency distribution $P(\lambda)$ across individuals.
+The model has one free parameter---the speaker optimality parameter, $\alpha$, in Eq.~\ref{eq:S1}. 
 %Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
 We use Bayesian data analytic techniques to integrate over this parameter \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
 %To attain credible values of the model parameters as well as 
@@ -384,7 +390,7 @@ The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) 
 
 The probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.94$), including actions done on the time scale of years or more  ($r^2(50) = 0.92$) (Figure \ref{fig:tjScatters} right).
 The model decides when the habitual is a useful way to describe the person's behavior, assuming that what the person did in the past is representative. 
-This raises an interesting question: Does the propensity communicated by the habitual indicate a past frequency or a future expectation?
+This raises an interesting question: Does the propensity communicated by the habitual indicate an objective, past frequency or a subjective, future expectation?
 
 
 \section{Experiment 3: Observed frequency versus expectation}
@@ -394,7 +400,7 @@ This raises an interesting question: Does the propensity communicated by the hab
 %In some sense, one can only know \emph{past frequency} of action because that is all that has occurred.
 %On the other hand, language has a communicative function, and only \emph{predictive frequency} will be helpful in the future.
 
-While past frequency is often a good indicator of future tendency, people can change abruptly do to a variety of decisions and outside events.
+While past frequency is often a good indicator of future tendency, people can change abruptly due to a variety of decisions and outside events.
 Does habitual language communicate propensity in terms of past frequency or future expectations?
 In this set of experiments, we address this by introducing causal factors that enable or prevent future actions (e.g. buying a pack of cigarettes; developing an allergy).
 In Expt.~3a, we measure \emph{predictive frequency} when these causal factors are introduced as well as when just a past frequency is observed.
@@ -408,8 +414,10 @@ This will allow us to test whether habituals are best explained by as a speaker 
 \begin{figure*}[t]
 \centering
 %  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
-  \includegraphics[width=\textwidth]{expt3-4-scatters.pdf}
-  \caption{Left: Endorsements of habitual sentences (Expt.~3) vs. Predicted log frequency (Expt.~4). Middle: Predicted log frequency as a function of past log frequency supplied to the participant (Expt.~4). Right: Human endorsements (Expt.~3) vs. Speaker $S_2$ model predictions using the empirically elicited predictive frequencies (Expt.~4)}
+  \includegraphics[width=\textwidth]{expt3-4-scatters-2.pdf}
+  \caption{Left: Predicted log frequency as a function of past log frequency supplied to the participant (Expt.~3a).
+  Middle: Endorsements of habitual sentences (Expt.~3b) vs. Predicted log frequency (Expt.~3a), with data for corresponding items from Expt.~2 (assumed to have the same predictive log frequency as baseline). 
+  Right: Human endorsements (Expt.~3b) vs. Speaker $S_2$ model predictions using the empirically elicited predictive frequencies (Expt.~3a)}
   \label{fig:tj3}
 \end{figure*}
 \subsubsection{Method}
@@ -468,13 +476,16 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 \subsection{Results}
 
-There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (Figure \ref{fig:tj3}, left; blue points).
-When collapsing across items and subjecting the data to a mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89 [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) --- $\beta = 0.42; SE = 0.15; z = 2.8; p = 0.005$, in addition to a large effect of \emph{preventative} conditions on endorsements (M = 0.29 [0.26, 0.31]) --- $\beta = -3.22; SE = 0.21; z = -15.2; p < 0.001$. 
-\mht{should I add points from Expt. 2 to left-most scatter, or maybe there is a better plot?}
+There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (Figure \ref{fig:tj3}, middle; blue points).
+When collapsing across items and subjecting the data to a mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89 95\% Bootstrapped CI [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) [$\beta = 0.42; SE = 0.15; z = 2.8; p = 0.005$], in addition to a large effect of \emph{preventative} conditions on endorsements (M = 0.29 [0.26, 0.31]) [$ \beta = -3.22; SE = 0.21; z = -15.2; p < 0.001$]. 
+%\mht{should I add points from Expt. 2 to left-most scatter, or maybe there is a better plot?}
 
-Interestingly, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items. 
+Interestingly, we observe endorsements in this experiment that are appreciably higher than in Expt.~2 for the same items (Figure \ref{fig:tj3}, middle; red vs. purple points). 
 This may be due, in part, to an effect of the experiment context on participants: Participants are viewing extra information that strongly disables the action from occurring in may cases; when that information is not present, participants may be more inclined to endorse the habitual.
-\ndg{we should think about where in the model this calibration effect would be seen. Overall it would be nice to tie this expt more to the model, even if in a relatively shallow way.}
+This may the be result of an inferential process about the experimenter's beliefs on behalf of the participant: Because the distribution of frequencies in this task was more limited than those used in Expt.~2, the participant may infer that the experimenter believes this to be a representative range and adjust her judgments accordingly.
+Future investigation into this issue is warranted.
+% the frequencies supplied in the task
+%\ndg{we should think about where in the model this calibration effect would be seen. Overall it would be nice to tie this expt more to the model, even if in a relatively shallow way.}
 
 %     condition      mean  ci_lower  ci_upper
 %        (fctr)     (dbl)     (dbl)     (dbl)
@@ -515,7 +526,7 @@ This may be due, in part, to an effect of the experiment context on participants
 We use the mean predicted log frequency from Expt.~3a as the input to the speaker $S_2$ model to predict the felicity judgments measured in Expt.~3b.
 We infer the one model parameter using the same analysis approach in Expt.~2. 
 The model matches the data well ($r^2(63) = 0.91$; Figure \ref{fig:tj3}, right).
-\ndg{report r2 for past frequency based model, to make the point.}
+The same model using the past frequency as the object of communication matches the data poorly ($r^2(63) = 0.02$).
 These results suggest that the felicity of habituals is based on an underlying scale of predicted future propensity, or frequency, not the mere observed frequency in the past.
 
 
@@ -524,7 +535,7 @@ These results suggest that the felicity of habituals is based on an underlying s
 We presented a computational model for communicating generalizations about events.
 The model decides if a habitual is a useful way to describe a person's behavior, taking into account the listener's prior beliefs about the action --- how common it is and the likely frequency (measured in Expt.~1) --- and the basic conversational principles to be truthful and informative.
 We validated this model by eliciting felicity judgments for habitual sentences covering a wide range of activities with a wide range of experimentally manipulated frequencies of action (Expt.~2).
-We further investigate the nature of the underlying ``propensity'' scale by introducing enabling and disabling evidence, measuring the predicted future frequency (Expt.~3a) and using that to predict the felicity of habitual sentences (Expt.~3b). 
+We further investigated the nature of the underlying ``propensity'' scale by introducing enabling and disabling evidence, measuring the predicted future frequency (Expt.~3a) and using that to predict the felicity of habitual sentences (Expt.~3b). 
 To our knowledge, the experiments presented here are first empirical investigations into the truth conditions of habitual sentences and the first test of a formal model of habitual sentences.
 
 
@@ -542,20 +553,25 @@ In both cases, we are able to explain the varying truth conditions of these kind
 Scales, and scalar representations, provide a simple and general quantitative way to express truth conditions.
 %In the psychological literature, habituals have received relatively little attention compared to \emph{generics}. 
 
-We use the domain of human behavior as it provides a well-defined domain of events with wide variability in frequency of action.
-We have preliminary evidence from Expt.~2 that the prior over which the intended meaning is derived $P(x)$ is with respect to individuals from both genders: Felicity judgments did not vary appreciably across the two genders, even when the $P_{gender}(x)$ did. 
-This begins to the address the question of the \emph{contrast class} with respect to which generic or habitual meaning is computed. 
-\ndg{this paragraph is weak... figure out what we want to say, or remove.}
+We explore generalizations about events using the domain of human behavior as it provides a well-defined domain of events with wide variability in frequency of occurrence.
+We have preliminary evidence from Expt.~2 that the prior over which the intended meaning is derived $P(\lambda)$ is with respect to individuals from both genders: Felicity judgments did not vary appreciably across the two genders, even when the $P_{gender}(\lambda)$ did. 
+This begins addresses one aspect of the \emph{contrast class} with respect to which generic or habitual meaning is computed. 
+In general, the issue of how a contrast class is derived remains mysterious but it is central to understanding how the meanings of vague bits of language arise.
+% with respect to events in general, and future work should address this. 
+%\ndg{this paragraph is weak... figure out what we want to say, or remove.}
 
 %Though we validate this model using the speaker component $S_2$ for the evaluation of the felicity of habitual sentences, this model naturally extends to capture \emph{comprehension} of habitual language using the listener $L_1$ component.
 
-Habituals are used to convey generalizations about events.
-They convey \emph{\textsc{X} happens}.
-Knowing that an event generally happens may be a useful abstraction for causal inference \cite<e.g.>{Griffiths2005}. 
-In addition, habituals may be weaker forms of trait language \cite{Gelman1999} and may serve as the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
-\ndg{this paragraph should be revised to focus more on why habituals are important and how they fit into generalization and the mind more generally. mention traits only if this is relevant!}
+Accurately predicting the environment is critical for survival and development.
+Habituals convey generalizations about events and are helpful for future predictions about events.
+For example, knowing that an event generally happens may be a useful abstraction for causal inference \cite<e.g.>{Griffiths2005}.
+Generalizations about people's behavior in particular---as we've investigated in this article---are important to understand, as they likely facilitate trait induction and essentialist beliefs \cite{Gelman1999}.
+The computational model presented here provides a computational bridge between the way we talk about people's behavior and our intuitive theories of others and events.
 
-\ndg{note: in doing this revision it became clear to me that habituals are not about all kinds of event generalizations --- they are specifically about generalizing the tendency of an individual to be part of an event.... should make small adjustments to clarify this?}
+% and may serve as the bridge between observations of particular instances in time and enduring, essentialist beliefs about people.
+%\ndg{this paragraph should be revised to focus more on why habituals are important and how they fit into generalization and the mind more generally. mention traits only if this is relevant!}
+%
+%\ndg{note: in doing this revision it became clear to me that habituals are not about all kinds of event generalizations --- they are specifically about generalizing the tendency of an individual to be part of an event.... should make small adjustments to clarify this?}
 
 %\mht{kind of rough and needs more flowers}
 %
