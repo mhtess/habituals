@@ -344,8 +344,8 @@ The experiment took 4 minutes on average on participants were compensated \$0.55
 
 On each trial, participants were presented with a \emph{past frequency statement} for a given event or behavior of the form: ``In the past M \{weeks, months, years\}, \textsc{person} \textsc{did x} 3 times''.
 For example, \emph{In the past month, Bill smoked cigarettes 3 times}.
-\mht{Should we add: Because it is a matter of debate what constitutes a discrete event (cite someone who does event segmentation), we intentionally kept the frame of \textsc{did x} 3 times, as opposed to e.g. smoked 3 cigarettes.}
-We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
+%\mht{Should we add: Because it is a matter of debate what constitutes a discrete event (cite someone who does event segmentation), we intentionally kept the frame of \textsc{did x} 3 times, as opposed to e.g. smoked 3 cigarettes.}
+%We kept constant the number of times the action was done (3) in order to isolate the effects of the time window. 
 The particular intervals used (number M and window \{weeks, months, years\}) were selected after examining the predictions of the speaker model (Eq.~\ref{eq:S2}), for each item independently, to yield a variety of predicted endorsement rates.
 The items were the same as in Expt. ~1.
 
@@ -371,10 +371,10 @@ Overall, frequency of action predicts only a fraction of the variability in resp
 For actions that are done on the time scale of years or longer (lower median of frequency), frequency itself no longer explains the endorsements ($r^2(50) = 0.07$)
 
 We further examined the six items for which we observed gender differences in the prior elicitation task (Expt.~1).
-We observe no difference between endorsements of the habitual of characters with male and female names, and overall, the mean endorsements by gender are heavily correlated $r(93) = 0.91$. 
+We observe no difference between endorsements of the habitual of characters with male and female names, and overall, the mean endorsements by gender are strongly correlated $r(93) = 0.91$. 
 This may be because the felicity of habitual sentences depends on a comparison to individuals of both genders (i.e, the \emph{contrast class} is other people; not just other men or women). 
-Less interestingly, the lack of a difference may be the result of gender being not very salient in our paradigm.
-It is conceivable that elicit gender-differences in truth conditions could be elicited if the gender-specific contrast is made salient (e.g., by making salient stereotypes) .
+Less interestingly, the lack of a difference may be the result of gender being not very salient in our paradigm, perhaps because the names used were not sufficiently gendered.
+%It is conceivable that elicit gender-differences in truth conditions could be elicited if the gender-specific contrast is made salient (e.g., by making salient stereotypes) .
 % It is transparent to the participant that we are changing the frequencies and the actions, and perhaps less salient that the gender of the character is changing. 
 
 %\mht{compare with split half correlation?}
@@ -392,7 +392,7 @@ The model has one free parameter---the speaker optimality parameter, $\alpha$, i
 We use Bayesian data analytic techniques to integrate over this parameter \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
 %To attain credible values of the model parameters as well as 
 To construct the posterior predictive distribution over responses, we collected an MCMC chain of 50,000 iterations, discarding the first 25,000 iterations for burn in.
-The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for the speaker optimality parameter in Eq.~\ref{eq:S1} is 5.7 [5.1,6.2].
+The Maximum A-Posteriori (MAP) value and 95\% highest probability density (HPD) interval for $\alpha$ is 5.7 [5.1,6.2].
 %The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by our pragmatic speaker model.
 
 The probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.94$), including actions done on the time scale of years or more  ($r^2(50) = 0.92$) (Figure \ref{fig:tjScatters} right).
