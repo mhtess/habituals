@@ -52,7 +52,7 @@
 %\title{Talking about people by communicating generalizations about events}
 \title{Communicating generalizations about events}
 
-\author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu) \\
+\author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu), 
  {\large \bf Noah D. Goodman} (ngoodman@stanford.edu) \\
   Department of Psychology, Stanford University}
 
@@ -156,9 +156,8 @@ This has important implications about the relationship between linguistic genera
 \section{Computational model}
 %\ndg{since generics isn't out, it is better to talk about this as: we introduce a model building on lassiter\&goodman, which is almost the same as one we have evaluated for generics.}
 
-A habitual sentence expresses a generalization about the tendency of an individual to participate in a kind of event\footnote{
-We articulate the formalization in terms of individuals, but the theory applies straightforwardly to events without actors (e.g \emph{It rains around here.}).
-}.
+A habitual sentence expresses a generalization about the tendency of an individual to participate in a kind of event.
+%\footnote{We articulate the formalization in terms of individuals, but the theory applies straightforwardly to events without actors (e.g \emph{It rains around here.}).}.
 For a given individual (e.g.~\textsc{Bill}) and an event or behavior (e.g.~\textsc{smoking}), we refer to the rate at which an individual participates in an event for a given time window  
 %that is $ \lambda_{t} = \int_{t} \mathbbm{1}_{I \in E}dt$, 
 as the \emph{propensity}, denoted  $\lambda$.
@@ -231,20 +230,21 @@ In this experiment we elicit the prior $P(\lambda)$ for different events, so tha
 Given that some individuals rarely or never engage in an event, while others do quite frequently, we would expect the prior to be a mixture distribution between (at least) these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
 Indeed, there may be more than these two possibilities, corresponding to individuals with different traits or demographics (e.g., different expected frequencies depending on gender or age). 
 
-\subsection{Method}
+\subsection{Methods}
 
-\subsubsection{Participants}
+%\subsubsection{Participants}
+\noindent {\bf Participants}
 We recruited 40 participants from Amazon's Mechanical Turk.
 Participants were restricted to those with U.S. IP addresses and who had at least a 95\% work approval rating.
 The experiment took on average 12 minutes and participants were compensated \$1.25 for their work.
 
-\subsubsection{Materials}
-
+%\subsubsection{Materials}
+\noindent {\bf Materials}
 We created thirty-one events organized into pairs or triplets from 5 different conceptual categories: food and drug (e.g. \emph{eats caviar}, \emph{eats peanut butter}), work (e.g. \emph{sells things on eBay}, \emph{sells companies}), clothing (e.g. \emph{wears a suit}, \emph{wears a bra}), entertainment (e.g. \emph{watches professional football}, \emph{watches space launches}) and hobbies (e.g. \emph{runs}, \emph{hikes}). 
 Items were chosen to intuitively cover a range of likely frequencies of action, as well as to provide a minimal comparison to another item by having a common superordinate action (e.g. \emph{eating} caviar vs. peanut butter).
 
-\subsubsection{Procedure}
-
+%\subsubsection{Procedure}
+\noindent {\bf Procedure}
 For each event, participants were asked two questions, with associated dependent measures:
 \begin{enumerate}
 \itemsep0em
@@ -336,17 +336,17 @@ A present-tense habitual sentence is of the form \textsc{singular noun phrase} $
 We next explore the endorsements of habituals of this form made from the items whose propensity priors were measured in Experiment 1. 
 %\ndg{specifcy the grammar of the habitual constructions used more precisely (got / gets).. a singular noun (proper noun? person name?) combined with a present simple verb phrase??}
 
-\subsection{Method}
+\subsection{Methods}
 
-\subsubsection{Participants}
-
+%\subsubsection{Participants}
+\noindent {\bf Participants}
 We recruited 150 participants from MTurk.%\footnote{
 To arrive at this number, we performed a Bayesian precision analysis to determine the minimum sample size necessary to reliably ensure 95\% posterior credible intervals no larger than 0.3 for a parameter whose true value is 0.5 and for which the data is a 2 alternative forced choice. This analysis revealed a minimum sample size of 50 per item; since participants only completed about one third of the items, we recruited 150 participants.
 %}
 The experiment took 4 minutes on average on participants were compensated \$0.55 for their work.
 
-\subsubsection{Procedure and materials}
-
+%\subsubsection{Procedure and materials}
+\noindent {\bf Procedure and materials}
 On each trial, participants were presented with a \emph{past frequency statement} for a given event of the form: ``In the past M \{weeks, months, years\}, \textsc{person} \textsc{did x} 3 times''.
 For example, \emph{In the past month, Bill smoked cigarettes 3 times}.
 The particular intervals used (number M and window \{weeks, months, years\}) were selected after examining the predictions of the speaker model (Eq.~\ref{eq:S2}), for each item independently, to yield a variety of predicted endorsement rates.
@@ -363,8 +363,9 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 %\subsubsection{Materials}
 
-\subsection{Behavioral results}
-
+%\subsection{Behavioral results}
+\subsection{Results}
+\noindent {\bf Behavioral results}
 On each trial of the experiment, the participant was told a person did a particular action 3 times during some time window. 
 Figure \ref{fig:tjScatters} (left) shows the correspondence between the frequency of the event and the felicity of the corresponding habitual sentence. 
 It is clear that a habitual sentence can receive strong agreement even when the actions are very infrequent (log frequency $<$ 2; time interval of years or longer; e.g. writing 3 novels, stealing 3 cars in a 5 year interval).
@@ -386,8 +387,8 @@ Less interestingly, the lack of a difference may be the result of gender being n
 %We observe that none of our items receive less than 25\% endorsement (i.e. only 75\% of participants disagree with the felicity of the utterance).
 %This may be due to the fact that actor has done the action in the past a plurality of times; we would expect to get strong disagreement with the habitual when the person has never done the action, or perhaps done it only once.
 
-\subsection{Model fit and results}
-
+%\subsection{Model fit and results}
+\noindent {\bf Model fit and results}
 We used the pragmatic speaker model $S_2$ (Eq.~\ref{eq:S2}) with the priors elicited above (Expt.~1) to predict felicity judgments in Expt.~2, assuming the target propensity (to be conveyed by $S_2$) is the provided frequency.
 Because we observe no difference between the felicity judgments for habituals of male and female characters, we use a 50\% mixture of the inferred priors for each gender to construct a single frequency distribution $P(\lambda)$ across individuals.
 The model has one free parameter---the speaker optimality parameter, $\alpha$, in Eq.~\ref{eq:S1}. 
@@ -405,6 +406,16 @@ This raises an interesting question: Does the propensity communicated by the hab
 
 \section{Experiment 3: Objective frequency versus subjective expectation}
 
+\begin{figure*}[tb]
+\centering
+%  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
+  \includegraphics[width=\textwidth]{expt3-4-scatters-2.pdf}
+  \caption{Left: Predicted log frequency as a function of past log frequency supplied to the participant (Expt.~3a; confidence intervals suppressed and jitter added for visual clarity).
+  Middle: Endorsements of habitual sentences (Expt.~3b) vs. Predicted log frequency (Expt.~3a), with data for corresponding items from Expt.~2 (assumed to have the same predictive log frequency as baseline). 
+  Right: Human endorsements (Expt.~3b) vs. Speaker $S_2$ model predictions using the empirically elicited predictive frequencies (Expt.~3a)}
+  \label{fig:tj3}
+\end{figure*}
+
 %People change in a way that natural kinds cannot: People can modify their behavior overnight.
 %Yet, there is an ambiguity in the frequency degree semantics over which the pragmatic theory operates.
 %In some sense, one can only know \emph{past frequency} of action because that is all that has occurred.
@@ -421,23 +432,15 @@ This will allow us to test whether habituals are best explained by a speaker $S_
 
 \subsection{Experiment 3a: Prediction elicitation}
 
-\begin{figure*}[t]
-\centering
-%  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
-  \includegraphics[width=\textwidth]{expt3-4-scatters-2.pdf}
-  \caption{Left: Predicted log frequency as a function of past log frequency supplied to the participant (Expt.~3a; confidence intervals suppressed and jitter added for visual clarity).
-  Middle: Endorsements of habitual sentences (Expt.~3b) vs. Predicted log frequency (Expt.~3a), with data for corresponding items from Expt.~2 (assumed to have the same predictive log frequency as baseline). 
-  Right: Human endorsements (Expt.~3b) vs. Speaker $S_2$ model predictions using the empirically elicited predictive frequencies (Expt.~3a)}
-  \label{fig:tj3}
-\end{figure*}
-\subsubsection{Method}
-\subsubsection{Participants} 
+%\subsubsection{Method}
+%\subsubsection{Participants} 
 
+\noindent {\bf Methdods}
 We recruited 120 participants from MTurk, using the same criterion as Expt.~2.
 The experiment took 4 minutes on average on participants were compensated \$0.40 for their work.
 
-\subsubsection{Procedure and materials}
-
+%\subsubsection{Procedure and materials}
+%\noindent {\bf Procedure and materials}
 The procedure was identical to Expt.~2 except for the inclusion of a second sentence on a subset of trials and the use of a different dependent measure. 
 On all trials, participants were presented with a \emph{past frequency sentence} (see Expt.~2).
 Additionally, on one third of the trials, participants were presented with a \textbf{preventative sentence} (e.g. \emph{Yesterday, Bill quit smoking.}). %that aimed to decrease the 
@@ -470,20 +473,20 @@ Critically, we observe the preventative information appreciably decreasing and t
 \subsection{Experiment 3b: Felicity judgments}
 
 
-\subsubsection{Method}
-\subsubsection{Participants} 
+%\subsubsection{Method}
+%\subsubsection{Participants} 
 
+\noindent {\bf Methods}
 We recruited 150 participants from MTurk, using the same criterion as Expt.~2.
 The experiment took 4 minutes on average on participants were compensated \$0.40 for their work.
 None of the participants had completed Expt.~3a.
 
-\subsubsection{Procedure and materials}
-
+%\subsubsection{Procedure and materials}
 The only difference from Expt.~3a is the dependent measure. 
 On each trial, participants were asked if they agreed or disagreed with the corresponding habitual sentence (as in Expt.~2).
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-3-preventative.html}.
 
-
+\vspace{-1.5ex}
 \subsection{Results}
 
 There is a clear and consistent negative effect of preventative information on the tendency to endorse the habitual sentence (Figure \ref{fig:tj3}, middle; blue points).
@@ -545,7 +548,6 @@ in this experiment the overall population of frequencies is much lower (both bec
 
 
 \section{Discussion}
-
 We presented a computational model for communicating generalizations about events.
 The model decides if a habitual sentence is a pragmatically useful way to describe a person's behavior, taking into account the listener's prior beliefs about the action---how common it is and the likely frequency (measured in Expt.~1).
 % --- and the basic conversational principles to be truthful and informative.
@@ -621,6 +623,7 @@ The computational model presented here provides a mathematical bridge between th
 %Additionally, because of people's intuitive theories of others are so richly structured according to events (e.g. having hobbies, having a job, eating certain foods and not others; or more generally, being able to complete certain actions and not others),
 %habitual language may give us insight into those theories. \red{eek}
 
+\vspace{-2ex}
 
 \bibliographystyle{apacite}
 
