@@ -49,6 +49,7 @@
 
 
 
+%\title{Talking about people by communicating generalizations about events}
 \title{Communicating generalizations about events}
 
 \author{{\large \bf Michael Henry Tessler} (mtessler@stanford.edu) \\
@@ -71,7 +72,8 @@ We develop a computational model and use this to guide experiments into the trut
 In Expts.~1 \& 2, we measure participants' prior expectations about the frequency with which an event occurs and validate the predictions of the model for when a habitual sentence is acceptable.
 %the``propensity'' conditions (i.e. how often a person must do an action) by which habituals becomes felicitous.
 % the under which various habituals may be felicitous utterances. 
-In Expts.~3 \& 4, we show that habituals are sensitive to top-down moderators of expected frequency: it is the expectation of future tendency that matters for habitual language.
+In Expt.~3, we show that habituals are sensitive to top-down moderators of expected frequency: it is the expectation of future tendency that matters for habitual language.
+This work provides the mathematical glue between our intuitive theories' of others and events and language we use to talk about them.
 %harness the richness of intuitive theories of human behavior to explore more deeply the nature of propensity conditions with respect to time.
 %find that predicted, future frequency 
 %requires an integration of observed frequency with top-down biases from intuitive theories.
@@ -83,8 +85,8 @@ events; generics; pragmatics; Bayesian data analysis; Bayesian cognitive model
 \end{abstract}
 
 
-
-The tendency of particular individuals to participate in an event can be crucial and hard-won knowledge. 
+Figuring out that a person tends to exhibit a behavior can be crucial and hard-won knowledge.
+%The tendency of particular individuals to participate in an event can be crucial and hard-won knowledge. 
 It is thus not surprising that language has ways to convey this information about propensity:
 \emph{Bill smokes}, \emph{That man steals from children}, \emph{My car doesn't start}.
 These are called \emph{habitual sentences}.
@@ -93,11 +95,12 @@ These are called \emph{habitual sentences}.
 %%Predicting the behaviors of others is  is necessary to figure out what others will do. Must be able to predict caretaker?s behavior.
 %Language allows us to communicate generalizations to each other, but under what evidence would you make and communicate such generalizations?
 Like many other linguistic means of conveying generalizations, the truth-conditions of habituals are extremely flexible:
-If Bill smoked three cigarettes last month, would you say that \emph{Bill smokes}? If he smoked three cigarettes last week? If he smoked three last week, but had just sworn a solemn oath to quit smoking?
+If Bill smoked three cigarettes last month, can you say that \emph{Bill smokes}? Three cigarettes last week? 
+If he smoked a pack last week, but had just sworn a solemn oath to quit?
 %Generalizing an event (such as Bill smoking) over time is useful for future predictions about the occurrence of that event.
 %But what evidence do you need to make and communicate such a generalization? 
 %This may not be often enough to say that \emph{Bill smokes}, but perhaps you would say \emph{Bill volunteers} if he helped at a soup kitchen with the same frequency. 
-In this paper we present the first empirical data on the felicity of habitual sentences and we describe a formal model of habitual interpretation, based on recent Bayesian models of the pragmatics of vague language.
+In this paper we present the first empirical data on the felicity of habitual sentences and describe a formal model of habitual interpretation, based on recent Bayesian models of the pragmatics of vague language.
 
 % and show that this model explains the pattern of endorsements in our data.
 
@@ -144,9 +147,9 @@ In Expt.~2, we use those priors and the pragmatic theory to make predictions abo
 %Habituals, unlike generics, make it possible to explore an important issue in this theoretical framework: 
 
 If habituals, and generics, are truly language for conveying generalizations, we would expect them to reflect expectations, not merely observations.
-Is the underlying dimension for habituals the actual, or past, frequency of the event (e.g.~how often Bill has actually smoked in the past month) or the predictive probability that this event will happen in the near future (e.g.~how likely it is that Bill will smoke in the next week)?
+Is the underlying dimension for habituals the actual, or past, frequency of the event (e.g.~how often Bill has actually smoked in the past week) or the predictive probability that this event will happen in the near future (e.g.~how likely it is that Bill will smoke in the next week)?
 In Expts.~3 \& 4, we show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
-This has important implications about the relationship between linguistic generalization and intuitive theories, which we explore briefly in the conclusion.
+This has important implications about the relationship between linguistic generalization and intuitive theories, which we explore briefly in the discussion.
 
 % the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
 
@@ -156,7 +159,7 @@ This has important implications about the relationship between linguistic genera
 A habitual sentence expresses a generalization about the tendency of an individual to participate in a kind of event\footnote{
 We articulate the formalization in terms of individuals, but the theory applies straightforwardly to events without actors (e.g \emph{It rains around here.}).
 }.
-For a given individual $I$ (e.g.~\textsc{Bill}) and an event or behavior $E$ (e.g.~\textsc{smoking}), we refer to the rate at which an individual $I$ participates in an event $E$ for a given time window $t$ 
+For a given individual $I$ (e.g.~\textsc{Bill}) and an event or behavior $E$ (e.g.~\textsc{smoking}), we refer to the rate at which an individual $I$ participates in an event $E$ for a given time window  
 %that is $ \lambda_{t} = \int_{t} \mathbbm{1}_{I \in E}dt$, 
 as the \emph{propensity} of $I$ doing $E$, denoted  $\lambda$.
 %\ndg{maybe it's better to talk about the underlying scale as a rate? what's up with the ** in the integral here?}
