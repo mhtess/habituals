@@ -1,0 +1,267 @@
+---
+title: "habituals-cogsci-expt2"
+author: "mht"
+date: "February 1, 2016"
+output: html_document
+---
+```{r helpers}
+scaleTime.nTimes <- list(
+  week = 5*52,
+  "2 weeks" = (5*52)/2,
+  month = 5*12,
+  "2 months" = (5*12)/2,
+  "6 months" = (5*12)/6,
+  year = 5,
+  "2 years" = 5 / 2,
+  "5 years" = 1
+)
+```
+
+
+```{r data.load}
+filePath <- "~/Documents/research/habituals/data/truthjudgments/"
+d<- read.csv(paste(filePath, "truthjudge-2-trials.csv", sep=""))
+#catch<- read.csv(paste(filePath, "truthjudge-2-catch_trials.csv", sep=""))
+
+# scaleTime <- list(
+#   week = 7,
+#   "2 weeks" = 14,
+#   month = 30,
+#   "2 months" = 60,
+#   "6 months" = 180,
+#   year = 365,
+#   "2 years" = 2*365,
+#   "5 years" = 5*365
+# )
+# 
+# d2<-d %>%
+#   mutate(time_period = as.character(time_period),
+#          n_instances = to.n(n_instances)) %>%
+#   rowwise() %>%
+#   mutate(frequency = scaleTime[[time_period]]/n_instances) %>%
+#   ungroup() %>%
+#   mutate(logFreq = log(frequency))
+
+
+#write.csv(d3,"~/Documents/research/habituals/models/truthjudgement/data/tj-2-logtimes.csv", 
+          #row.names=F)
+```
+
+
+
+
+```{r}
+
+d.tidy <- d %>%
+  mutate(time_period = as.character(time_period),
+         n_instances = to.n(n_instances),
+          boolResponse = (response=="agree-key")) %>%
+  rowwise() %>%
+  mutate(n_times = scaleTime.nTimes[[time_period]]*n_instances) %>%
+  ungroup() %>%
+  mutate(log_times = log(n_times)) %>%
+  group_by(habitual, log_times, n_instances, time_period, category) %>%
+  multi_boot_standard(column="boolResponse") %>%
+  ungroup() %>%
+  mutate(sentence = paste(habitual, 
+                          paste(n_instances, time_period,sep="/"), sep='--')) %>%
+  mutate(sentence = reorder(sentence, mean, function(x){return(x)}))
+
+#save(d.tidy, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-data-summarized.Rdata")
+```
+
+
+```{r expt2.scatter.frequency} 
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-data-summarized.Rdata")
+
+plt1<-ggplot(d.tidy, aes(x=log_times, y=mean, fill=log_times))+
+  geom_jitter(shape=21, size = 4, position=position_jitter(width=0.1))+
+  theme_paper()+
+  # geom_errorbar(aes(ymin = ci_lower, ymax=ci_upper), size = 1, width = 0.01, alpha=0.1,
+  #               position=position_dodge())+
+  #geom_abline(intercept=0,slope=1,linetype=2, size=1,color='grey39')+
+  xlab("\n Log Frequency")+
+  ylab("Proportion human endorsement \n")+
+  ylim(-0.05,1.05)+
+  coord_fixed(ratio=5)+
+  scale_fill_gradient(high='#92c5de', low = "#023858",breaks=c(0,2,4,6))+
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt1
+
+#ggsave("~/Documents/research/habituals/writing/_cogsci2016/figures/expt2-vs-prev.pdf", height = 5.4, width = 7)
+
+with(d.tidy, cor(log_times, mean))^2
+with(d.tidy %>% filter(log_times < 3),
+     cor(log_times,mean))^2
+```
+
+
+# Model results
+
+
+```{r tj1.model.load}
+filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
+prefix <-"tj2-RSA-log_ntimes-so-IncrMH"
+samples <- 100000
+burn <- samples / 2
+priorsamples <- 100000
+priorburn <- priorsamples / 2
+m.samples<- data.frame()
+for (i in c("a", "b")){
+  m<-as.data.frame.matrix(fread(paste(filePath, prefix, 
+                     samples/1000, "k_burn", 
+                     burn/1000, "k_prior-mixGenders0.5-",
+                     priorsamples/1000, "k_burn",
+                     priorburn/1000,
+                     "k_discretize-1-8.5-0.5-",i,".csv",sep="")))
+  m.samp <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
+  m.samples<- bind_rows(m.samples, m.samp)
+  print(i)
+}
+```
+
+
+```{r tj1.model.params}
+m.params <- m.samples %>% filter(Type =='parameter')
+qplot(data=m.params, x= Value, geom='histogram')+
+  facet_wrap(~Level, scales='free')
+
+m.params.stats<-m.params %>%
+  group_by(Level) %>%
+    summarise(MAP = estimate_mode(Value),
+            credHigh = hdi_upper(Value),
+            credLow = hdi_lower(Value))
+
+write.csv(m.params.stats, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-model-params.csv", row.names=F)
+```
+
+
+
+```{r tj2.model.pred}
+m.pred <- m.samples %>% filter(Type == 'predictive')
+
+m.predStats <- m.pred %>%
+  group_by(Item, Level, Period) %>%
+  summarise(MAP = estimate_mode(Value),
+            credHigh = hdi_upper(Value),
+            credLow = hdi_lower(Value)) %>%
+  rename(habitual = Item,
+         time_period = Period)
+
+#write.csv(m.predStats, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-model-predictions.csv", row.names=F)
+
+m.d<- left_join(d.tidy, m.predStats)
+```
+
+```{r}
+#save(m.d, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-model-data.Rdata")
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-model-data.Rdata")
+
+plt2<-ggplot(m.d,aes(x=MAP, y = mean, fill=log_times))+
+  geom_abline(intercept = 0, slope = 1, lty = 2)+
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper))+
+  geom_errorbarh(aes(xmin=credLow, xmax = credHigh))+
+  geom_point(shape=21, size=4)+
+  xlim(-0.05,1.05)+
+  ylim(-0.05,1.05)+
+  theme_paper()+
+  coord_fixed()+
+  xlab("\n Model posterior predictive")+
+  ylab("Proportion human endorsement \n")+
+  scale_fill_gradient(high='#92c5de', low = "#023858",breaks=c(0,2,4,6))+
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt2
+```
+
+
+```{r}
+with(m.d, cor(MAP, mean))^2
+
+with(m.d, cor(MAP, mean, use="complete.obs"))^2
+
+with(m.d %>% filter(log_times < 3),
+     cor(MAP,mean))^2
+#with(d.tidy3 %>% filter(log_times < 3),
+#     cor(log_times,mean))^2
+
+plt3<-grid.arrange(plt1, plt2, nrow=1)
+#plt3<-arrangeGrob(plt1,plt2,nrow=1)
+
+#ggsave(file="~/Documents/research/habituals/writing/_cogsci2016/figures/tj-scatters.pdf", 
+ #      plot=plt3)#"talks/lab-mtg-120115/images/tj1-md-scatter-3colors.pdf")
+
+
+m.d <- m.d %>%
+  mutate(sqerr = (MAP-mean)^2)
+View(m.d)
+```
+
+
+
+
+```{r tj1.plot1}
+d.tidy <- d2 %>%
+  mutate(boolResponse = (response=="agree-key")) %>%
+  group_by(habitual, frequency, logFreq, n_instances, time_period, category) %>%
+  multi_boot_standard(column="boolResponse") %>%
+  ungroup() %>%
+  mutate(sentence = paste(habitual, 
+                          paste(n_instances, time_period,sep="/"), sep='--')) %>%
+  mutate(sentence = reorder(sentence, mean, function(x){return(x)}))
+
+
+
+ggplot(d.tidy, aes(x=habitual, fill = frequency, y = mean, group=frequency))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  #scale_fill_solarized()+
+  facet_wrap(~category)+
+  xlab("")+
+  ylab("Proportion agreement")
+  
+  #coord_flip()
+
+
+d.tidy <- d.tidy %>%
+  mutate(time_period = factor(time_period, levels=c("5 years","2 years",
+                                                    "year", "6 months",
+                                                    "2 months", "month",
+                                                    "2 weeks", "week")))
+
+ggplot(d.tidy, aes(x=time_period, fill = time_period, y = mean, group=time_period))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  theme(axis.text.x=element_text(angle=45,vjust=1,hjust=1))+
+  #scale_fill_solarized()+
+  facet_wrap(~habitual)+
+  xlab("")+
+  ylab("Proportion agreement")
+  
+
+#ggsave("~/Documents/research/habituals/talks/lab-mtg-120115/images/tj1-bars-grouped.pdf")
+```
+
+
+```{r}
+ggplot(d.tidy, aes(x=mean))+
+  geom_histogram()
+```
+
+```{r tj1.plot2}
+ggplot(d.tidy, aes(x=sentence, y = mean-0.5))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower-0.5, ymax=ci_upper-0.5), position=position_dodge())+
+    scale_y_continuous(breaks=c(-0.5,0,0.5),labels=c("0","0.5","1"))+
+  scale_fill_solarized()+
+  coord_flip()+
+  xlab("Sentence and evidence")+
+  ylab("Proportion agreement")
+
+
+#ggsave("~/Documents/research/habituals/talks/lab-mtg-120115/images/tj1-bars.pdf")
+```

@@ -1,0 +1,413 @@
+---
+title: "habituals-cogsci-expt3"
+author: "mht"
+date: "February 3, 2016"
+output: html_document
+---
+
+
+
+# Predictive elicitation
+
+```{r}
+p<-read.csv("~/Documents/research/habituals/data/priors/predictive-1-trials.csv")
+# participant reported this in the comments section (it was reported as a symbol)
+p[(p$workerid==44 & p$item=="smokes cigarettes"),"response"] <- 5
+p <- p %>% mutate(response = to.n(response))
+
+
+
+p %>% group_by(condition) %>%
+  multi_boot_standard(column="response")
+
+
+p.item<-p %>% group_by(condition,item) %>%
+  multi_boot_standard(column="response")
+
+ggplot(p.item, aes(x = item, y = mean, ymax = ci_upper, ymin=ci_lower, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(position=position_dodge())+
+  coord_flip()
+```
+
+```{r}
+scaleTime.nTimes <- list(
+  week = 5*52,
+  month = 5*12,
+  "2 months"= 5*6,
+  year = 5,
+  "2 years" = 5/2,
+  "5 years" = 1
+)
+
+p.tidy<- p %>% 
+  select(workerid, category, item, past_interval, past_freq, condition, response) %>%
+  rowwise() %>%
+  mutate(past_frequency = scaleTime.nTimes[[as.character(past_interval)]]*past_freq,
+        future_frequency=scaleTime.nTimes[[as.character(past_interval)]]*to.n(response)) %>%
+  mutate(past_logfreq = log(past_frequency),
+         future_logfreq = log(future_frequency)) %>%
+  mutate(future_logfreq = ifelse(future_logfreq==-Inf, 0, future_logfreq))
+
+
+p.tidy %>%
+  group_by(condition) %>%
+  summarize(cor(past_logfreq, future_logfreq))
+
+p.item.freq <- p.tidy %>%
+  ungroup() %>%
+  group_by(condition, item, category,past_logfreq, past_interval) %>%
+  multi_boot_standard(column = "future_logfreq")
+#save(p.item.freq,file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3-data-summarized.Rdata")
+```
+
+
+```{r}
+load(file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3-data-summarized.Rdata")
+plt3<-ggplot(p.item.freq, aes(x=past_logfreq, y = mean, ymin = ci_lower, ymax = ci_upper, fill = condition))+
+  #geom_point(size = 3.5)+
+  #geom_point(shape=21, size=4)+
+  geom_jitter(size=4,shape=21,position = position_jitter(width = .2))+
+  geom_abline(intercept = 0, slope = 1, lty =3)+
+  #geom_errorbar(width=0.1)+
+  xlim(-0.5,7.5)+
+  ylim(-0.5,7.5)+
+  coord_fixed()+
+  guides(fill=F)+
+  #scale_fill_solarized()+
+  xlab("Past (log) frequency")+
+  ylab("Predicted (log) frequency")+  
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt3
+#ggsave("~/Documents/research/habituals/writing/_cogsci2016/figures/predictive-scatter.pdf")
+
+```
+
+```{r}
+ggplot(p.item.freq, aes(x=condition, y = mean, 
+                        ymin = ci_lower, ymax = ci_upper, 
+                        fill = condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(position=position_dodge(), width=0.5, size = 1, color='black')+
+  facet_wrap(~item, nrow=3)+
+  theme(axis.text.x = element_blank())+
+  ylab("Predicted log frequency")+
+  xlab("")
+
+#ggsave("~/Documents/research/habituals/analysis/figures/predictive-logfreq-bars.pdf", width = 20, height = 7)
+```
+
+
+# Truth judgments
+
+
+```{r}
+d<-read.csv("~/Documents/research/habituals/data/truthjudgments/truthjudge-3-trials.csv")
+catch <- read.csv("~/Documents/research/habituals/data/truthjudgments/truthjudge-3-catch_trials.csv")
+
+d.passed <- left_join(d, catch %>% select(workerid, pass), by="workerid") %>%
+  filter(pass==1)
+
+d3.tidy<-d %>%
+  mutate(response = response=="agree-key",
+         time_period = factor(time_period,
+                              levels=c("month",
+                                       "2 months",
+                                       "year",
+                                       "2 years",
+                                       "5 years")),
+         condition = factor(condition,
+                            levels=c("enabling", "baseline", "preventative")),
+         hab_time = paste(habitual, time_period, sep='-')) %>%
+  group_by(habitual, condition, hab_time, time_period) %>%
+  multi_boot_standard(column="response")
+
+
+ggplot(d3.tidy, aes(x=time_period, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge())+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  facet_wrap(~habitual, nrow=3)+
+  theme(axis.text.x = element_text(angle=90))
+
+```
+
+
+Generalized linear model
+
+```{r}
+rs<-glmer(response ~ condition + (1 | workerid) + (1 + condition | habitual), data = d, family='binomial')
+summary(rs)
+```
+
+Join with data of same trials from Expt.2
+
+```{r}
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt2-data-summarized.Rdata")
+
+
+d.joined<-bind_rows(
+  d3.tidy, 
+  d.tidy %>% 
+    select(-sentence, -n_instances, -log_times, - category) %>%
+    mutate(
+      condition = 'expt-1',
+      hab_time = paste(habitual, time_period, sep='-')
+    ) %>%
+    filter(habitual %in% levels(factor(d3.tidy$habitual))) %>%
+    filter(hab_time %in% levels(factor(d3.tidy$hab_time)))
+) %>%
+  mutate(time_period = factor(time_period, levels=c("5 years","2 years",
+                                                    "year", "6 months",
+                                                    "2 months", "month",
+                                                    "2 weeks", "week")),
+        condition = factor(condition, levels=c( "expt-1","baseline","enabling", "preventative")))
+save(d.joined, file = "~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3-data-withExpt2-summarized.Rdata")
+```
+
+Bar plot by item
+
+```{r}
+
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3-data-withExpt2-summarized.Rdata")
+ggplot(d.joined, aes(x=time_period, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge(), color='black')+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  facet_wrap(~habitual, nrow=3)+
+  #scale_f()+
+  theme(axis.text.x = element_text(angle=90))
+
+#ggsave("~/Documents/research/habituals/analysis/figures/truth-judgments-3items-withtj2.pdf", width = 30, height = 10)
+
+```
+
+
+```{r}
+d.condition<-d %>%
+  mutate(response = response=="agree-key",
+         time_period = factor(time_period,
+                              levels=c("month",
+                                       "2 months",
+                                       "year",
+                                       "2 years",
+                                       "5 years")),
+         condition = factor(condition,
+                            levels=c("enabling", "baseline", "preventative")),
+         hab_time = paste(habitual, time_period, sep='-')) %>%
+  group_by(condition) %>%
+  multi_boot_standard(column="response")
+
+
+ggplot(d.condition, aes(x=condition, y = mean, fill=condition))+
+  geom_bar(stat='identity', position=position_dodge(), color='black')+
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), position=position_dodge())+
+  #scale_f()+
+  theme(axis.text.x = element_text(angle=90))
+```
+
+
+## Join with predictive frequency (Expt. 3a)
+
+Output mean data for RSA model
+
+```{r}
+load("~/Documents/research/habituals/analysis/predictive-1-stats.RData")
+
+d.out4<-left_join(d,
+  d.item.freq %>%
+              rename(habitual=item,
+                   time_period = past_interval,
+                   future_logfreq = mean) %>%
+  select(habitual, condition, past_logfreq, future_logfreq))
+
+#write.csv(d.out4,"~/Documents/research/habituals/models/truthjudgement/data/tj-3.csv", row.names=F)
+
+```
+
+
+```{r}
+d.predict.tj<-left_join(d.joined, 
+                    bind_rows(d.item.freq,
+                             d.item.freq %>%
+                               ungroup() %>%
+                               filter(condition=='baseline') %>%
+                              mutate(condition = factor(condition, levels=c("baseline"), labels=c("expt-1")))) %>%
+                        rename(habitual=item,
+                             time_period = past_interval),
+                    by=c("habitual", "condition", "time_period"))
+
+                        
+d.predict.tj <- d.predict.tj %>%
+  mutate(condition = factor(condition, levels=c("baseline", "enabling", "preventative", "expt-1"),
+                            labels=c("baseline", "enabling", "preventative", "experiment 2")))
+
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length=n+1)
+  hcl(h=hues, l=65, c=100)[1:n]
+}
+
+save(d.predict.tj, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-withExpt2-withExpt3a.Rdata")
+```
+
+
+Middle facet of Figure 3
+
+
+```{r}
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-withExpt2-withExpt3a.Rdata")
+plt1<-ggplot(d.predict.tj, aes(x=mean.y, y=mean.x, fill=condition, xmin = ci_lower.y, xmax=ci_upper.y,
+                               ymin=ci_lower.x, ymax = ci_upper.x))+
+  #geom_jitter(shape=21, size = 4, position=position_jitter(width=0.1))+
+  theme_paper()+
+  geom_errorbar(alpha=0.7)+
+  geom_errorbarh(alpha=0.7)+
+    geom_point(shape=21, size=4)+
+   geom_point(shape=21, size=4,aes(x = mean.y, y = mean.x, fill = condition), 
+             subset = .(condition == 'baseline'))+
+   geom_point(shape=21, size=4,aes(x = mean.y, y = mean.x, fill = condition), 
+             subset = .(condition == 'enabling'))+
+  #geom_abline(intercept=0,slope=1/7.5,linetype=3)+
+  xlab("\n Predictive Log Frequency")+
+  ylab("Proportion human endorsement \n")+
+ #guides(fill=F)+
+ # xlim(-0.05,8.05)+
+ # ylim(-0.05,1.05)+
+  coord_fixed(ratio=7.5)+
+  scale_fill_manual(values = c("#F8766D","#00BA38","#619CFF","#C77CFF"))+
+  theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+plt1
+
+
+
+with(d.predict.tj, cor(mean.y, mean.x))^2
+with(d.predict.tj %>% filter(mean.y < 3),
+     cor(mean.y,mean.x))^2
+
+```
+
+# Model
+
+
+```{r tj3.model.load}
+filePath <- "~/Documents/research/habituals/models/truthjudgement/results/"
+prefix <-"tj3-RSA-future_log_ntimes-so-IncrMH"
+samples <- 100000
+burn <- samples / 2
+priorsamples <- 100000
+priorburn <- priorsamples / 2
+m.samples<- data.frame()
+i = "a"
+for (i in c("a", "b")){
+  m<-as.data.frame.matrix(fread(paste(filePath, prefix, 
+                     samples/1000, "k_burn", 
+                     burn/1000, "k_prior-mixGenders0.5-",
+                     priorsamples/1000, "k_burn",
+                     priorburn/1000,
+                     "k_discretize-1-8.5-0.5-",i,".csv",sep=""),
+                     colClasses=c("character", "character","character", "character", "numeric", "numeric")))
+  m.samp <- m[rep(row.names(m), m$Probability*(samples-burn)), 1:5]
+  m.samples<- bind_rows(m.samples, m.samp)
+  print(i)
+}
+
+
+
+```
+
+
+```{r tj3.model.params}
+m.params <- m.samples %>% filter(Type =='parameter')
+qplot(data=m.params, x= Value, geom='histogram')+
+  facet_wrap(~Level, scales='free')
+
+m.params.stats<-m.params %>%
+  group_by(Level) %>%
+    summarise(MAP = estimate_mode(Value),
+            credHigh = hdi_upper(Value),
+            credLow = hdi_lower(Value)) 
+
+#write.csv(m.params.stats, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-model-params.csv", row.names=F)
+
+```
+
+
+
+```{r tj2.model.pred}
+m.pred <- m.samples %>% filter(Type == 'predictive')
+
+m.predStats <- m.pred %>%
+  group_by(Item, Level, Period) %>%
+  summarise(MAP = estimate_mode(Value),
+            credHigh = hdi_upper(Value),
+            credLow = hdi_lower(Value)) %>%
+  rename(habitual = Item,
+         time_period = Period) %>%
+  ungroup() %>%
+  mutate(Level = to.n(Level))
+
+#write.csv(m.predStats, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-model-predictions.csv",
+#          row.names=F)
+
+
+
+m.d<- left_join(d.predict.tj %>%
+                  filter(condition != "experiment 2"), 
+                m.predStats %>% rename(condition=time_period)) %>%
+  rename(mean = mean.x,
+         ci_upper = ci_upper.x,
+         ci_lower = ci_lower.x,
+         predictive_freq = mean.y,
+         predictive_lower = ci_lower.y,
+         predictive_upper = ci_upper.y)
+
+#save(m.d, file="~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-model-data.Rdata")
+```
+
+```{r}
+
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt3b-model-data.Rdata")
+
+plt2<-ggplot(m.d,aes(x=MAP, y = mean, fill=condition))+
+  geom_abline(intercept = 0, slope = 1, lty = 2)+
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper))+
+  geom_errorbarh(aes(xmin=credLow, xmax = credHigh))+
+    geom_point(shape=21, size=4)+
+  xlim(-0.05,1.05)+
+  ylim(-0.05,1.05)+
+  theme_paper()+
+  coord_fixed()+
+  xlab("\n Model posterior predictive")+
+  ylab("Proportion human endorsement \n")+
+    guides(fill=F)
+
+plt2
+
+with(m.d, cor(MAP, mean))^2
+```
+
+
+Figure 3
+
+```{r}
+grid.arrange(arrangeGrob(plt3,plt1, plt2, nrow=1, widths=c(3.6, 4, 4)))
+
+
+plt4<-grid.arrange(plt3,plt1, plt2, nrow=1, layout_matrix = cbind(c(1),c(1),c(1)))
+plt3<-arrangeGrob(plt1,plt2,nrow=1)
+# 
+ #ggsave(file="~/Documents/research/habituals/writing/_cogsci2016/figures/tj-expt3-scatters.pdf", 
+        plot=plt3)#"talks/lab-mtg-120115/images/tj1-md-scatter-3colors.pdf")
+# 
+# 
+ m.d <- m.d %>%
+   mutate(sqerr = (MAP-mean.x)^2)
+ #View(m.d)
+```
+
+
+
+
+

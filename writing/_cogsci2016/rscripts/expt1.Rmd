@@ -1,0 +1,83 @@
+---
+title: "habituals-cogsci-expt1"
+author: "mht"
+date: "February 1, 2016"
+output: html_document
+---
+
+# Experiment 1: Prior elicitation
+
+
+```{r}
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt1-prior-stats.RData")
+
+ggplot(prior.stats, aes(x = eMAP, y = fMAP, fill = Category, shape = Gender))+
+  geom_errorbar(aes(ymin = fcredLow, ymax = fcredHigh), alpha=0.5)+
+  geom_errorbarh(aes(xmin = ecredLow, xmax = ecredHigh),alpha=0.5)+
+  geom_point(size=4, alpha = 0.9)+
+  xlab("% of Americans who have DONE ACTION")+
+  ylab("Log Frequency of DOING ACTION")+
+  scale_shape_manual(values=c(21,22))+
+  theme_paper()+
+  #scale_color_solarized()
+  scale_fill_brewer(palette='Set1')+
+  coord_fixed(ratio = 1/8)+
+    theme(legend.title = element_text(hjust=0),
+        legend.position="bottom",
+        legend.direction="horizontal")
+
+
+```
+
+
+
+```{r}
+
+load("~/Documents/research/habituals/writing/_cogsci2016/rdata/expt1-prior-predictives.RData")
+# d.samples<-d.samples %>%
+#   rowwise() %>%
+#   mutate(Frequency = ifelse(Prevalence==0, 10, Prevalence))
+
+#d.samples$Gender <- factor(d.samples$Gender, levels=c("male", "female"),
+                       #    labels=c("Male", "Female"))
+
+for (t in levels(factor(d.samples$Item))){
+  
+ ggplot(d.samples %>% filter(Item == t), 
+         aes(x=Frequency, fill = Gender, color=Gender))+
+    geom_density(aes(y=..scaled..), 
+                 size=1.5, 
+                 alpha = 0.5
+                 #color ='black',
+                 #fill='black'
+                 )+
+    theme_paper()+
+    scale_fill_manual(values = c("#5ab4ac","#d8b365"))+
+    scale_color_manual(values = c("#5ab4ac","#d8b365"))+
+    #scale_color_manual(values=c("#bdbdbd","#f0f0f0"))+
+    #scale_alpha_manual(values=c(0.6,0.1))+
+    #geom_density(size=1, alpha=0.7)+
+#      geom_errorbarh(data = m.prevTargets %>% filter(Property==t),
+#                     aes(x= map, xmin = credLow, xmax = credHigh,
+#                     y = 1.05), color='#2ca25f', size = 1.1,
+#                     height = 0.1, inherit.aes=F)+
+    scale_linetype_manual(values=c(1,2))+
+    xlab("Log frequency")+
+    #guides(alpha=F, color=F, fill=F, linetype=F)+
+    facet_wrap(~Item, scales='free')+
+    scale_x_continuous(limits=c(0,8), breaks=c(0,2,4,6,8,10))+
+    scale_y_continuous(limits=c(0,1.05), breaks=c(0,0.5,1))+
+    #coord_fixed(ratio = 1/8)+
+    ylab("Scaled density")+
+    theme(strip.text.x=element_text(size=16))
+      
+
+#ggsave(file=paste('~/Documents/research/habituals/writing/_cogsci2016/figures/logfreq-priors-',t,'.pdf',sep=''), width=3.5, height=3)
+
+print(t)
+
+}
+
+```
+
+
