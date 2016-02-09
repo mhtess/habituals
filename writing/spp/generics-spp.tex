@@ -64,27 +64,31 @@
 Learning and development require solving problems of induction.
 These are hard problems though they can be solved by adults and young children with observational learning \cite{Markman1989} 
 and in pedagogically enriched scenarios \emph{(CITE SOME PEDAGOGY}).
-After about the age of the two, a new tool for communication and learning is available: language.
+At about age of the two, a new tool for communication and learning is available: language.
 
 Generalizations are central to human understanding and thus, it is not surprising that language provides a simple and ubiquitous way to communicate these generalizations. 
-Generic language (e.g.~\emph{Swans are white.}) and habitual language \emph{Bill smokes.}) convey generalizations about categories and events, respectively, and have similar semantic features that they are often described in the same breath \cite{Carlson1977, Carlson2005, Cohen1999}.
-The primary semantic property that makes these sentences so similar to one another and at the same time, so different from the relatively well-understood quantifier sentences (e.g.~\emph{All swans are white.}) is in determine what makes generic or habitual sentences true or false (i.e. the truth conditions).
-At first glance, generics seem like universally quantified statements as in \emph{All swans are white}, and yet generics---unlike universals---admit exceptions (e.g. there are black swans). 
+Generic language (e.g.~\emph{Swans are white.}) convey generalizations about categories \cite{Carlson1977, Leslie2008}. 
+Generics are ubiquitous in everyday conversation as well as in child-directed speech \cite{Gelman2008}, and children as young as two or three understand that generics refer to categories and support generalization \cite{Cimpian2008}.
+They are thought to be essential to the growth of conceptual knowledge \cite{Gelman2004} and how kinds are represented in the mind \cite{Leslie2008}, and yet a formal account of generic meaning remains elusive. 
+
+The primary hurdle in formalizing generic language ) is in determine what makes a generic sentence true or false (i.e. the truth conditions).
+Generics look a lot like quantifier statements (e.g. \emph{some, all, most}).
+At first blush, they look like universally quantified statements as in \emph{All swans are white}, and yet generics---unlike universals---admit exceptions (e.g. there are black swans). 
 Interpreting the generic as meaning ``most'' (i.e. \emph{Most swans are white}) captures many cases but fails to account for others: \emph{Robins lay eggs} seems true even though only adult, female robins do; only a tiny fraction of Mosquitos carry the virus Zika yet \emph{Mosquitos carry Zika} also sounds true. 
-In fact, the very notion that the felicity of the generic can be tied to how many instances have the property (as the felicity of quantifier statements are) violates intuitions: \emph{Robins lay eggs} even though only the females do but \emph{Robins are female} (even though only the females are) is not a reasonable utterance.
+In fact, the very notion that the felicity of the generic can be tied to how many instances have the property (in the way that quantifier statements are) violates intuitions: \emph{Robins lay eggs} even though only the females do but \emph{Robins are female} (even though only the females are) is not a reasonable utterance.
 
-Habitual sentences behave in an analogous way. 
-Bill may smoke a pack a day and so we would say \emph{Bill smokes}, and if Bill goes without a cigarette for an entire family vacation (thus temporarily reducing his effective rate of smoking), we will not be so easily convinced (i.e. \emph{Bill smokes} is probably still true).
-Cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of rare actions like \emph{Susan writes novels}. Susan may only have written 3 novels in her life, but still this seems like a valid generalization to convey.
+%Habitual sentences behave in an analogous way. 
+%Bill may smoke a pack a day and so we would say \emph{Bill smokes}, and if Bill goes without a cigarette for an entire family vacation (thus temporarily reducing his effective rate of smoking), we will not be so easily convinced (i.e. \emph{Bill smokes} is probably still true).
+%Cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of rare actions like \emph{Susan writes novels}. Susan may only have written 3 novels in her life, but still this seems like a valid generalization to convey.
 
-We argue that the core meaning of a generic or habitual sentence is simple but underspecified, and that general principles of pragmatic reasoning are responsible for establishing a precise meaning in context. 
-Building on recent probabilistic models of language understanding, we provide a formal model for the evaluation of generic and habitual sentences. 
-This model explains the puzzling flexibility in truth conditions in terms of diverse prior beliefs about properties or events.
+We argue that the core meaning of a generic sentence is simple but underspecified, and that general principles of pragmatic reasoning are responsible for establishing a precise meaning in context. 
+Building on recent probabilistic models of language understanding, we provide a formal model for the evaluation of generic sentences. 
+This model explains the puzzling flexibility in truth conditions in terms of diverse prior beliefs about properties.
 In Experiment 1, we elicit these priors experimentally and show that the resulting model predictions explain almost all of the variance in human judgments for both common generic sentences.
-Experiment 2 provides a conceptual replication with events and habitual sentences.
-In Experiment 3, we show that habituals are sensitive to top-down moderators of expected frequency: It is the expectation of future tendency that matters for habitual language.
+Experiment 2 provides a conceptual replication using habitual sentences (e.g. \emph{Bill smokes}) that describe generalizations about events (e.g. \emph{smoking a cigarette}; \citeNP{Carlson1977, Carlson2005, Cohen1999}).
+%In Experiment 3, we show that habituals are sensitive to top-down moderators of expected frequency: It is the expectation of future tendency that matters for habitual language.
 
-\subsubsection*{Formal model}
+\subsubsection*{A formal model of generic meaning}
 
 Generics express a relation between a kind (e.g. \textsc{robins}) and a property (e.g. \textsc{lays eggs}). 
 For a given kind $K$ (e.g.~\textsc{robins}) and property $F$ (e.g.~\textsc{lays eggs}), we refer to the probability that an object of kind $K$ has property $F$, that is $P(F\mid K)$, as the \emph{prevalence} of $F$ within $K$.\footnote{Because we aim to explain the psycholinguistics of generics, we are generally interested in the subjective probability, not the actual frequency in the world.}
@@ -93,9 +97,9 @@ Extending this, it seems the simplest meaning for generic statements would be a 
 However, no fixed value of the threshold, $\tau$, would allow for the extreme flexibility generics exhibit (e.g. \emph{Robins lay eggs} vs. \emph{Robins are female}; \emph{Mosquitos carry malaria}).
 Building on \citeA{Lassiter2013,Lassiter2015}, we posit that this threshold is not a fixed property of the language, but is established by pragmatic inference.
 
-Using the Rational Speech-Acts framework\cite{Frank2012,Goodman2013}, 
+Using the Rational Speech-Acts framework \cite{Frank2012,Goodman2013}, 
 we model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this listener is considering the propensity of a certain behavior of an individual.
-The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context ($\tau \sim \text{Uniform}$ over possible frequencies), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
+The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context ($\tau \sim \text{Uniform}$(0,1)), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
 Writing the prevalence as $x$, this leads to a set of equations:
 \begin{eqnarray}
 P_{S_{2}}(u \mid x) & \propto &  \int_{\tau} P_{L_{1}}(x , \tau \mid u) \label{eq:S2}\\
@@ -111,14 +115,14 @@ A fully implemented version of the model can be found at \url{http://forestdb.or
 \subsubsection*{Experiment 1a: Prior elicitation for properties}
 
 The prior $P(x)$ (in Eqs.~\ref{eq:L1}, \ref{eq:L0}) describes the belief distribution on the prevalence of a given property (e.g. \textsc{lays eggs}) across relevant categories. 
-The shape of this distribution affects model predictions, but may vary significantly among different properties.
-We measured it empirically for a set of properties (e.g. \textsc{lays eggs, carries malaria}; 21 in total) used in our target sentences. 
+%The shape of this distribution affects model predictions, but may vary significantly among different properties.
+%We measured it empirically for a set of properties (e.g. \textsc{lays eggs, carries malaria}; 21 in total) used in our target sentences. 
  
 \subsubsection*{Method}
 
 We recruited 60 participants over Amazon's crowd-sourcing platform Mechanical Turk (MTurk).  
-We chose this number of participants based on intuition with similar experiments and model comparison; 
-since this is a quantitative experiment with no planned comparisons, power analysis in not appropriate.
+%We chose this number of participants based on intuition with similar experiments and model comparison; 
+%since this is a quantitative experiment with no planned comparisons, power analysis in not appropriate.
 Participants were restricted to those with US IP addresses and with at least a 95\% MTurk work approval rating (the same criteria apply to all experiments reported). 
 
 On each trial of the experiment, participants filled out a table where each row was an animal category and each column was a property. 
@@ -148,22 +152,22 @@ We tested the degree to which the $S_2$ model, Eq.~\ref{eq:S2}, coupled with the
 
 We recruited 100 participants over MTurk. 
 Participants were shown thirty generic sentences in bare plural form one after another. 
-They were asked to press one of two buttons to signify whether they agreed or disagreed with the sentence (see {\it SI Table 2} for complete list and {\it SI Section B} for more details). 
-The thirty sentences were presented in a random order between participants and cover a range of conceptual distinctions and acceptability levels, as described above.
+They were asked to press one of two buttons to signify whether they agreed or disagreed with the sentence. 
+The thirty sentences were presented in a random order between participants and cover a range of conceptual distinctions  \cite{Prasada2013}: characteristic (e.g. \emph{Ducks have wings.}), minority (e.g. \emph{Robins lay eggs.}), striking (e.g. \emph{Mosquitos carry malaria.}), false generalization (e.g. \emph{Robins are female.}), and false (e.g. \emph{Lions lay eggs.}).
 
 \subsubsection*{Analysis and results}
  
-From the prevalence-prior data (Expt.~1a) we can estimate participants' beliefs about the prevalence of a property \emph{for a given kind} (e.g.~the percentage of \textsc{robins} that \textsc{lay eggs}; see green intervals on Figure \ref{fig:priors1a} and \emph{SI Table 2}).
+From the prevalence-prior data (Expt.~1a) we can estimate participants' beliefs about the prevalence of a property \emph{for a given kind} (e.g.~the percentage of \textsc{robins} that \textsc{lay eggs}; see green intervals on Figure \ref{fig:priors1a}).
 As a simple baseline hypothesis, we first explore whether these prevalence values themselves predict generic endorsement (e.g.~does the fraction of \textsc{robins} that \textsc{lay eggs} predict the felicity of \emph{Robins lay eggs}?).
-A little over half of the variance in truth judgments data is explained by the prevalence of the property within the kind alone ($r^2 = 0.599$; MSE=0.065; \emph{SI Figure 2}). 
+A little over half of the variance in truth judgments data is explained by the prevalence of the property within the kind alone ($r^2 = 0.599$; MSE=0.065). 
 This is not surprising given our inclusion of high-prevalence true generics (e.g. \emph{Leopards have spots.}) and low-prevalence false generics (e.g. \emph{Leopards have wings.}). 
 However, large deviations remain from an account based purely on target-category prevalence: Generics in which the target category has intermediate prevalence (prevalence quartiles 2 and 3: $ 20\% < prevalence < 64\%$), are not at all explained by prevalence within those categories ($r_{Q2,3}^2 = 0.029$; MSE = 0.110).
 
 The speaker model, $S_2$ in Eq.~\ref{eq:S2}, predicts an endorsement probability for a generic sentence, given prior beliefs for the property and a target prevalence. 
 We use the measured within--kind prevalence as the target prevalence that speaker $S_2$ is trying to communicate, and use the
-empirically inferred priors from Expt.~1a. The model has one remaining parameter: the speaker optimality parameter $\lambda$ (in Eq.~\ref{eq:S1}).
-We integrate out the likely values of this parameter using Bayesian data analytic techniques \cite{LW2014} (see SI Section B for full details).
-As we see in Figure \ref{fig:modeldataBars}, the pragmatic speaker model $S_2$, using empirically measured priors, does a very good job of explaining human truth judgments ($r^2=0.981$; MSE=0.003; Figure \ref{fig:modeldataBars}, {\it SI Figure 4}). 
+empirically inferred priors from Expt.~1a. The model has one remaining parameter: the speaker optimality parameter $\alpha$ (in Eq.~\ref{eq:S1}).
+We integrate out the likely values of this parameter using Bayesian data analytic techniques \cite{LW2014}.
+As we see in Figure \ref{fig:modeldataBars}, the pragmatic speaker model $S_2$, using empirically measured priors, does a very good job of explaining human truth judgments ($r^2=0.981$; MSE=0.003; Figure \ref{fig:modeldataBars}). 
 Generics that received definitive agreement or disagreement are predicted to be judged as such by the model (corners of Figure \ref{fig:modeldataBars}), including items for which target-category prevalence is not a good indicator of the acceptability (for prevalence quartiles 2 and 3, $r_{Q2,3}^2=0.955$; MSE=0.005; Figure \ref{fig:modeldataBars}, intermediate shades).
 The probabilistic pragmatics model explains the puzzling flexibility of generic truth-conditions as the result of communicative pressures (\emph{be truthful}, \emph{be informative}) operating over diverse prior beliefs about the properties. 
 
