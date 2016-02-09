@@ -1,0 +1,98 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{setspace}
+%\doublespacing
+\linespread{1.25}
+%\linespread{2}
+\usepackage{geometry}
+
+\geometry{letterpaper, margin=1in}
+%\usepackage{times}
+\usepackage{pslatex}
+\usepackage{apacite}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{wrapfig}
+\usepackage{lipsum}
+
+\graphicspath{{figures/}}
+
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+
+ \newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
+
+\definecolor{Red}{RGB}{255,0,0}
+\newcommand{\red}[1]{\textcolor{Red}{#1}}  
+\definecolor{Green}{RGB}{10,200,100}
+\definecolor{Blue}{RGB}{10,100,200}
+\newcommand{\ndg}[1]{\textcolor{Green}{[ndg: #1]}}  
+\newcommand{\mht}[1]{\textcolor{Blue}{[mht: #1]}}  
+
+\usepackage{titlesec}
+
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
+\title{Talking in generalizations}
+\author{{\large \bf Michael Henry Tessler} and {\large \bf Noah D. Goodman} \\
+\{mtessler, ngoodman\} @stanford.edu\\
+  Department of Psychology, Stanford University}
+
+\begin{document}
+
+\maketitle
+
+Learning and development require solving problems of induction.
+These are hard problems though they can be solved by adults and young children with observational learning \cite{Markman1989} 
+and in pedagogically enriched scenarios \emph{(CITE SOME PEDAGOGY}).
+After about the age of the two, a new tool for communication and learning is available: language.
+
+Generalizations are central to human understanding and thus, it is not surprising that language provides a simple and ubiquitous way to communicate these generalizations. 
+Generic language (e.g.~\emph{Swans are white.}) and habitual language \emph{Bill smokes.}) convey generalizations about categories and events, respectively, and have similar semantic features that they are often described in the same breath \cite{Carlson1977, Carlson2005, Cohen1999}.
+The primary semantic property that makes these sentences so similar to one another and at the same time, so different from the relatively well-understood quantifier sentences (e.g.~\emph{All swans are white.}) is in determine what makes generic or habitual sentences true or false (i.e. the truth conditions).
+At first glance, generics seem like universally quantified statements as in \emph{All swans are white}, and yet generics---unlike universals---admit exceptions (e.g. there are black swans). 
+Interpreting the generic as meaning ``most'' (i.e. \emph{Most swans are white}) captures many cases but fails to account for others: \emph{Robins lay eggs} seems true even though only adult, female robins do; only a tiny fraction of Mosquitos carry the virus Zika yet \emph{Mosquitos carry Zika} also sounds true. 
+In fact, the very notion that the felicity of the generic can be tied to how many instances have the property (as the felicity of quantifier statements are) violates intuitions: \emph{Robins lay eggs} even though only the females do but \emph{Robins are female} (even though only the females are) is not a reasonable utterance.
+
+Habitual sentences behave in an analogous way. 
+Bill may smoke a pack a day and so we would say \emph{Bill smokes}, and if Bill goes without a cigarette for an entire family vacation (thus temporarily reducing his effective rate of smoking), we will not be so easily convinced (i.e. \emph{Bill smokes} is probably still true).
+Cases like \emph{Mosquitos carry malaria} (wherein only a tiny percentage have the property) seem to parallel habitual sentences of rare actions like \emph{Susan writes novels}. Susan may only have written 3 novels in her life, but still this seems like a valid generalization to convey.
+
+
+%Yet the meaning of generic language is philosophically puzzling and has resisted precise formalization.
+%We explore the idea that the core meaning of a generic sentence is simple but underspecified, 
+%and that general principles of pragmatic reasoning are responsible for establishing the precise meaning in context.
+%Building on recent probabilistic models of language understanding, we provide a formal model for the evaluation and comprehension of generic sentences. 
+%This model explains the puzzling flexibility in usage of generics in terms of diverse prior beliefs about properties.
+%We elicit these priors experimentally and show that the resulting model predictions explain almost all of the variance in human judgments for both common and novel generics.
+%This theory provides the mathematical bridge between the words we use and the concepts they describe.
+
+
+\bibliographystyle{apacite}
+
+\setlength{\bibleftmargin}{.125in}
+\setlength{\bibindent}{-\bibleftmargin}
+
+\bibliography{generics-spp}
+
+\end{document}
+
