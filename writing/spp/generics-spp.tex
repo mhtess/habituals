@@ -61,20 +61,20 @@
 
 \maketitle
 
-Learning and development require t solving problems of induction.
+Learning and development require solving problems of induction.
 These are hard problems though they can be solved by adults and young children by learning from observations \cite{Markman1989} 
 and in pedagogically enriched scenarios \emph{(CITE SOME PEDAGOGY?}).
 %At about age of the two, a new tool for communication and learning becomes available: language.
 Generalizations may also be conveyed with language.
-Generic language (e.g.~\emph{Swans are white.}) provides a simple and ubiquitous way to communicate generalizations \cite{Carlson1977, Leslie2008}, and generic language is ubquitous in everyday conversation and in child-directed speech \cite{Gelman2008}. 
-At around the age of two, children can understand that generics refer to categories and support generalization \cite{Cimpian2008}.
+Generic language (e.g.~\emph{Swans are white.}) provides a simple and ubiquitous way to communicate generalizations \cite{Carlson1977, Leslie2008}. 
+Generic language is ubiquitous in everyday conversation and in child-directed speech \cite{Gelman2008} and children as young as two or three understand that generics refer to categories and support generalization \cite{Cimpian2008}.
 %Generalizations are central to human understanding and thus, it is not surprising that language provides . 
-%Generics are ubiquitous in everyday conversation as well as in child-directed speech and children as young as two or three 
-Learning through generic statements is thought to be essential to the growth of conceptual knowledge \cite{Gelman2004} and how kinds are represented in the mind \cite{Leslie2008}, and yet a formal account of what generic sentences mean remains elusive. 
+%Generics are ubiquitous in everyday conversation as well as in child-directed speech 
+Learning through generic statements is thought to be essential to the growth of conceptual knowledge \cite{Gelman2004} and how kinds are represented in the mind \cite{Leslie2008}, and yet a formal account of the meaning of generic sentences remains elusive. 
 
-The primary hurdle in formalizing generic language ) is in determine what makes a generic sentence true or false (i.e. the truth conditions).
-Generics look a lot like quantifier statements (e.g. \emph{some, all, most}).
-At first blush, they look like universally quantified statements as in \emph{All swans are white}, and yet generics---unlike universals---admit exceptions (e.g. there are black swans). 
+The primary hurdle in formalizing generic language is in determine what makes a generic sentence true or false (i.e. the truth conditions).
+%Generics look a lot like quantifier statements (e.g. \emph{some, all, most}).
+At first blush, generics look a lot like universally quantified statements as in \emph{All swans are white}, and yet generics---unlike universals---admit exceptions (e.g. there are black swans). 
 Interpreting the generic as meaning ``most'' (i.e. \emph{Most swans are white}) captures many cases but fails to account for others: \emph{Robins lay eggs} seems true even though only adult, female robins do; only a tiny fraction of Mosquitos carry the virus Zika yet \emph{Mosquitos carry Zika} also sounds true. 
 In fact, the very notion that the felicity of the generic can be tied to how many instances have the property (in the way that quantifier statements are) violates intuitions: \emph{Robins lay eggs} even though only the females do but \emph{Robins are female} (even though only the females are) is not a reasonable utterance.
 
@@ -85,9 +85,11 @@ In fact, the very notion that the felicity of the generic can be tied to how man
 We argue that the core meaning of a generic sentence is simple but underspecified, and that general principles of pragmatic reasoning are responsible for establishing a precise meaning in context. 
 Building on recent probabilistic models of language understanding, we provide a formal model for the evaluation of generic sentences. 
 This model explains the puzzling flexibility in truth conditions in terms of diverse prior beliefs about properties.
-In Experiment 1, we elicit these priors experimentally and show that the resulting model predictions explain almost all of the variance in human judgments for both common generic sentences.
-Experiment 2 provides a conceptual replication using habitual sentences (e.g. \emph{Bill smokes}) that describe generalizations about events (e.g. \emph{smoking a cigarette}; \citeNP{Carlson1977, Carlson2005, Cohen1999}), showing that this theory can describe communicating generalizations in broad terms.
-Finally, using habitual language, we show in Experiment 3 that communicating generalizations is sensitive to top-down moderators of expectations: It is the subjective expectation of future behavior (not just what has been observed objectively in the past) that matters for communicating generalizations.
+In Experiment 1, we elicit these priors experimentally and show that the resulting model predictions explain almost all of the variance in human truth judgments for familiar  generic sentences.
+Generalizations about categories, however, are just one kind of generalization.
+Habitual sentences describe generalizations about events (e.g. \emph{Bill smokes}, \emph{Susan mows her neighbor's lawn.}; \citeNP{Carlson1977, Carlson2005, Cohen1999}). 
+Experiment 2 provides more support that this theory describes communicating generalizations in general by using an almost identical paradigm to predict the truth judgments for habitual sentences.
+Finally, using habitual language, we show in Experiment 3 that communicating generalizations is sensitive to top-down moderators of expectations: It is the subjective belief of future behavior (not just what has been observed objectively in the past) that matters for communicating generalizations.
 
 \subsubsection*{A formal model of generic meaning}
 
@@ -99,8 +101,8 @@ However, no fixed value of the threshold, $\tau$, would allow for the extreme fl
 Building on \citeA{Lassiter2013,Lassiter2015}, we posit that this threshold is not a fixed property of the language, but is established by pragmatic inference.
 
 Using the Rational Speech-Acts framework \cite{Frank2012,Goodman2013}, 
-we model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this listener is considering the propensity of a certain behavior of an individual.
-The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context ($\tau \sim \text{Uniform}$(0,1)), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
+we model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this listener is considering the prevalence of a certain property within the category.
+The listener $L_1$ has uncertainty about the appropriate threshold for the generic in this context ($\tau \sim \text{Uniform}$(0,1)), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
 Writing the prevalence as $x$, this leads to a set of equations:
 %
 \begin{eqnarray}
@@ -115,8 +117,7 @@ Equation \ref{eq:S2} can then be interpreted as a model of felicity or truth jud
 The speaker will choose to produce the habitual when the true prevalence $x$ is more likely under $L_1$'s posterior given the generic than under her prior (implied by $S_2$ ``staying silent''). 
 A fully implemented version of the model can be found at \url{http://forestdb.org/models/generics.html}.
 
-This model can be straightforwardly adopted to describe generalizations about events (e.g.~\emph{Bill smokes}). 
-Here, we would use the underlying scale as the rate with which a person does an action, or that person's \emph{propensity} of doing some action (e.g. Bill smokes cigarettes 4 times a day.) rather than the prevalence of the property. 
+This model can be straightforwardly adopted to describe generalizations about events (e.g.~\emph{Bill smokes}), by specifying the underlying scale to be the rate with which a person does an action, or that person's \emph{propensity} of doing the action (e.g. Bill smokes cigarettes 4 times a day.) rather than the prevalence of the property. 
 The rest of the model is the same.
 
 
@@ -125,7 +126,7 @@ The rest of the model is the same.
  
 
 
-\subsubsection*{Summary of experiments}
+\subsubsection*{Summary of experiments and results}
 
 
 In three experiments, we test the felicity of various generic and habitual sentences, and compare the speaker model in Eq.~\ref{eq:S2} to the human truth judgments. 
