@@ -130,16 +130,21 @@ The rest of the model is the same.
 
 
 In three experiments, we test the felicity of various generic and habitual sentences, and compare the speaker model in Eq.~\ref{eq:S2} to the human truth judgments. 
-Experiment 1 uses generic sentences of familiar categories (e.g.~\emph{Birds lay eggs}) with no further information present.
-Experiment 2 uses habitual sentences of novel characters (e.g.~\emph{Bill smokes cigarettes}) and present information about the frequency with which the event has occurred in the past (e.g. Last week, Bill smoked cigarettes 3 times.). 
-For both of the experiments, we measure the prior distribution $P(x)$ over prevalence or propensity, respectively, empirically ($n=60, n=40$).
+Experiment 1 ($n=100$) uses generic sentences of familiar categories (e.g.~\emph{Birds lay eggs}; \emph{Birds are female}) with no further information present.
+Experiment 2 ($n=150$) uses habitual sentences of novel characters (e.g.~\emph{Bill smokes cigarettes}) and presents information about the frequency with which the event has occurred in the past (e.g. Last week, Bill smoked cigarettes 3 times.). 
+For both of the experiments, we measure empirically the prior distribution $P(x)$ over prevalence ($n=60$) or propensity ($n=40$), respectively.
 %In both Experiment 1 and Experiment 2, we use the empirically elicited priors and the speaker $S_2$ model to predict the truth judgments of generic and habitual sentences, respectively. 
 In both cases, the speaker $S_2$ model explains almost all of the variance in human endorsements of generic and habitual sentences ($r^2(30) = 0.98$ and $r^2(93) = 0.94$, respectively) while using just the prevalence \emph{within} the particular category or the just propensity for the particular person explains relatively little of the data ($r^2(30) = 0.59$ and $r^2(93) = 0.33$).
 
 In Experiment 3, we present participants with the same stimuli as in Expt.~2 and include extra information that either enables (e.g. Yesterday, Bill bought a pack of cigarettes.) or disables (e.g. Yesterday, Bill decided to quit smoking) the event from occurring. 
-We measure participants' predictions about the future frequency with which the target person will do the action (e.g. ``In the next week, how many times will be smoke cigarettes?'') and other participants rated the felicity of the habitual sentence. 
-We find the predicted frequency perfectly tracks past frequency when no additional information is present (and so the model's predictions would still be the same for Expt.~2 if the underlying scale was past or future frequency).
-The speaker model $S_2$ who attempts to communicate the past frequency explains almost none of the data $r^2(63)=0.02$ while the model that wants to communicate the future frequency explains much of the data $r^2(63)=0.9$.
+We measure participants' predictions ($n=120$) about the future frequency with which the target person will do the action (e.g. ``In the next week, how many times will be smoke cigarettes?'') and a set of different participants ($n=150$) rated the felicity of the habitual sentence. 
+The speaker model $S_2$ who attempts to communicate the past frequency explains almost none of the data $r^2(63)=0.02$ while the model that wants to communicate the future frequency explains much of the data $r^2(63)=0.91$.
+We also find that when no additional information is present, predicted frequency perfectly tracks past frequency (and so the two models have the same predictions for the data from Expt.~2).
+
+In sum, our model that decides if a generic sentence is a pragmatically useful way to describe a category (or if a habitual is a useful way to describe an individual's behavior) by taking into account the listener's prior beliefs about the property (or event)---how common it is and the likely prevalence (measured empirically)---explains the puzzling flexibility of truth conditions for generic and habitual language.
+%We validated this model by eliciting felicity judgments for generic and habitual sentences covering diverse properties and activities (Expt.~1b, 2b).
+%To our knowledge, the experiments presented here are first empirical investigations into the truth conditions of habitual sentences and the first test of a formal model of habitual language.
+
 %However, the enabling and disabling conditions 
 
 
@@ -164,12 +169,7 @@ The speaker model $S_2$ who attempts to communicate the past frequency explains 
 % 
 %\subsubsection*{Data analysis and results}
  
-\subsubsection*{Discussion}
-
-We presented a formal model for the evaluation of statements that communicate generalizations.
-The model decides if a generic sentence is a pragmatically useful way to describe a category taking into account the listener's prior beliefs about the property---how common it is and the likely prevalence (measured in Expt.~1a, 2a).
-We validated this model by eliciting felicity judgments for generic and habitual sentences covering diverse properties and activities (Expt.~1b, 2b).
-To our knowledge, the experiments presented here are first empirical investigations into the truth conditions of habitual sentences and the first test of a formal model of habitual language.
+%\subsubsection*{Discussion}
 
 
 
