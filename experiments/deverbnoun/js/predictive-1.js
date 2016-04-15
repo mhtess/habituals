@@ -120,9 +120,9 @@ function make_slides(f) {
         "extra_sentence": this.extraSentence,
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
-        //Response the time frequency and interval is the time comparison
-        "response" :  $("#time_frequency").val(),
-        "interval" : $("#time_comparison").val()
+        //Response is the time frequency and interval is the time comparison
+        "q_response" :  $("#time_frequency").val(),
+        "q_interval" : $("#time_comparison").val(),
         "rt":this.rt
       });
     }
