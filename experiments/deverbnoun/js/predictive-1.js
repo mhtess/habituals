@@ -60,9 +60,10 @@ function make_slides(f) {
       this.stim =  stim; 
       this.trialNum = exp.stimscopy.indexOf(stim0);
 
-      $("#text_response").val('')
-
-
+      //$("#text_response").val('')
+      //Instead of text_response now using time_frequency and time_comparison
+      $("#time_frequency").val('')
+      $("#time_comparison").val('')
       $(".err").hide();
 
 
@@ -96,7 +97,7 @@ function make_slides(f) {
     },
 
     button : function() {
-      responses = [$("#text_response").val()]
+      responses = [$("#time_frequency").val()]
       if (_.contains(responses, ""))  {
         $(".err").show();
       } else {
@@ -119,7 +120,9 @@ function make_slides(f) {
         "extra_sentence": this.extraSentence,
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
-        "response" :  $("#text_response").val(),
+        //Response the time frequency and interval is the time comparison
+        "response" :  $("#time_frequency").val(),
+        "interval" : $("#time_comparison").val()
         "rt":this.rt
       });
     }
