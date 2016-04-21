@@ -52,13 +52,13 @@ function make_slides(f) {
     
     present: exp.stims,
 
-    present_handle : function(stim0) {
-
-      var condition = stim0[0]
-      var stim = stim0[1]
+    present_handle : function(stim) {
+      //condition 
+      var condition = exp.condition
+      //var stim = stim0[1]
       this.startTime = Date.now()
       this.stim =  stim; 
-      this.trialNum = exp.stimscopy.indexOf(stim0);
+      this.trialNum = exp.stimscopy.indexOf(stim);
 
       //$("#text_response").val('')
       //Instead of text_response now using time_frequency and time_comparison
@@ -67,32 +67,37 @@ function make_slides(f) {
       $(".err").hide();
 
 
-      this.condition = condition
-
-      var freq = stim.prevent_test_freq[0]
+      //this.condition = condition
+      //Changed to frequency
+      var freq = stim.frequency[0]
 
       this.stim.freq = "3"
       this.stim.interval = freq
+      //Begin presented questions
 
-      $(".frequency").html("In the <strong>past " + freq + "</strong>, " +
-         stim.character.name  + " " + stim.past + " <em>3 times</em>.");
 
-      var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
-        stim.character.gender == "male" ? "his " :
-                                          "her " :
-                                          ""
-       var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
-        stim.character.gender == "male" ? "he " : "she "  : ""
+      var tS = stim.character.name + " is a " + stim[condition] + "."
+      var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
+      //how often does "character" verb? <-- pass this into question.
+      $(".targetSentence").html(Q);
+      $(".question").html(tS);
+      // var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
+      //   stim.character.gender == "male" ? "his " :
+      //                                     "her " :
+      //                                     ""
+      //  var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
+      //   stim.character.gender == "male" ? "he " : "she "  : ""
 
-      var extraSentence = condition == "baseline" ? "" :
-        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
-        possessive + pronoun +  stim[condition]["obj"]+  "."
+      // var extraSentence = condition == "baseline" ? "" :
+      //   "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+      //   possessive + pronoun +  stim[condition]["obj"]+  "."
 
-      $(".extraSentence").html(extraSentence)
+      // $(".extraSentence").html(extraSentence)
 
-      this.extraSentence = extraSentence
+      // this.extraSentence = extraSentence
 
-      $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
+      // $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
+      
 
     },
 
@@ -110,7 +115,7 @@ function make_slides(f) {
     log_responses : function() {
 
       exp.data_trials.push({
-        "trial_type" : "predictive",
+        "trial_type" : "deverbnoun",
         "trial_num": this.trialNum+1,
         "item": this.stim.habitual,
         "condition": this.condition,
@@ -185,9 +190,11 @@ function init() {
 
   exp.womenFirst = _.sample([true, false])
   // debugger;
-
+  //use noun and verb as conditions
+  exp.condition = _.sample(["noun", "habitual"])
   //var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
-  var usuableStims = _.sample(["noun", "verb"])
+  //get the stims that have a noun defined
+  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "noun")})
   var bothGenders = [];
   //filters the stimuli to return the length of an array of stimuli that contain both genders
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
@@ -199,6 +206,7 @@ function init() {
   var someWomen = shuffledWomen.splice(0,nBothGender)
   //Shuffles the list of both males and females
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
+
   var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
     return !(_.contains(bothGenders,s.habitual)) ? 
@@ -207,18 +215,19 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
-  //var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
+  // var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
 
-  /*var allPossibleStims = _.flatten(_.map(stimsWNames,
-    function(s){
-      return _.map(["preventative","enabling", "baseline"], function(c){
-        return [c, s]
-      })
-    }), true)
-*/
-  //exp.stims = _.zip(conditions, stimsWNames)
-  //exp.stimscopy = exp.stims.slice(0);
-  //exp.n_trials = exp.stims.length
+  // var allPossibleStims = _.flatten(_.map(stimsWNames,
+  //   function(s){
+  //     return _.map(["preventative","enabling", "baseline"], function(c){
+  //       return [c, s]
+  //     })
+  //   }), true)
+
+
+  exp.stims = stimsWNames
+  exp.stimscopy = exp.stims.slice(0);
+  exp.n_trials = exp.stims.length
 
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
