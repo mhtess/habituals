@@ -76,14 +76,14 @@ function make_slides(f) {
       //Begin presented questions
       var tS;
       if (condition === "noun"){
-        tS = stim.character.name + " is a " + stim[condition] + "."
+        this.tS = stim.character.name + " is a " + stim[condition] + "."
       }else{
-        tS =  stim.character.name + " " + stim[condition] + "."
+        this.tS =  stim.character.name + " " + stim[condition] + "."
       }
       var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
       //how often does "character" verb? <-- pass this into question.
       $(".targetSentence").html(Q);
-      $(".question").html(tS);
+      $(".question").html(this.tS);
       // var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
       //   stim.character.gender == "male" ? "his " :
       //                                     "her " :
@@ -126,7 +126,8 @@ function make_slides(f) {
         "trial_type" : "deverbnoun",
         "trial_num": this.trialNum+1,
         "item": this.stim.habitual,
-        "condition": this.condition,
+        "condition": exp.condition,
+        "sentence":this.tS,
         //"past_freq": this.stim.freq,
         //"past_interval":this.stim.interval,
         "category": this.stim.category,
@@ -137,9 +138,9 @@ function make_slides(f) {
         "q_response" :  $("#time_frequency").val(),
         "q_interval" : $("#time_comparison").val(),
         //translates into something like "number of times/day"
-        "q_times_per_freq" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
+        "q_times_per_day" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
         //take the log of "number of times/day"
-        "q_log_times_per_freq" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
+        "q_log_times_per_day" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
         "rt":this.rt
       });
     }
