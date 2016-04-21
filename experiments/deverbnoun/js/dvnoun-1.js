@@ -113,21 +113,30 @@ function make_slides(f) {
     },
 
     log_responses : function() {
-
+      var timeDictionary = {
+        "week":7,
+        "month":30,
+        "year":365,
+        "5 years": 1825
+      }
       exp.data_trials.push({
         "trial_type" : "deverbnoun",
         "trial_num": this.trialNum+1,
         "item": this.stim.habitual,
         "condition": this.condition,
-        "past_freq": this.stim.freq,
-        "past_interval":this.stim.interval,
+        //"past_freq": this.stim.freq,
+        //"past_interval":this.stim.interval,
         "category": this.stim.category,
-        "extra_sentence": this.extraSentence,
+        //"extra_sentence": this.extraSentence,
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
         //Response is the time frequency and interval is the time comparison
         "q_response" :  $("#time_frequency").val(),
         "q_interval" : $("#time_comparison").val(),
+        //translates into something like "number of times/day"
+        "q_times_per_freq" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
+        //take the log of "number of times/day"
+        "q_log_times_per_freq" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
         "rt":this.rt
       });
     }
