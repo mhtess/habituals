@@ -1,11 +1,11 @@
 // same as /backfiring-words/experiments/priors/stims-2.js
-
+//Added deverbal noun field to each verb
 var stimuli = [
 {
 	habitual: "hikes",
-	past: "went on a hike",
 	category: "hobby",
 	verb: "go on a hike",
+	noun: "hiker",
 	frequency: ["2 years","year","2 months","week"],
 	preventative: {
 		verb: "was in a motorcycle accident and",
@@ -30,6 +30,7 @@ var stimuli = [
 	past: "went for a run",
 	category: "hobby",
 	verb: "go for a run",
+	noun: "runner",
 	frequency: ["2 years","year","2 months","week"],
 	preventative: {
 		verb: "was in a car accident and",
@@ -53,6 +54,7 @@ var stimuli = [
 	past: "played the banjo",
 	category: "hobby",
 	verb:"play the banjo",
+	noun: "banjo player",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
 		verb: "developed crippling arthritis in",
@@ -78,6 +80,7 @@ var stimuli = [
 	past: "played tennis",
 	category: "hobby",
 	verb:"play tennis",
+	noun:"tennis player",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
 		verb: "developed crippling arthritis in both elbows and can only move",
@@ -101,6 +104,7 @@ var stimuli = [
 	past: "climbed a mountain",
 	category: "hobby",
 	verb: "climb mountains",
+	noun: "mountain climber",
 	frequency: ["5 years","2 years","year"],
 	preventative: {
 		verb: "turned 80 and gave up all strenuous physical exercise because",
@@ -197,6 +201,7 @@ var stimuli = [
 	habitual: "writes novels",
 	past: "wrote a novel",
 	verb: "write a novel",
+	noun: "novelist",
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
@@ -220,6 +225,7 @@ var stimuli = [
 	habitual: "writes poems",
 	verb:"write a poem",
 	past: "wrote a poem",
+	noun: "poet",
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
@@ -269,6 +275,7 @@ var stimuli = [
 	habitual: "steals cars",
 	past: "stole a car",
 	verb: "steal a car",
+	noun: "car thief",
 	category: "employment",
 	frequency: ["5 years", "year", "month"],
 	preventative:{
@@ -290,6 +297,7 @@ var stimuli = [
 	habitual: "steals chewing gum",
 	past: "stole chewing gum",
 	verb: "steal chewing gum",
+	noun: "chewing gum stealer",
 	category: "employment",
 	frequency: ["5 years", "year", "month"],
 	preventative:{
@@ -311,6 +319,7 @@ var stimuli = [
 	habitual: "volunteers for soup kitchens",
 	past: "volunteered for a soup kitchen",
 	verb: "volunteer for soup kitchens",
+	noun: "soup kitchen volunteer",
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
@@ -333,6 +342,7 @@ var stimuli = [
 	habitual: "volunteers for political campaigns",
 	past: "volunteered for a political campaign",
 	verb: "volunteer for a political campaign",
+	noun: "political campaign volunteer",
 	category: "employment",
 	frequency: ["5 years", "year"],
 	preventative:{
@@ -354,6 +364,7 @@ var stimuli = [
 	habitual: "goes to the movies",
 	verb: "go to the movies",
 	past: "went to the movies",
+	noun: "movie-goer", 
 	category: "entertainment",
 	frequency: ["2 years","year","month"],
 	predict_test_freq: "month"
@@ -363,6 +374,7 @@ var stimuli = [
 	habitual: "goes to the ballet",
 	verb: "go to the ballet",
 	past: "went to the ballet",
+	noun: "ballet watcher",
 	category: "entertainment",
 	frequency: ["2 years","year","month"],
 	predict_test_freq: "year"
@@ -371,6 +383,7 @@ var stimuli = [
 	habitual: "watches professional football",
 	verb: "watch professional football",
 	past: "watched professional football",
+	noun: "professional football watcher",
 	category: "entertainment",
 	frequency: ["2 years","year","month"],
 	preventative: {
@@ -394,6 +407,7 @@ var stimuli = [
 	habitual: "watches space launches",
 	past: "watched a space launch",
 	verb: "watch a space launch",
+	noun: "space launch watcher",
 	category: "entertainment",
 	frequency: ["2 years", "year","month"],
 	preventative: {
@@ -442,6 +456,7 @@ var stimuli = [
 	habitual: "listens to live music",
 	past: "listened to live music",
 	verb: "listen to live music",
+	noun: "live music listener",
 	category: "entertainment",
 	frequency: ["year","month", "week"],
 	predict_test_freq: "month"
@@ -450,6 +465,7 @@ var stimuli = [
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
 	verb: "eat peanut butter",
+	noun: "peanut butter eater", 
 	category: "food",
 	frequency: ["5 years", "year","month"],
 	preventative:{
@@ -471,6 +487,7 @@ var stimuli = [
 	habitual: "eats caviar",
 	past: "ate caviar",
 	verb: "eat caviar",
+	noun: "caviar eater",
 	category: "food",
 	frequency: ["5 years", "year","month"],
 	preventative:{
@@ -491,6 +508,7 @@ var stimuli = [
 {
 	habitual: "eats cereal",
 	past: "ate cereal",
+	noun: "cereal eater",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	predict_test_freq: "week"
@@ -499,6 +517,7 @@ var stimuli = [
 	habitual: "smokes cigarettes",
 	past: "smoked cigarettes",
 	verb: "smoke cigarettes",
+	noun: "cigarette smoker",
 	category: "food",
 	frequency: ["year","month", "week"],
 	preventative:{
@@ -520,6 +539,7 @@ var stimuli = [
 	habitual: "smokes marijuana",
 	past: "smoked marijuana",
 	verb: "smoke marijuana",
+	noun: "marijuana smoker",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
@@ -543,6 +563,8 @@ var stimuli = [
 	habitual: "does cocaine",
 	past: "did cocaine",
 	verb: "do cocaine",
+	//Not sure if this is a good deverbal noun
+	noun: "cocaine doer",
 	category: "food",
 	frequency: ["5 years", "year","month", "week"],
 	preventative:{
@@ -565,6 +587,7 @@ var stimuli = [
 	habitual: "drinks beer",
 	past: "drank a beer",
 	verb: "drink beer",
+	noun: "beer drinker",
 	category: "food",
 	frequency: ["year","month", "2 weeks","week"],
 	preventative:{
@@ -586,6 +609,7 @@ var stimuli = [
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	verb: "drink coffee",
+	noun: "coffee drinker",
 	category: "food",
 	frequency: ["year","month", "2 weeks","week"],
 	preventative:{

@@ -29,13 +29,14 @@
     <!--CSS-->
     <link href="../../../_shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
     <link href="../../../_shared/css/cocolab-style.css" rel="stylesheet" type="text/css"/>
-    <link href="css/local-style.css" rel="stylesheet" type="text/css"/>
+    <link href="local-style.css" rel="stylesheet" type="text/css"/>
 
     <!-- experiment file -->
     <script src="js/dvnoun-1.js"></script>
     <script src="js/dvnoun-stims-1.js"></script>
-
-    <script src="../../../_shared/js/uniqueturker.js"></script>
+    
+    <!-- I don't have this in my shared folder so I'm commenting it out -->
+    <!--<script src="../../../_shared/js/uniqueturker.js"></script>-->
 
 </head>
 
@@ -107,8 +108,18 @@
     <br>
     <p class="question">{{}}</p>
 
-    <input type="text" id="text_response" maxlength="3" size ="3" tabindex="3"> times </input>
+    <!-- <input type="text" id="text_response" maxlength="3" size ="3" tabindex="3"> times </input> -->
 
+    <!-- changes start here-->
+    <input type="text" id="time_frequency" maxlength="3" size ="3" tabindex="3"> times per </input>
+    <select id="time_comparison">
+      <label><option value="-1"></option></label>
+      <label><option value="week" >week</option></label>
+      <label><option value="month">month</option></label>
+      <label><option value="year">year</option></label>
+      <label><option value="5 years">5 years</option></label>
+    </select>
+    <!--changes end here-->
     <br>
     <br>
     <button onclick="_s.button()">Continue</button>

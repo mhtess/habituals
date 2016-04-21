@@ -60,9 +60,10 @@ function make_slides(f) {
       this.stim =  stim; 
       this.trialNum = exp.stimscopy.indexOf(stim0);
 
-      $("#text_response").val('')
-
-
+      //$("#text_response").val('')
+      //Instead of text_response now using time_frequency and time_comparison
+      $("#time_frequency").val('')
+      $("#time_comparison").val('')
       $(".err").hide();
 
 
@@ -96,7 +97,7 @@ function make_slides(f) {
     },
 
     button : function() {
-      responses = [$("#text_response").val()]
+      responses = [$("#time_frequency").val()]
       if (_.contains(responses, ""))  {
         $(".err").show();
       } else {
@@ -119,7 +120,9 @@ function make_slides(f) {
         "extra_sentence": this.extraSentence,
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
-        "response" :  $("#text_response").val(),
+        //Response is the time frequency and interval is the time comparison
+        "q_response" :  $("#time_frequency").val(),
+        "q_interval" : $("#time_comparison").val(),
         "rt":this.rt
       });
     }
@@ -173,7 +176,8 @@ function init() {
       *  $('.slide').empty();
       *  repeatWorker = true;
       *  alert("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
-      }*/
+      }
+      */
   })();
 
   exp.trials = [];
@@ -182,8 +186,8 @@ function init() {
   exp.womenFirst = _.sample([true, false])
   // debugger;
 
-  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
-
+  //var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
+  var usuableStims = _.sample(["noun", "verb"])
   var bothGenders = [];
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
 
@@ -202,18 +206,18 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
-  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
+  //var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
 
-  var allPossibleStims = _.flatten(_.map(stimsWNames,
+  /*var allPossibleStims = _.flatten(_.map(stimsWNames,
     function(s){
       return _.map(["preventative","enabling", "baseline"], function(c){
         return [c, s]
       })
     }), true)
-
-  exp.stims = _.zip(conditions, stimsWNames)
-  exp.stimscopy = exp.stims.slice(0);
-  exp.n_trials = exp.stims.length
+*/
+  //exp.stims = _.zip(conditions, stimsWNames)
+  //exp.stimscopy = exp.stims.slice(0);
+  //exp.n_trials = exp.stims.length
 
   // exp.condition = _.sample(["CONDITION 1", "condition 2"]); //can randomize between subject conditions here
   exp.system = {
