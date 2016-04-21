@@ -189,14 +189,15 @@ function init() {
   //var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
   var usuableStims = _.sample(["noun", "verb"])
   var bothGenders = [];
+  //filters the stimuli to return the length of an array of stimuli that contain both genders
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
-
+  //shuffles the list of males and grabs a number of men. The number is the same as the number of habituals defined for both genders.
   var shuffledMen = _.shuffle(maleCharacters)
   var someMen = shuffledMen.splice(0,nBothGender)
-
+  //shuffles the list of females and grabs a number of females. The number is the same as the number of habituals defined for both genders. 
   var shuffledWomen = _.shuffle(femaleCharacters)
   var someWomen = shuffledWomen.splice(0,nBothGender)
-
+  //Shuffles the list of both males and females
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
   var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
