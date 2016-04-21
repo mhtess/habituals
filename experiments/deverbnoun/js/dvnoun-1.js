@@ -74,9 +74,12 @@ function make_slides(f) {
       this.stim.freq = "3"
       this.stim.interval = freq
       //Begin presented questions
-
-
-      var tS = stim.character.name + " is a " + stim[condition] + "."
+      var tS;
+      if (condition === "noun"){
+        tS = stim.character.name + " is a " + stim[condition] + "."
+      }else{
+        tS =  stim.character.name + " " + stim[condition] + "."
+      }
       var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
       //how often does "character" verb? <-- pass this into question.
       $(".targetSentence").html(Q);
