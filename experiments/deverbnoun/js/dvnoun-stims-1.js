@@ -6,146 +6,41 @@ var stimuli = [
 	category: "hobby",
 	verb: "go on a hike",
 	noun: "hiker",
-	frequency: ["2 years","year","2 months","week"],
-	preventative: {
-		verb: "was in a motorcycle accident and",
-		obj: "will never walk again"
-		// requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much fun those times were",
-		obj: "and bought a lot of new hiking gear"
-	},
-	filler: {
-		verb: "was in a motorcycle accident and got",
-		obj: "license suspended",
-		requires:"possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "week"
-	// prevent_test_freq: ["2 years", "2 months"]
 },
 {
 	habitual: "runs",
 	past: "went for a run",
 	category: "hobby",
 	verb: "go for a run",
-	noun: "runner",
-	frequency: ["2 years","year","2 months","week"],
-	preventative: {
-		verb: "was in a car accident and",
-		obj: "became permanently paralyzed from the waist down",
-		// requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much fun those times were",
-		obj: "and bought a new pair of running shoes"
-	},
-	filler: {
-		verb: "was in a car accident and",
-		obj: "has to go to driving school",
-		// requires: "possessive"
-	},
-	prevent_test_freq: ["2 months"],
-	predict_test_freq: "week"
+	noun: "runner"
 },
 {
 	habitual: "plays the banjo",
 	past: "played the banjo",
 	category: "hobby",
 	verb:"play the banjo",
-	noun: "banjo player",
-	frequency: ["5 years","2 years","year"],
-	preventative: {
-		verb: "developed crippling arthritis in",
-		obj: "hands and no longer can play musical instruments",
-		requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much fun that was and joined",
-		obj: "friend's band as the banjoist",
-		requires: "possessive"
-	},
-	filler: {
-		verb: "developed a rash on",
-		obj: "leg and has to put ointment on it",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "week"
-	// enabling: "really enjoys playing the banjo"
+	noun: "banjo player"
 },
 {
 	habitual: "plays tennis",
 	past: "played tennis",
 	category: "hobby",
 	verb:"play tennis",
-	noun:"tennis player",
-	frequency: ["5 years","2 years","year"],
-	preventative: {
-		verb: "developed crippling arthritis in both elbows and can only move",
-		obj: "arms extremely slowly",
-		requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much fun that was",
-		obj: "and bought a new tennis racket"
-	},
-	filler: {
-		verb: "developed a soreness on",
-		obj: "neck and has to put ice on it every night",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "week"
+	noun:"tennis player"
 },
 {
 	habitual: "climbs mountains",
 	past: "climbed a mountain",
 	category: "hobby",
 	verb: "climb mountains",
-	noun: "mountain climber",
-	frequency: ["5 years","2 years","year"],
-	preventative: {
-		verb: "turned 80 and gave up all strenuous physical exercise because",
-		obj: "doctor said it would be deadly",
-		requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much fun that was",
-		obj: "bought a lot of new mountain climbing gear"
-	},
-	filler: {
-		verb: "turned 80 and started taking Vitamin B pills because",
-		obj: "doctor said it would be helpful",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "year"
+	noun: "mountain climber"
 },
 {
 	habitual: "wears a suit",
 	past: "wore a suit",
 	verb:"wear a suit",
 	category: "clothing",
-	verb: "wear suits",
-	frequency: ["6 months","month","week"], 
-	preventative:{
-		verb: "got fired from",
-		obj: "job on Wall Street and now works in a pizza parlor",
-		requires: "possessive"
-	},
-	enabling: {
-		verb: "got a high paying job",
-		obj: "on Wall Street"
-	},
-	filler: {
-		verb: "got fired from",
-		obj: "job on Wall Street, and now works for the government in DC",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["month"]
-
+	verb: "wear suits"
 },
 // {
 // 	habitual: "wears a bra",
@@ -157,93 +52,48 @@ var stimuli = [
 	habitual: "wears slacks",
 	past: "wore slacks",
 	verb: "wear slacks",
-	category: "clothing",
-	frequency: ["6 months","month","week"],
-	predict_test_freq: "week"
+	category: "clothing"
 },
 {
 	habitual: "wears socks",
 	past: "wore socks",
 	verb: "wear socks",
-	category: "clothing",
-	frequency: ["6 months","month","week"],
-	predict_test_freq: "week"
+	category: "clothing""
 },
 {
 	habitual: "wears a hat",
 	past: "wore a hat",
 	verb: "wear a hat",
-	category: "clothing",
-	frequency: ["2 months","month","week"],
-	predict_test_freq: "week"
+	category: "clothing"
 },
 // {
 // 	habitual: "wears gloves",
 // 	past: "wore gloves",
-// 	category: "clothing",
-// 	frequency: ["month","week"]
+// 	category: "clothing"
 // },
 // {
 // 	habitual: "wears sweaters",
 // 	past: "wore a sweater",
-// 	category: "clothing",
-// 	frequency: ["month","week"]
-// },
+// 	category: "clothing"
 {
 	habitual: "wears a watch",
 	verb: "wear a watch",
 	past: "wore a watch",
-	category: "clothing",
-	frequency: ["6 months","month","week"],
-	predict_test_freq: "week"
+	category: "clothing"
 },
 {
 	habitual: "writes novels",
 	past: "wrote a novel",
 	verb: "write a novel",
 	noun: "novelist",
-	category: "employment",
-	frequency: ["5 years", "year"],
-	preventative:{
-		verb: "became fed up with the literary world and",
-		obj: "decided to never write anything again"
-	},
-	enabling: {
-		verb: "finished an MFA program and quit",
-		obj: "other job to focus on writing novels",
-		requires: "possessive"
-	},
-	filler: {
-		verb: "decided to never drive again in order to cut reduce",
-		obj: "carbon football",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "year"
+	category: "employment"
 },
 {
 	habitual: "writes poems",
 	verb:"write a poem",
 	past: "wrote a poem",
 	noun: "poet",
-	category: "employment",
-	frequency: ["5 years", "year"],
-	preventative:{
-		verb: "became fed up with the poetry world and",
-		obj: "decided to never write poems again"
-	},
-	enabling: {
-		verb: "finished an MFA program and quit",
-		obj: "other job to focus on writing poems",
-		requires: "possessive"
-	},
-	filler:{
-		verb: "decided to never buy ice cream again in order to",
-		obj: "lose weight",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "month"
+	category: "employment"
 },
 // {
 // 	habitual: "sells things on eBay",
