@@ -100,314 +100,120 @@ var stimuli = [
 // 	past: "sold something on eBay",
 // 	verb: "sell things on eBay",
 // 	category: "employment",
-// 	frequency: ["5 years", "year"],
-// 	verb:"month"
 // },
 // {
 // 	habitual: "sells companies",
 // 	past: "sold a company",
 // 	verb: "sell companies",
-// 	category: "employment",
-// 	frequency: ["5 years", "year"],
-// 	// preventative:{
-// 	// 	verb: "changed careers",
-// 	// 	obj: "to spend more time with family"
-// 	// }
-// 	// ,
-// 	// enabling: {
-// 	// 	verb: "began a new career ",
-// 	// 	obj: "job to focus on writing"
-// 	// 	requires: "possessive"
-// 	// },
-// 	predict_test_freq: 
+// 	category: "employment"
 // },
 {
 	habitual: "steals cars",
 	past: "stole a car",
 	verb: "steal a car",
 	noun: "car thief",
-	category: "employment",
-	frequency: ["5 years", "year", "month"],
-	preventative:{
-		verb: "got caught and went through a radical transformation, vowing",
-		obj: "to never break the law again"
-	},
-	enabling: {
-		verb: "learned a new technique",
-		obj: "for breaking into cars"
-	},
-	filler: {
-		verb: "went through a radical transformation, vowing",
-		obj: "to never run a red light again"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "year"
+	category: "employment"
 },
 {
 	habitual: "steals chewing gum",
 	past: "stole chewing gum",
 	verb: "steal chewing gum",
 	noun: "chewing gum stealer",
-	category: "employment",
-	frequency: ["5 years", "year", "month"],
-	preventative:{
-		verb: "got caught and vowed",
-		obj: "to never break the law again"
-	},
-	enabling: {
-		verb: "learned a new trick",
-		obj: "to distract shopkeepers"
-	},
-	filler: {
-		verb: "vowed",
-		obj: "to never eat meat again"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "month"
+	category: "employment"
 },
 {
 	habitual: "volunteers for soup kitchens",
 	past: "volunteered for a soup kitchen",
 	verb: "volunteer for soup kitchens",
 	noun: "soup kitchen volunteer",
-	category: "employment",
-	frequency: ["5 years", "year"],
-	preventative:{
-		verb: "grew disillusioned with the soup kitchen system",
-		obj: "and wants nothing to do with it anymore"
-	},
-	enabling: {
-		verb: "researched a new soup kitchen in the area",
-		obj: "and is going to volunteer with them"
-	},
-	filler: {
-		verb: "grew disillusioned with the recycling industry in the area and wants to drive",
-		obj: "recycling to the next town",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "month"
+	category: "employment"
 },
 {
 	habitual: "volunteers for political campaigns",
 	past: "volunteered for a political campaign",
 	verb: "volunteer for a political campaign",
 	noun: "political campaign volunteer",
-	category: "employment",
-	frequency: ["5 years", "year"],
-	preventative:{
-		verb: "grew disillusioned with the political system",
-		obj: "and wants nothing to do with it anymore"
-	},
-	enabling: {
-		verb: "researched a new political candidate in the area",
-		obj: "and is going to volunteer with them"
-	},
-	filler: {
-		verb: "grew disillusioned with the documentary film industry and",
-		obj: "does not want to see a documentary again"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "year"
+	category: "employment"
 },
 {
 	habitual: "goes to the movies",
 	verb: "go to the movies",
 	past: "went to the movies",
 	noun: "movie-goer", 
-	category: "entertainment",
-	frequency: ["2 years","year","month"],
-	predict_test_freq: "month"
-	// preventative: "local theatre closed"
+	category: "entertainment"
 },
 {
 	habitual: "goes to the ballet",
 	verb: "go to the ballet",
 	past: "went to the ballet",
 	noun: "ballet watcher",
-	category: "entertainment",
-	frequency: ["2 years","year","month"],
-	predict_test_freq: "year"
+	category: "entertainment"
 },
 {
 	habitual: "watches professional football",
 	verb: "watch professional football",
 	past: "watched professional football",
 	noun: "professional football watcher",
-	category: "entertainment",
-	frequency: ["2 years","year","month"],
-	preventative: {
-		verb: "learned about all the corruption in professional sports and",
-		obj: "no longer can watch it"
-	},
-	enabling: {
-		verb: "remembered how much enjoyable that was and upgraded",
-		obj: "cable to have access to all professional football games",
-		requires: "possessive"
-	},
-	filler: {
-		verb: "learned about all the corruption in professional sports and",
-		obj: "vowed to help bring an end to it",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "week"
+	category: "entertainment"
 },
 {
 	habitual: "watches space launches",
 	past: "watched a space launch",
 	verb: "watch a space launch",
 	noun: "space launch watcher",
-	category: "entertainment",
-	frequency: ["2 years", "year","month"],
-	preventative: {
-		verb: "went through a radical transformation and now it is against",
-		obj: "belief to witness anything relating to space travel",
-		requires: "possessive"
-	},
-	enabling: {
-		verb: "remembered how much enjoyable that was and researched",
-		obj: "all of the space launches in the next year within driving distance"
-	},
-	filler: {
-		verb: "was caught for stealing and was fined",
-		obj: "a thousand dollars"
-	},
-	prevent_test_freq: ["2 years"],
-	predict_test_freq: "year"
+	category: "entertainment"
 },
 // {
 // 	habitual: "listens to Pandora",
 // 	past: "listened to Pandora",
 // 	verb: "listen to Pandora",
-// 	category: "entertainment",
-// 	frequency: ["year","month", "week"],
-// 	preventative: {
-// 		verb: "moved off the grid and",
-// 		obj: "no longer has access to the internet"
-// 	},
-// 	enabling: {
-// 		verb: "remembered how much enjoyable that was",
-// 		obj: "and bought a premium subscription to Pandora"
-// 	},
-// 	filler: {
-// 		verb: "moved to a new apartment and",
-// 		obj: "now has a dish washer"
-// 	},
-// 	predict_test_freq: "week"
+// 	category: "entertainment"
 // },
 // {
 // 	habitual: "listens to Russian folk music",
 // 	past: "listened to Russian folk music",
-// 	category: "entertainment",
-// 	frequency: ["year","month", "week"]
+// 	category: "entertainment"
 // },
 {
 	habitual: "listens to live music",
 	past: "listened to live music",
 	verb: "listen to live music",
 	noun: "live music listener",
-	category: "entertainment",
-	frequency: ["year","month", "week"],
-	predict_test_freq: "month"
+	category: "entertainment"
 },
 {
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
 	verb: "eat peanut butter",
 	noun: "peanut butter eater", 
-	category: "food",
-	frequency: ["5 years", "year","month"],
-	preventative:{
-		verb: "developed",
-		obj: "a peanut allergy"
-	},
-	enabling:{
-		verb: "learned about the dietary benefits of eating peanut butter",
-		obj: "and bought a jar at the supermaket"
-	},
-	filler: {
-		verb: "developed an affinity",
-		obj: "for chocolate covered raisins"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "week"
+	category: "food"
 },
 {
 	habitual: "eats caviar",
 	past: "ate caviar",
 	verb: "eat caviar",
 	noun: "caviar eater",
-	category: "food",
-	frequency: ["5 years", "year","month"],
-	preventative:{
-		verb: "developed",
-		obj: "a seafood allergy"
-	},
-	enabling:{
-		verb: "learned about the dietary benefits of eating caviar",
-		obj: "and bought a jar at the supermaket"
-	},
-	filler: {
-		verb: "developed an affinity",
-		obj: "for sauteed tofu"
-	},
-	prevent_test_freq: ["5 years"],
-	predict_test_freq: "month"
+	category: "food"
 },
 {
 	habitual: "eats cereal",
 	past: "ate cereal",
 	noun: "cereal eater",
-	category: "food",
-	frequency: ["5 years", "year","month", "week"],
-	predict_test_freq: "week"
+	category: "food"
 },
 {
 	habitual: "smokes cigarettes",
 	past: "smoked cigarettes",
 	verb: "smoke cigarettes",
 	noun: "cigarette smoker",
-	category: "food",
-	frequency: ["year","month", "week"],
-	preventative:{
-		verb: "quit",
-		obj: "smoking cigarettes"
-	},
-	enabling: {
-		verb: "wanted a smoke and",
-		obj: "bought a pack of cigarettes"
-	},
-	filler: {
-		verb: "quit",
-		obj: "bowling on Tuesdays"
-	},
-	prevent_test_freq: ["month"],
-	predict_test_freq: "week"
+	category: "food"
 },
 {
 	habitual: "smokes marijuana",
 	past: "smoked marijuana",
 	verb: "smoke marijuana",
 	noun: "marijuana smoker",
-	category: "food",
-	frequency: ["5 years", "year","month", "week"],
-	preventative:{
-		verb: "realized",
-		obj: "is severely allergic to marijuana and will no longer smoke it",
-		requires: "pronoun"
-	},
-	enabling: {
-		verb: "wanted to get high and",
-		obj: "bought some marijuana"
-	},
-	filler: {
-		verb: "gave up playing softball because it bothered",
-		obj: "significant other",
-		requires: "possessive"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "month"
+	category: "food"
 },
 {
 	habitual: "does cocaine",
@@ -415,67 +221,21 @@ var stimuli = [
 	verb: "do cocaine",
 	//Not sure if this is a good deverbal noun
 	noun: "cocaine doer",
-	category: "food",
-	frequency: ["5 years", "year","month", "week"],
-	preventative:{
-		verb: "realized",
-		obj: "is severely allergic to cocaine and will no longer do it",
-		requires: "pronoun"
-	},
-	enabling: {
-		verb: "wanted to get high and",
-		obj: "bought some cocaine"
-	},
-	filler: {
-		verb: "entered",
-		obj: "into a weight loss program"
-	},
-	prevent_test_freq: ["year"],
-	predict_test_freq: "month"
+	category: "food"
 },
 {
 	habitual: "drinks beer",
 	past: "drank a beer",
 	verb: "drink beer",
 	noun: "beer drinker",
-	category: "food",
-	frequency: ["year","month", "2 weeks","week"],
-	preventative:{
-		verb: "gave up alcohol and entered",
-		obj: "into Alcoholics Anonymous"
-	},
-	enabling: {
-		verb: "wanted to get tipsy and",
-		obj: "bought a six-pack of beer"
-	},
-	filler: {
-		verb: "entered",
-		obj: "into a food co-op"
-	},
-	prevent_test_freq: ["month"],
-	predict_test_freq: "week"
+	category: "food"
 },
 {
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	verb: "drink coffee",
 	noun: "coffee drinker",
-	category: "food",
-	frequency: ["year","month", "2 weeks","week"],
-	preventative:{
-		verb: "developed a caffeine allergy",
-		obj: "and decided to give up all caffeine"
-	},
-	enabling: {
-		verb: "wanted a morning jolt and",
-		obj: "bought a pound of fresh roasted coffee"
-	},
-	filler: {
-		verb: "developed a nut allergy",
-		obj: "and decided to walk every morning"
-	},
-	prevent_test_freq: ["month"],
-	predict_test_freq: "week"
+	category: "food"
 }
 ];
 
