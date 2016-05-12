@@ -149,7 +149,7 @@ In Expt.~2, we use those priors and the pragmatic theory to make predictions abo
 
 If habituals (and generics) are truly language for conveying generalizations, it would be useful for them to reflect expectations, not merely observations.
 Is the underlying dimension for habituals the actual, past frequency of the event (e.g.~how often Bill has actually smoked in the past week) or the predictive probability that this event will occur in the near future (e.g.~how likely it is that Bill will smoke next week)?
-In Expts.~3 \& 4, we show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
+In Expts.~3a \& 3b, we show that the object of communication is a speaker's prediction about the future frequency of action, and not past frequency.
 This has important implications about the relationship between linguistic generalizations and intuitive theories, which we explore briefly in the discussion.
 
 % the nature of the underlying degree scale of ``subjective frequency'' with respect to time by introducing events that prevent future frequency. 
@@ -167,12 +167,12 @@ We model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this list
 The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context ($\tau \sim \text{Uniform}$ over possible frequencies), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
 Writing the propensity as $\lambda$, this leads to a set of equations:
 \begin{eqnarray}
-P_{S_{2}}(u \mid \lambda) & \propto &  \int_{\tau} P_{L_{1}}(\lambda , \tau \mid u) \label{eq:S2}\\
+P_{S_{2}}(u \mid \lambda) & \propto & \exp{(\alpha_2 \cdot \ln \int_{\tau} P_{L_{1}}(\lambda , \tau \mid u))}\label{eq:S2}\\
 P_{L_{1}}(\lambda , \tau \mid u) &\propto& P_{S_{1}}(u \mid \lambda, \tau) \cdot P(\lambda) \cdot P(\tau) \label{eq:L1}\\
-P_{S_{1}}(u \mid \lambda, \tau) &\propto&  {P_{L_{0}}(\lambda \mid u, \tau)}^{\alpha} \label{eq:S1}\\
+P_{S_{1}}(u \mid \lambda, \tau) &\propto& \exp{(\alpha_1 \cdot \ln {P_{L_{0}}(\lambda \mid u, \tau)})} \label{eq:S1}\\
 P_{L_{0}}(\lambda \mid u, \tau) &\propto& {\delta_{\denote{u}(\lambda, \tau)} P(\lambda)}. \label{eq:L0}
 \end{eqnarray}
-We take the pragmatic speaker $S_2$ to consider two utterances: the habitual, with $\denote{u}(\lambda, \tau) := \lambda>\tau$, or nothing (staying silent), with $\denote{u}(\lambda, \tau) := \text{True}$.
+We take the speakers $S_1$ and $S_2$ to consider two utterances: the habitual, with $\denote{u}(\lambda, \tau) := \lambda>\tau$, or nothing (staying silent), with $\denote{u}(\lambda, \tau) := \text{True}$, and to select utterances softmax optimally, with a degree of optimality governed by $\alpha_1$ and $\alpha_2$, respectively. 
 Equation \ref{eq:S2} can then be interpreted as a model of felicity or truth judgments \cite{Degen2014, TesslerUnderReview}.
 The speaker will choose to produce the habitual when the true propensity $\lambda$ is more likely under $L_1$'s posterior given the habitual than under her prior (implied by $S_2$ ``staying silent''). 
 A fully implemented version of the model can be found at \url{http://forestdb.org/models/habituals-cogsci2016.html}.
@@ -206,24 +206,26 @@ We explore this issue in Expts.~1 \& 2.
 
 \begin{figure*}[t]
 \centering
-  \includegraphics[width=\textwidth]{prior-scatter-insets4}
+  \includegraphics[width=\textwidth]{prior-scatter-insets5}
   \caption{Frequency prior distributions empirically elicited for thirty-one events for both male and female genders. Left: Prior distributions are summarized by $\theta$ --- the proportion of people who have done the action before --- and $\gamma$ --- the mean log frequency of doing the action (for people who had done it before).  Error bars denote 95\% Bayesian credible intervals.
   Right: Density plots display posterior predictive distributions on frequency using the structured Bayesian model in Eq.~\ref{eq:priorModel}. Log frequency scale is on the order of 5 years. Approximate rates of once per: \{year $\sim$ 1.5; month $\sim 4$; week $\sim 5.5$; day $\sim 7$\}. }
   \label{fig:priorScatter}
 \end{figure*}
 %
 
+\vspace{-1.0ex}
 
 \section{Experiment 1: Prior elicitation}
 
 %Experiment 1 set out to empirically verify the long-held belief that habitual sentences are analogous to generic sentences about events. 
 %We used an adapted version of the computational model presented by \citeA{TesslerUnderReview} to guide the experimental design.
 %
-In this experiment we elicit the prior $P(\lambda)$ for different events, so that we can generate model predictions for corresponding habituals.
+In this experiment we elicit the prior $P(\lambda)$ for different events in order to generate model predictions for corresponding habituals.
 Given that some individuals rarely or never engage in an event, while others do quite frequently, we would expect the prior to be a mixture distribution between (at least) these two possibilities, similar in spirit to Zero-inflated or Hurdle Models of epidemiological data \cite{hurdleModels}.
 Indeed, there may be more than these two possibilities, corresponding to individuals with different traits or demographics (e.g., different expected frequencies depending on age or gender). 
-
+\vspace{-1.0ex}
 \subsection{Methods}
+\vspace{-0.5ex}
 
 %\subsubsection{Participants}
 \noindent {\bf Participants}
@@ -394,7 +396,7 @@ Less interestingly, the lack of a difference may be the result of gender being n
 \begin{figure*}[t]
 \centering
 %  \includegraphics[width=\textwidth]{truth-judgments-3items-withtj2.pdf}
-  \includegraphics[width=\textwidth]{expt3-4-scatters-2.pdf}
+  \includegraphics[width=\textwidth]{expt3-4-scatters-camera.pdf}
   \caption{Left: Predicted log frequency as a function of past log frequency given to the participant (Expt. 3a; CIs suppressed and jitter added for visual clarity).
   Middle: Human endorsements of habitual sentences (Expt. 3b) vs. Predicted log frequency (Expt. 3a), with data for corresponding items from Expt. 2 (assumed to have the same predictive log frequency as baseline). 
   Right: Endorsements (Expt. 3b) vs. Speaker $S_2$ model predictions using empirically elicited predictive frequencies (Expt. 3a).}
@@ -405,12 +407,12 @@ Less interestingly, the lack of a difference may be the result of gender being n
 \noindent {\bf Model fit and results}
 We used the pragmatic speaker model $S_2$ (Eq.~\ref{eq:S2}) with the priors elicited above (Expt.~1) to predict felicity judgments in Expt.~2, assuming the target propensity (to be conveyed by $S_2$) is the provided frequency.
 Because we observe no difference between the felicity judgments for habituals of male and female characters, we use a 50\% mixture of the inferred priors for each gender to construct a single frequency distribution $P(\lambda)$ across individuals.
-The model has one free parameter---the speaker optimality parameter, $\alpha$, in Eq.~\ref{eq:S1}. 
+The model has two free parameters---the speaker optimality parameters, $\alpha_i$, in Eqs.~\ref{eq:S2} \& \ref{eq:S1}. 
 %Additionally, we include a data analytic parameter to model random guessing behavior; this provides a rough measure of how much variance is unexplained by the pragmatics model. 
-We use Bayesian data analytic techniques to integrate over this parameter \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
+We use Bayesian data analytic techniques to integrate over these parameters \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
 %To attain credible values of the model parameters as well as 
 To construct the posterior predictive distribution over responses, we collected 2 MCMC chains of 100,000 iterations, discarding the first 50,000 iterations for burn in.
-The Maximum A-Posteriori (MAP) value and 95\% highest probability density interval (HDI) for $\alpha$ is 5.7 [5.1,6.2].
+The Maximum A-Posteriori (MAP) value and 95\% highest probability density interval (HDI) for $\alpha_1$ is 5.7 [5.1,6.2] and \red{$\alpha_2$ is 5.7 [5.1,6.2]}.
 %The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by our pragmatic speaker model.
 
 As shown in Figure \ref{fig:tjScatters}, right, the probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.94$), including actions done on the time scale of years or more  ($r^2(50) = 0.92$).
@@ -570,9 +572,10 @@ To our knowledge, the experiments presented here are first empirical investigati
 %It further suggests the underlying scale is a subjective one that integrates observed frequency with top-down biases from an intuitive theory.
 
 The model we present here is almost identical to a model we have used to describe generic language \cite{TesslerUnderReview}.
-This provides a formal bridge between generalizations of properties about categories (i.e. \emph{generics}) and generalizations about individuals and events (i.e. \emph{habituals}), a connection often noted in the linguistics literature \cite{Carlson1977, Carlson2005, Cohen1999}. 
-Generics often use a bare plural (e.g. \emph{Bears like to eat ants.}) and don't lay claim to any well-defined set of individuals (e.g. many bears may not like to eat ants).
-Habituals use the simple present tense (e.g. \emph{John smokes}) without any well-defined period of time (e.g. John may go many days without smoking). 
+The only difference is in the underlying scale: for generics, it is the \emph{prevalence} of the property; for habituals, the \emph{propensity} of the action. 
+This provides a formal bridge between generalizations about categories (i.e. \emph{generics}) and generalizations about events (i.e. \emph{habituals}), a connection often noted in the linguistics literature \cite{Carlson1977, Carlson2005, Cohen1999}. 
+Generics often use a bare plural (e.g. \emph{Bears like to eat ants.}) and don't lay claim to any well-defined set of individuals (many bears may not like to eat ants).
+Habituals use the simple present tense (e.g. \emph{John smokes}) without any well-defined period of time (John may go many days without smoking). 
 In both cases, a pragmatically inferred threshold on prevalence or propensity, respectively, explains the varying truth conditions of these kinds of sentences.
 % the set of individuals or on the period of time, respectively. 
 Scales, and scalar representations, provide a simple and general quantitative way to express truth conditions.
