@@ -26,6 +26,8 @@
 \usepackage{wrapfig}
 \usepackage{lipsum}
 \usepackage{bbm}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+
  \newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
  
  \definecolor{Red}{RGB}{255,0,0}
@@ -167,7 +169,7 @@ We model a speaker $S_2$ who reasons about a pragmatic listener $L_1$; this list
 The listener $L_1$ has uncertainty about the appropriate threshold for the habitual in this context ($\tau \sim \text{Uniform}$ over possible frequencies), and reasons about what an informative speaker $S_1$ would be likely to say. The hypothetical speaker $S_1$ in turn reasons about an idealized literal listener $L_0$, who has access to the threshold $\tau$ (i.e. $S_1$ believes $L_0$ will interpret him in exactly the way he means). 
 Writing the propensity as $\lambda$, this leads to a set of equations:
 \begin{eqnarray}
-P_{S_{2}}(u \mid \lambda) & \propto & \exp{(\alpha_2 \cdot \ln \int_{\tau} P_{L_{1}}(\lambda , \tau \mid u))}\label{eq:S2}\\
+P_{S_{2}}(u \mid \lambda) & \propto & \exp{(\alpha_2 \cdot \ln \int_{\tau} P_{L_{1}}(\lambda , \tau \mid u)} \diff \tau ) \label{eq:S2}\\
 P_{L_{1}}(\lambda , \tau \mid u) &\propto& P_{S_{1}}(u \mid \lambda, \tau) \cdot P(\lambda) \cdot P(\tau) \label{eq:L1}\\
 P_{S_{1}}(u \mid \lambda, \tau) &\propto& \exp{(\alpha_1 \cdot \ln {P_{L_{0}}(\lambda \mid u, \tau)})} \label{eq:S1}\\
 P_{L_{0}}(\lambda \mid u, \tau) &\propto& {\delta_{\denote{u}(\lambda, \tau)} P(\lambda)}. \label{eq:L0}
@@ -268,7 +270,7 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
 
 \begin{figure*}[t]
 \centering
-  \includegraphics[width=0.8\textwidth]{tj-scatters-3}
+  \includegraphics[width=0.84\textwidth]{tj-scatters-3}
   \caption{
   Human acceptability judgments as a function of the log frequency of action (left) and speaker $S_2$ model predictions (right) for ninety-three unique items (event \textsc{x} frequency). 
   Color denotes target-individual frequency of action (log scale), with lighter colors indicating more frequent actions. 
@@ -412,7 +414,7 @@ The model has two free parameters---the speaker optimality parameters, $\alpha_i
 We use Bayesian data analytic techniques to integrate over these parameters \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
 %To attain credible values of the model parameters as well as 
 To construct the posterior predictive distribution over responses, we collected 2 MCMC chains of 100,000 iterations, discarding the first 50,000 iterations for burn in.
-The Maximum A-Posteriori (MAP) value and 95\% highest probability density interval (HDI) for $\alpha_1$ is 5.7 [5.1,6.2] and \red{$\alpha_2$ is 5.7 [5.1,6.2]}.
+The Maximum A-Posteriori (MAP) value and 95\% highest probability density interval (HDI) for $\alpha_1$ is 19.3 [14.9,19.9] and $\alpha_2$ is 1.5 [1.4,1.6].
 %The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by our pragmatic speaker model.
 
 As shown in Figure \ref{fig:tjScatters}, right, the probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.94$), including actions done on the time scale of years or more  ($r^2(50) = 0.92$).
