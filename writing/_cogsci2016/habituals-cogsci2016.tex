@@ -26,6 +26,8 @@
 \usepackage{wrapfig}
 \usepackage{lipsum}
 \usepackage{bbm}
+%\renewcommand{\UrlFont}{\tiny}
+
 \newcommand*\diff{\mathop{}\!\mathrm{d}}
 
  \newcommand{\denote}[1]{\mbox{ $[\![ #1 ]\!]$}}
@@ -67,7 +69,7 @@
 
 \begin{abstract}
 %\ndg{the basic framing shouldn't be habituals vs generics. it should be how do habituals work to convey generalizations about events? and then the analogy with generics motivates our approach...}
-Habitual sentences (e.g.~\emph{Bills smokes.}) generalize an event over time, but how can you know a habitual sentence is true?
+Habitual sentences (e.g.~\emph{Bill smokes.}) generalize an event over time, but how do you know when a habitual sentence is true?
 % and are thought to have similarly puzzling qualities as generic sentences (e.g. \emph{Dogs bark.}). 
 We develop a computational model and use this to guide experiments into the truth conditions of habitual language.
 %Little empirical work has tested this relation with respect to the truth conditions of these sentences. 
@@ -215,7 +217,7 @@ We explore this issue in Expts.~1 \& 2.
 \end{figure*}
 %
 
-\vspace{-1.0ex}
+\vspace{-0.5ex}
 
 \section{Experiment 1: Prior elicitation}
 
@@ -244,6 +246,7 @@ Items were chosen to intuitively cover a range of likely frequencies of action, 
 \noindent {\bf Procedure}
 For each event, participants were asked two questions, with associated dependent measures:
 \begin{enumerate}
+\vspace{-1.0ex}
 \itemsep0em% \{men, women\}
 \item ``How many \{men, women\} have \textsc{done action} before?'' \\
 Participants responded ``N out of every J.'' by entering a number for N and choosing J from a drop-down menu (options: \{1000 - 10 million\}; default: 1000).
@@ -260,7 +263,8 @@ Participants responded ``M times in K.'' by entering a number for M and choosing
 %\subitem M = free response
 %\subitem K = \{week, month, year, 5 years\} (default: year)
 \end{enumerate}
-For example, one set of questions read: ``How many men have smoked cigarettes before?''; ``For a typical man who has smoked cigarettes before, how frequently does he smoke cigarettes?''
+\vspace{-1.0ex}
+For example, one set read: ``How many men have smoked cigarettes before?''; ``For a typical man who has smoked cigarettes before, how frequently does he smoke cigarettes?''
 %Participants filled in values freely for N and M, and chose from drop-down menus for J and K, with the default settings shown above. 
 %Question 1 had a response format of entering a number, and participants were free to make the comparison number larger (default: 1000) should the event be more rare than 1 out of 1000.
 %Question 2 had a response format of entering a number of instances out of the time period of a year (by default). Participants were free to change the time period to week, month, or 5 years. \ndg{it's not totally clear how this procedure works... reword for clarity.}
@@ -281,6 +285,7 @@ The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habit
   \label{fig:tjScatters}
 \end{figure*}
 
+\vspace{-0.5ex}
 
 \subsection{Data analysis and results}
 We built a Bayesian data analysis model for this prior elicitation task.
@@ -403,6 +408,7 @@ Less interestingly, the lack of a difference may be the result of gender being n
   Middle: Human endorsements of habitual sentences (Expt. 3b) vs. Predicted log frequency (Expt. 3a), with data for corresponding items from Expt. 2 (assumed to have the same predictive log frequency as baseline). 
   Right: Endorsements (Expt. 3b) vs. Speaker $S_2$ model predictions using empirically elicited predictive frequencies (Expt. 3a).}
   \label{fig:tj3}
+  \vspace{-7pt}
 \end{figure*}
 
 %\subsection{Model fit and results}
@@ -414,7 +420,7 @@ The model has two free parameters---the speaker optimality parameters, $\alpha_i
 We use Bayesian data analytic techniques to integrate over these parameters \cite{LW2014}, comparing the posterior predictive distribution to the empirical data in Expt.~2.
 %To attain credible values of the model parameters as well as 
 To construct the posterior predictive distribution over responses, we collected 2 MCMC chains of 100,000 iterations, discarding the first 50,000 iterations for burn in.
-The Maximum A-Posteriori (MAP) value and 95\% highest probability density interval (HDI) for $\alpha_1$ is 19.3 [14.9,19.9] and $\alpha_2$ is 1.5 [1.4,1.6].
+The Maximum A-Posteriori value and 95\% highest probability density interval for $\alpha_1$ is 19.3 [14.9,19.9] and $\alpha_2$ is 1.5 [1.4,1.6].
 %The MAP and HPD interval for the data-analytic guessing parameter is 0.004 [0.0003, 0.03], suggesting that there is not a substantial amount of the data that is better explained by a model of random guessing than by our pragmatic speaker model.
 
 As shown in Figure \ref{fig:tjScatters}, right, the probabilistic pragmatics model does a good job of accounting for the variability in responses ($r^2(93) = 0.94$), including actions done on the time scale of years or more  ($r^2(50) = 0.92$).
@@ -439,8 +445,10 @@ In Expt.~3b, we examine felicity judgments of the habitual sentence (e.g. \emph{
 This will allow us to test whether habituals are best explained by a speaker $S_2$ who communicates the known past or expected future frequency.
 % and use the speaker $S_2$ model to predict the truth judgments using the elicited \emph{predictive frequency}  as the input to the model.
 %\ndg{pose the question of this expriment more clearly: is propensity about past frequency or future expectations? then say briefly how we address it.}
+%\vspace{-1.0ex}
 
 \subsection{Experiment 3a: Prediction elicitation}
+%\vspace{-1.0ex}
 
 %\subsubsection{Method}
 %\subsubsection{Participants} 
@@ -467,7 +475,7 @@ Participants were asked ``In the next \textsc{time window}, how many times do yo
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/priors/predictive-1.html}.
 
 
-
+%\vspace{-1.0ex}
 \subsection{Behavioral results}
 
 Figure \ref{fig:tj3} (left) shows the predicted future frequency as a function of the past frequency given to the participant and the type of causal information given. 
@@ -490,14 +498,16 @@ Critically, we observe the preventative information appreciably decreasing and t
 We recruited 150 participants from MTurk, using the same criterion as Expt.~2.
 The experiment took 4 minutes on average on participants were compensated \$0.40 for their work.
 None of the participants had completed Expt.~3a.
-
 %\subsubsection{Procedure and materials}
 The only difference from Expt.~3a is the dependent measure. 
 On each trial, participants were asked if they agreed or disagreed with the corresponding habitual sentence (as in Expt.~2).
 The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-3-preventative.html}.
+%The experiment in full can be viewed at \url{http://stanford.edu/~mtessler/habituals/experiments/truth-judgments/tj-3-preventative.html}.
 
-%\vspace{-1.5ex}
+
+%\vspace{-1.0ex}
 \subsection{Results}
+%\vspace{-0.5ex}
 
 There is a clear and consistent negative effect of preventative information on endorsements for the habitual sentence (Figure \ref{fig:tj3}, middle; blue points).
 When collapsing across items and subjecting the data to a generalized mixed-effects model with random by-participant effects of intercept and random by-item effects of intercept and conditions, we find evidence for a small effect of \emph{enabling} conditions on endorsements (M =  0.89; 95\% Bootstrapped CI [0.88, 0.91]) as compared to baseline (M = 0.85 [0.83, 0.87]) [$\beta = 0.42; SE = 0.15; z = 2.8$]%; p = 0.005$]
@@ -557,7 +567,7 @@ in this experiment the overall population of frequencies is much lower (both bec
 %\subsection{Model results}
 
 
-
+%\vspace{-1.0ex}
 \section{Discussion}
 We presented a computational model for communicating generalizations about events.
 The model decides if a habitual sentence is a pragmatically useful way to describe a person's behavior, taking into account the listener's prior beliefs about the action---how common it is and the likely frequency (measured in Expt.~1).
@@ -634,12 +644,17 @@ The computational model presented here provides a mathematical bridge between th
 %Additionally, because of people's intuitive theories of others are so richly structured according to events (e.g. having hobbies, having a job, eating certain foods and not others; or more generally, being able to complete certain actions and not others),
 %habitual language may give us insight into those theories. \red{eek}
 
-%\vspace{-0.5ex}
+%\vspace{-1.0ex}
+\section{Acknowledgments}
 
+This work was supported by NSF Graduate Research Fellowship DGE-114747 to MHT and a James S. McDonnell Foundation Scholar Award  and ONR Grant N00014-13-1-0788 to NDG.
+
+%, by John S. McDonnell Foundation Scholar Award 220020252 
 \bibliographystyle{apacite}
 
 \setlength{\bibleftmargin}{.125in}
 \setlength{\bibindent}{-\bibleftmargin}
+\vspace{-1.5ex}
 
 \bibliography{habituals-cogsci2016}
 
