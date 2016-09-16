@@ -1,0 +1,375 @@
+---
+title: "An alternative model for habitual production"
+author: "M. H. Tessler"
+date: "September 15, 2016"
+output: pdf_document
+---
+```{r global_options, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(#fig.width=7, fig.height=5, 
+                      fig.crop = F,
+                      echo=FALSE, warning=FALSE, cache=T, message=FALSE, sanitize = T)
+```
+
+Michael Franke suggests an alternative model for habituals where you only consider the CDF of the "done it before" component. The probability of endorsing the generic will be proportional to the CDF of the Gaussian "done it before" component, perhaps with the standard deviation divided by some constant $b$. An even crueler alternative would allow the mean of the normal to be off-set by some fixed amount $a$. 
+
+$$
+P_{s}(\text{habitual} \mid \lambda, b, a) \propto \text{CDF[}\mathcal{N}(\mu_i + a, \frac{\sigma_i}{b} \text{)]}
+$$
+
+
+# The priors
+
+First, we analyze the prior data, using the simple linking function used in [Tessler & Goodman (2016)](http://stanford.edu/~mtessler/papers/Tessler2016-cogsci.pdf).
+
+In the data frame, `logval` is the logarithm of the number of times done in a 5-year period. This was produced by taking the raw number of times said to be done in a time window, and rescaling it to the maximum time window (5 years), and then taking the log. 
+
+```{r priorData}
+d <- read.csv("~/Documents/research/habituals/models/priors/data/prior2-timesper5yr.csv")
+head(d)
+items <- unique(d$item)
+genders <- unique(d$gender)
+```
+
+The data is also separate by gender (male vs. female). In the CogSci paper, we analyzed the data separately by gender and then mixed the two distributions together (with a 50/50 mixture). We do the same here. (As far as I can tell, the CDF of a mixture of gaussians is a mixture of the CDFs of gaussians.)
+
+```{r priorModel, echo=T}
+priorModel <- '
+var model = function(){
+  var mu = uniformDrift({a: 0, b: 10, width:0.5});
+  var sigma = uniformDrift({a: 0, b: 10, width:0.5});
+  observeData({
+    link: Gaussian({mu: mu, sigma:sigma}),
+    data: data
+  })
+  return {mu: mu, sigma:sigma}
+}
+'
+```
+
+```{r priorBDA, eval=F}
+numSamples <- 10000
+pr.results <- data.frame()
+for (i in items){
+  for (g in genders){
+    item_data <- filter(d, ((item == i) & (gender == g)))$logval
+    rs.pr <- webppl(priorModel, data = item_data, data_var = "data", model_var = "model",
+           inference_opts = list(method = "MCMC", samples = numSamples, burn = numSamples/2,
+                                 verbose = T),
+           output_format = "samples", packages = c("mht"))
+    rs.pr.stat <- rs.pr %>%
+      gather(param, val) %>%
+      group_by(param) %>%
+      summarize(MAP = estimate_mode(val),
+                credLow = hdi_lower(val),
+                credHigh = hdi_upper(val)) %>%
+      mutate(item = i,
+             gender = g)
+    pr.results <- bind_rows(pr.results, rs.pr.stat)
+  }
+  print(i)    
+}
+
+save(pr.results, 
+     file= "~/Documents/research/habituals/models/alternative_models/priors_bdaSummary_MH10k.Rdata")
+```
+
+# The simplest alternative model
+
+For the time being, we will use the MAP estimates for the parameters of the prior for the alterantive model. We can use the `pnorm` function in R to get the CDF of various normals. The CDF of a mixture of gaussians is the mixture of the CDFs (I believe).
+
+```{r endorsementData}
+d.endorse <- read.csv("~/Documents/research/habituals/models/truthjudgement/data/tj-2-logtimes.csv")
+
+d.endorse.stat <- d.endorse %>%
+  mutate(endorse = response=='agree-key') %>%
+  group_by(habitual, log_times) %>%
+  multi_boot_standard(column = "endorse")
+
+```
+
+```{r simpleModel1, echo = T}
+load("~/Documents/research/habituals/models/alternative_models/priors_bdaSummary_MH10k.Rdata")
+
+predictions <- data.frame()
+for (i in items){
+  # endorsement data 
+  item.data <- filter(d.endorse, habitual == i)
+  # prior data
+  item.results <- filter(pr.results, item == i)
+  
+  mus <- filter(item.results, param == 'mu')$MAP
+  sigmas <- filter(item.results, param == 'sigma')$MAP  
+  
+  # loop over the frequencies shown to participants
+  for (freq in levels(factor(item.data$log_times))){
+  
+      # generate predictions using the CDF
+    prediction <- 0.5*pnorm(to.n(freq), mean = mus[1], sd = sigmas[1]) + 
+                  0.5*pnorm(to.n(freq), mean = mus[2], sd = sigmas[2]) 
+    
+    predictions <- bind_rows(predictions, 
+                             data.frame(pred = prediction, 
+                                        log_times = to.n(freq),
+                                        item = i))
+  }
+}
+```
+
+```{r}
+md <- left_join(d.endorse.stat,
+          predictions %>% rename(habitual = item))
+
+ggplot(md, aes(x = pred, y = mean, ymin = ci_lower, ymax = ci_upper))+
+  geom_point()+
+  coord_fixed()+
+  xlab("CDF of 'done it before' prior component")+
+  ylab("Proportion of participants who agree with habitual")
+```
+
+As we might expect, this alternative model overpredicts the endorsement probability for a large swath of the items. Intuitively, this is because the "never done it before" component is absent from this model (and it suggests it is important).
+
+# With a parameter on the variance
+
+Now, we'll consider a slightly more serious alternative model, which I believe is effectively invoking a softmax link function by parametrizing the standard deviation of the Gaussian CDF by a scalar multiple (here, divisor), $b$ (equation, above) which could lead to a greater (or less) sensitivity of endorsement probability around the mean of the 'done it before' component. To fit $b$, we'll do a Bayesian data analysis using WebPPL.
+
+```{r alternativeModel1, echo=T}
+alternativeModel <- '
+var items = levels(endorsementData, "habitual");
+
+var model = function(){
+
+  var b = uniformDrift({a: 0, b: 3, width: 0.2});
+
+  return _.extend(_.object(map(function(i){
+    var itemData = _.where(endorsementData, {"habitual": i})
+
+    var mu1 = itemData[0]["mu_male"];
+    var sigma1 = itemData[0]["sigma_male"];
+    var mu2 = itemData[0]["mu_female"];
+    var sigma2 = itemData[0]["sigma_female"];
+
+    var logtimes = levels(itemData, "log_times");
+
+    return [i, _.object(map(function(logTime){
+
+      var responses = _.pluck(_.where(itemData, {log_times: logTime}), "endorse")
+
+      var prediction =  0.5*gaussianCDF({mu: mu1, sigma: sigma1 / b, x: logTime}) +
+                       0.5*gaussianCDF({mu: mu2, sigma: sigma2 / b, x: logTime})
+
+      observe(Binomial({n:responses.length, p:prediction}), sum(responses));
+
+      return ["_" + logTime, prediction]
+
+    }, logtimes))]
+  }, items)), {b: b})
+}
+'
+```
+
+```{r altModelData}
+d.endorse.pass <- left_join(d.endorse %>%
+  mutate(endorse = response=='agree-key'),
+  left_join(
+  pr.results %>% 
+    filter(gender == 'male') %>%
+    select(param, MAP, item) %>%
+    rename(habitual = item) %>%
+    spread(param, MAP) %>%
+    rename(mu_male = mu,
+           sigma_male = sigma),
+  pr.results %>% 
+    filter(gender == 'female') %>%
+    select(param, MAP, item) %>%
+    rename(habitual = item) %>%
+    spread(param, MAP) %>%
+    rename(mu_female = mu,
+           sigma_female = sigma)
+  ))
+```
+
+```{r altModel1BDA, eval=F}
+numSamples <- 5000
+
+altModel1.post <- webppl(alternativeModel, 
+                        data = d.endorse.pass, 
+       data_var = "endorsementData", model_var = "model",
+         inference_opts = list(method = "MCMC", samples = numSamples, burn = numSamples/2,
+                               verbose = T),
+         output_format = "samples", packages = c("mht"))
+save(altModel1.post, 
+     file = "~/Documents/research/habituals/models/alternative_models/altModel1_mcmc5k.RData")
+```
+
+### Posteriors over parameters
+
+```{r}
+load("~/Documents/research/habituals/models/alternative_models/altModel1_mcmc5k.RData")
+m.tidy <- altModel1.post %>%
+  gather(key, val)
+
+param.tidy <- m.tidy %>%
+  filter(key %in% c('a', 'b'))
+
+ggplot(param.tidy, aes(x = val))+
+  geom_histogram()+
+  facet_wrap(~key, scales = 'free')
+```
+
+The scaling parameter is inferred to be very low, meaning that the endorsement probabilities are much *less* sensitive around the mean of the prior. The Gaussian is effectively flattened out.
+
+### Posterior predictive fit
+
+```{r}
+pred.tidy <- m.tidy %>%
+  filter(!(key %in% c('a', 'b'))) %>%
+  separate(key, into = c("item", "logtime"), sep = "_") %>% 
+  mutate(item = gsub("[.]", "", item))
+
+pred.summary <- pred.tidy %>%
+  group_by(item, logtime) %>%
+  summarize(MAP = estimate_mode(val),
+            credLow = hdi_lower(val),
+            credHigh = hdi_upper(val)) %>%
+  rename(habitual = item,
+         log_times = logtime)
+
+md <- left_join(d.endorse.stat %>%
+  mutate(log_times = as.character(round(log_times, 4))),
+  pred.summary)
+
+ggplot(md, aes( x = MAP, xmin = credLow, xmax = credHigh,
+                y = mean, ymin = ci_lower, ymax = ci_upper))+
+  geom_point()+
+  #geom_errorbar()+
+  #geom_errorbarh()+
+  coord_fixed()+
+  xlim(0,1)+
+  ylim(0,1)+
+  geom_abline(intercept = 0, slope = 1, linetype = 3)+
+  xlab("Alternative CDF model with variance scale parameter")+
+  ylab("Proportion of participants who agree with habitual")
+
+```
+
+In the posterior predictive, we see that the this model predicts a lot of the same endorsement probabilities.
+This $r^2$ for this model is `r with(md, cor(MAP,mean))^2`
+
+# With a parameter on the variance and on the mean.
+
+Finally, we'll consider an even more strigent alternative, which has a parameter $b$ which could lead to a greater sensitivity around the mean as well as a parameter $a$ which can adjust the location of the mean by some fixed quantity. This mean location parameter might intuitively map onto something like a "main effect of frequency", some global offset for achieving some frequency
+(regardless of activity).
+
+```{r alternativeModel2, echo=T}
+alternativeModel2 <- '
+var items = levels(endorsementData, "habitual");
+
+var model = function(){
+  var b = uniformDrift({a: 0, b: 3, width: 0.2});
+  var a = uniformDrift({a: -5, b: 5, width: 0.5});
+
+  return _.extend(_.object(map(function(i){
+    var itemData = _.where(endorsementData, {"habitual": i})
+
+    var mu1 = itemData[0]["mu_male"];
+    var sigma1 = itemData[0]["sigma_male"];
+    var mu2 = itemData[0]["mu_female"];
+    var sigma2 = itemData[0]["sigma_female"];
+
+    var logtimes = levels(itemData, "log_times");
+
+    return [i, _.object(map(function(logTime){
+
+      var responses = _.pluck(_.where(itemData, {log_times: logTime}), "endorse")
+
+      var prediction = 0.5*gaussianCDF({mu: mu1+a, sigma: sigma1 / b, x: logTime}) +
+                       0.5*gaussianCDF({mu: mu2+a, sigma: sigma2 / b, x: logTime})
+      
+      observe(Binomial({n:responses.length, p:prediction}), sum(responses));
+
+      return ["_" + logTime, prediction]
+
+    }, logtimes))]
+  }, items)), {a:a, b: b})
+}
+'
+```
+
+```{r altModel2BDA, eval=F}
+numSamples <- 5000
+
+altModel.post <- webppl(alternativeModel2, 
+                        data = d.endorse.pass, 
+       data_var = "endorsementData", model_var = "model",
+         inference_opts = list(method = "MCMC", samples = numSamples, burn = numSamples/2,
+                               verbose = T),
+         output_format = "samples", packages = c("mht"))
+
+save(altModel.post, 
+     file = "~/Documents/research/habituals/models/alternative_models/altModel2_mcmc5k.RData")
+```
+
+### Posteriors over parameters
+
+```{r}
+load("~/Documents/research/habituals/models/alternative_models/altModel2_mcmc5k.RData")
+m.tidy <- altModel.post %>%
+  gather(key, val)
+
+param.tidy <- m.tidy %>%
+  filter(key %in% c('a', 'b'))
+
+ggplot(param.tidy, aes(x = val))+
+  geom_histogram()+
+  facet_wrap(~key, scales = 'free')
+```
+
+The variance scaling parameter is still below 1, yielding a flattening of the prior. The offset parameter for the mean is around `r round(mean(filter(param.tidy, key=='a')$val), 1)`, which corresponds to a total offset of about `r round(exp(abs(mean(filter(param.tidy, key=='a')$val))))` times. I believe this effectively makes it is as if the person had been doing the actions `r round(exp(abs(mean(filter(param.tidy, key=='a')$val))))` more times in a 5 year period. For actions that happen on the order of months or years, which many of our items did, this would have a big impact. (Note: It would have the same sort of impact that having the second "never done the action before" component in the pragmatics model has.)
+
+### Posterior predictive fit
+
+```{r}
+pred.tidy <- m.tidy %>%
+  filter(!(key %in% c('a', 'b'))) %>%
+  separate(key, into = c("item", "logtime"), sep = "_") %>% 
+  mutate(item = gsub("[.]", "", item))
+
+pred.summary <- pred.tidy %>%
+  group_by(item, logtime) %>%
+  summarize(MAP = estimate_mode(val),
+            credLow = hdi_lower(val),
+            credHigh = hdi_upper(val)) %>%
+  rename(habitual = item,
+         log_times = logtime)
+
+md <- left_join(d.endorse.stat %>%
+  mutate(log_times = as.character(round(log_times, 4))),
+  pred.summary)
+
+ggplot(md, aes( x = MAP, xmin = credLow, xmax = credHigh,
+                y = mean, ymin = ci_lower, ymax = ci_upper))+
+  geom_point()+
+  coord_fixed()+
+  xlim(0,1)+
+  ylim(0,1)+
+  geom_abline(intercept = 0, slope = 1, linetype = 3)+
+  ylab("Proportion of participants who agree with habitual")+
+  xlab("CDF alternative model with mean and variance parameters")
+```
+This model fit is better than before. 
+The $r^2$ for this model is `r with(md, cor(MAP,mean))^2`
+
+
+The 10 items with highest deviation printed below.
+
+```{r}
+md[with(md %>% mutate(diff = (MAP-mean)^2),order(-diff)),
+   c("habitual", "log_times", "mean", "MAP")] %>%
+  head(10) %>%
+  mutate(timesInYear = round(exp(to.n(log_times)))/5) %>%
+  select(habitual, timesInYear, mean, MAP) %>%
+  rename(human = mean, model = MAP) %>%
+  mutate(human = round(human, 2), model = round(model, 2)) %>%
+  kable()
+```
