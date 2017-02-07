@@ -4,6 +4,7 @@ var stimuli = [
 {
 	habitual: "hikes",
 	category: "hobby",
+	verb2: "goes on a hike",
 	verb: "go on a hike",
 	noun: "hiker",
 },
@@ -11,6 +12,7 @@ var stimuli = [
 	habitual: "runs",
 	past: "went for a run",
 	category: "hobby",
+	verb2: "goes for a run",
 	verb: "go for a run",
 	noun: "runner"
 },
@@ -18,6 +20,7 @@ var stimuli = [
 	habitual: "plays the banjo",
 	past: "played the banjo",
 	category: "hobby",
+	verb2:"plays the banjo",
 	verb:"play the banjo",
 	noun: "banjo player"
 },
@@ -25,6 +28,7 @@ var stimuli = [
 	habitual: "plays tennis",
 	past: "played tennis",
 	category: "hobby",
+	verb2:"plays tennis",
 	verb:"play tennis",
 	noun:"tennis player"
 },
@@ -32,15 +36,17 @@ var stimuli = [
 	habitual: "climbs mountains",
 	past: "climbed a mountain",
 	category: "hobby",
+	verb2: "climbs mountains",
 	verb: "climb mountains",
 	noun: "mountain climber"
 },
 {
 	habitual: "wears a suit",
 	past: "wore a suit",
-	verb:"wear a suit",
+	verb2: "wears a suit",
+	verb: "wear a suit",
 	category: "clothing",
-	verb: "wear suits"
+	noun: "suit wearer"
 },
 // {
 // 	habitual: "wears a bra",
@@ -51,19 +57,25 @@ var stimuli = [
 {
 	habitual: "wears slacks",
 	past: "wore slacks",
+	verb2: "wears slacks",
 	verb: "wear slacks",
+	noun: "slacks wearer",
 	category: "clothing"
 },
 {
 	habitual: "wears socks",
 	past: "wore socks",
+	verb2: "wears socks",
 	verb: "wear socks",
-	category: "clothing""
+	noun: "sock wearer",
+	category: "clothing"
 },
 {
 	habitual: "wears a hat",
 	past: "wore a hat",
+	verb2: "wears a hat",
 	verb: "wear a hat",
+	noun: "hat wearer",
 	category: "clothing"
 },
 // {
@@ -78,29 +90,35 @@ var stimuli = [
 {
 	habitual: "wears a watch",
 	verb: "wear a watch",
+	verb2: "wears a watch",
 	past: "wore a watch",
+	noun: "watch wearer",
 	category: "clothing"
 },
 {
 	habitual: "writes novels",
 	past: "wrote a novel",
 	verb: "write a novel",
+	verb2: "writes a novel",
 	noun: "novelist",
 	category: "employment"
 },
 {
 	habitual: "writes poems",
 	verb:"write a poem",
+	verb2:"writes a poem",
 	past: "wrote a poem",
 	noun: "poet",
 	category: "employment"
 },
-// {
-// 	habitual: "sells things on eBay",
-// 	past: "sold something on eBay",
-// 	verb: "sell things on eBay",
-// 	category: "employment",
-// },
+{
+	habitual: "sells things on eBay",
+	past: "sold something on eBay",
+	verb: "sell things on eBay",
+	verb2: "sell something on eBay",
+	noun: "eBay seller",
+	category: "employment",
+},
 // {
 // 	habitual: "sells companies",
 // 	past: "sold a company",
@@ -111,6 +129,7 @@ var stimuli = [
 	habitual: "steals cars",
 	past: "stole a car",
 	verb: "steal a car",
+	verb2: "steals a car",
 	noun: "car thief",
 	category: "employment"
 },
@@ -118,13 +137,15 @@ var stimuli = [
 	habitual: "steals chewing gum",
 	past: "stole chewing gum",
 	verb: "steal chewing gum",
-	noun: "chewing gum stealer",
+	verb2: "steals chewing gum",
+	noun: "chewing gum thief",
 	category: "employment"
 },
 {
 	habitual: "volunteers for soup kitchens",
 	past: "volunteered for a soup kitchen",
 	verb: "volunteer for soup kitchens",
+	verb2: "volunteers for soup kitchens",
 	noun: "soup kitchen volunteer",
 	category: "employment"
 },
@@ -132,34 +153,39 @@ var stimuli = [
 	habitual: "volunteers for political campaigns",
 	past: "volunteered for a political campaign",
 	verb: "volunteer for a political campaign",
+	verb2: "volunteers for a political campaign",
 	noun: "political campaign volunteer",
 	category: "employment"
 },
 {
 	habitual: "goes to the movies",
 	verb: "go to the movies",
+	verb2: "goes to the movies",
 	past: "went to the movies",
-	noun: "movie-goer", 
+	noun: "moviegoer",
 	category: "entertainment"
 },
 {
 	habitual: "goes to the ballet",
 	verb: "go to the ballet",
+	verb2: "goes to the ballet",
 	past: "went to the ballet",
-	noun: "ballet watcher",
+	noun: "ballet attendee",
 	category: "entertainment"
 },
 {
-	habitual: "watches professional football",
-	verb: "watch professional football",
-	past: "watched professional football",
-	noun: "professional football watcher",
+	habitual: "watches football",
+	verb: "watch football",
+	verb2: "watches football",
+	past: "watched football",
+	noun:  "football watcher",
 	category: "entertainment"
 },
 {
 	habitual: "watches space launches",
 	past: "watched a space launch",
 	verb: "watch a space launch",
+	verb2: "watches a space launch",
 	noun: "space launch watcher",
 	category: "entertainment"
 },
@@ -174,30 +200,34 @@ var stimuli = [
 // 	past: "listened to Russian folk music",
 // 	category: "entertainment"
 // },
-{
-	habitual: "listens to live music",
-	past: "listened to live music",
-	verb: "listen to live music",
-	noun: "live music listener",
-	category: "entertainment"
-},
+// {
+// 	habitual: "listens to live music",
+// 	past: "listened to live music",
+// 	verb: "listen to live music",
+// 	noun: "live music listener",
+// 	category: "entertainment"
+// },
 {
 	habitual: "eats peanut butter",
 	past: "ate peanut butter",
 	verb: "eat peanut butter",
-	noun: "peanut butter eater", 
+	verb2: "eats peanut butter",
+	noun: "peanut butter eater",
 	category: "food"
 },
 {
 	habitual: "eats caviar",
 	past: "ate caviar",
 	verb: "eat caviar",
+	verb2: "eats caviar",
 	noun: "caviar eater",
 	category: "food"
 },
 {
 	habitual: "eats cereal",
 	past: "ate cereal",
+	verb: "eat cereal",
+	verb2: "eats cereal",
 	noun: "cereal eater",
 	category: "food"
 },
@@ -205,6 +235,7 @@ var stimuli = [
 	habitual: "smokes cigarettes",
 	past: "smoked cigarettes",
 	verb: "smoke cigarettes",
+	verb2: "smokes cigarette",
 	noun: "cigarette smoker",
 	category: "food"
 },
@@ -212,21 +243,23 @@ var stimuli = [
 	habitual: "smokes marijuana",
 	past: "smoked marijuana",
 	verb: "smoke marijuana",
+	verb2: "smokes marijuana",
 	noun: "marijuana smoker",
 	category: "food"
 },
 {
-	habitual: "does cocaine",
-	past: "did cocaine",
-	verb: "do cocaine",
-	//Not sure if this is a good deverbal noun
-	noun: "cocaine doer",
+	habitual: "uses cocaine",
+	past: "used cocaine",
+	verb: "use cocaine",
+	verb2: "uses cocaine",
+	noun: "cocaine user",
 	category: "food"
 },
 {
 	habitual: "drinks beer",
 	past: "drank a beer",
 	verb: "drink beer",
+	verb2: "drinks beer",
 	noun: "beer drinker",
 	category: "food"
 },
@@ -234,6 +267,7 @@ var stimuli = [
 	habitual: "drinks coffee",
 	past: "drank coffee",
 	verb: "drink coffee",
+	verb2: "drinks coffee",
 	noun: "coffee drinker",
 	category: "food"
 }
@@ -307,7 +341,7 @@ var characters = [
 },
 {
 	name: "Jennifer",
-	gender: "female"	
+	gender: "female"
 },
 {
 	name: "Monica",
@@ -319,7 +353,7 @@ var characters = [
 },
 {
 	name: "Veronica",
-	gender: "female"	
+	gender: "female"
 },
 {
 	name: "Alicia",
@@ -360,7 +394,7 @@ var characters = [
 {
 	name: "Kathleen",
 	gender: "female"
-}]	
+}]
 
 
 var maleCharacters = [
@@ -518,7 +552,7 @@ var femaleCharacters = [
 },
 {
 	name: "Jennifer",
-	gender: "female"	
+	gender: "female"
 },
 {
 	name: "Monica",
@@ -530,7 +564,7 @@ var femaleCharacters = [
 },
 {
 	name: "Veronica",
-	gender: "female"	
+	gender: "female"
 },
 {
 	name: "Alicia",
@@ -655,4 +689,4 @@ var femaleCharacters = [
 {
 	name: "Nicole",
 	gender: "female"
-}]	
+}]

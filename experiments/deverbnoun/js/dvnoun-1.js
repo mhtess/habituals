@@ -49,15 +49,15 @@ function make_slides(f) {
 
   slides.single_trial = slide({
     name: "single_trial",
-    
+
     present: exp.stims,
 
     present_handle : function(stim) {
-      //condition 
+      //condition
       var condition = exp.condition
       //var stim = stim0[1]
       this.startTime = Date.now()
-      this.stim =  stim; 
+      this.stim =  stim;
       this.trialNum = exp.stimscopy.indexOf(stim);
 
       //$("#text_response").val('')
@@ -69,26 +69,32 @@ function make_slides(f) {
 
       //this.condition = condition
       //Changed to frequency
-      var freq = stim.frequency[0]
+
+      // var freq = stim.frequency[0]
 
       this.stim.freq = "3"
-      this.stim.interval = freq
+      // this.stim.interval = freq
       //Begin presented questions
       var tS;
       if (condition === "noun"){
-        this.tS = stim.character.name + " is a " + stim[condition] + "."
+        if (stim[condition] == "eBay seller"){
+          this.tS = stim.character.name + " is an " + stim[condition] + "."
+        } else {
+          this.tS = stim.character.name + " is a " + stim[condition] + "."
+        }
       }else{
         this.tS =  stim.character.name + " " + stim[condition] + "."
       }
-      var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
+      var Q = "How often do you think " + stim.character.name + " " + stim.verb2 + "?"
+      // var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
       //how often does "character" verb? <-- pass this into question.
       $(".targetSentence").html(Q);
       $(".question").html(this.tS);
-      // var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
+      // var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ?
       //   stim.character.gender == "male" ? "his " :
       //                                     "her " :
       //                                     ""
-      //  var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
+      //  var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ?
       //   stim.character.gender == "male" ? "he " : "she "  : ""
 
       // var extraSentence = condition == "baseline" ? "" :
@@ -100,13 +106,13 @@ function make_slides(f) {
       // this.extraSentence = extraSentence
 
       // $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
-      
+
 
     },
 
     button : function() {
-      responses = [$("#time_frequency").val()]
-      if (_.contains(responses, ""))  {
+      response = $("#time_frequency").val(), interval =  $("#time_comparison").val();
+      if (response == "" || interval == null)  {
         $(".err").show();
       } else {
         this.rt = Date.now() - this.startTime;
@@ -214,7 +220,7 @@ function init() {
   //shuffles the list of males and grabs a number of men. The number is the same as the number of habituals defined for both genders.
   var shuffledMen = _.shuffle(maleCharacters)
   var someMen = shuffledMen.splice(0,nBothGender)
-  //shuffles the list of females and grabs a number of females. The number is the same as the number of habituals defined for both genders. 
+  //shuffles the list of females and grabs a number of females. The number is the same as the number of habituals defined for both genders.
   var shuffledWomen = _.shuffle(femaleCharacters)
   var someWomen = shuffledWomen.splice(0,nBothGender)
   //Shuffles the list of both males and females
@@ -222,9 +228,9 @@ function init() {
 
   var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
-    return !(_.contains(bothGenders,s.habitual)) ? 
+    return !(_.contains(bothGenders,s.habitual)) ?
     _.extend(s, {character: allGenders.pop()}) :
-      [_.extendOwn(s, {character: someMen.pop()}), 
+      [_.extendOwn(s, {character: someMen.pop()}),
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
@@ -252,8 +258,8 @@ function init() {
       screenUW: exp.width
     };
   //blocks of the experiment:
-  exp.structure=["i0", "single_trial", 'subj_info', 'thanks'];
-  
+  exp.structure=["i0", "instructions","single_trial", 'subj_info', 'thanks'];
+
   exp.data_trials = [];
   //make corresponding slides:
   exp.slides = make_slides(exp);
