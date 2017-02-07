@@ -52,51 +52,60 @@ function make_slides(f) {
     
     present: exp.stims,
 
-    present_handle : function(stim0) {
-
-      var condition = stim0[0]
-      var stim = stim0[1]
+    present_handle : function(stim) {
+      //condition 
+      var condition = exp.condition
+      //var stim = stim0[1]
       this.startTime = Date.now()
       this.stim =  stim; 
-      this.trialNum = exp.stimscopy.indexOf(stim0);
+      this.trialNum = exp.stimscopy.indexOf(stim);
 
-      $("#text_response").val('')
-
-
+      //$("#text_response").val('')
+      //Instead of text_response now using time_frequency and time_comparison
+      $("#time_frequency").val('')
+      $("#time_comparison").val('')
       $(".err").hide();
 
 
-      this.condition = condition
-
-      var freq = stim.prevent_test_freq[0]
+      //this.condition = condition
+      //Changed to frequency
+      var freq = stim.frequency[0]
 
       this.stim.freq = "3"
       this.stim.interval = freq
+      //Begin presented questions
+      var tS;
+      if (condition === "noun"){
+        this.tS = stim.character.name + " is a " + stim[condition] + "."
+      }else{
+        this.tS =  stim.character.name + " " + stim[condition] + "."
+      }
+      var Q = "How often does " + stim.character.name + " " + stim.verb + "?"
+      //how often does "character" verb? <-- pass this into question.
+      $(".targetSentence").html(Q);
+      $(".question").html(this.tS);
+      // var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
+      //   stim.character.gender == "male" ? "his " :
+      //                                     "her " :
+      //                                     ""
+      //  var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
+      //   stim.character.gender == "male" ? "he " : "she "  : ""
 
-      $(".frequency").html("In the <strong>past " + freq + "</strong>, " +
-         stim.character.name  + " " + stim.past + " <em>3 times</em>.");
+      // var extraSentence = condition == "baseline" ? "" :
+      //   "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
+      //   possessive + pronoun +  stim[condition]["obj"]+  "."
 
-      var possessive = condition == "baseline"? "" : stim[condition]["requires"] == "possessive" ? 
-        stim.character.gender == "male" ? "his " :
-                                          "her " :
-                                          ""
-       var pronoun = condition == "baseline"? "" : stim[condition]["requires"] == "pronoun" ? 
-        stim.character.gender == "male" ? "he " : "she "  : ""
+      // $(".extraSentence").html(extraSentence)
 
-      var extraSentence = condition == "baseline" ? "" :
-        "Yesterday, " + stim.character.name + " " + stim[condition]["verb"] + " " +
-        possessive + pronoun +  stim[condition]["obj"]+  "."
+      // this.extraSentence = extraSentence
 
-      $(".extraSentence").html(extraSentence)
-
-      this.extraSentence = extraSentence
-
-      $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
+      // $(".question").html("In the <strong>next " + freq + "</strong>, how many times do you think " + stim.character.name + " will " + stim.verb + "?")
+      
 
     },
 
     button : function() {
-      responses = [$("#text_response").val()]
+      responses = [$("#time_frequency").val()]
       if (_.contains(responses, ""))  {
         $(".err").show();
       } else {
@@ -107,19 +116,31 @@ function make_slides(f) {
     },
 
     log_responses : function() {
-
+      var timeDictionary = {
+        "week":7,
+        "month":30,
+        "year":365,
+        "5 years": 1825
+      }
       exp.data_trials.push({
-        "trial_type" : "predictive",
+        "trial_type" : "deverbnoun",
         "trial_num": this.trialNum+1,
         "item": this.stim.habitual,
-        "condition": this.condition,
-        "past_freq": this.stim.freq,
-        "past_interval":this.stim.interval,
+        "condition": exp.condition,
+        "sentence":this.tS,
+        //"past_freq": this.stim.freq,
+        //"past_interval":this.stim.interval,
         "category": this.stim.category,
-        "extra_sentence": this.extraSentence,
+        //"extra_sentence": this.extraSentence,
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
-        "response" :  $("#text_response").val(),
+        //Response is the time frequency and interval is the time comparison
+        "q_response" :  $("#time_frequency").val(),
+        "q_interval" : $("#time_comparison").val(),
+        //translates into something like "number of times/day"
+        "q_times_per_day" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
+        //take the log of "number of times/day"
+        "q_log_times_per_day" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
         "rt":this.rt
       });
     }
@@ -168,11 +189,13 @@ function init() {
   repeatWorker = false;
   (function(){
       var ut_id = "mht-habituals-20160113";
-      if (UTWorkerLimitReached(ut_id)) {
-        $('.slide').empty();
-        repeatWorker = true;
-        alert("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
+      /*
+      *if (UTWorkerLimitReached(ut_id)) {
+      *  $('.slide').empty();
+      *  repeatWorker = true;
+      *  alert("You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.");
       }
+      */
   })();
 
   exp.trials = [];
@@ -180,19 +203,23 @@ function init() {
 
   exp.womenFirst = _.sample([true, false])
   // debugger;
-
-  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
-
+  //use noun and verb as conditions
+  exp.condition = _.sample(["noun", "habitual"])
+  //var usuableStims = _.filter(stimuli, function(x){return _.has(x, "preventative")})
+  //get the stims that have a noun defined
+  var usuableStims = _.filter(stimuli, function(x){return _.has(x, "noun")})
   var bothGenders = [];
+  //filters the stimuli to return the length of an array of stimuli that contain both genders
   var nBothGender = _.filter(stimuli, function(s){return _.contains(bothGenders,s.habitual)}).length
-
+  //shuffles the list of males and grabs a number of men. The number is the same as the number of habituals defined for both genders.
   var shuffledMen = _.shuffle(maleCharacters)
   var someMen = shuffledMen.splice(0,nBothGender)
-
+  //shuffles the list of females and grabs a number of females. The number is the same as the number of habituals defined for both genders. 
   var shuffledWomen = _.shuffle(femaleCharacters)
   var someWomen = shuffledWomen.splice(0,nBothGender)
-
+  //Shuffles the list of both males and females
   var allGenders = _.shuffle(_.flatten([shuffledMen, shuffledWomen]))
+
   var stimsWNames =  _.shuffle(_.flatten(_.map(usuableStims, function(s){
     var newObj = jQuery.extend(true, {}, s);
     return !(_.contains(bothGenders,s.habitual)) ? 
@@ -201,16 +228,17 @@ function init() {
       _.extendOwn(newObj, {character: someWomen.pop()})]
   }), true))
 
-  var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
+  // var conditions  = _.shuffle(_.flatten(utils.fillArray(["preventative","enabling", "baseline"],stimsWNames.length/3)))
 
-  var allPossibleStims = _.flatten(_.map(stimsWNames,
-    function(s){
-      return _.map(["preventative","enabling", "baseline"], function(c){
-        return [c, s]
-      })
-    }), true)
+  // var allPossibleStims = _.flatten(_.map(stimsWNames,
+  //   function(s){
+  //     return _.map(["preventative","enabling", "baseline"], function(c){
+  //       return [c, s]
+  //     })
+  //   }), true)
 
-  exp.stims = _.zip(conditions, stimsWNames)
+
+  exp.stims = stimsWNames
   exp.stimscopy = exp.stims.slice(0);
   exp.n_trials = exp.stims.length
 
