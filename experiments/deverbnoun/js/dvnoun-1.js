@@ -141,12 +141,12 @@ function make_slides(f) {
         "character": this.stim.character.name,
         "gender": this.stim.character.gender,
         //Response is the time frequency and interval is the time comparison
-        "q_response" :  $("#time_frequency").val(),
-        "q_interval" : $("#time_comparison").val(),
+        "response" :  $("#time_frequency").val(),
+        "interval" : $("#time_comparison").val(),
         //translates into something like "number of times/day"
-        "q_times_per_day" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
+        "times_per_day" : $("#time_frequency").val() / timeDictionary[$("#time_comparison").val()],
         //take the log of "number of times/day"
-        "q_log_times_per_day" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
+        "logtimes_per_day" : Math.log($("#time_frequency").val() / timeDictionary[$("#time_comparison").val()]),
         "rt":this.rt
       });
     }
